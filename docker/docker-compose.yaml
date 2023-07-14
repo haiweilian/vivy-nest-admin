@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  vivy-admin-mysql:
+    container_name: vivy-admin-mysql
+    image: mysql
+    env_file:
+      - ./mysql/conf/mysql.env
+    volumes:
+      - ./mysql/logs:/logs
+      - ./mysql/data:/var/lib/mysql
+      - ../sql:/docker-entrypoint-initdb.d
+    ports:
+      - '3306:3306'
+    command:
+      [
+        'mysqld',
+        '--innodb-buffer-pool-size=80M',
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_unicode_ci',
+        '--default-time-zone=+8:00',
+        '--lower-case-table-names=1',
+      ]
+  vivy-admin-redis:
+    container_name: vivy-admin-redis
+    image: redis
+    volumes:
+      - ./redis/data:/data
+      - ./redis/conf/redis.conf:/home/redis/redis.conf
+    ports:
+      - '6379:6379'
+    command: redis-server /home/redis/redis.conf

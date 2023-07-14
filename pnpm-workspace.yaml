@@ -1,0 +1,4 @@
+packages:
+  - vivy-react
+  - vivy-common/**
+  - vivy-modules/**
