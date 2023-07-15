@@ -10,12 +10,7 @@ module.exports = {
       {
         pathGroups: [
           {
-            pattern: '@/modules/**',
-            group: 'parent',
-            position: 'after',
-          },
-          {
-            pattern: '@/entities/**',
+            pattern: '@/**',
             group: 'parent',
             position: 'after',
           },
