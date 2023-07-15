@@ -1,0 +1,17 @@
+# App 配置
+app:
+  port: 9300
+  name: vivy-template
+
+# Swagger 配置
+swagger:
+  enabled: true
+  title: vivy-nest-admin
+  description: Nest Admin / Nest Cloud
+  contact:
+    name: vivy-nest-admin
+    url: https://github.com/haiweilian/vivy-nest-admin
+    email: haiweilian@foxmail.com
+  license:
+    name: MIT
+    url: https://github.com/haiweilian/vivy-nest-admin/blob/main/LICENSE

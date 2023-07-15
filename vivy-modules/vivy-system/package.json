@@ -1,0 +1,18 @@
+{
+  "name": "vivy-system",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main"
+  },
+  "dependencies": {
+    "ua-parser-js": "^1.0.35"
+  },
+  "devDependencies": {
+    "@types/ua-parser-js": "^0.7.36"
+  }
+}
