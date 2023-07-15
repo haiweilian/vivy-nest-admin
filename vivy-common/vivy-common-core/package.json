@@ -1,0 +1,22 @@
+{
+  "name": "@vivy-common/core",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/haiweilian/vivy-nest-admin",
+  "main": "./lib/index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "date-fns": "^2.30.0",
+    "ip2region": "^2.3.0",
+    "nestjs-cls": "^3.5.0",
+    "request-ip": "^3.3.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/node": "^20.4.1",
+    "@types/request-ip": "^0.0.38",
+    "@types/serve-favicon": "^2.5.4"
+  }
+}

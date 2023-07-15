@@ -1,0 +1,12 @@
+{
+  "name": "@vivy-common/config",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/haiweilian/vivy-nest-admin",
+  "main": "./lib/index.js",
+  "dependencies": {
+    "handlebars": "^4.7.7",
+    "yaml": "^2.3.1"
+  }
+}

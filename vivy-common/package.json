@@ -1,0 +1,18 @@
+{
+  "name": "@vivy-common/common",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/haiweilian/vivy-nest-admin",
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json && pnpm copy",
+    "watch": "tsc -b tsconfig.build.json --watch",
+    "clean": "rimraf */lib */*.tsbuildinfo",
+    "copy": "cpx vivy-common-core/src/assets/** vivy-common-core/lib/assets"
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.0.0"
+  }
+}

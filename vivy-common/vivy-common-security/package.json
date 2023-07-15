@@ -1,0 +1,11 @@
+{
+  "name": "@vivy-common/security",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/haiweilian/vivy-nest-admin",
+  "main": "./lib/index.js",
+  "dependencies": {
+    "@nestjs/jwt": "^10.0.0"
+  }
+}

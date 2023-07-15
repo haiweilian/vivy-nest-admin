@@ -1,0 +1,16 @@
+{
+  "name": "@vivy-common/logger",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/haiweilian/vivy-nest-admin",
+  "main": "./lib/index.js",
+  "dependencies": {
+    "nest-winston": "^1.9.3",
+    "winston": "^3.10.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "express": "^4.18.2"
+  }
+}
