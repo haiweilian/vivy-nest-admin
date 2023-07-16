@@ -60,7 +60,7 @@ const Dept = () => {
       dataIndex: 'deptName',
     },
     {
-      title: '排序',
+      title: '显示顺序',
       dataIndex: 'deptSort',
     },
     {

@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "author": "haiweilian <haiweilian@foxmail.com>",
-  "homepage": "https://github.com/nest-micro/vivy-react",
+  "homepage": "https://github.com/haiweilian/vivy-nest-admin",
   "scripts": {
     "build": "max build",
     "dev": "max dev",

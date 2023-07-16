@@ -7,6 +7,7 @@ import { useRef, useState } from 'react';
 import { useModel, Access, useAccess } from '@umijs/max';
 import { eachTree } from '@/utils/tree';
 import { DictTag } from '@/components/Dict';
+import { getIcon } from '@/components/Icon';
 import UpdateForm from './components/UpdateForm';
 import { treeMenu, deleteMenu } from '@/apis/system/menu';
 import type { MenuTreeVo } from '@/apis/types/system/menu';
@@ -43,9 +44,16 @@ const Menu = () => {
     {
       title: '菜单图标',
       dataIndex: 'icon',
+      render: (node, record) => {
+        if (record.icon) {
+          return getIcon(record.icon);
+        } else {
+          return node;
+        }
+      },
     },
     {
-      title: '菜单排序',
+      title: '显示顺序',
       dataIndex: 'menuSort',
     },
     {

@@ -68,7 +68,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     >
       <ProFormText name="dictName" label="字典名称" rules={[{ required: true }]} />
       <ProFormText name="dictType" label="字典类型" rules={[{ required: true }]} />
-      <ProFormDigit name="postSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
+      <ProFormDigit name="dictSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormRadio.Group
         name="status"
         label="状态"

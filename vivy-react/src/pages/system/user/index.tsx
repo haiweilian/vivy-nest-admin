@@ -2,11 +2,10 @@ import { isEmpty } from 'lodash-es';
 import { Tree, Button, Popconfirm } from 'antd';
 import { PlusOutlined, DeleteOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
 import type { TreeProps, TreeDataNode } from 'antd';
-import { ProTable, TableDropdown } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
 import type { ProColumns, ActionType } from '@ant-design/pro-components';
 import { useRequest, useModel, Access, useAccess } from '@umijs/max';
 import React, { useRef, useState } from 'react';
-import { Logical } from '@/access';
 import { eachTree } from '@/utils/tree';
 import { DictTag } from '@/components/Dict';
 import UpdateForm from './components/UpdateForm';
@@ -120,17 +119,6 @@ const User = () => {
                 删除
               </Button>
             </Popconfirm>
-          </Access>
-          <Access key="actions" accessible={hasPermission(['system:user:resetPwd'], Logical.OR)}>
-            <TableDropdown
-              menus={[
-                {
-                  key: 'resetPwd',
-                  name: '重置密码',
-                  disabled: !hasPermission('system:user:resetPwd'),
-                },
-              ].filter((item) => !item.disabled)}
-            />
           </Access>
         </Access>,
       ],

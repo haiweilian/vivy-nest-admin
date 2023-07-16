@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
         {
           key: 'Vivy React',
           title: 'Vivy React',
-          href: 'https://github.com/nest-micro/vivy-react',
+          href: 'https://github.com/haiweilian/vivy-nest-admin',
           blankTarget: true,
         },
       ]}

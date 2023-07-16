@@ -9,6 +9,10 @@ interface IconPickerProps {
   onChange?: (value: string) => void;
 }
 
+export const getIcon = (name: string) => {
+  return React.createElement((IconsOutlined as any)[name]);
+};
+
 const IconPicker: React.FC<IconPickerProps> = ({ children, onChange }) => {
   const [search, setSearch] = useState('');
   const icons = useMemo(() => {
@@ -41,11 +45,7 @@ const IconPicker: React.FC<IconPickerProps> = ({ children, onChange }) => {
             }}
           >
             {icons.map((name) => (
-              <Button
-                key={name}
-                icon={React.createElement((IconsOutlined as any)[name])}
-                onClick={() => onChange?.(name)}
-              />
+              <Button key={name} icon={getIcon(name)} onClick={() => onChange?.(name)} />
             ))}
           </Space>
         </div>

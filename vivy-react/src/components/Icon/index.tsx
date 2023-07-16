@@ -1,3 +1,3 @@
-import IconPicker from './IconPicker';
+import IconPicker, { getIcon } from './IconPicker';
 
-export { IconPicker };
+export { getIcon, IconPicker };

@@ -23,8 +23,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 注册字典数据
    */
-  const { loadDict } = useModel('dict');
-  const sysNormalDisable = loadDict('sys_normal_disable');
+  const { selectDict } = useModel('dict');
+  const sysNormalDisable = selectDict('sys_normal_disable');
 
   /**
    * 获取初始化数据
@@ -79,7 +79,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         }}
       />
       <ProFormText name="deptName" label="部门名称" rules={[{ required: true }]} />
-      <ProFormDigit name="deptSort" label="显示排序" fieldProps={{ min: 0, precision: 0 }} />
+      <ProFormDigit name="deptSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormRadio.Group
         name="status"
         label="状态"

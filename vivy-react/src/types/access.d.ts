@@ -15,7 +15,6 @@ declare type AccessPermission =
   | 'system:user:delete'
   | 'system:user:export'
   | 'system:user:import'
-  | 'system:user:resetPwd'
   | 'system:role:query'
   | 'system:role:add'
   | 'system:role:update'

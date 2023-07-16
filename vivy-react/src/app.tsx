@@ -106,7 +106,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         <GithubOutlined
           key="github"
           onClick={() => {
-            window.open('https://github.com/nest-micro/vivy-react');
+            window.open('https://github.com/haiweilian/vivy-nest-admin');
           }}
         />,
       ];
@@ -154,7 +154,7 @@ export const request: RequestConfig = {
         if (token && !isToken) {
           config.headers['Authorization'] = 'Bearer ' + token;
         }
-        config.url = `/api${config.url}`;
+        config.url = `${BASE_URL}${config.url}`;
         return config;
       },
       (error: any) => {

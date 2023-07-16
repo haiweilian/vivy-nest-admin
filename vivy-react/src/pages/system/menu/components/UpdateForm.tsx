@@ -98,7 +98,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         }}
       />
       <ProFormText name="menuName" label="菜单名称" rules={[{ required: true }]} />
-      <ProFormDigit name="menuSort" label="显示排序" fieldProps={{ min: 0, precision: 0 }} />
+      <ProFormDigit name="menuSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormDependency name={['menuType']}>
         {({ menuType }: Record<string, MenuType['value']>) => (
           <>
