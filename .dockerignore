@@ -1,0 +1,15 @@
+.DS_Store
+*.tsbuildinfo
+lib
+dist
+logs
+docker
+node_modules
+
+**/.DS_Store
+**/*.tsbuildinfo
+**/lib
+**/dist
+**/logs
+**/docker
+**/node_modules

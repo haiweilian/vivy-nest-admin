@@ -12,10 +12,14 @@
     "lint:lint-staged": "lint-staged",
     "lint:eslint": "eslint --fix --cache \"**/*.{js,jsx,ts,tsx}\"",
     "lint:prettier": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "pm2:dev": "pm2 start ecosystem.config.js --env development",
+    "pm2:prod": "pm2 start ecosystem.config.js --env production",
+    "pm2:stop": "pm2 stop ecosystem.config.js",
+    "build:all": "pnpm build:common && pnpm --filter=!@vivy-common/** --recursive --stream build",
     "build:common": "pnpm --filter=@vivy-common/** build",
-    "docker:rm": "docker-compose -p vivy-nest-admin -f docker/docker-compose.yaml rm",
-    "docker:stop": "docker-compose -p vivy-nest-admin -f docker/docker-compose.yaml stop",
-    "docker:base": "docker-compose -p vivy-nest-admin -f docker/docker-compose.yaml up -d vivy-admin-mysql vivy-admin-redis"
+    "docker:rm": "docker-compose rm",
+    "docker:stop": "docker-compose stop",
+    "docker:base": "docker-compose up -d vivy-admin-mysql vivy-admin-redis vivy-admin-nginx"
   },
   "dependencies": {
     "@nestjs-modules/ioredis": "^1.0.1",

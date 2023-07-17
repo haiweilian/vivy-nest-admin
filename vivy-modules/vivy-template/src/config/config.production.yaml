@@ -16,5 +16,5 @@ datasource:
     username: root
     password: Aa@123456
     database: vivy-nest-admin
-    synchronize: true
+    synchronize: false
     autoLoadEntities: true

@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: '/docs/',
   title: 'vivy-nest-admin',
   description: '基于 Nest.js & React.js 的后台权限管理系统',
   themeConfig: {
