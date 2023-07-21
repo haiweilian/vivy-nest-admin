@@ -28,7 +28,7 @@ export class ListOperLogDto extends PaginateDto {
 
   /** 操作时间 */
   @Allow()
-  createdTime: string[]
+  createTime: string[]
 }
 
 /**

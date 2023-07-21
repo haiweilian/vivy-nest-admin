@@ -28,5 +28,5 @@ export interface ListOperLogDto extends PaginateDto {
 
   /** 操作时间 */
   // @Allow()
-  createdTime: string;
+  createTime: string;
 }

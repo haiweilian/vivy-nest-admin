@@ -16,5 +16,5 @@ export interface ListLoginLogDto extends PaginateDto {
 
   /** 登录时间 */
   // @Allow()
-  createdTime: string;
+  createTime: string;
 }

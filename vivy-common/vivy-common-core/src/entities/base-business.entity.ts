@@ -25,7 +25,7 @@ export abstract class BaseBusinessEntity {
   createBy: string
 
   @CreateDateColumn({
-    name: 'created_time',
+    name: 'create_time',
     type: 'datetime',
     comment: '创建时间',
     transformer: DateTimeTransformer,
@@ -42,7 +42,7 @@ export abstract class BaseBusinessEntity {
   updateBy: string
 
   @UpdateDateColumn({
-    name: 'updated_time',
+    name: 'update_time',
     type: 'datetime',
     comment: '更新时间',
     transformer: DateTimeTransformer,

@@ -70,10 +70,10 @@ const LoginLog = () => {
     },
     {
       title: '登录日期',
-      dataIndex: 'createdTime',
+      dataIndex: 'createTime',
       valueType: 'dateTimeRange',
       render: (_, record) => {
-        return record.createdTime;
+        return record.createTime;
       },
     },
   ];

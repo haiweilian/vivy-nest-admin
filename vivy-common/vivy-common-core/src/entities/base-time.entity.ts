@@ -6,18 +6,18 @@ import { DateTimeTransformer } from './transformer/datetime.transformer'
  */
 export abstract class BaseTimeEntity {
   @CreateDateColumn({
-    name: 'created_time',
+    name: 'create_time',
     type: 'datetime',
     comment: '创建时间',
     transformer: DateTimeTransformer,
   })
-  createdTime: string
+  createTime: string
 
   @UpdateDateColumn({
-    name: 'updated_time',
+    name: 'update_time',
     type: 'datetime',
     comment: '更新时间',
     transformer: DateTimeTransformer,
   })
-  updatedTime: string
+  updateTime: string
 }

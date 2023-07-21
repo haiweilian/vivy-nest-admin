@@ -76,10 +76,10 @@ const OperationLog = () => {
     },
     {
       title: '操作日期',
-      dataIndex: 'createdTime',
+      dataIndex: 'createTime',
       valueType: 'dateTimeRange',
       render: (_, record) => {
-        return record.createdTime;
+        return record.createTime;
       },
     },
     {
@@ -158,7 +158,7 @@ const OperationLog = () => {
             <Descriptions.Item label="操作状态" span={2}>
               <DictText options={sysOperStatus} value={recordData.operStatus} />
             </Descriptions.Item>
-            <Descriptions.Item label="操作时间">{recordData.createdTime}</Descriptions.Item>
+            <Descriptions.Item label="操作时间">{recordData.createTime}</Descriptions.Item>
           </Descriptions>
         ) : null}
       </Drawer>

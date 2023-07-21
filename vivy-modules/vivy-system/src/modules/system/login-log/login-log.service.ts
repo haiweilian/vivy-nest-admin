@@ -32,12 +32,12 @@ export class LoginLogService {
       },
       {
         order: {
-          createdTime: 'DESC',
+          createTime: 'DESC',
         },
         where: {
           loginName: Like(`%${loginLog.loginName}%`),
           loginStatus: loginLog.loginStatus,
-          createdTime: loginLog.createdTime ? Between(loginLog.createdTime[0], loginLog.createdTime[1]) : undefined,
+          createTime: loginLog.createTime ? Between(loginLog.createTime[0], loginLog.createTime[1]) : undefined,
         },
       }
     )

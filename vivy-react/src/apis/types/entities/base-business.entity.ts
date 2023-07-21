@@ -23,7 +23,7 @@ export interface BaseBusinessEntity {
   createBy: string;
 
   // @CreateDateColumn({
-  //   name: 'created_time',
+  //   name: 'create_time',
   //   type: 'datetime',
   //   comment: '创建时间',
   // })
@@ -39,7 +39,7 @@ export interface BaseBusinessEntity {
   updateBy: string;
 
   // @UpdateDateColumn({
-  //   name: 'updated_time',
+  //   name: 'update_time',
   //   type: 'datetime',
   //   comment: '更新时间',
   // })

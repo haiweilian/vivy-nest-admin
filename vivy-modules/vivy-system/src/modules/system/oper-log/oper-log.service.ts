@@ -30,7 +30,7 @@ export class OperLogService {
       },
       {
         order: {
-          createdTime: 'DESC',
+          createTime: 'DESC',
         },
         where: {
           title: Like(`%${operLog.title}%`),
@@ -38,7 +38,7 @@ export class OperLogService {
           operName: Like(`%${operLog.operName}%`),
           operStatus: operLog.operStatus,
           requestUrl: Like(`%${operLog.requestUrl}%`),
-          createdTime: operLog.createdTime ? Between(operLog.createdTime[0], operLog.createdTime[1]) : undefined,
+          createTime: operLog.createTime ? Between(operLog.createTime[0], operLog.createTime[1]) : undefined,
         },
       }
     )
