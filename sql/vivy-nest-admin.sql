@@ -491,4 +491,75 @@ INSERT INTO `sys_user_role` VALUES (1, 1, '2023-05-22 22:22:02.000000', '2023-05
 INSERT INTO `sys_user_role` VALUES (2, 2, '2023-05-22 22:22:02.000000', '2023-05-29 20:17:14.973502');
 COMMIT;
 
+-- ----------------------------
+-- Table structure for gen_table
+-- ----------------------------
+DROP TABLE IF EXISTS `gen_table`;
+CREATE TABLE `gen_table` (
+  `table_id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `table_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表名称',
+  `table_comment` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '表描述',
+  `sub_table_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '关联子表的表名',
+  `sub_table_fk_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '子表关联的外键名',
+  `class_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '实体类名称',
+  `template_category` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1' COMMENT '生成模板分类',
+  `business_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '生成业务名',
+  `function_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '生成功能名',
+  `function_author` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '生成功能作者',
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '删除标志（0存在 1删除）',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`table_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='代码生成业务表';
+
+-- ----------------------------
+-- Records of gen_table
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for gen_table_column
+-- ----------------------------
+DROP TABLE IF EXISTS `gen_table_column`;
+CREATE TABLE `gen_table_column` (
+  `column_id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `table_id` int NOT NULL COMMENT '归属表编号',
+  `column_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '列名称',
+  `column_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '列类型',
+  `column_sort` int NOT NULL DEFAULT '0' COMMENT '列顺序',
+  `column_comment` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '列描述',
+  `is_pk` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否主键（0是 1否）',
+  `is_increment` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否自增（0是 1否）',
+  `is_required` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否必填（0是 1否）',
+  `is_insert` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否为插入字段（0是 1否）',
+  `is_edit` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否编辑字段（0是 1否）',
+  `is_list` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否列表字段（0是 1否）',
+  `is_query` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否查询字段（0是 1否）',
+  `field_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '属性名称',
+  `tslang_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'TS类型',
+  `javalang_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'JAVA类型',
+  `query_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '查询方式（等于、不等于、大于、小于、范围）',
+  `html_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
+  `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典类型',
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '删除标志（0存在 1删除）',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`column_id`),
+  KEY `table_fk` (`table_id`),
+  CONSTRAINT `table_fk` FOREIGN KEY (`table_id`) REFERENCES `gen_table` (`table_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=254 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='代码生成业务表字段';
+
+-- ----------------------------
+-- Records of gen_table_column
+-- ----------------------------
+BEGIN;
+COMMIT;
+
 SET FOREIGN_KEY_CHECKS = 1;

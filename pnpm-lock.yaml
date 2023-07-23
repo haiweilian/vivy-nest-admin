@@ -167,8 +167,10 @@ importers:
   vivy-modules/vivy-system:
     specifiers:
       '@types/ua-parser-js': ^0.7.36
+      camelcase: ^6.0.0
       ua-parser-js: ^1.0.35
     dependencies:
+      camelcase: 6.3.0
       ua-parser-js: 1.0.35
     devDependencies:
       '@types/ua-parser-js': 0.7.36

@@ -19,7 +19,7 @@
     "build:common": "pnpm --filter=@vivy-common/** build",
     "docker:rm": "docker-compose rm",
     "docker:stop": "docker-compose stop",
-    "docker:base": "docker-compose up -d vivy-admin-mysql vivy-admin-redis vivy-admin-nginx"
+    "docker:base": "docker-compose up -d vivy-admin-mysql vivy-admin-redis"
   },
   "dependencies": {
     "@nestjs-modules/ioredis": "^1.0.1",

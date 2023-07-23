@@ -12,7 +12,7 @@ module.exports = {
           {
             pattern: '@/**',
             group: 'parent',
-            position: 'after',
+            position: 'before',
           },
         ],
         alphabetize: {

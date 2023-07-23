@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common'
-import { ApiBearerAuth } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { LoginType } from '@vivy-common/logger'
 import { Public, TokenUtils } from '@vivy-common/security'
@@ -11,6 +11,7 @@ import { LoginService } from './login.service'
  * 登录管理
  * @author vivy
  */
+@ApiTags('登录管理')
 @ApiBearerAuth()
 @Controller()
 export class LoginController {

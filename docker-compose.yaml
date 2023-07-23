@@ -29,14 +29,3 @@ services:
       - ./docker/redis/data:/data
       - ./docker/redis/conf/redis.conf:/home/redis/redis.conf
     command: redis-server /home/redis/redis.conf
-  vivy-admin-nginx:
-    container_name: vivy-admin-nginx
-    image: nginx
-    ports:
-      - '80:80'
-    volumes:
-      - ./docker/nginx/logs:/var/log/nginx
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
-      - ./docs/.vitepress/dist:/home/vivy/vivy-docs
-      - ./vivy-react/dist:/home/vivy/vivy-react

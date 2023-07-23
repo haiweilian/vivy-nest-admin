@@ -12,6 +12,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { CommonModule } from './common/common.module'
 import { AuthModule } from './modules/auth/auth.module'
+import { GenModule } from './modules/gen/gen.module'
 import { SystemModule } from './modules/system/system.module'
 
 @Module({
@@ -53,6 +54,7 @@ import { SystemModule } from './modules/system/system.module'
 
     CommonModule,
     AuthModule,
+    GenModule,
     SystemModule,
     RouterModule.register([
       {
@@ -62,6 +64,10 @@ import { SystemModule } from './modules/system/system.module'
       {
         path: 'system',
         module: SystemModule,
+      },
+      {
+        path: 'gen',
+        module: GenModule,
       },
     ]),
   ],
