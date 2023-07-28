@@ -92,6 +92,23 @@ const routes = [
     ],
   },
   {
+    name: '系统工具',
+    path: '/tool',
+    icon: 'ToolOutlined',
+    routes: [
+      {
+        name: '代码生成',
+        path: 'gen',
+        component: './tool/gen',
+      },
+      {
+        name: '系统接口',
+        path: 'swagger',
+        component: './tool/swagger',
+      },
+    ],
+  },
+  {
     path: '*',
     component: './404',
     layout: false,
