@@ -1,37 +1,37 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
-import { Button, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
-import { useParams, useModel, Access, useAccess } from '@umijs/max';
-import { DictTag } from '@/components/Dict';
-import UpdateForm from './components/UpdateForm';
-import { listDictData, deleteDictData } from '@/apis/system/dict-data';
-import type { SysDictData } from '@/apis/types/system/dict-data';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import type { ActionType, ProColumns } from '@ant-design/pro-components'
+import { ProTable } from '@ant-design/pro-components'
+import { useParams, useModel, Access, useAccess } from '@umijs/max'
+import { Button, Popconfirm } from 'antd'
+import { useRef, useState } from 'react'
+import { listDictData, deleteDictData } from '@/apis/system/dict-data'
+import type { SysDictData } from '@/apis/types/system/dict-data'
+import { DictTag } from '@/components/Dict'
+import UpdateForm from './components/UpdateForm'
 
 const DictData = () => {
-  const { type } = useParams();
-  const { hasPermission } = useAccess();
-  const actionRef = useRef<ActionType>();
-  const [updateOpen, setUpdateOpen] = useState(false);
-  const [recordData, setRecordData] = useState<Nullable<SysDictData>>(null);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const { type } = useParams()
+  const { hasPermission } = useAccess()
+  const actionRef = useRef<ActionType>()
+  const [updateOpen, setUpdateOpen] = useState(false)
+  const [recordData, setRecordData] = useState<Nullable<SysDictData>>(null)
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
    * 注册字典数据
    */
-  const { loadDict, toSelect } = useModel('dict');
-  const sysNormalDisable = loadDict('sys_normal_disable');
+  const { loadDict, toSelect } = useModel('dict')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 删除字典类型
    * @param dictIds 字典类型ID
    */
   const handleDelete = async (dictIds: React.Key) => {
-    await deleteDictData(dictIds);
-    setSelectedRowKeys([]);
-    actionRef.current?.reload();
-  };
+    await deleteDictData(dictIds)
+    setSelectedRowKeys([])
+    actionRef.current?.reload()
+  }
 
   /**
    * 表格列配置
@@ -62,7 +62,7 @@ const DictData = () => {
       valueType: 'select',
       fieldProps: { options: toSelect(sysNormalDisable) },
       render: (_, record) => {
-        return <DictTag options={sysNormalDisable} value={record.status} />;
+        return <DictTag options={sysNormalDisable} value={record.status} />
       },
     },
     {
@@ -79,8 +79,8 @@ const DictData = () => {
           <Button
             type="link"
             onClick={() => {
-              setRecordData(record);
-              setUpdateOpen(true);
+              setRecordData(record)
+              setUpdateOpen(true)
             }}
           >
             编辑
@@ -95,7 +95,7 @@ const DictData = () => {
         </Access>,
       ],
     },
-  ];
+  ]
 
   return (
     <>
@@ -115,11 +115,11 @@ const DictData = () => {
             page: params.current,
             limit: params.pageSize,
             dictType: type,
-          });
+          })
           return {
             data: items,
             total: meta.totalItems,
-          };
+          }
         }}
         toolbar={{
           actions: [
@@ -128,8 +128,8 @@ const DictData = () => {
                 type="primary"
                 icon={<PlusOutlined />}
                 onClick={() => {
-                  setRecordData(null);
-                  setUpdateOpen(true);
+                  setRecordData(null)
+                  setUpdateOpen(true)
                 }}
               >
                 新增
@@ -141,12 +141,7 @@ const DictData = () => {
                 disabled={!selectedRowKeys.length}
                 onConfirm={() => handleDelete(selectedRowKeys.join(','))}
               >
-                <Button
-                  icon={<DeleteOutlined />}
-                  type="primary"
-                  danger
-                  disabled={!selectedRowKeys.length}
-                >
+                <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
                   删除
                 </Button>
               </Popconfirm>
@@ -161,7 +156,7 @@ const DictData = () => {
         onFinish={async () => actionRef.current?.reload()}
       />
     </>
-  );
-};
+  )
+}
 
-export default DictData;
+export default DictData

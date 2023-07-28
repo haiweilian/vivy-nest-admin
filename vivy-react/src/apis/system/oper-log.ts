@@ -1,7 +1,7 @@
-import { request } from '@umijs/max';
-import { RequestEnum } from '@/enums/httpEnum';
-import type { Pagination } from '@/apis/types/models';
-import type { SysOperLog, ListOperLogDto } from '@/apis/types/system/oper-log';
+import { request } from '@umijs/max'
+import type { Pagination } from '@/apis/types/models'
+import type { SysOperLog, ListOperLogDto } from '@/apis/types/system/oper-log'
+import { RequestEnum } from '@/enums/httpEnum'
 
 /**
  * 查询操作日志列表
@@ -10,7 +10,7 @@ export function listOperLog(params: Partial<ListOperLogDto>) {
   return request<Pagination<SysOperLog>>('/system/oper/log/list', {
     method: RequestEnum.GET,
     params,
-  });
+  })
 }
 
 /**
@@ -19,5 +19,5 @@ export function listOperLog(params: Partial<ListOperLogDto>) {
 export function clearOperLog() {
   return request('/system/oper/log/clear', {
     method: RequestEnum.DELETE,
-  });
+  })
 }

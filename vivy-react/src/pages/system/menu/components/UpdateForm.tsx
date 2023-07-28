@@ -1,3 +1,4 @@
+import { AppstoreOutlined } from '@ant-design/icons'
 import {
   type DrawerFormProps,
   type ProFormInstance,
@@ -7,49 +8,48 @@ import {
   ProFormTreeSelect,
   ProFormRadio,
   ProFormDependency,
-} from '@ant-design/pro-components';
-import { AppstoreOutlined } from '@ant-design/icons';
-import { useRef, useEffect } from 'react';
-import { useModel } from '@umijs/max';
-import { IconPicker } from '@/components/Icon';
-import { addMenu, updateMenu, infoMenu, selectableMenu } from '@/apis/system/menu';
-import type { MenuTreeVo } from '@/apis/types/system/menu';
+} from '@ant-design/pro-components'
+import { useModel } from '@umijs/max'
+import { useRef, useEffect } from 'react'
+import { addMenu, updateMenu, infoMenu, selectableMenu } from '@/apis/system/menu'
+import type { MenuTreeVo } from '@/apis/types/system/menu'
+import { IconPicker } from '@/components/Icon'
 
-type MenuType = { label: string; value: 'M' | 'C' | 'F' };
+type MenuType = { label: string; value: 'M' | 'C' | 'F' }
 const menuTypeOptions: MenuType[] = [
   { label: '目录', value: 'M' },
   { label: '菜单', value: 'C' },
   { label: '按钮', value: 'F' },
-];
+]
 
 interface UpdateFormProps extends DrawerFormProps {
-  record: Nullable<MenuTreeVo>;
+  record: Nullable<MenuTreeVo>
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
-  const formRef = useRef<ProFormInstance>();
+  const formRef = useRef<ProFormInstance>()
 
   /**
    * 注册字典数据
    */
-  const { selectDict } = useModel('dict');
-  const sysYesNo = selectDict('sys_yes_no');
-  const sysNormalDisable = selectDict('sys_normal_disable');
+  const { selectDict } = useModel('dict')
+  const sysYesNo = selectDict('sys_yes_no')
+  const sysNormalDisable = selectDict('sys_normal_disable')
 
   /**
    * 获取初始化数据
    */
   useEffect(() => {
-    formRef.current?.resetFields();
+    formRef.current?.resetFields()
     if (record) {
       infoMenu(record.menuId).then((info) => {
         formRef.current?.setFieldsValue({
           ...info,
           parentId: info.parentId || undefined,
-        });
-      });
+        })
+      })
     }
-  }, [record]);
+  }, [record])
 
   /**
    * 提交表单
@@ -60,12 +60,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       await updateMenu({
         ...values,
         menuId: record.menuId,
-      });
+      })
     } else {
-      await addMenu(values);
+      await addMenu(values)
     }
-    formRef.current?.resetFields();
-  };
+    formRef.current?.resetFields()
+  }
 
   return (
     <DrawerForm
@@ -75,9 +75,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       formRef={formRef}
       title={record ? `编辑菜单-${record.menuName}` : `新增菜单`}
       onFinish={async (values) => {
-        await handleSubmit(values);
-        props.onFinish?.(values);
-        return true;
+        await handleSubmit(values)
+        props.onFinish?.(values)
+        return true
       }}
     >
       <ProFormTreeSelect
@@ -111,7 +111,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                   addonBefore: (
                     <IconPicker
                       onChange={(value) => {
-                        formRef.current?.setFieldValue('icon', value);
+                        formRef.current?.setFieldValue('icon', value)
                       }}
                     >
                       <AppstoreOutlined />
@@ -195,14 +195,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
           </>
         )}
       </ProFormDependency>
-      <ProFormRadio.Group
-        name="status"
-        label="状态"
-        initialValue={'0'}
-        fieldProps={{ options: sysNormalDisable }}
-      />
+      <ProFormRadio.Group name="status" label="状态" initialValue={'0'} fieldProps={{ options: sysNormalDisable }} />
     </DrawerForm>
-  );
-};
+  )
+}
 
-export default UpdateForm;
+export default UpdateForm

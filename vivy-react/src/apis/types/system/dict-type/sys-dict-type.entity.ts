@@ -1,6 +1,6 @@
 // import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 // import { BaseBusinessEntity } from '@vivy-cloud/common-core'
-import { BaseBusinessEntity } from '@/apis/types/entities';
+import { BaseBusinessEntity } from '@/apis/types/entities'
 
 /**
  * 字典类型表
@@ -12,7 +12,7 @@ export interface SysDictType extends BaseBusinessEntity {
   //   type: 'int',
   //   comment: '字典ID',
   // })
-  dictId: number;
+  dictId: number
 
   // @Column({
   //   name: 'dict_name',
@@ -20,7 +20,7 @@ export interface SysDictType extends BaseBusinessEntity {
   //   length: 100,
   //   comment: '字典名称',
   // })
-  dictName: string;
+  dictName: string
 
   // @Column({
   //   name: 'dict_type',
@@ -28,7 +28,7 @@ export interface SysDictType extends BaseBusinessEntity {
   //   length: 100,
   //   comment: '字典类型',
   // })
-  dictType: string;
+  dictType: string
 
   // @Column({
   //   name: 'dict_sort',
@@ -36,7 +36,7 @@ export interface SysDictType extends BaseBusinessEntity {
   //   default: 0,
   //   comment: '显示顺序',
   // })
-  dictSort: number;
+  dictSort: number
 
   // @Column({
   //   name: 'status',
@@ -45,5 +45,5 @@ export interface SysDictType extends BaseBusinessEntity {
   //   default: '0',
   //   comment: '字典状态（0正常 1停用）',
   // })
-  status: string;
+  status: string
 }

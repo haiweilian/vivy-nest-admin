@@ -1,6 +1,6 @@
 // import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 // import { BaseBusinessEntity } from '@vivy-cloud/common-core';
-import { BaseBusinessEntity } from '@/apis/types/entities';
+import { BaseBusinessEntity } from '@/apis/types/entities'
 
 /**
  * 部门表
@@ -12,14 +12,14 @@ export interface SysDept extends BaseBusinessEntity {
   //   type: 'int',
   //   comment: '部门ID',
   // })
-  deptId: number;
+  deptId: number
 
   // @Column({
   //   name: 'parent_id',
   //   type: 'int',
   //   comment: '父部门ID',
   // })
-  parentId: number;
+  parentId: number
 
   // @Column({
   //   name: 'dept_name',
@@ -27,7 +27,7 @@ export interface SysDept extends BaseBusinessEntity {
   //   length: 50,
   //   comment: '部门名称',
   // })
-  deptName: string;
+  deptName: string
 
   // @Column({
   //   name: 'dept_sort',
@@ -35,7 +35,7 @@ export interface SysDept extends BaseBusinessEntity {
   //   default: 0,
   //   comment: '显示顺序',
   // })
-  deptSort: number;
+  deptSort: number
 
   // @Column({
   //   name: 'status',
@@ -44,5 +44,5 @@ export interface SysDept extends BaseBusinessEntity {
   //   default: '0',
   //   comment: '部门状态（0正常 1停用）',
   // })
-  status: string;
+  status: string
 }

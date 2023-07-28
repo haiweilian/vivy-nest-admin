@@ -1,6 +1,6 @@
-import { request } from '@umijs/max';
-import { RequestEnum } from '@/enums/httpEnum';
-import type { LoginInfoDto, LoginResultVo } from '@/apis/types/auth/auth';
+import { request } from '@umijs/max'
+import type { LoginInfoDto, LoginResultVo } from '@/apis/types/auth/auth'
+import { RequestEnum } from '@/enums/httpEnum'
 
 /**
  * 用户登录
@@ -11,7 +11,7 @@ export function login(params: LoginInfoDto) {
     data: params,
     isToken: false,
     skipErrorHandler: true,
-  });
+  })
 }
 
 /**
@@ -20,7 +20,7 @@ export function login(params: LoginInfoDto) {
 export function logout() {
   return request('/auth/logout', {
     method: RequestEnum.POST,
-  });
+  })
 }
 
 /**
@@ -30,5 +30,5 @@ export function getLoginUserInfo() {
   return request<LoginUserInfo>('/auth/getLoginUserInfo', {
     method: RequestEnum.GET,
     skipErrorHandler: true,
-  });
+  })
 }

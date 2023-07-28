@@ -1,4 +1,4 @@
-import { defineConfig } from '@umijs/max';
+import { defineConfig } from '@umijs/max'
 
 export default defineConfig({
   /**
@@ -9,4 +9,4 @@ export default defineConfig({
   define: {
     BASE_URL: '/api',
   },
-});
+})

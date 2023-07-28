@@ -1,6 +1,6 @@
 // import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 // import { BaseBusinessEntity } from '@vivy-cloud/common-core'
-import { BaseBusinessEntity } from '@/apis/types/entities';
+import { BaseBusinessEntity } from '@/apis/types/entities'
 
 /**
  * 角色信息表
@@ -12,7 +12,7 @@ export interface SysRole extends BaseBusinessEntity {
   //   type: 'int',
   //   comment: '角色ID',
   // })
-  roleId: number;
+  roleId: number
 
   // @Column({
   //   name: 'role_name',
@@ -20,7 +20,7 @@ export interface SysRole extends BaseBusinessEntity {
   //   length: 50,
   //   comment: '角色名称',
   // })
-  roleName: string;
+  roleName: string
 
   // @Column({
   //   name: 'role_code',
@@ -28,7 +28,7 @@ export interface SysRole extends BaseBusinessEntity {
   //   length: 50,
   //   comment: '角色编码',
   // })
-  roleCode: string;
+  roleCode: string
 
   // @Column({
   //   name: 'role_sort',
@@ -36,7 +36,7 @@ export interface SysRole extends BaseBusinessEntity {
   //   default: 0,
   //   comment: '显示顺序',
   // })
-  roleSort: number;
+  roleSort: number
 
   // @Column({
   //   name: 'status',
@@ -45,5 +45,5 @@ export interface SysRole extends BaseBusinessEntity {
   //   default: '0',
   //   comment: '角色状态（0正常 1停用）',
   // })
-  status: string;
+  status: string
 }

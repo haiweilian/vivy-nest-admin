@@ -1,5 +1,5 @@
-import Footer from './Footer';
-import AvatarName from './Header/AvatarName';
-import AvatarDropdown from './Header/AvatarDropdown';
+import Footer from './Footer'
+import AvatarDropdown from './Header/AvatarDropdown'
+import AvatarName from './Header/AvatarName'
 
-export { Footer, AvatarName, AvatarDropdown };
+export { Footer, AvatarName, AvatarDropdown }

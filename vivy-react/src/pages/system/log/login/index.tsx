@@ -1,30 +1,30 @@
-import { DeleteOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
-import { Button, Popconfirm } from 'antd';
-import { useRef } from 'react';
-import { useModel, Access, useAccess } from '@umijs/max';
-import { DictTag } from '@/components/Dict';
-import { listLoginLog, clearLoginLog } from '@/apis/system/login-log';
-import { ListLoginLogVo } from '@/apis/types/system/login-log';
+import { DeleteOutlined } from '@ant-design/icons'
+import type { ActionType, ProColumns } from '@ant-design/pro-components'
+import { ProTable } from '@ant-design/pro-components'
+import { useModel, Access, useAccess } from '@umijs/max'
+import { Button, Popconfirm } from 'antd'
+import { useRef } from 'react'
+import { listLoginLog, clearLoginLog } from '@/apis/system/login-log'
+import { ListLoginLogVo } from '@/apis/types/system/login-log'
+import { DictTag } from '@/components/Dict'
 
 const LoginLog = () => {
-  const { hasPermission } = useAccess();
-  const actionRef = useRef<ActionType>();
+  const { hasPermission } = useAccess()
+  const actionRef = useRef<ActionType>()
 
   /**
    * 注册字典数据
    */
-  const { loadDict, toSelect } = useModel('dict');
-  const sysOperStatus = loadDict('sys_oper_status');
+  const { loadDict, toSelect } = useModel('dict')
+  const sysOperStatus = loadDict('sys_oper_status')
 
   /**
    * 清空登录日志
    */
   const handleClearLog = async () => {
-    await clearLoginLog();
-    actionRef.current?.reload();
-  };
+    await clearLoginLog()
+    actionRef.current?.reload()
+  }
 
   /**
    * 表格列配置
@@ -65,7 +65,7 @@ const LoginLog = () => {
       valueType: 'select',
       fieldProps: { options: toSelect(sysOperStatus) },
       render: (_, record) => {
-        return <DictTag options={sysOperStatus} value={record.loginStatus} />;
+        return <DictTag options={sysOperStatus} value={record.loginStatus} />
       },
     },
     {
@@ -73,10 +73,10 @@ const LoginLog = () => {
       dataIndex: 'createTime',
       valueType: 'dateTimeRange',
       render: (_, record) => {
-        return record.createTime;
+        return record.createTime
       },
     },
-  ];
+  ]
 
   return (
     <ProTable
@@ -90,11 +90,11 @@ const LoginLog = () => {
           ...params,
           page: params.current,
           limit: params.pageSize,
-        });
+        })
         return {
           data: items,
           total: meta.totalItems,
-        };
+        }
       }}
       toolbar={{
         actions: [
@@ -108,7 +108,7 @@ const LoginLog = () => {
         ],
       }}
     />
-  );
-};
+  )
+}
 
-export default LoginLog;
+export default LoginLog

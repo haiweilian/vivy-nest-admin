@@ -1,37 +1,37 @@
-import { isEmpty } from 'lodash-es';
-import { PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
-import { Button, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
-import { useModel, Access, useAccess } from '@umijs/max';
-import { eachTree } from '@/utils/tree';
-import { DictTag } from '@/components/Dict';
-import { getIcon } from '@/components/Icon';
-import UpdateForm from './components/UpdateForm';
-import { treeMenu, deleteMenu } from '@/apis/system/menu';
-import type { MenuTreeVo } from '@/apis/types/system/menu';
+import { PlusOutlined } from '@ant-design/icons'
+import type { ActionType, ProColumns } from '@ant-design/pro-components'
+import { ProTable } from '@ant-design/pro-components'
+import { useModel, Access, useAccess } from '@umijs/max'
+import { Button, Popconfirm } from 'antd'
+import { isEmpty } from 'lodash-es'
+import { useRef, useState } from 'react'
+import { treeMenu, deleteMenu } from '@/apis/system/menu'
+import type { MenuTreeVo } from '@/apis/types/system/menu'
+import { DictTag } from '@/components/Dict'
+import { getIcon } from '@/components/Icon'
+import { eachTree } from '@/utils/tree'
+import UpdateForm from './components/UpdateForm'
 
 const Menu = () => {
-  const { hasPermission } = useAccess();
-  const actionRef = useRef<ActionType>();
-  const [updateOpen, setUpdateOpen] = useState(false);
-  const [recordData, setRecordData] = useState<Nullable<MenuTreeVo>>(null);
+  const { hasPermission } = useAccess()
+  const actionRef = useRef<ActionType>()
+  const [updateOpen, setUpdateOpen] = useState(false)
+  const [recordData, setRecordData] = useState<Nullable<MenuTreeVo>>(null)
 
   /**
    * 注册字典数据
    */
-  const { loadDict } = useModel('dict');
-  const sysNormalDisable = loadDict('sys_normal_disable');
+  const { loadDict } = useModel('dict')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 删除部门
    * @param deptId 部门ID
    */
   const handleDelete = async (deptId: React.Key) => {
-    await deleteMenu(deptId);
-    actionRef.current?.reload();
-  };
+    await deleteMenu(deptId)
+    actionRef.current?.reload()
+  }
 
   /**
    * 表格列配置
@@ -46,9 +46,9 @@ const Menu = () => {
       dataIndex: 'icon',
       render: (node, record) => {
         if (record.icon) {
-          return getIcon(record.icon);
+          return getIcon(record.icon)
         } else {
-          return node;
+          return node
         }
       },
     },
@@ -68,7 +68,7 @@ const Menu = () => {
       title: '状态',
       dataIndex: 'status',
       render: (_, record) => {
-        return <DictTag options={sysNormalDisable} value={record.status} />;
+        return <DictTag options={sysNormalDisable} value={record.status} />
       },
     },
     {
@@ -84,8 +84,8 @@ const Menu = () => {
           <Button
             type="link"
             onClick={() => {
-              setRecordData(record);
-              setUpdateOpen(true);
+              setRecordData(record)
+              setUpdateOpen(true)
             }}
           >
             编辑
@@ -100,7 +100,7 @@ const Menu = () => {
         </Access>,
       ],
     },
-  ];
+  ]
 
   return (
     <>
@@ -112,13 +112,13 @@ const Menu = () => {
         columns={columns}
         actionRef={actionRef}
         request={async () => {
-          const data = await treeMenu();
+          const data = await treeMenu()
           eachTree<MenuTreeVo>(data, (item) => {
-            if (isEmpty(item.children)) item.children = undefined;
-          });
+            if (isEmpty(item.children)) item.children = undefined
+          })
           return {
-            data: data,
-          };
+            data,
+          }
         }}
         toolbar={{
           actions: [
@@ -127,8 +127,8 @@ const Menu = () => {
                 type="primary"
                 icon={<PlusOutlined />}
                 onClick={() => {
-                  setRecordData(null);
-                  setUpdateOpen(true);
+                  setRecordData(null)
+                  setUpdateOpen(true)
                 }}
               >
                 新增
@@ -144,7 +144,7 @@ const Menu = () => {
         onFinish={async () => actionRef.current?.reload()}
       />
     </>
-  );
-};
+  )
+}
 
-export default Menu;
+export default Menu

@@ -1,15 +1,15 @@
+import { DownloadOutlined } from '@ant-design/icons'
 import {
   type ModalFormProps,
   type ProFormInstance,
   ModalForm,
   ProFormCheckbox,
   ProFormUploadDragger,
-} from '@ant-design/pro-components';
-import { DownloadOutlined } from '@ant-design/icons';
-import { useRef } from 'react';
+} from '@ant-design/pro-components'
+import { useRef } from 'react'
 
 const ImportForm: React.FC<ModalFormProps> = (props) => {
-  const formRef = useRef<ProFormInstance>();
+  const formRef = useRef<ProFormInstance>()
 
   return (
     <ModalForm
@@ -19,9 +19,9 @@ const ImportForm: React.FC<ModalFormProps> = (props) => {
       formRef={formRef}
       title="用户导入"
       onFinish={async (formData) => {
-        props.onFinish?.(formData);
-        console.log(formData);
-        return true;
+        props.onFinish?.(formData)
+        console.log(formData)
+        return true
       }}
     >
       <ProFormUploadDragger
@@ -37,7 +37,7 @@ const ImportForm: React.FC<ModalFormProps> = (props) => {
         </a>
       </ProFormCheckbox>
     </ModalForm>
-  );
-};
+  )
+}
 
-export default ImportForm;
+export default ImportForm

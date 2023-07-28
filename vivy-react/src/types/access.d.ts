@@ -2,7 +2,7 @@
  * 角色权限
  * @access 从角色表生成
  */
-declare type AccessRole = 'admin' | 'common';
+declare type AccessRole = 'admin' | 'common'
 
 /**
  * 权限码权限
@@ -48,4 +48,4 @@ declare type AccessPermission =
   | 'system:operlog:export'
   | 'system:loginlog:query'
   | 'system:loginlog:delete'
-  | 'system:loginlog:export';
+  | 'system:loginlog:export'

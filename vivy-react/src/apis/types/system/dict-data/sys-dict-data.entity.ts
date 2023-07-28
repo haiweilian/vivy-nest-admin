@@ -1,6 +1,6 @@
 // import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 // import { BaseBusinessEntity } from '@vivy-cloud/common-core'
-import { BaseBusinessEntity } from '@/apis/types/entities';
+import { BaseBusinessEntity } from '@/apis/types/entities'
 
 /**
  * 字典数据表
@@ -12,7 +12,7 @@ export interface SysDictData extends BaseBusinessEntity {
   //   type: 'int',
   //   comment: '字典ID',
   // })
-  dictId: number;
+  dictId: number
 
   // @Column({
   //   name: 'dict_type',
@@ -20,7 +20,7 @@ export interface SysDictData extends BaseBusinessEntity {
   //   length: 100,
   //   comment: '字典类型',
   // })
-  dictType: string;
+  dictType: string
 
   // @Column({
   //   name: 'dict_label',
@@ -28,7 +28,7 @@ export interface SysDictData extends BaseBusinessEntity {
   //   length: 100,
   //   comment: '字典标签',
   // })
-  dictLabel: string;
+  dictLabel: string
 
   // @Column({
   //   name: 'dict_value',
@@ -36,7 +36,7 @@ export interface SysDictData extends BaseBusinessEntity {
   //   length: 100,
   //   comment: '字典键值',
   // })
-  dictValue: string;
+  dictValue: string
 
   // @Column({
   //   name: 'dict_sort',
@@ -44,7 +44,7 @@ export interface SysDictData extends BaseBusinessEntity {
   //   default: 0,
   //   comment: '显示顺序',
   // })
-  dictSort: number;
+  dictSort: number
 
   // @Column({
   //   name: 'status',
@@ -53,7 +53,7 @@ export interface SysDictData extends BaseBusinessEntity {
   //   default: '0',
   //   comment: '字典状态（0正常 1停用）',
   // })
-  status: string;
+  status: string
 
   // @Column({
   //   name: 'css_class',
@@ -62,7 +62,7 @@ export interface SysDictData extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '样式属性（其他样式扩展）',
   // })
-  cssClass: string;
+  cssClass: string
 
   // @Column({
   //   name: 'list_class',
@@ -71,5 +71,5 @@ export interface SysDictData extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '表格回显样式',
   // })
-  listClass: string;
+  listClass: string
 }

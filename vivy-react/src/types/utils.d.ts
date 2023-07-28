@@ -1,5 +1,5 @@
-declare type Nullable<T> = T | null;
-declare type Recordable<T = any> = Record<string, T>;
+declare type Nullable<T> = T | null
+declare type Recordable<T = any> = Record<string, T>
 declare type ReadonlyRecordable<T = any> = {
-  readonly [key: string]: T;
-};
+  readonly [key: string]: T
+}

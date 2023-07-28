@@ -1,36 +1,36 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
-import { Button, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
-import { useModel, Access, useAccess } from '@umijs/max';
-import { DictTag } from '@/components/Dict';
-import UpdateForm from './components/UpdateForm';
-import { listPost, deletePost } from '@/apis/system/post';
-import type { SysPost } from '@/apis/types/system/post';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import type { ActionType, ProColumns } from '@ant-design/pro-components'
+import { ProTable } from '@ant-design/pro-components'
+import { useModel, Access, useAccess } from '@umijs/max'
+import { Button, Popconfirm } from 'antd'
+import { useRef, useState } from 'react'
+import { listPost, deletePost } from '@/apis/system/post'
+import type { SysPost } from '@/apis/types/system/post'
+import { DictTag } from '@/components/Dict'
+import UpdateForm from './components/UpdateForm'
 
 const Post = () => {
-  const { hasPermission } = useAccess();
-  const actionRef = useRef<ActionType>();
-  const [updateOpen, setUpdateOpen] = useState(false);
-  const [recordData, setRecordData] = useState<Nullable<SysPost>>(null);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const { hasPermission } = useAccess()
+  const actionRef = useRef<ActionType>()
+  const [updateOpen, setUpdateOpen] = useState(false)
+  const [recordData, setRecordData] = useState<Nullable<SysPost>>(null)
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
    * 注册字典数据
    */
-  const { loadDict, toSelect } = useModel('dict');
-  const sysNormalDisable = loadDict('sys_normal_disable');
+  const { loadDict, toSelect } = useModel('dict')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 删除岗位
    * @param postIds 岗位ID
    */
   const handleDelete = async (postIds: React.Key) => {
-    await deletePost(postIds);
-    setSelectedRowKeys([]);
-    actionRef.current?.reload();
-  };
+    await deletePost(postIds)
+    setSelectedRowKeys([])
+    actionRef.current?.reload()
+  }
 
   /**
    * 表格列配置
@@ -60,7 +60,7 @@ const Post = () => {
       valueType: 'select',
       fieldProps: { options: toSelect(sysNormalDisable) },
       render: (_, record) => {
-        return <DictTag options={sysNormalDisable} value={record.status} />;
+        return <DictTag options={sysNormalDisable} value={record.status} />
       },
     },
     {
@@ -77,8 +77,8 @@ const Post = () => {
           <Button
             type="link"
             onClick={() => {
-              setRecordData(record);
-              setUpdateOpen(true);
+              setRecordData(record)
+              setUpdateOpen(true)
             }}
           >
             编辑
@@ -93,7 +93,7 @@ const Post = () => {
         </Access>,
       ],
     },
-  ];
+  ]
 
   return (
     <>
@@ -112,11 +112,11 @@ const Post = () => {
             ...params,
             page: params.current,
             limit: params.pageSize,
-          });
+          })
           return {
             data: items,
             total: meta.totalItems,
-          };
+          }
         }}
         toolbar={{
           actions: [
@@ -125,8 +125,8 @@ const Post = () => {
                 type="primary"
                 icon={<PlusOutlined />}
                 onClick={() => {
-                  setRecordData(null);
-                  setUpdateOpen(true);
+                  setRecordData(null)
+                  setUpdateOpen(true)
                 }}
               >
                 新增
@@ -138,12 +138,7 @@ const Post = () => {
                 disabled={!selectedRowKeys.length}
                 onConfirm={() => handleDelete(selectedRowKeys.join(','))}
               >
-                <Button
-                  icon={<DeleteOutlined />}
-                  type="primary"
-                  danger
-                  disabled={!selectedRowKeys.length}
-                >
+                <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
                   删除
                 </Button>
               </Popconfirm>
@@ -158,7 +153,7 @@ const Post = () => {
         onFinish={async () => actionRef.current?.reload()}
       />
     </>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post

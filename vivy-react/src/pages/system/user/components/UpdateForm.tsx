@@ -7,40 +7,40 @@ import {
   ProFormSelect,
   ProFormRadio,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useRef, useEffect } from 'react';
-import { useModel } from '@umijs/max';
-import { selectableRole } from '@/apis/system/role';
-import { selectablePost } from '@/apis/system/post';
-import { selectableDept } from '@/apis/system/dept';
-import { addUser, updateUser, infoUser } from '@/apis/system/user';
-import type { SysUser } from '@/apis/types/system/user';
+} from '@ant-design/pro-components'
+import { useModel } from '@umijs/max'
+import { useRef, useEffect } from 'react'
+import { selectableDept } from '@/apis/system/dept'
+import { selectablePost } from '@/apis/system/post'
+import { selectableRole } from '@/apis/system/role'
+import { addUser, updateUser, infoUser } from '@/apis/system/user'
+import type { SysUser } from '@/apis/types/system/user'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record: Nullable<SysUser>;
+  record: Nullable<SysUser>
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
-  const formRef = useRef<ProFormInstance>();
+  const formRef = useRef<ProFormInstance>()
 
   /**
    * 注册字典数据
    */
-  const { selectDict } = useModel('dict');
-  const sysUserSex = selectDict('sys_user_sex');
-  const sysNormalDisable = selectDict('sys_normal_disable');
+  const { selectDict } = useModel('dict')
+  const sysUserSex = selectDict('sys_user_sex')
+  const sysNormalDisable = selectDict('sys_normal_disable')
 
   /**
    * 获取初始化数据
    */
   useEffect(() => {
-    formRef.current?.resetFields();
+    formRef.current?.resetFields()
     if (record) {
       infoUser(record.userId).then((info) => {
-        formRef.current?.setFieldsValue(info);
-      });
+        formRef.current?.setFieldsValue(info)
+      })
     }
-  }, [record]);
+  }, [record])
 
   /**
    * 提交表单
@@ -52,12 +52,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         ...values,
         userId: record.userId,
         userName: record.userName,
-      });
+      })
     } else {
-      await addUser(values);
+      await addUser(values)
     }
-    formRef.current?.resetFields();
-  };
+    formRef.current?.resetFields()
+  }
 
   return (
     <DrawerForm
@@ -67,9 +67,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       formRef={formRef}
       title={record ? `编辑用户-${record.nickName}` : `新增用户`}
       onFinish={async (values) => {
-        await handleSubmit(values);
-        props.onFinish?.(values);
-        return true;
+        await handleSubmit(values)
+        props.onFinish?.(values)
+        return true
       }}
     >
       <ProFormText name="nickName" label="用户昵称" rules={[{ required: true }]} />
@@ -95,12 +95,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormText name="phonenumber" label="手机号码" />
       <ProFormText name="email" label="邮箱" />
       <ProFormSelect name="sex" label="用户性别" fieldProps={{ options: sysUserSex }} />
-      <ProFormRadio.Group
-        name="status"
-        label="状态"
-        initialValue={'0'}
-        fieldProps={{ options: sysNormalDisable }}
-      />
+      <ProFormRadio.Group name="status" label="状态" initialValue={'0'} fieldProps={{ options: sysNormalDisable }} />
       <ProFormSelect
         name="roleIds"
         label="角色"
@@ -121,7 +116,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       />
       <ProFormTextArea name="remark" label="备注" />
     </DrawerForm>
-  );
-};
+  )
+}
 
-export default UpdateForm;
+export default UpdateForm

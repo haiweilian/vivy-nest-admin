@@ -1,4 +1,4 @@
-import DictTag from './DictTag';
-import DictText from './DictText';
+import DictTag from './DictTag'
+import DictText from './DictText'
 
-export { DictTag, DictText };
+export { DictTag, DictText }

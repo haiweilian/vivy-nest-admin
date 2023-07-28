@@ -9,12 +9,12 @@ export interface BaseTimeEntity {
   //   type: 'datetime',
   //   comment: '创建时间',
   // })
-  createTime: string;
+  createTime: string
 
   // @UpdateDateColumn({
   //   name: 'update_time',
   //   type: 'datetime',
   //   comment: '更新时间',
   // })
-  updateTime: string;
+  updateTime: string
 }

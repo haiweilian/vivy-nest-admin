@@ -1,33 +1,33 @@
-import { DeleteOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
-import { Button, Popconfirm, Drawer, Descriptions } from 'antd';
-import { useRef, useState } from 'react';
-import { useModel, Access, useAccess } from '@umijs/max';
-import { DictTag, DictText } from '@/components/Dict';
-import { listOperLog, clearOperLog } from '@/apis/system/oper-log';
-import { SysOperLog } from '@/apis/types/system/oper-log';
+import { DeleteOutlined } from '@ant-design/icons'
+import type { ActionType, ProColumns } from '@ant-design/pro-components'
+import { ProTable } from '@ant-design/pro-components'
+import { useModel, Access, useAccess } from '@umijs/max'
+import { Button, Popconfirm, Drawer, Descriptions } from 'antd'
+import { useRef, useState } from 'react'
+import { listOperLog, clearOperLog } from '@/apis/system/oper-log'
+import { SysOperLog } from '@/apis/types/system/oper-log'
+import { DictTag, DictText } from '@/components/Dict'
 
 const OperationLog = () => {
-  const { hasPermission } = useAccess();
-  const actionRef = useRef<ActionType>();
-  const [open, setOpen] = useState(false);
-  const [recordData, setRecordData] = useState<Nullable<SysOperLog>>(null);
+  const { hasPermission } = useAccess()
+  const actionRef = useRef<ActionType>()
+  const [open, setOpen] = useState(false)
+  const [recordData, setRecordData] = useState<Nullable<SysOperLog>>(null)
 
   /**
    * 注册字典数据
    */
-  const { loadDict, toSelect } = useModel('dict');
-  const sysOperType = loadDict('sys_oper_type');
-  const sysOperStatus = loadDict('sys_oper_status');
+  const { loadDict, toSelect } = useModel('dict')
+  const sysOperType = loadDict('sys_oper_type')
+  const sysOperStatus = loadDict('sys_oper_status')
 
   /**
    * 清空操作日志
    */
   const handleClearLog = async () => {
-    await clearOperLog();
-    actionRef.current?.reload();
-  };
+    await clearOperLog()
+    actionRef.current?.reload()
+  }
 
   /**
    * 表格列配置
@@ -48,7 +48,7 @@ const OperationLog = () => {
       valueType: 'select',
       fieldProps: { options: toSelect(sysOperType) },
       render: (_, record) => {
-        return <DictTag options={sysOperType} value={record.operType} />;
+        return <DictTag options={sysOperType} value={record.operType} />
       },
     },
     {
@@ -71,7 +71,7 @@ const OperationLog = () => {
       valueType: 'select',
       fieldProps: { options: toSelect(sysOperStatus) },
       render: (_, record) => {
-        return <DictTag options={sysOperStatus} value={record.operStatus} />;
+        return <DictTag options={sysOperStatus} value={record.operStatus} />
       },
     },
     {
@@ -79,7 +79,7 @@ const OperationLog = () => {
       dataIndex: 'createTime',
       valueType: 'dateTimeRange',
       render: (_, record) => {
-        return record.createTime;
+        return record.createTime
       },
     },
     {
@@ -91,15 +91,15 @@ const OperationLog = () => {
           key="detail"
           type="link"
           onClick={() => {
-            setOpen(true);
-            setRecordData(record);
+            setOpen(true)
+            setRecordData(record)
           }}
         >
           详情
         </Button>,
       ],
     },
-  ];
+  ]
 
   return (
     <>
@@ -114,11 +114,11 @@ const OperationLog = () => {
             ...params,
             page: params.current,
             limit: params.pageSize,
-          });
+          })
           return {
             data: items,
             total: meta.totalItems,
-          };
+          }
         }}
         toolbar={{
           actions: [
@@ -163,7 +163,7 @@ const OperationLog = () => {
         ) : null}
       </Drawer>
     </>
-  );
-};
+  )
+}
 
-export default OperationLog;
+export default OperationLog

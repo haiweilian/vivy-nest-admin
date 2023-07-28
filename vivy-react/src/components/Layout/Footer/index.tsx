@@ -1,5 +1,5 @@
-import React from 'react';
-import { DefaultFooter } from '@ant-design/pro-components';
+import { DefaultFooter } from '@ant-design/pro-components'
+import React from 'react'
 
 const Footer: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
         },
       ]}
     />
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

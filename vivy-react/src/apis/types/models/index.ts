@@ -1,2 +1,2 @@
-export * from './ajax-result.model';
-export * from './pagination.model';
+export * from './ajax-result.model'
+export * from './pagination.model'

@@ -1,26 +1,26 @@
-import { memo } from 'react';
-import { Tag } from 'antd';
-import { DictKeys, DictData, convertKeys } from '@/models/dict';
+import { Tag } from 'antd'
+import { memo } from 'react'
+import { DictKeys, DictData, convertKeys } from '@/models/dict'
 
 type DictProps = {
-  value: DictKeys;
-  options: DictData[];
-};
+  value: DictKeys
+  options: DictData[]
+}
 
 const getColor = (color: string) => {
-  if (color === 'info') return 'lime';
-  if (color === 'danger') return 'red';
-  if (color === 'primary') return 'blue';
-  if (color === 'warning') return 'orange';
-  if (color === 'success') return 'green';
-  if (color === 'successx') return 'green';
-  return color;
-};
+  if (color === 'info') return 'lime'
+  if (color === 'danger') return 'red'
+  if (color === 'primary') return 'blue'
+  if (color === 'warning') return 'orange'
+  if (color === 'success') return 'green'
+  if (color === 'successx') return 'green'
+  return color
+}
 
 const DictTag: React.FC<DictProps> = ({ value, options }) => {
   const data = options.filter((i) => {
-    return convertKeys(value).includes(i.dictValue);
-  });
+    return convertKeys(value).includes(i.dictValue)
+  })
 
   return (
     <span>
@@ -30,7 +30,7 @@ const DictTag: React.FC<DictProps> = ({ value, options }) => {
         </Tag>
       ))}
     </span>
-  );
-};
+  )
+}
 
-export default memo(DictTag);
+export default memo(DictTag)

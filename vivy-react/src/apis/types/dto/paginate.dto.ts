@@ -11,7 +11,7 @@ export interface PaginateDto {
   // @Type(() => Number)
   // @IsInt()
   // @Min(1)
-  readonly page?: number;
+  readonly page?: number
 
   /**
    * 当前页数量
@@ -19,5 +19,5 @@ export interface PaginateDto {
   // @Type(() => Number)
   // @IsInt()
   // @Min(1)
-  readonly limit?: number;
+  readonly limit?: number
 }

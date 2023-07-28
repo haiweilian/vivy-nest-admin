@@ -1,6 +1,6 @@
 // import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 // import { BaseTimeEntity } from '@vivy-cloud/common-core'
-import { BaseTimeEntity } from '@/apis/types/entities';
+import { BaseTimeEntity } from '@/apis/types/entities'
 
 /**
  * 操作日志表
@@ -12,7 +12,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   type: 'int',
   //   comment: '操作ID',
   // })
-  operId: number;
+  operId: number
 
   // @Column({
   //   name: 'title',
@@ -21,7 +21,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '模块标题',
   // })
-  title: string;
+  title: string
 
   // @Column({
   //   name: 'oper_type',
@@ -30,7 +30,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: 0,
   //   comment: '操作类型(enum OperType)',
   // })
-  operType: number;
+  operType: number
 
   // @Column({
   //   name: 'oper_name',
@@ -39,7 +39,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '操作人员',
   // })
-  operName: string;
+  operName: string
 
   // @Column({
   //   name: 'oper_method',
@@ -48,7 +48,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '方法名称',
   // })
-  operMethod: string;
+  operMethod: string
 
   // @Column({
   //   name: 'oper_ip',
@@ -57,7 +57,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '主机地址',
   // })
-  operIp: string;
+  operIp: string
 
   // @Column({
   //   name: 'oper_location',
@@ -66,7 +66,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '操作地点',
   // })
-  operLocation: string;
+  operLocation: string
 
   // @Column({
   //   name: 'oper_status',
@@ -75,7 +75,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: 0,
   //   comment: '操作状态(enum OperStatus)',
   // })
-  operStatus: number;
+  operStatus: number
 
   // @Column({
   //   name: 'request_url',
@@ -84,7 +84,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '请求URL',
   // })
-  requestUrl: string;
+  requestUrl: string
 
   // @Column({
   //   name: 'request_method',
@@ -93,7 +93,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '请求方式',
   // })
-  requestMethod: string;
+  requestMethod: string
 
   // @Column({
   //   name: 'request_param',
@@ -102,7 +102,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '请求参数',
   // })
-  requestParam: string;
+  requestParam: string
 
   // @Column({
   //   name: 'request_result',
@@ -111,7 +111,7 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '请求返回结果',
   // })
-  requestResult: string;
+  requestResult: string
 
   // @Column({
   //   name: 'request_errmsg',
@@ -120,5 +120,5 @@ export interface SysOperLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '请求错误消息',
   // })
-  requestErrmsg: string;
+  requestErrmsg: string
 }

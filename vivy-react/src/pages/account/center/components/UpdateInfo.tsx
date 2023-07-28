@@ -1,4 +1,4 @@
-import { ProForm, ProFormText, ProFormRadio } from '@ant-design/pro-components';
+import { ProForm, ProFormText, ProFormRadio } from '@ant-design/pro-components'
 
 const UpdateInfo: React.FC<{ user: UserInfo }> = ({ user }) => {
   return (
@@ -35,7 +35,7 @@ const UpdateInfo: React.FC<{ user: UserInfo }> = ({ user }) => {
         ]}
       />
     </ProForm>
-  );
-};
+  )
+}
 
-export default UpdateInfo;
+export default UpdateInfo

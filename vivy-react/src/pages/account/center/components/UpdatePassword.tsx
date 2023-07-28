@@ -1,4 +1,4 @@
-import { ProForm, ProFormText } from '@ant-design/pro-components';
+import { ProForm, ProFormText } from '@ant-design/pro-components'
 
 const UpdatePassword: React.FC = () => {
   return (
@@ -26,7 +26,7 @@ const UpdatePassword: React.FC = () => {
         rules={[{ required: true, message: '请确认新密码!' }]}
       />
     </ProForm>
-  );
-};
+  )
+}
 
-export default UpdatePassword;
+export default UpdatePassword

@@ -1,6 +1,6 @@
 // import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 // import { BaseTimeEntity } from '@vivy-cloud/common-core'
-import { BaseTimeEntity } from '@/apis/types/entities';
+import { BaseTimeEntity } from '@/apis/types/entities'
 
 /**
  * 登录日志表
@@ -12,7 +12,7 @@ export interface SysLoginLog extends BaseTimeEntity {
   //   type: 'int',
   //   comment: '登录ID',
   // })
-  loginId: number;
+  loginId: number
 
   // @Column({
   //   name: 'login_name',
@@ -21,7 +21,7 @@ export interface SysLoginLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '用户账号',
   // })
-  loginName: string;
+  loginName: string
 
   // @Column({
   //   name: 'login_type',
@@ -30,7 +30,7 @@ export interface SysLoginLog extends BaseTimeEntity {
   //   default: 0,
   //   comment: '登录类型(enum LoginType)',
   // })
-  loginType: number;
+  loginType: number
 
   // @Column({
   //   name: 'login_status',
@@ -39,7 +39,7 @@ export interface SysLoginLog extends BaseTimeEntity {
   //   default: 0,
   //   comment: '登录状态(enum OperStatus)',
   // })
-  loginStatus: number;
+  loginStatus: number
 
   // @Column({
   //   name: 'login_ip',
@@ -48,7 +48,7 @@ export interface SysLoginLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '主机地址',
   // })
-  loginIp: string;
+  loginIp: string
 
   // @Column({
   //   name: 'login_location',
@@ -57,7 +57,7 @@ export interface SysLoginLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '登录地点',
   // })
-  loginLocation: string;
+  loginLocation: string
 
   // @Column({
   //   name: 'login_message',
@@ -66,7 +66,7 @@ export interface SysLoginLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '登录信息',
   // })
-  loginMessage: string;
+  loginMessage: string
 
   // @Column({
   //   name: 'user_agent',
@@ -75,5 +75,5 @@ export interface SysLoginLog extends BaseTimeEntity {
   //   default: '',
   //   comment: '用户代理',
   // })
-  userAgent: string;
+  userAgent: string
 }

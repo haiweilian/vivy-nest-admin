@@ -1,27 +1,27 @@
-import React, { useCallback } from 'react';
-import { flushSync } from 'react-dom';
-import { Dropdown } from 'antd';
-import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
-import type { MenuInfo } from 'rc-menu/lib/interface';
-import { history, useModel } from '@umijs/max';
-import { removeToken } from '@/utils/auth';
-import { PageEnum } from '@/enums/pageEnum';
-import { logout } from '@/apis/auth/auth';
+import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
+import { history, useModel } from '@umijs/max'
+import { Dropdown } from 'antd'
+import type { MenuInfo } from 'rc-menu/lib/interface'
+import React, { useCallback } from 'react'
+import { flushSync } from 'react-dom'
+import { logout } from '@/apis/auth/auth'
+import { PageEnum } from '@/enums/pageEnum'
+import { removeToken } from '@/utils/auth'
 
 const AvatarDropdown: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { setInitialState } = useModel('@@initialState');
+  const { setInitialState } = useModel('@@initialState')
 
   const handleLogout = async () => {
-    await logout();
-    history.replace(PageEnum.BASE_LOGIN);
-    removeToken();
-  };
+    await logout()
+    history.replace(PageEnum.BASE_LOGIN)
+    removeToken()
+  }
 
   const onMenuClick = useCallback(
     async (event: MenuInfo) => {
-      const { key } = event;
+      const { key } = event
       if (key === 'logout') {
-        await handleLogout();
+        await handleLogout()
         flushSync(() => {
           setInitialState((s) => ({
             ...s,
@@ -29,14 +29,14 @@ const AvatarDropdown: React.FC<{ children: React.ReactNode }> = ({ children }) =
             roles: undefined,
             permissions: undefined,
             userInfo: undefined,
-          }));
-        });
+          }))
+        })
       } else if (key === 'center') {
-        history.push(`/account/${key}`);
+        history.push(`/account/${key}`)
       }
     },
-    [setInitialState],
-  );
+    [setInitialState]
+  )
 
   return (
     <Dropdown
@@ -58,7 +58,7 @@ const AvatarDropdown: React.FC<{ children: React.ReactNode }> = ({ children }) =
     >
       {children}
     </Dropdown>
-  );
-};
+  )
+}
 
-export default AvatarDropdown;
+export default AvatarDropdown

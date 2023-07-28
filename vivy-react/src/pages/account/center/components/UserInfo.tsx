@@ -1,4 +1,4 @@
-import { List, Avatar } from 'antd';
+import { List, Avatar } from 'antd'
 
 const UserInfo: React.FC<{ user: UserInfo }> = ({ user }) => {
   return (
@@ -30,7 +30,7 @@ const UserInfo: React.FC<{ user: UserInfo }> = ({ user }) => {
         {/* <span>{user.roles[0].roleName}</span> */}
       </List.Item>
     </List>
-  );
-};
+  )
+}
 
-export default UserInfo;
+export default UserInfo

@@ -1,13 +1,7 @@
-import { request } from '@umijs/max';
-import { RequestEnum } from '@/enums/httpEnum';
-import type { Pagination } from '@/apis/types/models';
-import type {
-  SysRole,
-  ListRoleDto,
-  CreateRoleDto,
-  UpdateRoleDto,
-  RoleInfoVo,
-} from '@/apis/types/system/role';
+import { request } from '@umijs/max'
+import type { Pagination } from '@/apis/types/models'
+import type { SysRole, ListRoleDto, CreateRoleDto, UpdateRoleDto, RoleInfoVo } from '@/apis/types/system/role'
+import { RequestEnum } from '@/enums/httpEnum'
 
 /**
  * 查询角色列表
@@ -16,7 +10,7 @@ export function listRole(params: Partial<ListRoleDto>) {
   return request<Pagination<SysRole>>('/system/role/list', {
     method: RequestEnum.GET,
     params,
-  });
+  })
 }
 
 /**
@@ -26,7 +20,7 @@ export function addRole(params: Partial<CreateRoleDto>) {
   return request('/system/role/add', {
     method: RequestEnum.POST,
     data: params,
-  });
+  })
 }
 
 /**
@@ -36,7 +30,7 @@ export function updateRole(params: Partial<UpdateRoleDto>) {
   return request('/system/role/update', {
     method: RequestEnum.PUT,
     data: params,
-  });
+  })
 }
 
 /**
@@ -45,7 +39,7 @@ export function updateRole(params: Partial<UpdateRoleDto>) {
 export function deleteRole(roleIds: React.Key) {
   return request(`/system/role/delete/${roleIds}`, {
     method: RequestEnum.DELETE,
-  });
+  })
 }
 
 /**
@@ -54,7 +48,7 @@ export function deleteRole(roleIds: React.Key) {
 export function infoRole(roleId: React.Key) {
   return request<RoleInfoVo>(`/system/role/info/${roleId}`, {
     method: RequestEnum.GET,
-  });
+  })
 }
 
 /**
@@ -63,5 +57,5 @@ export function infoRole(roleId: React.Key) {
 export function selectableRole() {
   return request<SysRole[]>('/system/role/options/selectable', {
     method: RequestEnum.GET,
-  });
+  })
 }

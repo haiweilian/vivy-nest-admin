@@ -1,6 +1,6 @@
-import { request } from '@umijs/max';
-import { RequestEnum } from '@/enums/httpEnum';
-import type { SysMenu, MenuTreeVo, CreateMenuDto, UpdateMenuDto } from '@/apis/types/system/menu';
+import { request } from '@umijs/max'
+import type { SysMenu, MenuTreeVo, CreateMenuDto, UpdateMenuDto } from '@/apis/types/system/menu'
+import { RequestEnum } from '@/enums/httpEnum'
 
 /**
  * 查询菜单树
@@ -8,7 +8,7 @@ import type { SysMenu, MenuTreeVo, CreateMenuDto, UpdateMenuDto } from '@/apis/t
 export function treeMenu() {
   return request<MenuTreeVo[]>('/system/menu/tree', {
     method: RequestEnum.GET,
-  });
+  })
 }
 
 /**
@@ -18,7 +18,7 @@ export function addMenu(params: Partial<CreateMenuDto>) {
   return request('/system/menu/add', {
     method: RequestEnum.POST,
     data: params,
-  });
+  })
 }
 
 /**
@@ -28,7 +28,7 @@ export function updateMenu(params: Partial<UpdateMenuDto>) {
   return request('/system/menu/update', {
     method: RequestEnum.PUT,
     data: params,
-  });
+  })
 }
 
 /**
@@ -37,7 +37,7 @@ export function updateMenu(params: Partial<UpdateMenuDto>) {
 export function deleteMenu(menuId: React.Key) {
   return request(`/system/menu/delete/${menuId}`, {
     method: RequestEnum.DELETE,
-  });
+  })
 }
 
 /**
@@ -46,7 +46,7 @@ export function deleteMenu(menuId: React.Key) {
 export function infoMenu(menuId: React.Key) {
   return request<SysMenu>(`/system/menu/info/${menuId}`, {
     method: RequestEnum.GET,
-  });
+  })
 }
 
 /**
@@ -55,5 +55,5 @@ export function infoMenu(menuId: React.Key) {
 export function selectableMenu() {
   return request<MenuTreeVo[]>('/system/menu/tree/selectable', {
     method: RequestEnum.GET,
-  });
+  })
 }

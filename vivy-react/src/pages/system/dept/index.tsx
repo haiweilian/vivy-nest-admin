@@ -1,55 +1,55 @@
-import { isEmpty } from 'lodash-es';
-import { PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
-import { Button, Popconfirm } from 'antd';
-import React, { useRef, useState } from 'react';
-import { useModel, Access, useAccess } from '@umijs/max';
-import { eachTree } from '@/utils/tree';
-import { DictTag } from '@/components/Dict';
-import UpdateForm from './components/UpdateForm';
-import { treeDept, deleteDept } from '@/apis/system/dept';
-import type { DeptTreeVo } from '@/apis/types/system/dept';
+import { PlusOutlined } from '@ant-design/icons'
+import type { ActionType, ProColumns } from '@ant-design/pro-components'
+import { ProTable } from '@ant-design/pro-components'
+import { useModel, Access, useAccess } from '@umijs/max'
+import { Button, Popconfirm } from 'antd'
+import { isEmpty } from 'lodash-es'
+import React, { useRef, useState } from 'react'
+import { treeDept, deleteDept } from '@/apis/system/dept'
+import type { DeptTreeVo } from '@/apis/types/system/dept'
+import { DictTag } from '@/components/Dict'
+import { eachTree } from '@/utils/tree'
+import UpdateForm from './components/UpdateForm'
 
 const Dept = () => {
-  const { hasPermission } = useAccess();
-  const actionRef = useRef<ActionType>();
-  const [updateOpen, setUpdateOpen] = useState(false);
-  const [recordData, setRecordData] = useState<Nullable<DeptTreeVo>>(null);
+  const { hasPermission } = useAccess()
+  const actionRef = useRef<ActionType>()
+  const [updateOpen, setUpdateOpen] = useState(false)
+  const [recordData, setRecordData] = useState<Nullable<DeptTreeVo>>(null)
 
   /**
    * 注册字典数据
    */
-  const { loadDict } = useModel('dict');
-  const sysNormalDisable = loadDict('sys_normal_disable');
+  const { loadDict } = useModel('dict')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 删除部门
    * @param deptId 部门ID
    */
   const handleDelete = async (deptId: React.Key) => {
-    await deleteDept(deptId);
-    actionRef.current?.reload();
-  };
+    await deleteDept(deptId)
+    actionRef.current?.reload()
+  }
 
   /**
    * 处理默认展开
    * @param data 列数据
    */
-  const [expandedRowKeys, setExpandedRowKeys] = useState<readonly React.Key[]>([]);
+  const [expandedRowKeys, setExpandedRowKeys] = useState<readonly React.Key[]>([])
   const handleExpandedRows = (data: DeptTreeVo[]) => {
-    const keys: React.Key[] = [];
+    const keys: React.Key[] = []
     eachTree<DeptTreeVo>(data, (item) => {
       if (isEmpty(item.children)) {
-        item.children = undefined;
+        item.children = undefined
       } else if (isEmpty(expandedRowKeys)) {
-        keys.push(item.deptId);
+        keys.push(item.deptId)
       }
-    });
+    })
     if (isEmpty(expandedRowKeys)) {
-      setExpandedRowKeys(keys);
+      setExpandedRowKeys(keys)
     }
-  };
+  }
 
   /**
    * 表格列配置
@@ -67,7 +67,7 @@ const Dept = () => {
       title: '状态',
       dataIndex: 'status',
       render: (_, record) => {
-        return <DictTag options={sysNormalDisable} value={record.status} />;
+        return <DictTag options={sysNormalDisable} value={record.status} />
       },
     },
     {
@@ -83,8 +83,8 @@ const Dept = () => {
           <Button
             type="link"
             onClick={() => {
-              setRecordData(record);
-              setUpdateOpen(true);
+              setRecordData(record)
+              setUpdateOpen(true)
             }}
           >
             编辑
@@ -99,7 +99,7 @@ const Dept = () => {
         </Access>,
       ],
     },
-  ];
+  ]
 
   return (
     <>
@@ -115,11 +115,11 @@ const Dept = () => {
           onExpandedRowsChange: setExpandedRowKeys,
         }}
         request={async () => {
-          const data = await treeDept();
-          handleExpandedRows(data);
+          const data = await treeDept()
+          handleExpandedRows(data)
           return {
-            data: data,
-          };
+            data,
+          }
         }}
         toolbar={{
           actions: [
@@ -128,8 +128,8 @@ const Dept = () => {
                 type="primary"
                 icon={<PlusOutlined />}
                 onClick={() => {
-                  setRecordData(null);
-                  setUpdateOpen(true);
+                  setRecordData(null)
+                  setUpdateOpen(true)
                 }}
               >
                 新增
@@ -145,7 +145,7 @@ const Dept = () => {
         onFinish={async () => actionRef.current?.reload()}
       />
     </>
-  );
-};
+  )
+}
 
-export default Dept;
+export default Dept

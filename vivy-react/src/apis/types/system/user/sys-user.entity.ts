@@ -1,6 +1,6 @@
 // import { Column, Entity } from 'typeorm';
 // import { BaseTimeEntity } from '@vivy-cloud/common-core';
-import { BaseBusinessEntity } from '@/apis/types/entities';
+import { BaseBusinessEntity } from '@/apis/types/entities'
 
 /**
  * 用户信息表
@@ -12,7 +12,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   type: 'int',
   //   comment: '用户ID',
   // })
-  userId: number;
+  userId: number
 
   // @Column({
   //   name: 'dept_id',
@@ -20,7 +20,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '部门ID',
   // })
-  deptId: number;
+  deptId: number
 
   // @Column({
   //   name: 'user_name',
@@ -29,7 +29,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   unique: true,
   //   comment: '用户账号',
   // })
-  userName: string;
+  userName: string
 
   // @Column({
   //   name: 'nick_name',
@@ -37,7 +37,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   length: 50,
   //   comment: '用户昵称',
   // })
-  nickName: string;
+  nickName: string
 
   // @Column({
   //   name: 'user_type',
@@ -46,7 +46,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   default: '00',
   //   comment: '用户类型（00系统用户）',
   // })
-  userType: string;
+  userType: string
 
   // @Column({
   //   name: 'email',
@@ -55,7 +55,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '用户邮箱',
   // })
-  email: string;
+  email: string
 
   // @Column({
   //   name: 'phonenumber',
@@ -64,7 +64,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '手机号码',
   // })
-  phonenumber: string;
+  phonenumber: string
 
   // @Column({
   //   name: 'sex',
@@ -73,7 +73,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   default: '0',
   //   comment: '用户性别（0男 1女 2未知）',
   // })
-  sex: string;
+  sex: string
 
   // @Column({
   //   name: 'avatar',
@@ -82,7 +82,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '头像地址',
   // })
-  avatar: string;
+  avatar: string
 
   // @Column({
   //   name: 'password',
@@ -91,7 +91,7 @@ export interface SysUser extends BaseBusinessEntity {
   //   default: '',
   //   comment: '密码',
   // })
-  password: string;
+  password: string
 
   // @Column({
   //   name: 'status',
@@ -100,5 +100,5 @@ export interface SysUser extends BaseBusinessEntity {
   //   default: '0',
   //   comment: '用户状态（0正常 1停用）',
   // })
-  status: string;
+  status: string
 }

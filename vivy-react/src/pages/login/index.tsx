@@ -1,40 +1,40 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
-import { useModel, history } from '@umijs/max';
-import { message } from 'antd';
-import { flushSync } from 'react-dom';
-import { Footer } from '@/components/Layout';
-import { setToken } from '@/utils/auth';
-import { PageEnum } from '@/enums/pageEnum';
-import { login } from '@/apis/auth/auth';
-import type { LoginInfoDto } from '@/apis/types/auth/auth';
+import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
+import { useModel, history } from '@umijs/max'
+import { message } from 'antd'
+import { flushSync } from 'react-dom'
+import { login } from '@/apis/auth/auth'
+import type { LoginInfoDto } from '@/apis/types/auth/auth'
+import { Footer } from '@/components/Layout'
+import { PageEnum } from '@/enums/pageEnum'
+import { setToken } from '@/utils/auth'
 
 const Login = () => {
-  const { initialState, setInitialState } = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState')
 
   const fetchUserInfo = async (): Promise<void> => {
-    const userInfo = await initialState?.fetchUserInfo?.();
+    const userInfo = await initialState?.fetchUserInfo?.()
     if (userInfo) {
       flushSync(() => {
         setInitialState((s) => ({
           ...s,
           ...userInfo,
-        }));
-      });
+        }))
+      })
     }
-  };
+  }
 
   const handleLogin = async (values: LoginInfoDto) => {
     try {
-      const token = await login(values);
-      setToken(token.access_token);
-      await fetchUserInfo();
-      message.success('登录成功！');
-      history.replace(PageEnum.BASE_HOME);
+      const token = await login(values)
+      setToken(token.access_token)
+      await fetchUserInfo()
+      message.success('登录成功！')
+      history.replace(PageEnum.BASE_HOME)
     } catch (error) {
-      message.error('登录失败，请重试！');
+      message.error('登录失败，请重试！')
     }
-  };
+  }
 
   return (
     <div className="flex flex-col justify-center h-full">
@@ -103,7 +103,7 @@ const Login = () => {
       </div>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

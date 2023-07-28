@@ -97,6 +97,6 @@ const routes = [
     layout: false,
     hideInMenu: true,
   },
-];
+]
 
-export default routes;
+export default routes

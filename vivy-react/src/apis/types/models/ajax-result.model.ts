@@ -3,11 +3,11 @@
  */
 export interface AjaxResult<T = any> {
   /** 状态码 */
-  code: number;
+  code: number
 
   /** 数据 */
-  data?: T;
+  data?: T
 
   /** 消息 */
-  message?: string;
+  message?: string
 }

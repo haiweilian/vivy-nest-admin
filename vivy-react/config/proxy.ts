@@ -8,4 +8,4 @@ export default {
     changeOrigin: true,
     pathRewrite: { '^/api': '' },
   },
-};
+}

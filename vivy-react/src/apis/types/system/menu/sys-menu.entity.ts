@@ -1,6 +1,6 @@
 // import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 // import { BaseBusinessEntity } from '@vivy-cloud/common-core'
-import { BaseBusinessEntity } from '@/apis/types/entities';
+import { BaseBusinessEntity } from '@/apis/types/entities'
 
 /**
  * 菜单权限表
@@ -12,14 +12,14 @@ export interface SysMenu extends BaseBusinessEntity {
   //   type: 'int',
   //   comment: '菜单ID',
   // })
-  menuId: number;
+  menuId: number
 
   // @Column({
   //   name: 'parent_id',
   //   type: 'int',
   //   comment: '父菜单ID',
   // })
-  parentId: number;
+  parentId: number
 
   // @Column({
   //   name: 'menu_name',
@@ -27,7 +27,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   length: 50,
   //   comment: '菜单名称',
   // })
-  menuName: string;
+  menuName: string
 
   // @Column({
   //   name: 'menu_type',
@@ -35,7 +35,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   length: 1,
   //   comment: '菜单类型（M目录 C菜单 F按钮）',
   // })
-  menuType: number;
+  menuType: number
 
   // @Column({
   //   name: 'menu_sort',
@@ -43,7 +43,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   default: 0,
   //   comment: '显示顺序',
   // })
-  menuSort: number;
+  menuSort: number
 
   // @Column({
   //   name: 'status',
@@ -52,7 +52,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   default: '0',
   //   comment: '菜单状态（0正常 1停用）',
   // })
-  status: string;
+  status: string
 
   // @Column({
   //   name: 'path',
@@ -61,7 +61,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '路由地址',
   // })
-  path: string;
+  path: string
 
   // @Column({
   //   name: 'component',
@@ -70,7 +70,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '组件路径',
   // })
-  component: string;
+  component: string
 
   // @Column({
   //   name: 'query',
@@ -79,7 +79,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '路由参数',
   // })
-  query: string;
+  query: string
 
   // @Column({
   //   name: 'perms',
@@ -88,7 +88,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   nullable: true,
   //   comment: '权限标识',
   // })
-  permission: string;
+  permission: string
 
   // @Column({
   //   name: 'icon',
@@ -97,7 +97,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   default: '#',
   //   comment: '菜单图标',
   // })
-  icon: string;
+  icon: string
 
   // @Column({
   //   name: 'is_visible',
@@ -106,7 +106,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   default: 0,
   //   comment: '菜单状态（0显示 1隐藏）',
   // })
-  isVisible: number;
+  isVisible: number
 
   // @Column({
   //   name: 'is_link',
@@ -115,7 +115,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   default: 0,
   //   comment: '是否为外链（0否 1是）',
   // })
-  isLink: number;
+  isLink: number
 
   // @Column({
   //   name: 'is_frame',
@@ -124,7 +124,7 @@ export interface SysMenu extends BaseBusinessEntity {
   //   default: 0,
   //   comment: '是否为内嵌（0否 1是）',
   // })
-  isFrame: number;
+  isFrame: number
 
   // @Column({
   //   name: 'is_cache',
@@ -133,5 +133,5 @@ export interface SysMenu extends BaseBusinessEntity {
   //   default: 0,
   //   comment: '是否缓存（0否 1是）',
   // })
-  isCache: number;
+  isCache: number
 }

@@ -7,37 +7,37 @@ import {
   ProFormRadio,
   ProFormTextArea,
   ProFormSelect,
-} from '@ant-design/pro-components';
-import { useModel, useParams } from '@umijs/max';
-import { useRef, useEffect } from 'react';
-import { addDictData, updateDictData, infoDictData } from '@/apis/system/dict-data';
-import type { SysDictData } from '@/apis/types/system/dict-data';
+} from '@ant-design/pro-components'
+import { useModel, useParams } from '@umijs/max'
+import { useRef, useEffect } from 'react'
+import { addDictData, updateDictData, infoDictData } from '@/apis/system/dict-data'
+import type { SysDictData } from '@/apis/types/system/dict-data'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record: Nullable<SysDictData>;
+  record: Nullable<SysDictData>
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
-  const formRef = useRef<ProFormInstance>();
-  const { type } = useParams();
+  const formRef = useRef<ProFormInstance>()
+  const { type } = useParams()
 
   /**
    * 注册字典数据
    */
-  const { selectDict } = useModel('dict');
-  const sysNormalDisable = selectDict('sys_normal_disable');
+  const { selectDict } = useModel('dict')
+  const sysNormalDisable = selectDict('sys_normal_disable')
 
   /**
    * 获取初始化数据
    */
   useEffect(() => {
-    formRef.current?.resetFields();
+    formRef.current?.resetFields()
     if (record) {
       infoDictData(record.dictId).then((info) => {
-        formRef.current?.setFieldsValue(info);
-      });
+        formRef.current?.setFieldsValue(info)
+      })
     }
-  }, [record]);
+  }, [record])
 
   /**
    * 提交表单
@@ -49,15 +49,15 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         ...values,
         dictId: record.dictId,
         dictType: type,
-      });
+      })
     } else {
       await addDictData({
         ...values,
         dictType: type,
-      });
+      })
     }
-    formRef.current?.resetFields();
-  };
+    formRef.current?.resetFields()
+  }
 
   return (
     <DrawerForm
@@ -67,9 +67,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       formRef={formRef}
       title={record ? `编辑字典-${record.dictLabel}` : `新增字典`}
       onFinish={async (values) => {
-        await handleSubmit(values);
-        props.onFinish?.(values);
-        return true;
+        await handleSubmit(values)
+        props.onFinish?.(values)
+        return true
       }}
     >
       <ProFormText name="dictLabel" label="数据标签" rules={[{ required: true }]} />
@@ -90,15 +90,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         }}
       />
       <ProFormText name="cssClass" label="样式属性" />
-      <ProFormRadio.Group
-        name="status"
-        label="状态"
-        initialValue={'0'}
-        fieldProps={{ options: sysNormalDisable }}
-      />
+      <ProFormRadio.Group name="status" label="状态" initialValue={'0'} fieldProps={{ options: sysNormalDisable }} />
       <ProFormTextArea name="remark" label="备注" />
     </DrawerForm>
-  );
-};
+  )
+}
 
-export default UpdateForm;
+export default UpdateForm

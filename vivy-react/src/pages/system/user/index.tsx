@@ -1,64 +1,64 @@
-import { isEmpty } from 'lodash-es';
-import { Tree, Button, Popconfirm } from 'antd';
-import { PlusOutlined, DeleteOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
-import type { TreeProps, TreeDataNode } from 'antd';
-import { ProTable } from '@ant-design/pro-components';
-import type { ProColumns, ActionType } from '@ant-design/pro-components';
-import { useRequest, useModel, Access, useAccess } from '@umijs/max';
-import React, { useRef, useState } from 'react';
-import { eachTree } from '@/utils/tree';
-import { DictTag } from '@/components/Dict';
-import UpdateForm from './components/UpdateForm';
-import ImportForm from './components/ImportForm';
-import { selectableDept } from '@/apis/system/dept';
-import { listUser, deleteUser } from '@/apis/system/user';
-import type { SysUser } from '@/apis/types/system/user';
-import type { DeptTreeVo } from '@/apis/types/system/dept';
+import { PlusOutlined, DeleteOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons'
+import { ProTable } from '@ant-design/pro-components'
+import type { ProColumns, ActionType } from '@ant-design/pro-components'
+import { useRequest, useModel, Access, useAccess } from '@umijs/max'
+import type { TreeProps, TreeDataNode } from 'antd'
+import { Tree, Button, Popconfirm } from 'antd'
+import { isEmpty } from 'lodash-es'
+import React, { useRef, useState } from 'react'
+import { selectableDept } from '@/apis/system/dept'
+import { listUser, deleteUser } from '@/apis/system/user'
+import type { DeptTreeVo } from '@/apis/types/system/dept'
+import type { SysUser } from '@/apis/types/system/user'
+import { DictTag } from '@/components/Dict'
+import { eachTree } from '@/utils/tree'
+import ImportForm from './components/ImportForm'
+import UpdateForm from './components/UpdateForm'
 
 const User = () => {
-  const { hasPermission } = useAccess();
-  const actionRef = useRef<ActionType>();
-  const [updateOpen, setUpdateOpen] = useState(false);
-  const [importOpen, setImportOpen] = useState(false);
-  const [recordData, setRecordData] = useState<Nullable<SysUser>>(null);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const { hasPermission } = useAccess()
+  const actionRef = useRef<ActionType>()
+  const [updateOpen, setUpdateOpen] = useState(false)
+  const [importOpen, setImportOpen] = useState(false)
+  const [recordData, setRecordData] = useState<Nullable<SysUser>>(null)
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
    * 注册字典数据
    */
-  const { loadDict, toSelect } = useModel('dict');
-  const sysNormalDisable = loadDict('sys_normal_disable');
+  const { loadDict, toSelect } = useModel('dict')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 部门树选择
    */
-  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
-  const [selectedDeptKeys, setSelectedDeptKeys] = useState<React.Key[]>([]);
+  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([])
+  const [selectedDeptKeys, setSelectedDeptKeys] = useState<React.Key[]>([])
   const onDeptSelect: TreeProps['onSelect'] = (selectedKeys) => {
-    setSelectedDeptKeys(selectedKeys);
-    actionRef.current?.reload();
-  };
+    setSelectedDeptKeys(selectedKeys)
+    actionRef.current?.reload()
+  }
   const { data: deptData } = useRequest(selectableDept, {
     onSuccess(data) {
-      const keys: React.Key[] = [];
+      const keys: React.Key[] = []
       eachTree<DeptTreeVo>(data, (item) => {
         if (!isEmpty(item.children)) {
-          keys.push(item.deptId);
+          keys.push(item.deptId)
         }
-      });
-      setExpandedKeys(keys);
+      })
+      setExpandedKeys(keys)
     },
-  });
+  })
 
   /**
    * 删除用户
    * @param userIds 用户ID
    */
   const handleDelete = async (userIds: React.Key) => {
-    await deleteUser(userIds);
-    setSelectedRowKeys([]);
-    actionRef.current?.reload();
-  };
+    await deleteUser(userIds)
+    setSelectedRowKeys([])
+    actionRef.current?.reload()
+  }
 
   /**
    * 表格列配置
@@ -88,7 +88,7 @@ const User = () => {
       valueType: 'select',
       fieldProps: { options: toSelect(sysNormalDisable) },
       render: (_, record) => {
-        return <DictTag options={sysNormalDisable} value={record.status} />;
+        return <DictTag options={sysNormalDisable} value={record.status} />
       },
     },
     {
@@ -106,8 +106,8 @@ const User = () => {
             <Button
               type="link"
               onClick={() => {
-                setRecordData(record);
-                setUpdateOpen(true);
+                setRecordData(record)
+                setUpdateOpen(true)
               }}
             >
               编辑
@@ -123,7 +123,7 @@ const User = () => {
         </Access>,
       ],
     },
-  ];
+  ]
 
   return (
     <>
@@ -149,7 +149,7 @@ const User = () => {
             getCheckboxProps(record) {
               return {
                 disabled: record.userId === 1,
-              };
+              }
             },
           }}
           request={async (params) => {
@@ -158,11 +158,11 @@ const User = () => {
               page: params.current,
               limit: params.pageSize,
               deptId: selectedDeptKeys[0] as number,
-            });
+            })
             return {
               data: items,
               total: meta.totalItems,
-            };
+            }
           }}
           toolbar={{
             actions: [
@@ -171,8 +171,8 @@ const User = () => {
                   type="primary"
                   icon={<PlusOutlined />}
                   onClick={() => {
-                    setRecordData(null);
-                    setUpdateOpen(true);
+                    setRecordData(null)
+                    setUpdateOpen(true)
                   }}
                 >
                   新增
@@ -184,12 +184,7 @@ const User = () => {
                   disabled={!selectedRowKeys.length}
                   onConfirm={() => handleDelete(selectedRowKeys.join(','))}
                 >
-                  <Button
-                    icon={<DeleteOutlined />}
-                    type="primary"
-                    danger
-                    disabled={!selectedRowKeys.length}
-                  >
+                  <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
                     删除
                   </Button>
                 </Popconfirm>
@@ -198,7 +193,7 @@ const User = () => {
                 <Button
                   icon={<UploadOutlined />}
                   onClick={() => {
-                    setImportOpen(true);
+                    setImportOpen(true)
                   }}
                 >
                   导入
@@ -208,7 +203,7 @@ const User = () => {
                 <Button
                   icon={<DownloadOutlined />}
                   onClick={() => {
-                    setImportOpen(true);
+                    setImportOpen(true)
                   }}
                 >
                   导出
@@ -224,13 +219,9 @@ const User = () => {
         onOpenChange={setUpdateOpen}
         onFinish={async () => actionRef.current?.reload()}
       />
-      <ImportForm
-        open={importOpen}
-        onOpenChange={setImportOpen}
-        onFinish={async () => actionRef.current?.reload()}
-      />
+      <ImportForm open={importOpen} onOpenChange={setImportOpen} onFinish={async () => actionRef.current?.reload()} />
     </>
-  );
-};
+  )
+}
 
-export default User;
+export default User

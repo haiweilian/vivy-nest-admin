@@ -1,11 +1,11 @@
-import { isArray, intersection } from 'lodash-es';
+import { isArray, intersection } from 'lodash-es'
 
 /**
  * 初始化状态
  */
 interface InitialState {
-  roles: string[];
-  permissions: string[];
+  roles: string[]
+  permissions: string[]
 }
 
 /**
@@ -26,8 +26,8 @@ export enum Logical {
 /**
  * 超级管理员权限标识
  */
-const SUPER_ROLE_CODE = 'admin';
-const SUPER_ROLE_PERMISSION = '*:*:*';
+const SUPER_ROLE_CODE = 'admin'
+const SUPER_ROLE_PERMISSION = '*:*:*'
 
 /**
  * @name Access 在这里按照初始化数据定义项目中的权限，统一管理
@@ -42,17 +42,17 @@ export default ({ roles = [], permissions = [] }: InitialState) => {
    */
   const hasRole = (value: AccessRole | AccessRole[], logical: Logical = Logical.AND) => {
     if (roles.includes(SUPER_ROLE_CODE)) {
-      return true;
+      return true
     }
 
     if (!isArray(value)) {
-      return roles.includes(value);
+      return roles.includes(value)
     } else if (logical === Logical.AND) {
-      return intersection(roles, value).length === value.length;
+      return intersection(roles, value).length === value.length
     } else {
-      return intersection(roles, value).length > 0;
+      return intersection(roles, value).length > 0
     }
-  };
+  }
 
   /**
    * 校验是否包含权限吗
@@ -60,25 +60,22 @@ export default ({ roles = [], permissions = [] }: InitialState) => {
    * @param logical 验证逻辑：AND | OR，默认AND
    * @returns true / false
    */
-  const hasPermission = (
-    value: AccessPermission | AccessPermission[],
-    logical: Logical = Logical.AND,
-  ) => {
+  const hasPermission = (value: AccessPermission | AccessPermission[], logical: Logical = Logical.AND) => {
     if (permissions.includes(SUPER_ROLE_PERMISSION)) {
-      return true;
+      return true
     }
 
     if (!isArray(value)) {
-      return permissions.includes(value);
+      return permissions.includes(value)
     } else if (logical === Logical.AND) {
-      return intersection(permissions, value).length === value.length;
+      return intersection(permissions, value).length === value.length
     } else {
-      return intersection(permissions, value).length > 0;
+      return intersection(permissions, value).length > 0
     }
-  };
+  }
 
   return {
     hasRole,
     hasPermission,
-  };
-};
+  }
+}

@@ -1,12 +1,7 @@
-import { request } from '@umijs/max';
-import { RequestEnum } from '@/enums/httpEnum';
-import type { Pagination } from '@/apis/types/models';
-import type {
-  SysDictType,
-  ListDictTypeDto,
-  CreateDictTypeDto,
-  UpdateDictTypeDto,
-} from '@/apis/types/system/dict-type';
+import { request } from '@umijs/max'
+import type { Pagination } from '@/apis/types/models'
+import type { SysDictType, ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from '@/apis/types/system/dict-type'
+import { RequestEnum } from '@/enums/httpEnum'
 
 /**
  * 查询字典类型列表
@@ -15,7 +10,7 @@ export function listDictType(params: Partial<ListDictTypeDto>) {
   return request<Pagination<SysDictType>>('/system/dict/type/list', {
     method: RequestEnum.GET,
     params,
-  });
+  })
 }
 
 /**
@@ -25,7 +20,7 @@ export function addDictType(params: Partial<CreateDictTypeDto>) {
   return request('/system/dict/type/add', {
     method: RequestEnum.POST,
     data: params,
-  });
+  })
 }
 
 /**
@@ -35,7 +30,7 @@ export function updateDictType(params: Partial<UpdateDictTypeDto>) {
   return request('/system/dict/type/update', {
     method: RequestEnum.PUT,
     data: params,
-  });
+  })
 }
 
 /**
@@ -44,7 +39,7 @@ export function updateDictType(params: Partial<UpdateDictTypeDto>) {
 export function deleteDictType(postIds: React.Key) {
   return request(`/system/dict/type/delete/${postIds}`, {
     method: RequestEnum.DELETE,
-  });
+  })
 }
 
 /**
@@ -53,7 +48,7 @@ export function deleteDictType(postIds: React.Key) {
 export function infoDictType(postId: React.Key) {
   return request<SysDictType>(`/system/dict/type/info/${postId}`, {
     method: RequestEnum.GET,
-  });
+  })
 }
 
 /**
@@ -62,5 +57,5 @@ export function infoDictType(postId: React.Key) {
 export function selectableDictType() {
   return request<SysDictType[]>('/system/dict/type/options/selectable', {
     method: RequestEnum.GET,
-  });
+  })
 }

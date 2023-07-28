@@ -1,7 +1,7 @@
-import { defineConfig } from '@umijs/max';
-import proxy from './proxy';
-import routes from './routes';
-import defaultSettings from './setting';
+import { defineConfig } from '@umijs/max'
+import proxy from './proxy'
+import routes from './routes'
+import defaultSettings from './setting'
 
 export default defineConfig({
   npmClient: 'pnpm',
@@ -69,4 +69,4 @@ export default defineConfig({
    * @doc https://umijs.org/docs/guides/generator#tailwind-css-%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E5%99%A8
    */
   tailwindcss: {},
-});
+})

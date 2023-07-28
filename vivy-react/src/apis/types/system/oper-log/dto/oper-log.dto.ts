@@ -1,6 +1,6 @@
 // import { Allow, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 // import { OperType, OperStatus } from '@vivy-cloud/common-logger'
-import { PaginateDto } from '@/apis/types/dto';
+import { PaginateDto } from '@/apis/types/dto'
 
 /**
  * 列表
@@ -8,25 +8,25 @@ import { PaginateDto } from '@/apis/types/dto';
 export interface ListOperLogDto extends PaginateDto {
   /** 模块标题 */
   // @Allow()
-  title: string;
+  title: string
 
   /** 操作类型(enum OperType) */
   // @Allow()
-  operType: string;
+  operType: string
 
   /** 操作人员 */
   // @Allow()
-  operName: string;
+  operName: string
 
   /** 操作状态(enum OperStatus) */
   // @Allow()
-  operStatus: string;
+  operStatus: string
 
   /** 请求地址 */
   // @Allow()
-  requestUrl: string;
+  requestUrl: string
 
   /** 操作时间 */
   // @Allow()
-  createTime: string;
+  createTime: string
 }

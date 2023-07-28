@@ -1,12 +1,7 @@
-import { request } from '@umijs/max';
-import { RequestEnum } from '@/enums/httpEnum';
-import type { Pagination } from '@/apis/types/models';
-import type {
-  SysDictData,
-  ListDictDataDto,
-  CreateDictDataDto,
-  UpdateDictDataDto,
-} from '@/apis/types/system/dict-data';
+import { request } from '@umijs/max'
+import type { Pagination } from '@/apis/types/models'
+import type { SysDictData, ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from '@/apis/types/system/dict-data'
+import { RequestEnum } from '@/enums/httpEnum'
 
 /**
  * 查询字典数据列表
@@ -15,7 +10,7 @@ export function listDictData(params: Partial<ListDictDataDto>) {
   return request<Pagination<SysDictData>>('/system/dict/data/list', {
     method: RequestEnum.GET,
     params,
-  });
+  })
 }
 
 /**
@@ -25,7 +20,7 @@ export function addDictData(params: Partial<CreateDictDataDto>) {
   return request('/system/dict/data/add', {
     method: RequestEnum.POST,
     data: params,
-  });
+  })
 }
 
 /**
@@ -35,7 +30,7 @@ export function updateDictData(params: Partial<UpdateDictDataDto>) {
   return request('/system/dict/data/update', {
     method: RequestEnum.PUT,
     data: params,
-  });
+  })
 }
 
 /**
@@ -44,7 +39,7 @@ export function updateDictData(params: Partial<UpdateDictDataDto>) {
 export function deleteDictData(postIds: React.Key) {
   return request(`/system/dict/data/delete/${postIds}`, {
     method: RequestEnum.DELETE,
-  });
+  })
 }
 
 /**
@@ -53,7 +48,7 @@ export function deleteDictData(postIds: React.Key) {
 export function infoDictData(postId: React.Key) {
   return request<SysDictData>(`/system/dict/data/info/${postId}`, {
     method: RequestEnum.GET,
-  });
+  })
 }
 
 /**
@@ -62,5 +57,5 @@ export function infoDictData(postId: React.Key) {
 export function getDictDataList(type: string) {
   return request<SysDictData[]>(`/system/dict/data/options/${type}`, {
     method: RequestEnum.GET,
-  });
+  })
 }

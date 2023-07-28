@@ -420,4 +420,4 @@ export {
   ZhihuOutlined,
   ZoomInOutlined,
   ZoomOutOutlined,
-} from '@ant-design/icons';
+} from '@ant-design/icons'
