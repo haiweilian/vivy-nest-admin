@@ -1,5 +1,5 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
-import { CONFIG, CONFIG_OPTIONS } from './config.constants'
+import { CONFIG_OPTIONS } from './config.constants'
 import { ConfigOptions } from './config.interface'
 import { ConfigLoader } from './config.loader'
 import { ConfigService } from './config.service'
@@ -12,21 +12,16 @@ export class ConfigModule {
     return this.register(options || {})
   }
 
-  private static register(options: ConfigOptions) {
+  private static register(options: ConfigOptions): DynamicModule {
     const OptionsProvider: Provider = {
       provide: CONFIG_OPTIONS,
       useValue: options,
     }
 
-    const ConfigExisting: Provider = {
-      provide: CONFIG,
-      useExisting: ConfigService,
-    }
-
     return {
       module: ConfigModule,
-      providers: [OptionsProvider, ConfigService, ConfigExisting, ConfigStore, ConfigLoader],
-      exports: [ConfigService, ConfigExisting],
+      providers: [OptionsProvider, ConfigService, ConfigStore, ConfigLoader],
+      exports: [ConfigService],
     }
   }
 }

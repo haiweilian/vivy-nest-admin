@@ -72,10 +72,10 @@ export class ConfigLoader {
     const dir = this.options.dir || process.cwd()
     const extension = this.options.extension || 'yaml'
 
-    filenames.push(path.resolve(dir, `config.${extension}`))
-    filenames.push(path.resolve(dir, `config.local.${extension}`))
-    filenames.push(path.resolve(dir, `config.${env}.${extension}`))
-    filenames.push(path.resolve(dir, `config.${env}.local.${extension}`))
+    filenames.push(path.join(dir, `config.${extension}`))
+    filenames.push(path.join(dir, `config.local.${extension}`))
+    filenames.push(path.join(dir, `config.${env}.${extension}`))
+    filenames.push(path.join(dir, `config.${env}.local.${extension}`))
 
     return filenames
   }
