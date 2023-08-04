@@ -21,6 +21,8 @@ export class SwaggerService {
 
     const document = SwaggerModule.createDocument(this.app, this.builder.build())
     SwaggerModule.setup('swagger', this.app, document)
+
+    return this.builder
   }
 
   private builderBase() {
