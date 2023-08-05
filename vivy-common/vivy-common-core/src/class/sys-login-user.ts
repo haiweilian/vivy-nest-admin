@@ -1,4 +1,4 @@
-import { SysUser } from './sys-user.model'
+import { SysUser } from './sys-user'
 
 /**
  * 登录信息

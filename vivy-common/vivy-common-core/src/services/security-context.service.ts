@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { Request } from 'express'
+import { SysLoginUser } from '../class/sys-login-user'
 import { SecurityConstants } from '../constants/security.constants'
 import { TokenConstants } from '../constants/token.constants'
-import { SysLoginUser } from '../models/sys-login-user.model'
 import { RequestContextService } from './request-context.service'
 
 /**

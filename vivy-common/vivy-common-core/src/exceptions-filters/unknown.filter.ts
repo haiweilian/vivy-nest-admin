@@ -1,15 +1,14 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common'
-import { LoggerService } from '@vivy-common/logger'
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from '@nestjs/common'
 import { Response } from 'express'
 import { isArray, isString } from 'lodash'
-import { AjaxResult } from '../models/ajax-result.model'
+import { AjaxResult } from '../class'
 
 /**
  * 未知异常过滤器
  */
 @Catch()
 export class UnknownExceptionFilter implements ExceptionFilter {
-  constructor(private logger: LoggerService) {}
+  private logger = new Logger(UnknownExceptionFilter.name)
 
   catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
@@ -18,8 +17,8 @@ export class UnknownExceptionFilter implements ExceptionFilter {
     const code = this.initCode(exception)
     const { cause, message } = this.initMessage(exception)
 
-    this.logger.error(cause, exception.stack, UnknownExceptionFilter.name)
-    response.status(HttpStatus.OK).json(AjaxResult.error(code, message))
+    this.logger.error(cause, exception.stack)
+    response.status(HttpStatus.OK).json(AjaxResult.error(message, code))
   }
 
   private initCode(exception: Error) {

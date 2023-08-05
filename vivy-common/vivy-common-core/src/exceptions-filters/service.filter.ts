@@ -1,21 +1,20 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common'
-import { LoggerService } from '@vivy-common/logger'
+import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus, Logger } from '@nestjs/common'
 import { Response } from 'express'
+import { AjaxResult } from '../class/ajax-result'
 import { ServiceException } from '../exceptions/service.exception'
-import { AjaxResult } from '../models/ajax-result.model'
 
 /**
  * 业务逻辑异常过滤器
  */
 @Catch(ServiceException)
 export class ServiceExceptionFilter implements ExceptionFilter {
-  constructor(private logger: LoggerService) {}
+  private logger = new Logger(ServiceExceptionFilter.name)
 
   catch(exception: ServiceException, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
     const response = ctx.getResponse<Response>()
 
-    this.logger.error(exception.getMessage(), exception.stack, ServiceExceptionFilter.name)
-    response.status(HttpStatus.OK).json(AjaxResult.error(exception.getCode(), exception.getMessage()))
+    this.logger.error(exception.getMessage(), exception.stack)
+    response.status(HttpStatus.OK).json(AjaxResult.error(exception.getMessage(), exception.getCode()))
   }
 }

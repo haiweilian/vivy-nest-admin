@@ -10,5 +10,6 @@ export const ValidationPipe = {
   useValue: new NestValidationPipe({
     transform: true,
     whitelist: true,
+    stopAtFirstError: true,
   }),
 }
