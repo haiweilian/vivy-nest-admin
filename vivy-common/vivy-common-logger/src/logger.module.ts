@@ -17,7 +17,7 @@ export class LoggerModule {
     return this.register(options)
   }
 
-  private static register(options: LoggerAsyncOptions) {
+  private static register(options: LoggerAsyncOptions): DynamicModule {
     const OptionsProvider: Provider = {
       provide: LOGGER_OPTIONS,
       useFactory: options.useFactory,

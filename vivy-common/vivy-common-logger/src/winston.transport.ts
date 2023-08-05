@@ -3,6 +3,9 @@ import * as winston from 'winston'
 import * as DailyRotateFile from 'winston-daily-rotate-file'
 import { LoggerOptions } from './logger.interface'
 
+/**
+ * 构建 Winston 日志输出
+ */
 export class WinstonTransportBuilder {
   constructor(private readonly options: LoggerOptions) {}
 

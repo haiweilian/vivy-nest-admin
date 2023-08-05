@@ -1,8 +1,6 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpStatus, StreamableFile } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import { SecurityConstants } from '@vivy-common/core/lib/constants'
-import { AjaxResult } from '@vivy-common/core/lib/models'
-import { IpUtils } from '@vivy-common/core/lib/utils'
+import { SecurityConstants, AjaxResult, IpUtils } from '@vivy-common/core'
 import { Request } from 'express'
 import { Observable, tap, catchError, throwError } from 'rxjs'
 import { LogOptions } from '../decorators/log.decorator'
@@ -13,6 +11,7 @@ import { RpcLogService } from '../services/rpc-log.service'
 
 /**
  * 自定义操作日志记录拦截器
+ * 备注：如果在分布式架构中需要整合操作日志需要注入此拦截器并实现服务调用
  */
 @Injectable()
 export class LogInterceptor implements NestInterceptor {
@@ -60,10 +59,10 @@ export class LogInterceptor implements NestInterceptor {
     operLog.requestUrl = request.url
     operLog.requestMethod = request.method
     if (meta.isSaveRequestData) {
-      operLog.requestParam = JSON.stringify(request.body)
+      operLog.requestParam = JSON.stringify(request.body).slice(2000)
     }
     if (meta.isSaveResponseData && !isStreamableFile) {
-      operLog.requestResult = JSON.stringify(result)
+      operLog.requestResult = JSON.stringify(result).slice(2000)
     }
 
     if (isStreamableFile || result.code === HttpStatus.OK) {

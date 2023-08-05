@@ -1,10 +1,10 @@
 import * as path from 'path'
 import { Injectable, LoggerService } from '@nestjs/common'
 import { assign } from 'lodash'
-import { WinstonModule } from 'nest-winston'
 import { Logger } from 'typeorm'
 import { LoggerOptions } from './logger.interface'
-import { WinstonTransportBuilder } from './logger.transport'
+import { createNestWinstonLogger } from './winston.logger'
+import { WinstonTransportBuilder } from './winston.transport'
 
 const defaultOptions: LoggerOptions = {
   appName: 'vivy',
@@ -21,7 +21,7 @@ export class TypeORMLogger implements Logger {
   constructor(private options: LoggerOptions) {
     const TransportBuilder = new WinstonTransportBuilder(assign(defaultOptions, this.options))
 
-    this.logger = WinstonModule.createLogger({
+    this.logger = createNestWinstonLogger({
       transports: [
         TransportBuilder.buildConsoleTransportInstance(),
         TransportBuilder.buildDailyRotateFileTransportInstance({

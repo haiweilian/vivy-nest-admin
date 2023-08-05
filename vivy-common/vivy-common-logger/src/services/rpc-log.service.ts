@@ -3,6 +3,7 @@ import { OperLogDto } from './dto/oper-log.dto'
 
 /**
  * 远程日志服务调用
+ * 备注：如果在分布式架构中需要整合操作日志在此远程调用
  */
 @Injectable()
 export class RpcLogService {
