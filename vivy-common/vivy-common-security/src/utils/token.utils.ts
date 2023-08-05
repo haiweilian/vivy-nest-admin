@@ -7,10 +7,10 @@ import {
   CacheConstants,
   SecurityConstants,
   SecurityContextService,
-  type JwtToken,
   type SysLoginUser,
 } from '@vivy-common/core'
 import { Request } from 'express'
+import { JwtToken } from '../interfaces/jwt-token.interface'
 
 /**
  * 令牌验证工具类

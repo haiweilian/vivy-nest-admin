@@ -1,11 +1,11 @@
-import { DynamicModule, Global, Module } from '@nestjs/common'
+import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
-import { TokenConstants } from '@vivy-common/core'
 import { AuthGuard } from './guards/auth.guard'
 import { InnerAuthGuard } from './guards/inner-auth.guard'
 import { RequireAuthGuard } from './guards/require-auth.guard'
-import { SecurityOptions } from './interfaces/security-options.interface'
+import { SecurityAsyncOptions, SecurityOptions } from './interfaces/security-options.interface'
+import { SECURITY_OPTIONS } from './security.constants'
 import { AuthUtils } from './utils/auth.utils'
 import { TokenUtils } from './utils/token.utils'
 
@@ -13,23 +13,38 @@ import { TokenUtils } from './utils/token.utils'
 @Module({})
 export class SecurityModule {
   static forRoot(options?: SecurityOptions): DynamicModule {
-    return this.register(options || {})
+    return this.register({
+      useFactory: () => options || {},
+    })
   }
 
-  private static register(options: SecurityOptions) {
+  static forRootAsync(options: SecurityAsyncOptions): DynamicModule {
+    return this.register(options)
+  }
+
+  private static register(options: SecurityAsyncOptions) {
+    const OptionsProvider: Provider = {
+      provide: SECURITY_OPTIONS,
+      useFactory: options.useFactory,
+      inject: options.inject,
+    }
+
     return {
       module: SecurityModule,
       imports: [
         JwtModule.registerAsync({
-          useFactory() {
+          async useFactory(...args: any) {
+            const options: SecurityOptions = await OptionsProvider.useFactory(...args)
             return {
               global: true,
-              secret: options?.secret || TokenConstants.SECRET,
+              secret: options.secret,
             }
           },
+          inject: OptionsProvider.inject,
         }),
       ],
       providers: [
+        OptionsProvider,
         AuthUtils,
         TokenUtils,
         {
