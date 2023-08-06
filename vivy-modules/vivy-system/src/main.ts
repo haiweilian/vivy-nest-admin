@@ -1,11 +1,14 @@
 import { NestFactory } from '@nestjs/core'
+import { NestExpressApplication } from '@nestjs/platform-express'
 import { ConfigService } from '@vivy-common/config'
 import { LoggerService } from '@vivy-common/logger'
 import { SwaggerService } from '@vivy-common/swagger'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    bufferLogs: true,
+  })
 
   const config = app.get(ConfigService)
   const name = config.get<string>('app.name')

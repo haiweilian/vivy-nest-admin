@@ -1,6 +1,6 @@
 import camelcase from 'camelcase'
-import { GenTableColumn } from '@/entities/gen-table-column.entity'
-import { GenTable } from '@/entities/gen-table.entity'
+import { GenTableColumn } from '../gen/entities/gen-table-column.entity'
+import { GenTable } from '../gen/entities/gen-table.entity'
 import { GenConstants } from './gen.constants'
 
 /**

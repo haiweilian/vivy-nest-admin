@@ -1,4 +1,5 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
+import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -11,6 +12,8 @@ export class SysRole extends BaseBusinessEntity {
     type: 'int',
     comment: '角色ID',
   })
+  @IsInt()
+  @IsNotEmpty()
   roleId: number
 
   @Column({
@@ -19,6 +22,8 @@ export class SysRole extends BaseBusinessEntity {
     length: 50,
     comment: '角色名称',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   roleName: string
 
   @Column({
@@ -27,6 +32,8 @@ export class SysRole extends BaseBusinessEntity {
     length: 50,
     comment: '角色编码',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   roleCode: string
 
   @Column({
@@ -35,6 +42,8 @@ export class SysRole extends BaseBusinessEntity {
     default: 0,
     comment: '显示顺序',
   })
+  @IsInt()
+  @IsOptional()
   roleSort: number
 
   @Column({
@@ -44,5 +53,7 @@ export class SysRole extends BaseBusinessEntity {
     default: '0',
     comment: '角色状态（0正常 1停用）',
   })
+  @IsBooleanString()
+  @IsOptional()
   status: string
 }

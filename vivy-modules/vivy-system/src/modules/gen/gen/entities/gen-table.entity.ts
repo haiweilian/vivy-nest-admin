@@ -1,4 +1,5 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
+import { IsArray, IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { GenTableColumn } from './gen-table-column.entity'
 
@@ -12,6 +13,8 @@ export class GenTable extends BaseBusinessEntity {
     type: 'int',
     comment: '编号',
   })
+  @IsInt()
+  @IsNotEmpty()
   tableId: number
 
   @Column({
@@ -20,15 +23,18 @@ export class GenTable extends BaseBusinessEntity {
     length: 100,
     comment: '表名称',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   tableName: string
 
   @Column({
     name: 'table_comment',
     type: 'varchar',
     length: 500,
-    default: '',
     comment: '表描述',
   })
+  @MaxLength(500)
+  @IsString()
   tableComment: string
 
   @Column({
@@ -38,7 +44,9 @@ export class GenTable extends BaseBusinessEntity {
     nullable: true,
     comment: '关联子表的表名',
   })
-  subTableName: string
+  @MaxLength(100)
+  @IsOptional()
+  subTableName?: string
 
   @Column({
     name: 'sub_table_fk_name',
@@ -47,7 +55,9 @@ export class GenTable extends BaseBusinessEntity {
     nullable: true,
     comment: '子表关联的外键名',
   })
-  subTableFkName: string
+  @MaxLength(100)
+  @IsOptional()
+  subTableFkName?: string
 
   @Column({
     name: 'class_name',
@@ -55,6 +65,8 @@ export class GenTable extends BaseBusinessEntity {
     length: 100,
     comment: '实体类名称',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   className: string
 
   @Column({
@@ -64,6 +76,8 @@ export class GenTable extends BaseBusinessEntity {
     default: '1',
     comment: '生成模板分类',
   })
+  @MaxLength(2)
+  @IsOptional()
   templateCategory: string
 
   @Column({
@@ -72,6 +86,8 @@ export class GenTable extends BaseBusinessEntity {
     length: 100,
     comment: '生成业务名',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   businessName: string
 
   @Column({
@@ -80,6 +96,8 @@ export class GenTable extends BaseBusinessEntity {
     length: 100,
     comment: '生成功能名',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   functionName: string
 
   @Column({
@@ -88,10 +106,14 @@ export class GenTable extends BaseBusinessEntity {
     length: 100,
     comment: '生成功能作者',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   functionAuthor: string
 
   @OneToMany(() => GenTableColumn, (column) => column.table, {
     cascade: true,
   })
+  @IsArray()
+  @IsNotEmpty()
   columns: GenTableColumn[]
 }

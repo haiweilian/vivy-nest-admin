@@ -1,4 +1,4 @@
-import { SysLoginLog } from '@/entities/sys-login-log.entity'
+import { SysLoginLog } from '../entities/sys-login-log.entity'
 
 /**
  * 登录日志列表

@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Between, Like, Repository } from 'typeorm'
 import { UAParser } from 'ua-parser-js'
-import { SysLoginLog } from '@/entities/sys-login-log.entity'
 import { ListLoginLogDto, CreateLoginLogDto } from './dto/login-log.dto'
+import { SysLoginLog } from './entities/sys-login-log.entity'
 import { ListLoginLogVo } from './vo/login-log.vo'
 
 /**

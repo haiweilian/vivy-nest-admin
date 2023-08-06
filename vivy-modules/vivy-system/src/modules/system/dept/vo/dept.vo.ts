@@ -1,4 +1,4 @@
-import { SysDept } from '@/entities/sys-dept.entity'
+import { SysDept } from '../entities/sys-dept.entity'
 
 /**
  * 部门树

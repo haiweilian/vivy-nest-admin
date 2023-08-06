@@ -1,4 +1,5 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
+import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -11,6 +12,8 @@ export class SysPost extends BaseBusinessEntity {
     type: 'int',
     comment: '岗位ID',
   })
+  @IsInt()
+  @IsNotEmpty()
   postId: number
 
   @Column({
@@ -19,6 +22,8 @@ export class SysPost extends BaseBusinessEntity {
     length: 50,
     comment: '岗位名称',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   postName: string
 
   @Column({
@@ -27,6 +32,8 @@ export class SysPost extends BaseBusinessEntity {
     length: 50,
     comment: '岗位编码',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   postCode: string
 
   @Column({
@@ -35,6 +42,8 @@ export class SysPost extends BaseBusinessEntity {
     default: 0,
     comment: '显示顺序',
   })
+  @IsInt()
+  @IsOptional()
   postSort: number
 
   @Column({
@@ -44,5 +53,7 @@ export class SysPost extends BaseBusinessEntity {
     default: '0',
     comment: '岗位状态（0正常 1停用）',
   })
+  @IsBooleanString()
+  @IsOptional()
   status: string
 }

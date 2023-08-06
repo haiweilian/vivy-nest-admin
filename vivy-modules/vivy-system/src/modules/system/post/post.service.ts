@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { ServiceException, BaseStatusEnums } from '@vivy-common/core'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
-import { SysPost } from '@/entities/sys-post.entity'
-import { SysUserPost } from '@/entities/sys-user-post.entity'
+import { SysUserPost } from '@/modules/system/user/entities/sys-user-post.entity'
 import { ListPostDto, CreatePostDto, UpdatePostDto } from './dto/post.dto'
+import { SysPost } from './entities/sys-post.entity'
 
 /**
  * 岗位管理

@@ -3,7 +3,7 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "assets": ["**/*.yaml"],
+    "assets": ["**/*.yaml", "**/*.mapper.xml"],
     "watchAssets": true
   }
 }

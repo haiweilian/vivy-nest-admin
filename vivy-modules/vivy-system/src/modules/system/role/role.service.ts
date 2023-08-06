@@ -4,11 +4,11 @@ import { ServiceException, BaseStatusEnums, UserConstants, IdentityUtils } from 
 import { isEmpty, isArray, isObject } from 'lodash'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { EntityManager, In, Like, Not, Repository } from 'typeorm'
-import { SysRoleDept } from '@/entities/sys-role-dept.entity'
-import { SysRoleMenu } from '@/entities/sys-role-menu.entity'
-import { SysRole } from '@/entities/sys-role.entity'
-import { SysUserRole } from '@/entities/sys-user-role.entity'
+import { SysUserRole } from '@/modules/system/user/entities/sys-user-role.entity'
 import { ListRoleDto, CreateRoleDto, UpdateRoleDto } from './dto/role.dto'
+import { SysRoleDept } from './entities/sys-role-dept.entity'
+import { SysRoleMenu } from './entities/sys-role-menu.entity'
+import { SysRole } from './entities/sys-role.entity'
 import { RoleInfoVo } from './vo/role.vo'
 
 /**
@@ -227,5 +227,19 @@ export class RoleService {
         status: BaseStatusEnums.NORMAL,
       },
     })
+  }
+
+  /**
+   * 根据用户ID查询角色列表
+   * @param userId 用户用户ID
+   * @returns 用户角色列表
+   */
+  async selectRoleByUserId(userId: number): Promise<SysRole[]> {
+    return this.roleRepository
+      .createQueryBuilder('r')
+      .leftJoin('sys_user_role', 'ur', 'r.role_id = ur.role_id')
+      .where('ur.user_id = :userId', { userId })
+      .andWhere('r.status = :status', { status: BaseStatusEnums.NORMAL })
+      .getMany()
   }
 }

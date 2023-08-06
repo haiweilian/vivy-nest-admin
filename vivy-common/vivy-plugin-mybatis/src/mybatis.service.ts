@@ -51,7 +51,7 @@ export class MybatisService implements OnModuleInit {
     // TODO: only clean deleted
     const mapper = mybatisMapper.getMapper()
     Object.keys(mapper).forEach((key) => {
-      mapper[key] = undefined
+      delete mapper[key]
     })
 
     mybatisMapper.createMapper(files)
@@ -83,7 +83,7 @@ export interface MybatisMapper {
   ${Object.keys(mapper)
     .map((key) => {
       const value = Object.keys(mapper[key])
-      return `${key}: ${value.length ? value.map((v) => `'${v}'`).join(' | ') : 'string'}`
+      return `'${key}': ${value.length ? value.map((v) => `'${v}'`).join(' | ') : 'string'}`
     })
     .join('\n')}
 }

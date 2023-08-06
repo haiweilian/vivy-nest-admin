@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
-import { ServiceException, PasswordUtils, IdentityUtils, SysLoginUser } from '@vivy-common/core'
+import { ServiceException, PasswordUtils, IdentityUtils, SysLoginUser, UserConstants } from '@vivy-common/core'
 import { isEmpty, isArray, isObject } from 'lodash'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { EntityManager, In, Like, Repository } from 'typeorm'
-import { SysUserPost } from '@/entities/sys-user-post.entity'
-import { SysUserRole } from '@/entities/sys-user-role.entity'
-import { SysUser } from '@/entities/sys-user.entity'
+import { MenuService } from '@/modules/system/menu/menu.service'
+import { RoleService } from '@/modules/system/role/role.service'
 import { ListUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto'
-import { PermissionService } from './permission.service'
+import { SysUserPost } from './entities/sys-user-post.entity'
+import { SysUserRole } from './entities/sys-user-role.entity'
+import { SysUser } from './entities/sys-user.entity'
 import { UserInfoVo } from './vo/user.vo'
 
 /**
@@ -30,7 +31,8 @@ export class UserService {
     @InjectRepository(SysUserPost)
     private userPostRepository: Repository<SysUserPost>,
 
-    private permissionService: PermissionService
+    private menuService: MenuService,
+    private roleService: RoleService
   ) {}
 
   /**
@@ -216,9 +218,37 @@ export class UserService {
 
     const loginUser = new SysLoginUser()
     loginUser.sysUser = sysUser
-    loginUser.roles = await this.permissionService.getRolePermission(sysUser.userId)
-    loginUser.permissions = await this.permissionService.getMenuPermission(sysUser.userId)
+    loginUser.roles = await this.getRolePermission(sysUser.userId)
+    loginUser.permissions = await this.getMenuPermission(sysUser.userId)
 
     return loginUser
+  }
+
+  /**
+   * 获取角色数据权限
+   * @param userId 用户Id
+   * @return 角色权限信息
+   */
+  async getRolePermission(userId: number): Promise<string[]> {
+    if (IdentityUtils.isAdminUser(userId)) {
+      return [UserConstants.SUPER_ROLE_CODE]
+    } else {
+      const roles = await this.roleService.selectRoleByUserId(userId)
+      return roles.map((role) => role.roleCode).filter(Boolean)
+    }
+  }
+
+  /**
+   * 获取菜单数据权限
+   * @param userId 用户Id
+   * @return 菜单权限信息
+   */
+  async getMenuPermission(userId: number): Promise<string[]> {
+    if (IdentityUtils.isAdminUser(userId)) {
+      return [UserConstants.SUPER_ROLE_PERMISSION]
+    } else {
+      const menus = await this.menuService.selectMenuByUserId(userId)
+      return menus.map((menu) => menu.permission).filter(Boolean)
+    }
   }
 }

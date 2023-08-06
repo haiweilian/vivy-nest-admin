@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Between, Like, Repository } from 'typeorm'
-import { SysOperLog } from '@/entities/sys-oper-log.entity'
 import { ListOperLogDto, CreateOperLogDto } from './dto/oper-log.dto'
+import { SysOperLog } from './entities/sys-oper-log.entity'
 
 /**
  * 操作日志

@@ -1,4 +1,5 @@
 import { BaseTimeEntity } from '@vivy-common/core'
+import { IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -11,113 +12,132 @@ export class SysOperLog extends BaseTimeEntity {
     type: 'int',
     comment: '操作ID',
   })
+  @IsInt()
+  @IsNotEmpty()
   operId: number
 
   @Column({
     name: 'title',
     type: 'varchar',
     length: 50,
-    default: '',
     comment: '模块标题',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   title: string
 
   @Column({
     name: 'oper_type',
     type: 'tinyint',
     unsigned: true,
-    default: 0,
     comment: '操作类型(enum OperType)',
   })
+  @IsInt()
+  @IsNotEmpty()
   operType: number
 
   @Column({
     name: 'oper_name',
     type: 'varchar',
     length: 50,
-    default: '',
     comment: '操作人员',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   operName: string
 
   @Column({
     name: 'oper_method',
     type: 'varchar',
     length: 100,
-    default: '',
     comment: '方法名称',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   operMethod: string
 
   @Column({
     name: 'oper_ip',
     type: 'varchar',
     length: 128,
-    default: '',
+    nullable: true,
     comment: '主机地址',
   })
-  operIp: string
+  @MaxLength(128)
+  @IsOptional()
+  operIp?: string
 
   @Column({
     name: 'oper_location',
     type: 'varchar',
     length: 255,
-    default: '',
+    nullable: true,
     comment: '操作地点',
   })
-  operLocation: string
+  @MaxLength(255)
+  @IsOptional()
+  operLocation?: string
 
   @Column({
     name: 'oper_status',
     type: 'tinyint',
     unsigned: true,
-    default: 0,
     comment: '操作状态(enum OperStatus)',
   })
+  @IsInt()
+  @IsNotEmpty()
   operStatus: number
 
   @Column({
     name: 'request_url',
     type: 'varchar',
     length: 1000,
-    default: '',
     comment: '请求URL',
   })
+  @MaxLength(1000)
+  @IsNotEmpty()
   requestUrl: string
 
   @Column({
     name: 'request_method',
     type: 'varchar',
     length: 10,
-    default: '',
     comment: '请求方式',
   })
+  @MaxLength(10)
+  @IsNotEmpty()
   requestMethod: string
 
   @Column({
     name: 'request_param',
     type: 'varchar',
     length: 2000,
-    default: '',
+    nullable: true,
     comment: '请求参数',
   })
-  requestParam: string
+  @MaxLength(2000)
+  @IsOptional()
+  requestParam?: string
 
   @Column({
     name: 'request_result',
     type: 'varchar',
     length: 2000,
-    default: '',
+    nullable: true,
     comment: '请求返回结果',
   })
-  requestResult: string
+  @MaxLength(2000)
+  @IsOptional()
+  requestResult?: string
 
   @Column({
     name: 'request_errmsg',
     type: 'varchar',
     length: 2000,
-    default: '',
+    nullable: true,
     comment: '请求错误消息',
   })
-  requestErrmsg: string
+  @MaxLength(2000)
+  @IsOptional()
+  requestErrmsg?: string
 }

@@ -1,4 +1,5 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
+import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -11,14 +12,19 @@ export class SysMenu extends BaseBusinessEntity {
     type: 'int',
     comment: '菜单ID',
   })
+  @IsInt()
+  @IsNotEmpty()
   menuId: number
 
   @Column({
     name: 'parent_id',
     type: 'int',
+    nullable: true,
     comment: '父菜单ID',
   })
-  parentId: number
+  @IsInt()
+  @IsOptional()
+  parentId?: number
 
   @Column({
     name: 'menu_name',
@@ -26,6 +32,8 @@ export class SysMenu extends BaseBusinessEntity {
     length: 50,
     comment: '菜单名称',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   menuName: string
 
   @Column({
@@ -34,6 +42,8 @@ export class SysMenu extends BaseBusinessEntity {
     length: 1,
     comment: '菜单类型（M目录 C菜单 F按钮）',
   })
+  @MaxLength(1)
+  @IsNotEmpty()
   menuType: string
 
   @Column({
@@ -42,6 +52,8 @@ export class SysMenu extends BaseBusinessEntity {
     default: 0,
     comment: '显示顺序',
   })
+  @IsInt()
+  @IsOptional()
   menuSort: number
 
   @Column({
@@ -51,6 +63,8 @@ export class SysMenu extends BaseBusinessEntity {
     default: '0',
     comment: '菜单状态（0正常 1停用）',
   })
+  @IsBooleanString()
+  @IsOptional()
   status: string
 
   @Column({
@@ -60,7 +74,9 @@ export class SysMenu extends BaseBusinessEntity {
     nullable: true,
     comment: '路由地址',
   })
-  path: string
+  @MaxLength(255)
+  @IsOptional()
+  path?: string
 
   @Column({
     name: 'component',
@@ -69,7 +85,9 @@ export class SysMenu extends BaseBusinessEntity {
     nullable: true,
     comment: '组件路径',
   })
-  component: string
+  @MaxLength(255)
+  @IsOptional()
+  component?: string
 
   @Column({
     name: 'query',
@@ -78,7 +96,9 @@ export class SysMenu extends BaseBusinessEntity {
     nullable: true,
     comment: '路由参数',
   })
-  query: string
+  @MaxLength(255)
+  @IsOptional()
+  query?: string
 
   @Column({
     name: 'permission',
@@ -87,7 +107,9 @@ export class SysMenu extends BaseBusinessEntity {
     nullable: true,
     comment: '权限标识',
   })
-  permission: string
+  @MaxLength(100)
+  @IsOptional()
+  permission?: string
 
   @Column({
     name: 'icon',
@@ -96,7 +118,9 @@ export class SysMenu extends BaseBusinessEntity {
     nullable: true,
     comment: '菜单图标',
   })
-  icon: string
+  @MaxLength(100)
+  @IsOptional()
+  icon?: string
 
   @Column({
     name: 'is_visible',
@@ -105,6 +129,8 @@ export class SysMenu extends BaseBusinessEntity {
     default: '0',
     comment: '是否显示（0是 1否）',
   })
+  @IsBooleanString()
+  @IsOptional()
   isVisible: string
 
   @Column({
@@ -114,6 +140,8 @@ export class SysMenu extends BaseBusinessEntity {
     default: '1',
     comment: '是否为外链（0是 1否）',
   })
+  @IsBooleanString()
+  @IsOptional()
   isLink: string
 
   @Column({
@@ -123,6 +151,8 @@ export class SysMenu extends BaseBusinessEntity {
     default: '1',
     comment: '是否为内嵌（0是 1否）',
   })
+  @IsBooleanString()
+  @IsOptional()
   isFrame: string
 
   @Column({
@@ -132,5 +162,7 @@ export class SysMenu extends BaseBusinessEntity {
     default: '1',
     comment: '是否缓存（0是 1否）',
   })
+  @IsBooleanString()
+  @IsOptional()
   isCache: string
 }

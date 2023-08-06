@@ -1,4 +1,4 @@
-import { SysUser } from '@/entities/sys-user.entity'
+import { SysUser } from '../entities/sys-user.entity'
 
 /**
  * 用户详情

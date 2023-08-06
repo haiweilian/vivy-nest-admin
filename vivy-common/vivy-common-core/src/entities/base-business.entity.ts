@@ -1,3 +1,4 @@
+import { IsOptional, MaxLength } from 'class-validator'
 import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { DateTimeTransformer } from './transformer/datetime.transformer'
 
@@ -22,7 +23,7 @@ export abstract class BaseBusinessEntity {
     nullable: true,
     comment: '创建者',
   })
-  createBy: string
+  createBy?: string
 
   @CreateDateColumn({
     name: 'create_time',
@@ -39,7 +40,7 @@ export abstract class BaseBusinessEntity {
     nullable: true,
     comment: '更新者',
   })
-  updateBy: string
+  updateBy?: string
 
   @UpdateDateColumn({
     name: 'update_time',
@@ -56,5 +57,7 @@ export abstract class BaseBusinessEntity {
     nullable: true,
     comment: '备注',
   })
-  remark: string
+  @MaxLength(500)
+  @IsOptional()
+  remark?: string
 }

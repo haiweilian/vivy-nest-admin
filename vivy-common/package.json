@@ -5,8 +5,8 @@
   "author": "haiweilian <haiweilian@foxmail.com>",
   "homepage": "https://github.com/haiweilian/vivy-nest-admin",
   "scripts": {
+    "dev": "tsc -b tsconfig.build.json --watch",
     "build": "tsc -b tsconfig.build.json && pnpm copy",
-    "watch": "tsc -b tsconfig.build.json --watch",
     "clean": "rimraf */lib */*.tsbuildinfo",
     "copy": "cpx vivy-common-core/src/assets/** vivy-common-core/lib/assets"
   },

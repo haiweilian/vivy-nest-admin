@@ -1,4 +1,5 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
+import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -11,6 +12,8 @@ export class SysDictType extends BaseBusinessEntity {
     type: 'int',
     comment: '字典ID',
   })
+  @IsInt()
+  @IsNotEmpty()
   dictId: number
 
   @Column({
@@ -19,6 +22,8 @@ export class SysDictType extends BaseBusinessEntity {
     length: 100,
     comment: '字典名称',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   dictName: string
 
   @Column({
@@ -27,6 +32,8 @@ export class SysDictType extends BaseBusinessEntity {
     length: 100,
     comment: '字典类型',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   dictType: string
 
   @Column({
@@ -35,6 +42,8 @@ export class SysDictType extends BaseBusinessEntity {
     default: 0,
     comment: '显示顺序',
   })
+  @IsInt()
+  @IsOptional()
   dictSort: number
 
   @Column({
@@ -44,5 +53,7 @@ export class SysDictType extends BaseBusinessEntity {
     default: '0',
     comment: '字典状态（0正常 1停用）',
   })
+  @IsBooleanString()
+  @IsOptional()
   status: string
 }

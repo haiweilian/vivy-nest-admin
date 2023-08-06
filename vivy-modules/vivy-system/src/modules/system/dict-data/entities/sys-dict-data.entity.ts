@@ -1,4 +1,5 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
+import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -11,6 +12,8 @@ export class SysDictData extends BaseBusinessEntity {
     type: 'int',
     comment: '字典ID',
   })
+  @IsInt()
+  @IsNotEmpty()
   dictId: number
 
   @Column({
@@ -19,6 +22,8 @@ export class SysDictData extends BaseBusinessEntity {
     length: 100,
     comment: '字典类型',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   dictType: string
 
   @Column({
@@ -27,6 +32,8 @@ export class SysDictData extends BaseBusinessEntity {
     length: 100,
     comment: '字典标签',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   dictLabel: string
 
   @Column({
@@ -35,6 +42,8 @@ export class SysDictData extends BaseBusinessEntity {
     length: 100,
     comment: '字典键值',
   })
+  @MaxLength(100)
+  @IsNotEmpty()
   dictValue: string
 
   @Column({
@@ -43,6 +52,8 @@ export class SysDictData extends BaseBusinessEntity {
     default: 0,
     comment: '显示顺序',
   })
+  @IsInt()
+  @IsOptional()
   dictSort: number
 
   @Column({
@@ -52,6 +63,8 @@ export class SysDictData extends BaseBusinessEntity {
     default: '0',
     comment: '字典状态（0正常 1停用）',
   })
+  @IsBooleanString()
+  @IsOptional()
   status: string
 
   @Column({
@@ -61,7 +74,9 @@ export class SysDictData extends BaseBusinessEntity {
     nullable: true,
     comment: '样式属性（其他样式扩展）',
   })
-  cssClass: string
+  @MaxLength(100)
+  @IsOptional()
+  cssClass?: string
 
   @Column({
     name: 'list_class',
@@ -70,5 +85,7 @@ export class SysDictData extends BaseBusinessEntity {
     nullable: true,
     comment: '表格回显样式',
   })
-  listClass: string
+  @MaxLength(100)
+  @IsOptional()
+  listClass?: string
 }

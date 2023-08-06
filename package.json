@@ -32,6 +32,7 @@
     "@vivy-common/config": "workspace:*",
     "@vivy-common/core": "workspace:*",
     "@vivy-common/logger": "workspace:*",
+    "@vivy-common/mybatis": "workspace:*",
     "@vivy-common/security": "workspace:*",
     "@vivy-common/swagger": "workspace:*",
     "class-transformer": "^0.5.1",

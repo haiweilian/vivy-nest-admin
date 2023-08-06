@@ -3,8 +3,9 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis'
 import { ConfigModule, ConfigService } from '@vivy-common/config'
-import { CoreModule } from '@vivy-common/core'
+import { CoreModule, TokenConstants } from '@vivy-common/core'
 import { LoggerModule, TypeORMLogger } from '@vivy-common/logger'
+import { MybatisModule } from '@vivy-common/mybatis'
 import { SecurityModule } from '@vivy-common/security'
 
 import { AppController } from './app.controller'
@@ -12,19 +13,12 @@ import { AppService } from './app.service'
 
 @Module({
   imports: [
+    // plugin
     ConfigModule.forRoot({
-      dir: path.resolve(__dirname, 'config'),
+      dir: path.join(__dirname, 'config'),
     }),
-    CoreModule.forRoot(),
-    SecurityModule.forRoot(),
-    LoggerModule.forRootAsync({
-      useFactory(config: ConfigService) {
-        return {
-          appName: config.get('app.name'),
-          logPath: path.resolve(__dirname, '../logs'),
-        }
-      },
-      inject: [ConfigService],
+    MybatisModule.forRoot({
+      patterns: path.join(__dirname, '**/*.mapper.xml'),
     }),
     RedisModule.forRootAsync({
       useFactory(config: ConfigService) {
@@ -45,6 +39,25 @@ import { AppService } from './app.service'
         }
       },
       inject: [ConfigService],
+    }),
+
+    // common
+    CoreModule.forRoot(),
+    LoggerModule.forRootAsync({
+      useFactory(config: ConfigService) {
+        return {
+          appName: config.get('app.name'),
+          logPath: path.join(__dirname, '../logs'),
+        }
+      },
+      inject: [ConfigService],
+    }),
+    SecurityModule.forRootAsync({
+      useFactory() {
+        return {
+          secret: TokenConstants.SECRET,
+        }
+      },
     }),
   ],
   controllers: [AppController],

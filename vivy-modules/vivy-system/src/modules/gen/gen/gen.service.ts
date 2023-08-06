@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common'
-import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
+import { InjectRepository } from '@nestjs/typeorm'
 import { ServiceException } from '@vivy-common/core'
 import { isEmpty } from 'lodash'
 import { Pagination, paginate } from 'nestjs-typeorm-paginate'
-import { EntityManager, Like, Repository } from 'typeorm'
-import { GenTableColumn } from '@/entities/gen-table-column.entity'
-import { GenTable } from '@/entities/gen-table.entity'
+import { Like, Repository } from 'typeorm'
 import { GenUtils } from '../utils/gen.utils'
 import { ListGenDto, UpdateGenDto } from './dto/gen.dto'
+import { GenTableColumn } from './entities/gen-table-column.entity'
+import { GenTable } from './entities/gen-table.entity'
+import { GenMapper } from './gen.mapper'
 
 /**
  * 代码生成
@@ -16,14 +17,13 @@ import { ListGenDto, UpdateGenDto } from './dto/gen.dto'
 @Injectable()
 export class GenService {
   constructor(
-    @InjectEntityManager()
-    private entityManager: EntityManager,
-
     @InjectRepository(GenTable)
     private tableRepository: Repository<GenTable>,
 
     @InjectRepository(GenTableColumn)
-    private tableColumnRepository: Repository<GenTableColumn>
+    private tableColumnRepository: Repository<GenTableColumn>,
+
+    private genMapper: GenMapper
   ) {}
 
   /**
@@ -85,7 +85,7 @@ export class GenService {
    * @returns 数据库表列表
    */
   async dblist(gen: ListGenDto): Promise<GenTable[]> {
-    return this.selectDbTableList(gen.tableName, gen.tableComment)
+    return this.genMapper.selectDbTableList(gen.tableName, gen.tableComment)
   }
 
   /**
@@ -93,10 +93,10 @@ export class GenService {
    * @param tableNames 表名称
    */
   async import(tableNames: string[]): Promise<void> {
-    const tables = await this.selectDbTableListByNames(tableNames)
+    const tables = await this.genMapper.selectDbTableListByNames(tableNames)
     for (const table of tables) {
       GenUtils.initTable(table)
-      const columns = await this.selectDbTableColumnsByName(table.tableName)
+      const columns = await this.genMapper.selectDbTableColumnsByName(table.tableName)
       for (const column of columns) {
         GenUtils.initColumn(column, table)
       }
@@ -110,7 +110,7 @@ export class GenService {
    * @param tableName 表名称
    */
   async sync(tableName: string): Promise<any> {
-    const dbColumns = await this.selectDbTableColumnsByName(tableName)
+    const dbColumns = await this.genMapper.selectDbTableColumnsByName(tableName)
     if (isEmpty(dbColumns)) {
       throw new ServiceException('同步数据失败，原表结构不存在')
     }
@@ -173,81 +173,5 @@ export class GenService {
    */
   async download(tableName: number): Promise<any> {
     throw new Error('Method not implemented.')
-  }
-
-  /**
-   * 查询数据库表列表
-   * @param name 表名称
-   * @param comment 表注释
-   */
-  private async selectDbTableList(name: string, comment: string): Promise<GenTable[]> {
-    return this.entityManager.query<GenTable[]>(
-      `SELECT
-        table_name AS tableName,
-        table_comment AS tableComment,
-        create_time AS createTime,
-        update_time AS updateTime
-      FROM
-        information_schema.TABLES
-      WHERE
-        table_schema = ( SELECT DATABASE () )
-        AND table_name NOT LIKE 'gen_%'
-        AND table_name NOT IN ( SELECT table_name FROM gen_table )
-        AND lower( table_name ) LIKE lower(concat( '%', ?, '%' ))
-        AND lower( table_comment ) LIKE lower(concat( '%', ?, '%' ))
-      ORDER BY
-        create_time DESC
-    `,
-      [name, comment]
-    )
-  }
-
-  /**
-   * 根据名称查询数据库表列表
-   * @param names 表名称
-   */
-  private async selectDbTableListByNames(names: string[]): Promise<GenTable[]> {
-    return this.entityManager.query<GenTable[]>(
-      `SELECT
-        table_name AS tableName,
-        table_comment AS tableComment,
-        create_time AS createTime,
-        update_time AS updateTime
-      FROM
-        information_schema.TABLES
-      WHERE
-        table_schema = ( SELECT DATABASE () )
-        AND table_name NOT LIKE 'gen_%'
-        AND table_name NOT IN ( SELECT table_name FROM gen_table )
-        AND table_name IN( ${Array(names.length).fill('?').join()} )
-    `,
-      [...names]
-    )
-  }
-
-  /**
-   * 根据名称查询表格列列表
-   * @param name 表名称
-   */
-  private async selectDbTableColumnsByName(name: string): Promise<GenTableColumn[]> {
-    return this.entityManager.query<GenTableColumn[]>(
-      `SELECT
-        column_name AS columnName,
-        column_type AS columnType,
-        ordinal_position AS columnSort,
-        column_comment AS columnComment,
-        ( CASE WHEN column_key = 'PRI' THEN '0' ELSE '1' END ) AS isPk,
-        ( CASE WHEN ( is_nullable = 'no' && column_key != 'PRI' ) THEN '0' ELSE '1' END ) AS isRequired,
-        ( CASE WHEN extra = 'auto_increment' THEN '0' ELSE '1' END ) AS isIncrement
-      FROM
-        information_schema.COLUMNS
-      WHERE
-        table_schema = ( SELECT DATABASE () )
-        AND table_name = ?
-      ORDER BY
-        ordinal_position
-    `,
-      [name]
-    )
   }
 }

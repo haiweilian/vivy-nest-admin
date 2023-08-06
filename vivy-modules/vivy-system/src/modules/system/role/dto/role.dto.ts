@@ -1,6 +1,7 @@
-import { ApiPropertyOptional } from '@nestjs/swagger'
+import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
-import { Allow, IsArray, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
+import { Allow, IsArray, IsOptional } from 'class-validator'
+import { SysRole } from '../entities/sys-role.entity'
 
 /**
  * 列表
@@ -8,66 +9,43 @@ import { Allow, IsArray, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-
 export class ListRoleDto extends PaginateDto {
   /** 角色名称 */
   @Allow()
-  @ApiPropertyOptional()
-  roleName: string = ''
+  roleName?: string = ''
 
   /** 角色编码 */
   @Allow()
-  @ApiPropertyOptional()
-  roleCode: string = ''
+  roleCode?: string = ''
 
   /** 角色状态（0正常 1停用） */
   @Allow()
-  @ApiPropertyOptional()
-  status: string
+  status?: string
 }
 
 /**
  * 新增
  */
-export class CreateRoleDto {
-  /** 角色名称 */
-  @IsNotEmpty()
-  @MaxLength(50)
-  roleName: string
-
-  /** 角色编码 */
-  @IsNotEmpty()
-  @MaxLength(50)
-  roleCode: string
-
-  /** 显示顺序 */
-  @IsOptional()
-  @IsInt()
-  roleSort: number
-
-  /** 角色状态（0正常 1停用） */
-  @IsOptional()
-  @MaxLength(1)
-  status: string
-
-  /** 备注 */
-  @IsOptional()
-  @MaxLength(500)
-  remark: string
-
+export class CreateRoleDto extends OmitType(SysRole, ['roleId'] as const) {
   /** 菜单权限 */
-  @IsOptional()
   @IsArray()
+  @IsOptional()
   menuIds: number[]
 
   /** 部门权限 */
-  @IsOptional()
   @IsArray()
+  @IsOptional()
   deptIds: number[]
 }
 
 /**
  * 更新
  */
-export class UpdateRoleDto extends CreateRoleDto {
-  /** 角色ID */
-  @IsNotEmpty()
-  @IsInt()
-  roleId: number
+export class UpdateRoleDto extends SysRole {
+  /** 菜单权限 */
+  @IsArray()
+  @IsOptional()
+  menuIds: number[]
+
+  /** 部门权限 */
+  @IsArray()
+  @IsOptional()
+  deptIds: number[]
 }

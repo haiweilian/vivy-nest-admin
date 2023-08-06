@@ -3,9 +3,9 @@ import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
 import { BaseStatusEnums, ServiceException } from '@vivy-common/core'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { EntityManager, Like, Repository } from 'typeorm'
-import { SysDictData } from '@/entities/sys-dict-data.entity'
-import { SysDictType } from '@/entities/sys-dict-type.entity'
+import { SysDictData } from '@/modules/system/dict-data/entities/sys-dict-data.entity'
 import { ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from './dto/dict-type.dto'
+import { SysDictType } from './entities/sys-dict-type.entity'
 
 /**
  * 字典类型管理
@@ -98,7 +98,7 @@ export class DictTypeService {
 
   /**
    * 校验字典类型是否唯一
-   * @param dictType 字典类型信息
+   * @param dictTypeDto 字典类型信息
    * @returns true 唯一 / false 不唯一
    */
   async checkDictTypeUnique(dictTypeDto: Partial<SysDictType>): Promise<boolean> {
@@ -114,7 +114,7 @@ export class DictTypeService {
 
   /**
    * 校验字典名称是否唯一
-   * @param dictType 字典类型信息
+   * @param dictTypeDto 字典类型信息
    * @returns true 唯一 / false 不唯一
    */
   async checkDictNameUnique(dictTypeDto: Partial<SysDictType>): Promise<boolean> {

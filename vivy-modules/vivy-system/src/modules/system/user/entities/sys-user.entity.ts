@@ -1,4 +1,5 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
+import { IsBooleanString, IsEmail, IsInt, IsMobilePhone, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -11,6 +12,8 @@ export class SysUser extends BaseBusinessEntity {
     type: 'int',
     comment: '用户ID',
   })
+  @IsInt()
+  @IsNotEmpty()
   userId: number
 
   @Column({
@@ -19,7 +22,9 @@ export class SysUser extends BaseBusinessEntity {
     nullable: true,
     comment: '部门ID',
   })
-  deptId: number
+  @IsInt()
+  @IsOptional()
+  deptId?: number
 
   @Column({
     name: 'user_name',
@@ -28,6 +33,8 @@ export class SysUser extends BaseBusinessEntity {
     unique: true,
     comment: '用户账号',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   userName: string
 
   @Column({
@@ -36,6 +43,8 @@ export class SysUser extends BaseBusinessEntity {
     length: 50,
     comment: '用户昵称',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   nickName: string
 
   @Column({
@@ -45,6 +54,8 @@ export class SysUser extends BaseBusinessEntity {
     default: '00',
     comment: '用户类型（00系统用户）',
   })
+  @MaxLength(2)
+  @IsOptional()
   userType: string
 
   @Column({
@@ -54,7 +65,9 @@ export class SysUser extends BaseBusinessEntity {
     nullable: true,
     comment: '用户邮箱',
   })
-  email: string
+  @IsEmail()
+  @IsOptional()
+  email?: string
 
   @Column({
     name: 'phonenumber',
@@ -63,15 +76,19 @@ export class SysUser extends BaseBusinessEntity {
     nullable: true,
     comment: '手机号码',
   })
-  phonenumber: string
+  @IsMobilePhone('zh-CN')
+  @IsOptional()
+  phonenumber?: string
 
   @Column({
     name: 'sex',
     type: 'char',
     length: 1,
-    default: '0',
+    default: '2',
     comment: '用户性别（0男 1女 2未知）',
   })
+  @MaxLength(1)
+  @IsOptional()
   sex: string
 
   @Column({
@@ -81,16 +98,19 @@ export class SysUser extends BaseBusinessEntity {
     nullable: true,
     comment: '头像地址',
   })
-  avatar: string
+  @MaxLength(255)
+  @IsOptional()
+  avatar?: string
 
   @Column({
     name: 'password',
     type: 'varchar',
     length: 255,
-    default: '',
     select: false,
     comment: '密码',
   })
+  @MaxLength(255)
+  @IsNotEmpty()
   password: string
 
   @Column({
@@ -100,5 +120,7 @@ export class SysUser extends BaseBusinessEntity {
     default: '0',
     comment: '用户状态（0正常 1停用）',
   })
+  @IsBooleanString()
+  @IsOptional()
   status: string
 }

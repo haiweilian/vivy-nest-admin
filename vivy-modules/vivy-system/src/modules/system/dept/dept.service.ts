@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { TreeUtils, BaseStatusEnums } from '@vivy-common/core'
 import { Repository } from 'typeorm'
-import { SysDept } from '@/entities/sys-dept.entity'
-import { SysUser } from '@/entities/sys-user.entity'
+import { SysUser } from '@/modules/system/user/entities/sys-user.entity'
 import { CreateDeptDto, UpdateDeptDto } from './dto/dept.dto'
+import { SysDept } from './entities/sys-dept.entity'
 import { DeptTreeVo } from './vo/dept.vo'
 
 /**

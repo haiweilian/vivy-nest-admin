@@ -1,4 +1,5 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
+import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -11,14 +12,19 @@ export class SysDept extends BaseBusinessEntity {
     type: 'int',
     comment: '部门ID',
   })
+  @IsInt()
+  @IsNotEmpty()
   deptId: number
 
   @Column({
     name: 'parent_id',
     type: 'int',
+    nullable: true,
     comment: '父部门ID',
   })
-  parentId: number
+  @IsInt()
+  @IsOptional()
+  parentId?: number
 
   @Column({
     name: 'dept_name',
@@ -26,6 +32,8 @@ export class SysDept extends BaseBusinessEntity {
     length: 50,
     comment: '部门名称',
   })
+  @MaxLength(50)
+  @IsNotEmpty()
   deptName: string
 
   @Column({
@@ -34,6 +42,8 @@ export class SysDept extends BaseBusinessEntity {
     default: 0,
     comment: '显示顺序',
   })
+  @IsInt()
+  @IsOptional()
   deptSort: number
 
   @Column({
@@ -43,5 +53,7 @@ export class SysDept extends BaseBusinessEntity {
     default: '0',
     comment: '部门状态（0正常 1停用）',
   })
+  @IsBooleanString()
+  @IsOptional()
   status: string
 }

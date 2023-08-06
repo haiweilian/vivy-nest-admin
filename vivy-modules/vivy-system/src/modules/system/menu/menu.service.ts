@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { TreeUtils, BaseStatusEnums } from '@vivy-common/core'
 import { Repository } from 'typeorm'
-import { SysMenu } from '@/entities/sys-menu.entity'
-import { SysRoleMenu } from '@/entities/sys-role-menu.entity'
+import { SysRoleMenu } from '@/modules/system/role/entities/sys-role-menu.entity'
 import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto'
+import { SysMenu } from './entities/sys-menu.entity'
 import { MenuTreeVo } from './vo/menu.vo'
 
 /**
@@ -80,7 +80,7 @@ export class MenuService {
   }
 
   /**
-   * 检查是否存在juese
+   * 检查是否存在角色
    * @param menuId 菜单ID
    * @return true 存在 / false 不存在
    */
@@ -107,5 +107,23 @@ export class MenuService {
       id: 'menuId',
       pid: 'parentId',
     })
+  }
+
+  /**
+   * 根据用户ID查询菜单列表
+   * @param userId 用户用户ID
+   * @returns 用户菜单列表
+   */
+  async selectMenuByUserId(userId: number): Promise<SysMenu[]> {
+    return this.menuRepository
+      .createQueryBuilder('m')
+      .leftJoin('sys_role_menu', 'rm', 'm.menu_id = rm.menu_id')
+      .leftJoin('sys_user_role', 'ur', 'rm.role_id = ur.role_id')
+      .leftJoin('sys_role', 'r', 'ur.role_id = r.role_id')
+      .where('ur.user_id = :userId', { userId })
+      .andWhere('m.status = :status', { status: BaseStatusEnums.NORMAL })
+      .andWhere('r.status = :status', { status: BaseStatusEnums.NORMAL })
+      .distinct()
+      .getMany()
   }
 }

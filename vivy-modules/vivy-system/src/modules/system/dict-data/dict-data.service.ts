@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
-import { SysDictData } from '@/entities/sys-dict-data.entity'
 import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dict-data.dto'
+import { SysDictData } from './entities/sys-dict-data.entity'
 
 /**
  * 字典数据管理

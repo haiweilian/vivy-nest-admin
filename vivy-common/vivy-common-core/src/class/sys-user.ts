@@ -12,7 +12,7 @@ export class SysUser extends BaseBusinessEntity {
   /**
    * 部门ID
    */
-  deptId: number
+  deptId?: number
 
   /**
    * 用户账号
@@ -32,12 +32,12 @@ export class SysUser extends BaseBusinessEntity {
   /**
    * 用户邮箱
    */
-  email: string
+  email?: string
 
   /**
    * 手机号码
    */
-  phonenumber: string
+  phonenumber?: string
 
   /**
    * 用户性别（0男 1女 2未知）
@@ -47,7 +47,7 @@ export class SysUser extends BaseBusinessEntity {
   /**
    * 头像地址
    */
-  avatar: string
+  avatar?: string
 
   /**
    * 密码
