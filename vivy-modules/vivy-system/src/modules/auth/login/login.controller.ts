@@ -13,7 +13,7 @@ import { LoginService } from './login.service'
  */
 @ApiTags('登录管理')
 @ApiBearerAuth()
-@Controller()
+@Controller('auth')
 export class LoginController {
   constructor(
     private tokenUtils: TokenUtils,

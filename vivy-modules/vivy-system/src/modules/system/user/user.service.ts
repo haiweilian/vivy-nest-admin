@@ -49,7 +49,6 @@ export class UserService {
       },
       {
         where: {
-          sex: user.sex,
           status: user.status,
           deptId: user.deptId,
           userName: Like(`%${user.userName}%`),

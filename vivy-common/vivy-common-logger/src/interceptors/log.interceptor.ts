@@ -11,7 +11,7 @@ import { RpcLogService } from '../services/rpc-log.service'
 
 /**
  * 自定义操作日志记录拦截器
- * 备注：如果在分布式架构中需要整合操作日志需要注入此拦截器并实现服务调用
+ * 备注：如果在分布式架构中需要整合操作日志需要全局注入此拦截器并实现服务调用
  */
 @Injectable()
 export class LogInterceptor implements NestInterceptor {
@@ -59,10 +59,10 @@ export class LogInterceptor implements NestInterceptor {
     operLog.requestUrl = request.url
     operLog.requestMethod = request.method
     if (meta.isSaveRequestData) {
-      operLog.requestParam = JSON.stringify(request.body).slice(2000)
+      operLog.requestParam = JSON.stringify(request.body).slice(0, 2000)
     }
     if (meta.isSaveResponseData && !isStreamableFile) {
-      operLog.requestResult = JSON.stringify(result).slice(2000)
+      operLog.requestResult = JSON.stringify(result).slice(0, 2000)
     }
 
     if (isStreamableFile || result.code === HttpStatus.OK) {
@@ -73,7 +73,7 @@ export class LogInterceptor implements NestInterceptor {
       operLog.requestErrmsg = result.message
     }
 
-    this.rpcLogService.saveOperLog(operLog).catch(() => {
+    this.rpcLogService.add(operLog).catch(() => {
       // Do not handle errors
     })
   }

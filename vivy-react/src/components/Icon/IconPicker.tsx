@@ -27,20 +27,19 @@ const IconPicker: React.FC<IconPickerProps> = ({ children, onChange }) => {
       content={
         <div className="flex flex-col">
           <Input.Search className="mb-4" placeholder="搜索图标" enterButton="搜索" onSearch={setSearch} />
-
-          <Space
-            wrap
-            align="start"
+          <div
             style={{
               width: '400px',
               height: '200px',
               overflow: 'auto',
             }}
           >
-            {icons.map((name) => (
-              <Button key={name} icon={getIcon(name)} onClick={() => onChange?.(name)} />
-            ))}
-          </Space>
+            <Space wrap align="start">
+              {icons.map((name) => (
+                <Button key={name} icon={getIcon(name)} onClick={() => onChange?.(name)} />
+              ))}
+            </Space>
+          </div>
         </div>
       }
     >

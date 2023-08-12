@@ -4,7 +4,7 @@ import { Allow } from 'class-validator'
 import { SysPost } from '../entities/sys-post.entity'
 
 /**
- * 列表
+ * 查询岗位
  */
 export class ListPostDto extends PaginateDto {
   /** 岗位名称 */
@@ -21,11 +21,11 @@ export class ListPostDto extends PaginateDto {
 }
 
 /**
- * 新增
+ * 添加岗位
  */
 export class CreatePostDto extends OmitType(SysPost, ['postId'] as const) {}
 
 /**
- * 更新
+ * 更新岗位
  */
-export class UpdatePostDto extends SysPost {}
+export class UpdatePostDto extends OmitType(SysPost, [] as const) {}

@@ -93,7 +93,7 @@ export class MenuService {
    * 查询菜单选项树
    * @returns 菜单选项树
    */
-  async treeSelectable(): Promise<MenuTreeVo[]> {
+  async selectableMenuTree(): Promise<MenuTreeVo[]> {
     const list = await this.menuRepository.find({
       select: ['menuId', 'menuName', 'parentId'],
       order: {

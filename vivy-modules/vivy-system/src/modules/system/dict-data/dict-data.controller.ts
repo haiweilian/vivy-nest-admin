@@ -93,8 +93,8 @@ export class DictDataController {
    * @param dictType 字典类型
    * @returns 字典数据选项列表
    */
-  @Get('options/:dictType')
-  async optionsByDictType(@Param('dictType') dictType: string): Promise<AjaxResult> {
-    return AjaxResult.success(await this.dictDataService.optionsByDictType(dictType))
+  @Get('list/:dictType')
+  async listByDictType(@Param('dictType') dictType: string): Promise<AjaxResult> {
+    return AjaxResult.success(await this.dictDataService.listByDictType(dictType))
   }
 }

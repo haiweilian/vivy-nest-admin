@@ -4,7 +4,7 @@ import { Dropdown } from 'antd'
 import type { MenuInfo } from 'rc-menu/lib/interface'
 import React, { useCallback } from 'react'
 import { flushSync } from 'react-dom'
-import { logout } from '@/apis/auth/auth'
+import { logout } from '@/apis/auth/login'
 import { PageEnum } from '@/enums/pageEnum'
 import { removeToken } from '@/utils/auth'
 

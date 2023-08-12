@@ -91,8 +91,8 @@ export class PostController {
    * 岗位选项列表
    * @returns 岗位选项列表
    */
-  @Get('options/selectable')
-  async optionsSelectable(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.postService.optionsSelectable())
+  @Get('selectable/post')
+  async selectablePost(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.postService.selectablePost())
   }
 }

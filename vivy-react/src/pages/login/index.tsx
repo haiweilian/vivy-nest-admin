@@ -3,8 +3,8 @@ import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-compone
 import { useModel, history } from '@umijs/max'
 import { message } from 'antd'
 import { flushSync } from 'react-dom'
-import { login } from '@/apis/auth/auth'
-import type { LoginInfoDto } from '@/apis/types/auth/auth'
+import { login } from '@/apis/auth/login'
+import type { LoginParams } from '@/apis/auth/login'
 import { Footer } from '@/components/Layout'
 import { PageEnum } from '@/enums/pageEnum'
 import { setToken } from '@/utils/auth'
@@ -24,7 +24,7 @@ const Login = () => {
     }
   }
 
-  const handleLogin = async (values: LoginInfoDto) => {
+  const handleLogin = async (values: LoginParams) => {
     try {
       const token = await login(values)
       setToken(token.access_token)

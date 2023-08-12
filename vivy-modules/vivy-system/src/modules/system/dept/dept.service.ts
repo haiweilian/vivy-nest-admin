@@ -93,7 +93,7 @@ export class DeptService {
    * 查询部门选项树
    * @returns 部门选项树
    */
-  async treeSelectable(): Promise<DeptTreeVo[]> {
+  async selectableDeptTree(): Promise<DeptTreeVo[]> {
     const list = await this.deptRepository.find({
       select: ['deptId', 'deptName', 'parentId'],
       order: {

@@ -58,4 +58,9 @@ export class SysUser extends BaseBusinessEntity {
    * 用户状态（0正常 1停用）
    */
   status: string
+
+  /**
+   * 删除标志（0存在 1删除）
+   */
+  delFlag: string
 }

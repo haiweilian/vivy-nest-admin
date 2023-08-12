@@ -1,4 +1,4 @@
-import { PlusOutlined, DeleteOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons'
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons'
 import { ProTable } from '@ant-design/pro-components'
 import type { ProColumns, ActionType } from '@ant-design/pro-components'
 import { useRequest, useModel, Access, useAccess } from '@umijs/max'
@@ -6,10 +6,10 @@ import type { TreeProps, TreeDataNode } from 'antd'
 import { Tree, Button, Popconfirm } from 'antd'
 import { isEmpty } from 'lodash-es'
 import React, { useRef, useState } from 'react'
-import { selectableDept } from '@/apis/system/dept'
+import { selectableDeptTree } from '@/apis/system/dept'
+import type { DeptTreeResult } from '@/apis/system/dept'
 import { listUser, deleteUser } from '@/apis/system/user'
-import type { DeptTreeVo } from '@/apis/types/system/dept'
-import type { SysUser } from '@/apis/types/system/user'
+import type { UserResult } from '@/apis/system/user'
 import { DictTag } from '@/components/Dict'
 import { eachTree } from '@/utils/tree'
 import ImportForm from './components/ImportForm'
@@ -18,9 +18,9 @@ import UpdateForm from './components/UpdateForm'
 const User = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
+  const [record, setRecord] = useState<UserResult>()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [importOpen, setImportOpen] = useState(false)
-  const [recordData, setRecordData] = useState<Nullable<SysUser>>(null)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
@@ -38,10 +38,10 @@ const User = () => {
     setSelectedDeptKeys(selectedKeys)
     actionRef.current?.reload()
   }
-  const { data: deptData } = useRequest(selectableDept, {
+  const { data: deptData } = useRequest(selectableDeptTree, {
     onSuccess(data) {
       const keys: React.Key[] = []
-      eachTree<DeptTreeVo>(data, (item) => {
+      eachTree<DeptTreeResult>(data, (item) => {
         if (!isEmpty(item.children)) {
           keys.push(item.deptId)
         }
@@ -63,7 +63,7 @@ const User = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<SysUser>[] = [
+  const columns: ProColumns<UserResult>[] = [
     {
       title: '用户编号',
       dataIndex: 'userId',
@@ -92,11 +92,6 @@ const User = () => {
       },
     },
     {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      search: false,
-    },
-    {
       title: '操作',
       valueType: 'option',
       key: 'option',
@@ -106,7 +101,7 @@ const User = () => {
             <Button
               type="link"
               onClick={() => {
-                setRecordData(record)
+                setRecord(record)
                 setUpdateOpen(true)
               }}
             >
@@ -171,7 +166,7 @@ const User = () => {
                   type="primary"
                   icon={<PlusOutlined />}
                   onClick={() => {
-                    setRecordData(null)
+                    setRecord(undefined)
                     setUpdateOpen(true)
                   }}
                 >
@@ -189,37 +184,44 @@ const User = () => {
                   </Button>
                 </Popconfirm>
               </Access>,
-              <Access key="import" accessible={hasPermission('system:user:import')}>
-                <Button
-                  icon={<UploadOutlined />}
-                  onClick={() => {
-                    setImportOpen(true)
-                  }}
-                >
-                  导入
-                </Button>
-              </Access>,
-              <Access key="export" accessible={hasPermission('system:user:export')}>
-                <Button
-                  icon={<DownloadOutlined />}
-                  onClick={() => {
-                    setImportOpen(true)
-                  }}
-                >
-                  导出
-                </Button>
-              </Access>,
+              // <Access key="import" accessible={hasPermission('system:user:import')}>
+              //   <Button
+              //     icon={<UploadOutlined />}
+              //     onClick={() => {
+              //       setImportOpen(true)
+              //     }}
+              //   >
+              //     导入
+              //   </Button>
+              // </Access>,
+              // <Access key="export" accessible={hasPermission('system:user:export')}>
+              //   <Button
+              //     icon={<DownloadOutlined />}
+              //     onClick={() => {
+              //       setImportOpen(true)
+              //     }}
+              //   >
+              //     导出
+              //   </Button>
+              // </Access>,
             ],
           }}
         />
       </div>
+
       <UpdateForm
-        record={recordData}
+        record={record}
         open={updateOpen}
         onOpenChange={setUpdateOpen}
         onFinish={async () => actionRef.current?.reload()}
       />
-      <ImportForm open={importOpen} onOpenChange={setImportOpen} onFinish={async () => actionRef.current?.reload()} />
+
+      <ImportForm
+        // record={record}
+        open={importOpen}
+        onOpenChange={setImportOpen}
+        onFinish={async () => actionRef.current?.reload()}
+      />
     </>
   )
 }

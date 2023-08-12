@@ -4,7 +4,7 @@ import { Allow } from 'class-validator'
 import { SysDictData } from '../entities/sys-dict-data.entity'
 
 /**
- * 列表
+ * 查询字典数据
  */
 export class ListDictDataDto extends PaginateDto {
   /** 字典类型 */
@@ -21,11 +21,11 @@ export class ListDictDataDto extends PaginateDto {
 }
 
 /**
- * 新增
+ * 添加字典数据
  */
 export class CreateDictDataDto extends OmitType(SysDictData, ['dictId'] as const) {}
 
 /**
- * 更新
+ * 更新字典数据
  */
-export class UpdateDictDataDto extends SysDictData {}
+export class UpdateDictDataDto extends OmitType(SysDictData, [] as const) {}

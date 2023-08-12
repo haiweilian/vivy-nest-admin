@@ -85,8 +85,8 @@ export class DeptController {
    * 查询部门选项树
    * @returns 部门选项树
    */
-  @Get('tree/selectable')
-  async treeSelectable(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.deptService.treeSelectable())
+  @Get('selectable/deptTree')
+  async selectableDeptTree(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.deptService.selectableDeptTree())
   }
 }

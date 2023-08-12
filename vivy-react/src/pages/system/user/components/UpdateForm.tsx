@@ -6,18 +6,17 @@ import {
   ProFormTreeSelect,
   ProFormSelect,
   ProFormRadio,
-  ProFormTextArea,
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { useRef, useEffect } from 'react'
-import { selectableDept } from '@/apis/system/dept'
+import { selectableDeptTree } from '@/apis/system/dept'
 import { selectablePost } from '@/apis/system/post'
 import { selectableRole } from '@/apis/system/role'
 import { addUser, updateUser, infoUser } from '@/apis/system/user'
-import type { SysUser } from '@/apis/types/system/user'
+import type { CreateUserParams, UserResult } from '@/apis/system/user'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record: Nullable<SysUser>
+  record?: UserResult
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
@@ -26,9 +25,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 注册字典数据
    */
-  const { selectDict } = useModel('dict')
-  const sysUserSex = selectDict('sys_user_sex')
-  const sysNormalDisable = selectDict('sys_normal_disable')
+  const { loadDict, toSelect } = useModel('dict')
+  const sysUserSex = loadDict('sys_user_sex')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 获取初始化数据
@@ -46,7 +45,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    * 提交表单
    * @param values 表单值
    */
-  const handleSubmit = async (values: Recordable) => {
+  const handleSubmit = async (values: CreateUserParams) => {
     if (record) {
       await updateUser({
         ...values,
@@ -65,8 +64,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑用户-${record.nickName}` : `新增用户`}
-      onFinish={async (values) => {
+      title={record ? `编辑用户` : `新增用户`}
+      onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
@@ -87,15 +86,20 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormTreeSelect
         name="deptId"
         label="归属部门"
-        request={selectableDept}
+        request={selectableDeptTree}
         fieldProps={{
           fieldNames: { label: 'deptName', value: 'deptId' },
         }}
       />
       <ProFormText name="phonenumber" label="手机号码" />
       <ProFormText name="email" label="邮箱" />
-      <ProFormSelect name="sex" label="用户性别" fieldProps={{ options: sysUserSex }} />
-      <ProFormRadio.Group name="status" label="状态" initialValue={'0'} fieldProps={{ options: sysNormalDisable }} />
+      <ProFormSelect name="sex" label="用户性别" fieldProps={{ options: toSelect(sysUserSex) }} />
+      <ProFormRadio.Group
+        name="status"
+        label="状态"
+        initialValue={'0'}
+        fieldProps={{ options: toSelect(sysNormalDisable) }}
+      />
       <ProFormSelect
         name="roleIds"
         label="角色"
@@ -114,7 +118,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
           fieldNames: { label: 'postName', value: 'postId' },
         }}
       />
-      <ProFormTextArea name="remark" label="备注" />
     </DrawerForm>
   )
 }

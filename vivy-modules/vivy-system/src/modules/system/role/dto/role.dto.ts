@@ -4,7 +4,7 @@ import { Allow, IsArray, IsOptional } from 'class-validator'
 import { SysRole } from '../entities/sys-role.entity'
 
 /**
- * 列表
+ * 查询角色
  */
 export class ListRoleDto extends PaginateDto {
   /** 角色名称 */
@@ -21,31 +21,31 @@ export class ListRoleDto extends PaginateDto {
 }
 
 /**
- * 新增
+ * 添加角色
  */
 export class CreateRoleDto extends OmitType(SysRole, ['roleId'] as const) {
   /** 菜单权限 */
   @IsArray()
   @IsOptional()
-  menuIds: number[]
+  menuIds?: number[]
 
   /** 部门权限 */
   @IsArray()
   @IsOptional()
-  deptIds: number[]
+  deptIds?: number[]
 }
 
 /**
- * 更新
+ * 更新角色
  */
-export class UpdateRoleDto extends SysRole {
+export class UpdateRoleDto extends OmitType(SysRole, [] as const) {
   /** 菜单权限 */
   @IsArray()
   @IsOptional()
-  menuIds: number[]
+  menuIds?: number[]
 
   /** 部门权限 */
   @IsArray()
   @IsOptional()
-  deptIds: number[]
+  deptIds?: number[]
 }

@@ -1,8 +1,10 @@
-import type { ProColumns } from '@ant-design/pro-components'
 import { EditableProTable } from '@ant-design/pro-components'
+import type { ProColumns } from '@ant-design/pro-components'
+import { useRequest } from '@umijs/max'
 import { DefaultOptionType } from 'antd/es/select'
 import React from 'react'
-import type { GenTableColumn } from '@/apis/types/gen/gen'
+import type { GenTableColumnResult } from '@/apis/gen/gen'
+import { selectableDictType } from '@/apis/system/dict-type'
 
 const tslangTypeOptions: DefaultOptionType[] = [
   { label: 'number', value: 'number' },
@@ -11,15 +13,15 @@ const tslangTypeOptions: DefaultOptionType[] = [
   { label: 'unknown', value: 'unknown' },
 ]
 
-// const javalangTypeOptions: DefaultOptionType[] = [
-//   { label: 'Long', value: 'Long' },
-//   { label: 'String', value: 'String' },
-//   { label: 'Integer', value: 'Integer' },
-//   { label: 'Double', value: 'Double' },
-//   { label: 'BigDecimal', value: 'BigDecimal' },
-//   { label: 'Date', value: 'Date' },
-//   { label: 'Boolean', value: 'Boolean' },
-// ]
+const javalangTypeOptions: DefaultOptionType[] = [
+  { label: 'Long', value: 'Long' },
+  { label: 'String', value: 'String' },
+  { label: 'Integer', value: 'Integer' },
+  { label: 'Double', value: 'Double' },
+  { label: 'BigDecimal', value: 'BigDecimal' },
+  { label: 'Date', value: 'Date' },
+  { label: 'Boolean', value: 'Boolean' },
+]
 
 const queryTypeOptions: DefaultOptionType[] = [
   { label: '=', value: 'EQ' },
@@ -34,6 +36,7 @@ const queryTypeOptions: DefaultOptionType[] = [
 
 const htmlTypeOptions: DefaultOptionType[] = [
   { label: '文本框', value: 'input' },
+  { label: '数字框', value: 'number' },
   { label: '文本域', value: 'textarea' },
   { label: '下拉框', value: 'select' },
   { label: '单选框', value: 'radio' },
@@ -46,17 +49,26 @@ const htmlTypeOptions: DefaultOptionType[] = [
 const checkboxOptions: DefaultOptionType[] = [{ label: '', value: '0' }]
 
 interface UpdateFormColumnProps {
-  value: GenTableColumn[]
-  onChange: (newColumns: GenTableColumn[]) => void
+  value: GenTableColumnResult[]
+  onChange: (newColumns: GenTableColumnResult[]) => void
 }
 
 const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) => {
   const editableKeys = value.map((item) => item.columnId)
 
   /**
+   * 字典数据
+   */
+  const { data } = useRequest(selectableDictType)
+  const dictTypeOptions: DefaultOptionType[] = (data || [])?.map((item) => ({
+    label: item.dictName,
+    value: item.dictType,
+  }))
+
+  /**
    * 表格列配置
    */
-  const columns: ProColumns<GenTableColumn>[] = [
+  const columns: ProColumns<GenTableColumnResult>[] = [
     {
       title: '字段列名',
       dataIndex: 'columnName',
@@ -80,14 +92,14 @@ const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) 
         options: tslangTypeOptions,
       },
     },
-    // {
-    //   title: 'Java类型',
-    //   dataIndex: 'javalangType',
-    //   valueType: 'select',
-    //   fieldProps: {
-    //     options: javalangTypeOptions,
-    //   },
-    // },
+    {
+      title: 'Java类型',
+      dataIndex: 'javalangType',
+      valueType: 'select',
+      fieldProps: {
+        options: javalangTypeOptions,
+      },
+    },
     {
       title: '属性名称',
       dataIndex: 'fieldName',
@@ -159,14 +171,14 @@ const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) 
       dataIndex: 'dictType',
       valueType: 'select',
       fieldProps: {
-        options: [],
+        options: dictTypeOptions,
       },
     },
   ]
 
   return (
     <>
-      <EditableProTable<GenTableColumn>
+      <EditableProTable<GenTableColumnResult>
         rowKey="columnId"
         columns={columns}
         value={value}

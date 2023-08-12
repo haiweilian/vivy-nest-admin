@@ -2,17 +2,17 @@ import { type DrawerFormProps, type ProFormInstance, DrawerForm } from '@ant-des
 import { Tabs } from 'antd'
 import { useRef, useEffect, useState } from 'react'
 import { infoGenTable, updateGenTable } from '@/apis/gen/gen'
-import type { GenTable, GenTableColumn } from '@/apis/types/gen/gen'
+import type { GenTableResult, GenTableColumnResult } from '@/apis/gen/gen'
 import UpdateFormBase from './UpdateFormBase'
 import UpdateFormColumn from './UpdateFormColumn'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record: Nullable<GenTable>
+  record?: GenTableResult
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   const formRef = useRef<ProFormInstance>()
-  const [tableInfo, setTableInfo] = useState<GenTable>()
+  const [tableInfo, setTableInfo] = useState<GenTableResult>()
 
   /**
    * 获取初始化数据
@@ -45,12 +45,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   return (
     <DrawerForm
       {...props}
-      width={'90vw'}
+      width={'95vw'}
       layout="horizontal"
-      labelCol={{ flex: '100px' }}
+      labelCol={{ flex: '120px' }}
       drawerProps={{ bodyStyle: { paddingTop: 0 } }}
       formRef={formRef}
-      title={record ? `编辑表-${record.tableName}` : `新增表`}
+      title={record ? `编辑表` : `新增表`}
       onFinish={async (values) => {
         await handleSubmit(values)
         props.onFinish?.(values)
@@ -71,7 +71,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
             children: (
               <UpdateFormColumn
                 value={tableInfo?.columns || []}
-                onChange={(newColumns: GenTableColumn[]) => {
+                onChange={(newColumns: GenTableColumnResult[]) => {
                   setTableInfo({
                     ...tableInfo!,
                     columns: newColumns,

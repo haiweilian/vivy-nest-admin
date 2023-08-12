@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { OperLogModule } from '@/modules/system/oper-log/oper-log.module'
-import { LogInterceptor } from './interceptors/log.interceptor'
+import { SysLogInterceptor } from './interceptors/log.interceptor'
 
 @Global()
 @Module({
@@ -9,7 +9,7 @@ import { LogInterceptor } from './interceptors/log.interceptor'
   providers: [
     {
       provide: APP_INTERCEPTOR,
-      useClass: LogInterceptor,
+      useClass: SysLogInterceptor,
     },
   ],
 })

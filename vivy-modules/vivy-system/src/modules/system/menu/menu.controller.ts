@@ -85,8 +85,8 @@ export class MenuController {
    * 查询菜单选项树
    * @returns 菜单选项树
    */
-  @Get('tree/selectable')
-  async treeSelectable(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.menuService.treeSelectable())
+  @Get('selectable/menuTree')
+  async selectableMenuTree(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.menuService.selectableMenuTree())
   }
 }

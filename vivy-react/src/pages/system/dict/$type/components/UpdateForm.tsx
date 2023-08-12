@@ -5,16 +5,15 @@ import {
   ProFormText,
   ProFormDigit,
   ProFormRadio,
-  ProFormTextArea,
   ProFormSelect,
 } from '@ant-design/pro-components'
 import { useModel, useParams } from '@umijs/max'
 import { useRef, useEffect } from 'react'
 import { addDictData, updateDictData, infoDictData } from '@/apis/system/dict-data'
-import type { SysDictData } from '@/apis/types/system/dict-data'
+import type { CreateDictDataParams, DictDataResult } from '@/apis/system/dict-data'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record: Nullable<SysDictData>
+  record?: DictDataResult
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
@@ -24,8 +23,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 注册字典数据
    */
-  const { selectDict } = useModel('dict')
-  const sysNormalDisable = selectDict('sys_normal_disable')
+  const { loadDict, toSelect } = useModel('dict')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 获取初始化数据
@@ -43,17 +42,17 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    * 提交表单
    * @param values 表单值
    */
-  const handleSubmit = async (values: Recordable) => {
+  const handleSubmit = async (values: CreateDictDataParams) => {
     if (record) {
       await updateDictData({
         ...values,
         dictId: record.dictId,
-        dictType: type,
+        dictType: type!,
       })
     } else {
       await addDictData({
         ...values,
-        dictType: type,
+        dictType: type!,
       })
     }
     formRef.current?.resetFields()
@@ -65,8 +64,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑字典-${record.dictLabel}` : `新增字典`}
-      onFinish={async (values) => {
+      title={record ? `编辑字典` : `新增字典`}
+      onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
@@ -90,8 +89,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         }}
       />
       <ProFormText name="cssClass" label="样式属性" />
-      <ProFormRadio.Group name="status" label="状态" initialValue={'0'} fieldProps={{ options: sysNormalDisable }} />
-      <ProFormTextArea name="remark" label="备注" />
+      <ProFormRadio.Group
+        name="status"
+        label="状态"
+        initialValue={'0'}
+        fieldProps={{ options: toSelect(sysNormalDisable) }}
+      />
     </DrawerForm>
   )
 }

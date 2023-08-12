@@ -28,12 +28,12 @@ export class LoginService {
       throw new ServiceException('登录用户不存在')
     }
 
-    if (UserStatusEnums.DELETED === user.delFlag) {
-      throw new ServiceException('您的账号已删除')
-    }
-
     if (UserStatusEnums.DISABLE === user.status) {
       throw new ServiceException('您的账号已停用')
+    }
+
+    if (UserStatusEnums.DELETED === user.delFlag) {
+      throw new ServiceException('您的账号已删除')
     }
 
     const isMatch = await PasswordUtils.compare(password, user.password)

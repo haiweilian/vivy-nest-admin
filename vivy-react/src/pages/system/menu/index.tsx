@@ -6,7 +6,7 @@ import { Button, Popconfirm } from 'antd'
 import { isEmpty } from 'lodash-es'
 import { useRef, useState } from 'react'
 import { treeMenu, deleteMenu } from '@/apis/system/menu'
-import type { MenuTreeVo } from '@/apis/types/system/menu'
+import type { MenuTreeResult } from '@/apis/system/menu'
 import { DictTag } from '@/components/Dict'
 import { getIcon } from '@/components/Icon'
 import { eachTree } from '@/utils/tree'
@@ -15,8 +15,8 @@ import UpdateForm from './components/UpdateForm'
 const Menu = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
+  const [record, setRecord] = useState<MenuTreeResult>()
   const [updateOpen, setUpdateOpen] = useState(false)
-  const [recordData, setRecordData] = useState<Nullable<MenuTreeVo>>(null)
 
   /**
    * 注册字典数据
@@ -36,7 +36,7 @@ const Menu = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<MenuTreeVo>[] = [
+  const columns: ProColumns<MenuTreeResult>[] = [
     {
       title: '菜单名称',
       dataIndex: 'menuName',
@@ -84,7 +84,7 @@ const Menu = () => {
           <Button
             type="link"
             onClick={() => {
-              setRecordData(record)
+              setRecord(record)
               setUpdateOpen(true)
             }}
           >
@@ -113,7 +113,7 @@ const Menu = () => {
         actionRef={actionRef}
         request={async () => {
           const data = await treeMenu()
-          eachTree<MenuTreeVo>(data, (item) => {
+          eachTree<MenuTreeResult>(data, (item) => {
             if (isEmpty(item.children)) item.children = undefined
           })
           return {
@@ -127,7 +127,7 @@ const Menu = () => {
                 type="primary"
                 icon={<PlusOutlined />}
                 onClick={() => {
-                  setRecordData(null)
+                  setRecord(undefined)
                   setUpdateOpen(true)
                 }}
               >
@@ -137,8 +137,9 @@ const Menu = () => {
           ],
         }}
       />
+
       <UpdateForm
-        record={recordData}
+        record={record}
         open={updateOpen}
         onOpenChange={setUpdateOpen}
         onFinish={async () => actionRef.current?.reload()}

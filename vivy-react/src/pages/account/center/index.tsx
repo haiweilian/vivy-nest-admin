@@ -1,6 +1,6 @@
 import { useRequest } from '@umijs/max'
 import { Row, Col, Card, Tabs } from 'antd'
-import { getLoginUserInfo } from '@/apis/auth/auth'
+import { getLoginUserInfo } from '@/apis/auth/login'
 import UpdateInfo from './components/UpdateInfo'
 import UpdatePassword from './components/UpdatePassword'
 import UserInfo from './components/UserInfo'

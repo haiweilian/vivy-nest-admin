@@ -1,9 +1,9 @@
 import { SysLoginLog } from '../entities/sys-login-log.entity'
 
 /**
- * 登录日志列表
+ * 查询登录日志
  */
-export class ListLoginLogVo extends SysLoginLog {
+export class LoginLogListVo extends SysLoginLog {
   /** 操作系统 */
   os: string
 

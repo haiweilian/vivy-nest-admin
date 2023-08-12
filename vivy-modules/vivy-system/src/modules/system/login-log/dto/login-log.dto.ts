@@ -4,7 +4,7 @@ import { Allow } from 'class-validator'
 import { SysLoginLog } from '../entities/sys-login-log.entity'
 
 /**
- * 列表
+ * 登录日志列表
  */
 export class ListLoginLogDto extends PaginateDto {
   /** 用户账号 */
@@ -21,6 +21,6 @@ export class ListLoginLogDto extends PaginateDto {
 }
 
 /**
- * 新增
+ * 添加登录日志
  */
 export class CreateLoginLogDto extends OmitType(SysLoginLog, ['loginId'] as const) {}

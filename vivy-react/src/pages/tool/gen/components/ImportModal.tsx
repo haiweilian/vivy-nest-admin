@@ -2,7 +2,7 @@ import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components'
 import { Modal, ModalProps } from 'antd'
 import { useRef, useState } from 'react'
 import { listDbTable, importDbTable } from '@/apis/gen/gen'
-import type { GenTable } from '@/apis/types/gen/gen'
+import type { GenTableResult } from '@/apis/gen/gen'
 
 const ImportModal: React.FC<ModalProps> = (props) => {
   const actionRef = useRef<ActionType>()
@@ -27,7 +27,7 @@ const ImportModal: React.FC<ModalProps> = (props) => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<GenTable>[] = [
+  const columns: ProColumns<GenTableResult>[] = [
     {
       title: '表名称',
       dataIndex: 'tableName',

@@ -11,8 +11,8 @@ import {
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { useRef, useEffect } from 'react'
-import { addMenu, updateMenu, infoMenu, selectableMenu } from '@/apis/system/menu'
-import type { MenuTreeVo } from '@/apis/types/system/menu'
+import { addMenu, updateMenu, infoMenu, selectableMenuTree } from '@/apis/system/menu'
+import type { CreateMenuParams, MenuTreeResult } from '@/apis/system/menu'
 import { IconPicker } from '@/components/Icon'
 
 type MenuType = { label: string; value: 'M' | 'C' | 'F' }
@@ -23,7 +23,7 @@ const menuTypeOptions: MenuType[] = [
 ]
 
 interface UpdateFormProps extends DrawerFormProps {
-  record: Nullable<MenuTreeVo>
+  record?: MenuTreeResult
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
@@ -32,9 +32,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 注册字典数据
    */
-  const { selectDict } = useModel('dict')
-  const sysYesNo = selectDict('sys_yes_no')
-  const sysNormalDisable = selectDict('sys_normal_disable')
+  const { loadDict, toSelect } = useModel('dict')
+  const sysYesNo = loadDict('sys_yes_no')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 获取初始化数据
@@ -55,7 +55,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    * 提交表单
    * @param values 表单值
    */
-  const handleSubmit = async (values: Recordable) => {
+  const handleSubmit = async (values: CreateMenuParams) => {
     if (record) {
       await updateMenu({
         ...values,
@@ -73,8 +73,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑菜单-${record.menuName}` : `新增菜单`}
-      onFinish={async (values) => {
+      title={record ? `编辑菜单` : `新增菜单`}
+      onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
@@ -83,7 +83,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormTreeSelect
         name="parentId"
         label="上级菜单"
-        request={selectableMenu}
+        request={selectableMenuTree}
         fieldProps={{
           fieldNames: { label: 'menuName', value: 'menuId' },
         }}
@@ -159,7 +159,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 label="是否显示"
                 tooltip="选择隐藏则路由将不会出现在侧边栏，但仍然可以访问"
                 initialValue={'0'}
-                fieldProps={{ options: sysYesNo }}
+                fieldProps={{ options: toSelect(sysYesNo) }}
               />
             ) : null}
             {/* 菜单 */}
@@ -169,7 +169,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 label="是否外链"
                 tooltip="选择是外链则路由地址需要以`http(s)://`开头"
                 initialValue={'1'}
-                fieldProps={{ options: sysYesNo }}
+                fieldProps={{ options: toSelect(sysYesNo) }}
               />
             ) : null}
             {/* 菜单 */}
@@ -179,7 +179,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 label="是否内嵌"
                 tooltip="选择是内嵌则路由地址需要以`http(s)://`开头"
                 initialValue={'1'}
-                fieldProps={{ options: sysYesNo }}
+                fieldProps={{ options: toSelect(sysYesNo) }}
               />
             ) : null}
             {/* 菜单 */}
@@ -189,13 +189,18 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 label="是否缓存"
                 tooltip="选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致"
                 initialValue={'1'}
-                fieldProps={{ options: sysYesNo }}
+                fieldProps={{ options: toSelect(sysYesNo) }}
               />
             ) : null}
           </>
         )}
       </ProFormDependency>
-      <ProFormRadio.Group name="status" label="状态" initialValue={'0'} fieldProps={{ options: sysNormalDisable }} />
+      <ProFormRadio.Group
+        name="status"
+        label="状态"
+        initialValue={'0'}
+        fieldProps={{ options: toSelect(sysNormalDisable) }}
+      />
     </DrawerForm>
   )
 }

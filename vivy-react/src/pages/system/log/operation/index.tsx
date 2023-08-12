@@ -5,14 +5,14 @@ import { useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm, Drawer, Descriptions } from 'antd'
 import { useRef, useState } from 'react'
 import { listOperLog, clearOperLog } from '@/apis/system/oper-log'
-import { SysOperLog } from '@/apis/types/system/oper-log'
+import type { OperLogResult } from '@/apis/system/oper-log'
 import { DictTag, DictText } from '@/components/Dict'
 
 const OperationLog = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
-  const [open, setOpen] = useState(false)
-  const [recordData, setRecordData] = useState<Nullable<SysOperLog>>(null)
+  const [record, setRecord] = useState<OperLogResult>()
+  const [openDrawer, setOpenDrawer] = useState(false)
 
   /**
    * 注册字典数据
@@ -32,7 +32,7 @@ const OperationLog = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<SysOperLog>[] = [
+  const columns: ProColumns<OperLogResult>[] = [
     {
       title: '日志编号',
       dataIndex: 'operId',
@@ -91,8 +91,8 @@ const OperationLog = () => {
           key="detail"
           type="link"
           onClick={() => {
-            setOpen(true)
-            setRecordData(record)
+            setRecord(record)
+            setOpenDrawer(true)
           }}
         >
           详情
@@ -132,33 +132,33 @@ const OperationLog = () => {
           ],
         }}
       />
-      <Drawer title="操作日志详情" width={1000} open={open} onClose={() => setOpen(false)}>
-        {recordData ? (
+      <Drawer title="操作日志详情" width={1000} open={openDrawer} onClose={() => setOpenDrawer(false)}>
+        {record ? (
           <Descriptions column={2}>
             <Descriptions.Item label="操作模块">
-              {recordData.title} / <DictText options={sysOperType} value={recordData.operType} />
+              {record.title} / <DictText options={sysOperType} value={record.operType} />
             </Descriptions.Item>
             <Descriptions.Item label="登录信息">
-              {recordData.operName} / {recordData.operIp} / {recordData.operLocation}
+              {record.operName} / {record.operIp} / {record.operLocation}
             </Descriptions.Item>
-            <Descriptions.Item label="请求方式">{recordData.requestMethod}</Descriptions.Item>
-            <Descriptions.Item label="请求地址">{recordData.requestUrl}</Descriptions.Item>
+            <Descriptions.Item label="请求方式">{record.requestMethod}</Descriptions.Item>
+            <Descriptions.Item label="请求地址">{record.requestUrl}</Descriptions.Item>
             <Descriptions.Item label="操作方法" span={2}>
-              {recordData.operMethod}
+              {record.operMethod}
             </Descriptions.Item>
             <Descriptions.Item label="请求参数" span={2}>
-              {recordData.requestParam}
+              {record.requestParam}
             </Descriptions.Item>
             <Descriptions.Item label="返回参数" span={2}>
-              {recordData.requestResult}
+              {record.requestResult}
             </Descriptions.Item>
             <Descriptions.Item label="错误消息" span={2}>
-              {recordData.requestErrmsg}
+              {record.requestErrmsg}
             </Descriptions.Item>
             <Descriptions.Item label="操作状态" span={2}>
-              <DictText options={sysOperStatus} value={recordData.operStatus} />
+              <DictText options={sysOperStatus} value={record.operStatus} />
             </Descriptions.Item>
-            <Descriptions.Item label="操作时间">{recordData.createTime}</Descriptions.Item>
+            <Descriptions.Item label="操作时间">{record.createTime}</Descriptions.Item>
           </Descriptions>
         ) : null}
       </Drawer>

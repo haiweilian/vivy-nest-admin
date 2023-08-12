@@ -5,15 +5,15 @@ import { Link, useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
 import { listDictType, deleteDictType } from '@/apis/system/dict-type'
-import type { SysDictType } from '@/apis/types/system/dict-type'
+import type { DictTypeResult } from '@/apis/system/dict-type'
 import { DictTag } from '@/components/Dict'
 import UpdateForm from './components/UpdateForm'
 
 const DictType = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
+  const [record, setRecord] = useState<DictTypeResult>()
   const [updateOpen, setUpdateOpen] = useState(false)
-  const [recordData, setRecordData] = useState<Nullable<SysDictType>>(null)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
@@ -35,7 +35,7 @@ const DictType = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<SysDictType>[] = [
+  const columns: ProColumns<DictTypeResult>[] = [
     {
       title: '字典编号',
       dataIndex: 'dictId',
@@ -80,7 +80,7 @@ const DictType = () => {
           <Button
             type="link"
             onClick={() => {
-              setRecordData(record)
+              setRecord(record)
               setUpdateOpen(true)
             }}
           >
@@ -128,7 +128,7 @@ const DictType = () => {
                 type="primary"
                 icon={<PlusOutlined />}
                 onClick={() => {
-                  setRecordData(null)
+                  setRecord(undefined)
                   setUpdateOpen(true)
                 }}
               >
@@ -150,7 +150,7 @@ const DictType = () => {
         }}
       />
       <UpdateForm
-        record={recordData}
+        record={record}
         open={updateOpen}
         onOpenChange={setUpdateOpen}
         onFinish={async () => actionRef.current?.reload()}

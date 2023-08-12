@@ -112,7 +112,7 @@ export class DictDataService {
    * @param dictType 字典类型
    * @returns 字典数据选项列表
    */
-  async optionsByDictType(dictType: string): Promise<SysDictData[]> {
+  async listByDictType(dictType: string): Promise<SysDictData[]> {
     return this.dictDataRepository.find({
       where: {
         dictType,

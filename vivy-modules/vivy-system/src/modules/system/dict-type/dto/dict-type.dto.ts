@@ -4,7 +4,7 @@ import { Allow } from 'class-validator'
 import { SysDictType } from '../entities/sys-dict-type.entity'
 
 /**
- * 列表
+ * 查询字典类型
  */
 export class ListDictTypeDto extends PaginateDto {
   /** 字典名称 */
@@ -21,11 +21,11 @@ export class ListDictTypeDto extends PaginateDto {
 }
 
 /**
- * 新增
+ * 添加字典类型
  */
 export class CreateDictTypeDto extends OmitType(SysDictType, ['dictId'] as const) {}
 
 /**
- * 更新
+ * 更新字典类型
  */
-export class UpdateDictTypeDto extends SysDictType {}
+export class UpdateDictTypeDto extends OmitType(SysDictType, [] as const) {}

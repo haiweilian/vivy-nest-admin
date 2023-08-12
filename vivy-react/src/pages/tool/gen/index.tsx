@@ -4,17 +4,17 @@ import type { ProColumns, ActionType } from '@ant-design/pro-components'
 import { Button, Popconfirm } from 'antd'
 import React, { useRef, useState } from 'react'
 import { listGenTable, deleteGenTable, syncDbTable, downloadCode } from '@/apis/gen/gen'
-import type { GenTable } from '@/apis/types/gen/gen'
+import type { GenTableResult } from '@/apis/gen/gen'
 import ImportModal from './components/ImportModal'
 import PreviewModal from './components/PreviewModal'
 import UpdateForm from './components/UpdateForm'
 
 const Gen = () => {
   const actionRef = useRef<ActionType>()
+  const [record, setRecord] = useState<GenTableResult>()
   const [importOpen, setImportOpen] = useState(false)
   const [previewOpen, setPreviewOpen] = useState(false)
   const [updateOpen, setUpdateOpen] = useState(false)
-  const [recordData, setRecordData] = useState<Nullable<GenTable>>(null)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
@@ -46,7 +46,7 @@ const Gen = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<GenTable>[] = [
+  const columns: ProColumns<GenTableResult>[] = [
     {
       title: '表名称',
       dataIndex: 'tableName',
@@ -74,7 +74,7 @@ const Gen = () => {
           key="preview"
           type="link"
           onClick={() => {
-            setRecordData(record)
+            setRecord(record)
             setPreviewOpen(true)
           }}
         >
@@ -84,7 +84,7 @@ const Gen = () => {
           key="update"
           type="link"
           onClick={() => {
-            setRecordData(record)
+            setRecord(record)
             setUpdateOpen(true)
           }}
         >
@@ -167,10 +167,14 @@ const Gen = () => {
         onCancel={() => setImportOpen(false)}
       />
 
-      <PreviewModal open={previewOpen} onCancel={() => setPreviewOpen(false)} />
+      <PreviewModal
+        // record={record}
+        open={previewOpen}
+        onCancel={() => setPreviewOpen(false)}
+      />
 
       <UpdateForm
-        record={recordData}
+        record={record}
         open={updateOpen}
         onOpenChange={setUpdateOpen}
         onFinish={async () => actionRef.current?.reload()}

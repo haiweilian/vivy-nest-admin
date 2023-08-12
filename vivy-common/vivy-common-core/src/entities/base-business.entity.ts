@@ -1,4 +1,3 @@
-import { IsOptional, MaxLength } from 'class-validator'
 import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { DateTimeTransformer } from './transformer/datetime.transformer'
 
@@ -6,16 +5,6 @@ import { DateTimeTransformer } from './transformer/datetime.transformer'
  * 基础业务实体
  */
 export abstract class BaseBusinessEntity {
-  @Column({
-    name: 'del_flag',
-    type: 'char',
-    length: 1,
-    default: '0',
-    select: false,
-    comment: '删除标志（0存在 1删除）',
-  })
-  delFlag: string
-
   @Column({
     name: 'create_by',
     type: 'varchar',
@@ -49,15 +38,4 @@ export abstract class BaseBusinessEntity {
     transformer: DateTimeTransformer,
   })
   updateTime: string
-
-  @Column({
-    name: 'remark',
-    type: 'varchar',
-    length: 500,
-    nullable: true,
-    comment: '备注',
-  })
-  @MaxLength(500)
-  @IsOptional()
-  remark?: string
 }

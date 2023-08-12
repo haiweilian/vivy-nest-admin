@@ -2,11 +2,11 @@ import { useMap } from 'ahooks'
 import { isArray } from 'lodash-es'
 import { useCallback } from 'react'
 import { getDictDataList } from '@/apis/system/dict-data'
-import { SysDictData } from '@/apis/types/system/dict-data'
+import type { DictDataResult } from '@/apis/system/dict-data'
 import { isNullOrUndef } from '@/utils/is'
 
 export type DictKeys = number | number[] | string | string[]
-export type DictData = SysDictData & {
+export type DictData = DictDataResult & {
   label: string
   value: string
 }
@@ -56,15 +56,6 @@ export default () => {
   }
 
   /**
-   * 可用于选择的字典列表
-   * @param type 字典类型
-   */
-  const selectDict = (type: DictType) => {
-    loadDict(type)
-    return (actions.get(type) || []).filter((i) => i.status === '0')
-  }
-
-  /**
    * 重新加载字典
    * @param type 字典类型
    */
@@ -91,7 +82,6 @@ export default () => {
   return {
     dict,
     loadDict: useCallback(loadDict, [dict]),
-    selectDict: useCallback(selectDict, [dict]),
     reloadDict: useCallback(reloadDict, []),
     toSelect: useCallback(toSelect, []),
     toMapEnum: useCallback(toMapEnum, []),

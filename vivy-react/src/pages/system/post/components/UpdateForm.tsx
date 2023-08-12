@@ -5,15 +5,14 @@ import {
   ProFormText,
   ProFormDigit,
   ProFormRadio,
-  ProFormTextArea,
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { useRef, useEffect } from 'react'
 import { addPost, updatePost, infoPost } from '@/apis/system/post'
-import type { SysPost } from '@/apis/types/system/post'
+import type { CreatePostParams, PostResult } from '@/apis/system/post'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record: Nullable<SysPost>
+  record?: PostResult
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
@@ -22,8 +21,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 注册字典数据
    */
-  const { selectDict } = useModel('dict')
-  const sysNormalDisable = selectDict('sys_normal_disable')
+  const { loadDict, toSelect } = useModel('dict')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 获取初始化数据
@@ -41,7 +40,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    * 提交表单
    * @param values 表单值
    */
-  const handleSubmit = async (values: Recordable) => {
+  const handleSubmit = async (values: CreatePostParams) => {
     if (record) {
       await updatePost({
         ...values,
@@ -59,8 +58,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑岗位-${record.postName}` : `新增岗位`}
-      onFinish={async (values) => {
+      title={record ? `编辑岗位` : `新增岗位`}
+      onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
@@ -69,8 +68,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormText name="postName" label="岗位名称" rules={[{ required: true }]} />
       <ProFormText name="postCode" label="岗位编码" rules={[{ required: true }]} />
       <ProFormDigit name="postSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
-      <ProFormRadio.Group name="status" label="状态" initialValue={'0'} fieldProps={{ options: sysNormalDisable }} />
-      <ProFormTextArea name="remark" label="备注" />
+      <ProFormRadio.Group
+        name="status"
+        label="状态"
+        initialValue={'0'}
+        fieldProps={{ options: toSelect(sysNormalDisable) }}
+      />
     </DrawerForm>
   )
 }

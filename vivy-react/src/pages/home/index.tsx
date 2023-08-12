@@ -1,6 +1,6 @@
 import { PageContainer } from '@ant-design/pro-components'
 import { useRequest } from '@umijs/max'
-import { getLoginUserInfo } from '@/apis/auth/auth'
+import { getLoginUserInfo } from '@/apis/auth/login'
 
 const Home = () => {
   const { data } = useRequest(getLoginUserInfo)

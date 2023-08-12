@@ -4,7 +4,7 @@ import type { Settings as LayoutSettings } from '@ant-design/pro-components'
 import { history } from '@umijs/max'
 import type { RunTimeLayoutConfig, RequestConfig } from '@umijs/max'
 import { message as Message, Modal } from 'antd'
-import { getLoginUserInfo } from '@/apis/auth/auth'
+import { getLoginUserInfo } from '@/apis/auth/login'
 import { AvatarName, AvatarDropdown } from '@/components/Layout'
 import { PageEnum } from '@/enums/pageEnum'
 import { getToken, removeToken } from '@/utils/auth'
@@ -172,7 +172,7 @@ export const request: RequestConfig = {
         // 错误判断
         if (skipErrorHandler) {
           if (code !== 200) {
-            return Promise.reject(message)
+            return Promise.reject(new Error(message))
           }
         } else if (code === 401) {
           if (status.isOpen) {
@@ -191,10 +191,10 @@ export const request: RequestConfig = {
               },
             })
           }
-          return Promise.reject(message)
+          return Promise.reject(new Error(message))
         } else if (code !== 200) {
           Message.error(message)
-          return Promise.reject(message)
+          return Promise.reject(new Error(message))
         }
 
         return response.data
@@ -205,17 +205,7 @@ export const request: RequestConfig = {
           return Promise.reject(error)
         }
 
-        let { message } = error
-
-        if (message === 'Network Error') {
-          message = '后端接口连接异常'
-        } else if (message.includes('timeout')) {
-          message = '系统接口请求超时'
-        } else if (message.includes('Request failed with status code')) {
-          message = '系统接口' + message.substr(message.length - 3) + '异常'
-        }
-
-        Message.error(message)
+        Message.error('系统未知错误，请反馈给管理员')
         return Promise.reject(error)
       },
     ],

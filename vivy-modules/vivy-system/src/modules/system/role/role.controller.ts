@@ -94,8 +94,8 @@ export class RoleController {
    * 角色选项列表
    * @returns 角色选项列表
    */
-  @Get('options/selectable')
-  async optionsSelectable(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.roleService.optionsSelectable())
+  @Get('selectable/role')
+  async selectableRole(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.roleService.selectableRole())
   }
 }

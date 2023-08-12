@@ -132,7 +132,7 @@ export class DictTypeService {
    * 字典类型选项列表
    * @returns 字典类型选项列表
    */
-  async optionsSelectable(): Promise<SysDictType[]> {
+  async selectableDictType(): Promise<SysDictType[]> {
     return this.dictTypeRepository.find({
       select: ['dictId', 'dictName', 'dictType'],
       order: {

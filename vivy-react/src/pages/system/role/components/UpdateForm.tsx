@@ -6,17 +6,16 @@ import {
   ProFormDigit,
   ProFormTreeSelect,
   ProFormRadio,
-  ProFormTextArea,
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { TreeSelect } from 'antd'
 import { useRef, useEffect } from 'react'
-import { selectableMenu } from '@/apis/system/menu'
+import { selectableMenuTree } from '@/apis/system/menu'
 import { addRole, updateRole, infoRole } from '@/apis/system/role'
-import type { SysRole } from '@/apis/types/system/role'
+import type { CreateRoleParams, RoleResult } from '@/apis/system/role'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record: Nullable<SysRole>
+  record?: RoleResult
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
@@ -25,8 +24,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 注册字典数据
    */
-  const { selectDict } = useModel('dict')
-  const sysNormalDisable = selectDict('sys_normal_disable')
+  const { loadDict, toSelect } = useModel('dict')
+  const sysNormalDisable = loadDict('sys_normal_disable')
 
   /**
    * 获取初始化数据
@@ -47,17 +46,17 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    * 提交表单
    * @param values 表单值
    */
-  const handleSubmit = async (values: Recordable) => {
+  const handleSubmit = async (values: CreateRoleParams) => {
     if (record) {
       await updateRole({
         ...values,
         roleId: record.roleId,
-        menuIds: values.menuIds.map((item: any) => item.value),
+        menuIds: values.menuIds?.map((item: any) => item.value),
       })
     } else {
       await addRole({
         ...values,
-        menuIds: values.menuIds.map((item: any) => item.value),
+        menuIds: values.menuIds?.map((item: any) => item.value),
       })
     }
     formRef.current?.resetFields()
@@ -69,8 +68,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
-      title={record ? `编辑角色-${record.roleName}` : `新增角色`}
-      onFinish={async (values) => {
+      title={record ? `编辑角色` : `新增角色`}
+      onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
@@ -79,11 +78,16 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormText name="roleName" label="角色名称" rules={[{ required: true }]} />
       <ProFormText name="roleCode" label="权限字符" rules={[{ required: true }]} />
       <ProFormDigit name="roleSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
-      <ProFormRadio.Group name="status" label="状态" initialValue={'0'} fieldProps={{ options: sysNormalDisable }} />
+      <ProFormRadio.Group
+        name="status"
+        label="状态"
+        initialValue={'0'}
+        fieldProps={{ options: toSelect(sysNormalDisable) }}
+      />
       <ProFormTreeSelect
         name="menuIds"
         label="菜单权限"
-        request={selectableMenu}
+        request={selectableMenuTree}
         fieldProps={{
           fieldNames: { label: 'menuName', value: 'menuId' },
           maxTagCount: 3,
@@ -92,7 +96,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
           showCheckedStrategy: TreeSelect.SHOW_ALL,
         }}
       />
-      <ProFormTextArea name="remark" label="备注" />
     </DrawerForm>
   )
 }

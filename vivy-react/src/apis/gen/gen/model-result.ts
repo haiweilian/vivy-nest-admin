@@ -1,0 +1,99 @@
+/**
+ * 代码生成表
+ */
+export interface GenTableResult {
+  /** 编号 */
+  tableId: number
+
+  /** 表名称 */
+  tableName: string
+
+  /** 表描述 */
+  tableComment: string
+
+  /** 关联子表的表名 */
+  subTableName?: string
+
+  /** 子表关联的外键名 */
+  subTableFkName?: string
+
+  /** 实体类名称 */
+  className: string
+
+  /** 生成模板分类 */
+  templateCategory: string
+
+  /** 生成业务名 */
+  businessName: string
+
+  /** 生成功能名 */
+  functionName: string
+
+  /** 生成功能作者 */
+  functionAuthor: string
+
+  /** 生成表列字段 */
+  columns: GenTableColumnResult[]
+}
+
+/**
+ * 代码生成表字段
+ */
+export interface GenTableColumnResult {
+  /** 编号 */
+  columnId: number
+
+  /** 归属表编号 */
+  tableId: number
+
+  /** 列名称 */
+  columnName: string
+
+  /** 列类型 */
+  columnType: string
+
+  /** 列顺序 */
+  columnSort: number
+
+  /** 列描述 */
+  columnComment: string
+
+  /** 是否主键（0是 1否） */
+  isPk?: string
+
+  /** 是否自增（0是 1否） */
+  isIncrement?: string
+
+  /** 是否必填（0是 1否） */
+  isRequired?: string
+
+  /** 是否为插入字段（0是 1否） */
+  isInsert?: string
+
+  /** 是否编辑字段（0是 1否） */
+  isEdit?: string
+
+  /** 是否列表字段（0是 1否） */
+  isList?: string
+
+  /** 是否查询字段（0是 1否） */
+  isQuery?: string
+
+  /** 属性名称 */
+  fieldName: string
+
+  /** TS类型 */
+  tslangType: string
+
+  /** JAVA类型 */
+  javalangType: string
+
+  /** 查询方式（等于、不等于、大于、小于、范围） */
+  queryType: string
+
+  /** 显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件） */
+  htmlType: string
+
+  /** 字典类型 */
+  dictType?: string
+}

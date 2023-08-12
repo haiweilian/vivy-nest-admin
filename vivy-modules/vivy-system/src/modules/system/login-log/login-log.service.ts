@@ -5,7 +5,7 @@ import { Between, Like, Repository } from 'typeorm'
 import { UAParser } from 'ua-parser-js'
 import { ListLoginLogDto, CreateLoginLogDto } from './dto/login-log.dto'
 import { SysLoginLog } from './entities/sys-login-log.entity'
-import { ListLoginLogVo } from './vo/login-log.vo'
+import { LoginLogListVo } from './vo/login-log.vo'
 
 /**
  * 登录日志
@@ -23,7 +23,7 @@ export class LoginLogService {
    * @param loginLog 登录日志信息
    * @returns 登录日志列表
    */
-  async list(loginLog: ListLoginLogDto): Promise<Pagination<ListLoginLogVo>> {
+  async list(loginLog: ListLoginLogDto): Promise<Pagination<LoginLogListVo>> {
     const list = await paginate<SysLoginLog>(
       this.loginLogRepository,
       {

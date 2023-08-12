@@ -123,4 +123,14 @@ export class SysUser extends BaseBusinessEntity {
   @IsBooleanString()
   @IsOptional()
   status: string
+
+  @Column({
+    name: 'del_flag',
+    type: 'char',
+    length: 1,
+    default: '0',
+    select: false,
+    comment: '删除标志（0存在 1删除）',
+  })
+  delFlag: string
 }

@@ -4,7 +4,7 @@ import { Allow } from 'class-validator'
 import { SysOperLog } from '../entities/sys-oper-log.entity'
 
 /**
- * 列表
+ * 查询操作日志
  */
 export class ListOperLogDto extends PaginateDto {
   /** 模块标题 */
@@ -33,6 +33,6 @@ export class ListOperLogDto extends PaginateDto {
 }
 
 /**
- * 新增
+ * 添加操作日志
  */
 export class CreateOperLogDto extends OmitType(SysOperLog, ['operId'] as const) {}

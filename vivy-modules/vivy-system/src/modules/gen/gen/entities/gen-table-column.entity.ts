@@ -208,7 +208,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'table_id',
     foreignKeyConstraintName: 'table_fk',
   })
-  @ManyToOne(() => GenTable, {
+  @ManyToOne(() => GenTable, (table) => table.columns, {
     onDelete: 'CASCADE',
   })
   table: GenTable

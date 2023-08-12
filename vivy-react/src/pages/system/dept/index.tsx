@@ -6,7 +6,7 @@ import { Button, Popconfirm } from 'antd'
 import { isEmpty } from 'lodash-es'
 import React, { useRef, useState } from 'react'
 import { treeDept, deleteDept } from '@/apis/system/dept'
-import type { DeptTreeVo } from '@/apis/types/system/dept'
+import type { DeptTreeResult } from '@/apis/system/dept'
 import { DictTag } from '@/components/Dict'
 import { eachTree } from '@/utils/tree'
 import UpdateForm from './components/UpdateForm'
@@ -14,8 +14,8 @@ import UpdateForm from './components/UpdateForm'
 const Dept = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
+  const [record, setRecord] = useState<DeptTreeResult>()
   const [updateOpen, setUpdateOpen] = useState(false)
-  const [recordData, setRecordData] = useState<Nullable<DeptTreeVo>>(null)
 
   /**
    * 注册字典数据
@@ -37,9 +37,9 @@ const Dept = () => {
    * @param data 列数据
    */
   const [expandedRowKeys, setExpandedRowKeys] = useState<readonly React.Key[]>([])
-  const handleExpandedRows = (data: DeptTreeVo[]) => {
+  const handleExpandedRows = (data: DeptTreeResult[]) => {
     const keys: React.Key[] = []
-    eachTree<DeptTreeVo>(data, (item) => {
+    eachTree<DeptTreeResult>(data, (item) => {
       if (isEmpty(item.children)) {
         item.children = undefined
       } else if (isEmpty(expandedRowKeys)) {
@@ -54,7 +54,7 @@ const Dept = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<DeptTreeVo>[] = [
+  const columns: ProColumns<DeptTreeResult>[] = [
     {
       title: '部门名称',
       dataIndex: 'deptName',
@@ -83,7 +83,7 @@ const Dept = () => {
           <Button
             type="link"
             onClick={() => {
-              setRecordData(record)
+              setRecord({ ...record, parentId: undefined })
               setUpdateOpen(true)
             }}
           >
@@ -128,7 +128,7 @@ const Dept = () => {
                 type="primary"
                 icon={<PlusOutlined />}
                 onClick={() => {
-                  setRecordData(null)
+                  setRecord(undefined)
                   setUpdateOpen(true)
                 }}
               >
@@ -138,8 +138,9 @@ const Dept = () => {
           ],
         }}
       />
+
       <UpdateForm
-        record={recordData}
+        record={record}
         open={updateOpen}
         onOpenChange={setUpdateOpen}
         onFinish={async () => actionRef.current?.reload()}

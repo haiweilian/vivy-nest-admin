@@ -11,7 +11,7 @@ import { GenService } from './gen.service'
  */
 @ApiTags('代码生成')
 @ApiBearerAuth()
-@Controller()
+@Controller('gen')
 export class GenController {
   constructor(private genService: GenService) {}
 

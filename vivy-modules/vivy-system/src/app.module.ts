@@ -1,6 +1,5 @@
 import * as path from 'path'
 import { Module } from '@nestjs/common'
-import { RouterModule } from '@nestjs/core'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis'
 import { ConfigModule, ConfigService } from '@vivy-common/config'
@@ -70,20 +69,6 @@ import { SystemModule } from './modules/system/system.module'
     AuthModule,
     GenModule,
     SystemModule,
-    RouterModule.register([
-      {
-        path: 'auth',
-        module: AuthModule,
-      },
-      {
-        path: 'system',
-        module: SystemModule,
-      },
-      {
-        path: 'gen',
-        module: GenModule,
-      },
-    ]),
   ],
   controllers: [AppController],
   providers: [AppService],

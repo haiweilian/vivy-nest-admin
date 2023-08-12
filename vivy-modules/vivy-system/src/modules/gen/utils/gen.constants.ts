@@ -30,16 +30,16 @@ export class GenConstants {
   ]
 
   /** 页面不需要编辑字段 */
-  static COLUMNNAME_NOT_EDIT = ['id', 'del_flag', 'create_by', 'create_time', 'update_by', 'update_time']
+  static COLUMNNAME_NOT_EDIT = ['id', 'create_by', 'create_time', 'update_by', 'update_time']
 
   /** 页面不需要显示的列表字段 */
-  static COLUMNNAME_NOT_LIST = ['id', 'del_flag', 'create_by', 'create_time', 'update_by', 'update_time']
+  static COLUMNNAME_NOT_LIST = ['id', 'create_by', 'create_time', 'update_by', 'update_time']
 
   /** 页面不需要查询字段 */
-  static COLUMNNAME_NOT_QUERY = ['id', 'del_flag', 'create_by', 'create_time', 'update_by', 'update_time', 'remark']
+  static COLUMNNAME_NOT_QUERY = ['id', 'create_by', 'create_time', 'update_by', 'update_time']
 
-  /** Entity基类字段 */
-  static BASE_ENTITY = ['delFlag', 'createBy', 'createTime', 'updateBy', 'updateTime', 'remark']
+  /** Entity 基类字段 */
+  static BASE_ENTITY = ['createBy', 'createTime', 'updateBy', 'updateTime']
 
   /** 文本框 */
   static HTML_INPUT = 'input'
