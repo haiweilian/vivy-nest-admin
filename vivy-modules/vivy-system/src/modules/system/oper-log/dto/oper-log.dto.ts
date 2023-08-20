@@ -9,7 +9,7 @@ import { SysOperLog } from '../entities/sys-oper-log.entity'
 export class ListOperLogDto extends PaginateDto {
   /** 模块标题 */
   @Allow()
-  title?: string = ''
+  title?: string
 
   /** 操作类型(enum OperType) */
   @Allow()
@@ -17,7 +17,7 @@ export class ListOperLogDto extends PaginateDto {
 
   /** 操作人员 */
   @Allow()
-  operName?: string = ''
+  operName?: string
 
   /** 操作状态(enum OperStatus) */
   @Allow()
@@ -25,7 +25,7 @@ export class ListOperLogDto extends PaginateDto {
 
   /** 请求地址 */
   @Allow()
-  requestUrl?: string = ''
+  requestUrl?: string
 
   /** 操作时间 */
   @Allow()

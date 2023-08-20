@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
 import { BaseStatusEnums, ServiceException } from '@vivy-common/core'
+import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { EntityManager, Like, Repository } from 'typeorm'
 import { SysDictData } from '@/modules/system/dict-data/entities/sys-dict-data.entity'
@@ -42,8 +43,8 @@ export class DictTypeService {
         },
         where: {
           status: dictType.status,
-          dictName: Like(`%${dictType.dictName}%`),
-          dictType: Like(`%${dictType.dictType}%`),
+          dictName: isNotEmpty(dictType.dictName) ? Like(`%${dictType.dictName}%`) : undefined,
+          dictType: isNotEmpty(dictType.dictType) ? Like(`%${dictType.dictType}%`) : undefined,
         },
       }
     )

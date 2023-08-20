@@ -1,9 +1,7 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { CreateMenuParams, UpdateMenuParams } from './model-params'
-import type { MenuResult, MenuTreeResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import type { MenuModel, MenuTreeResult, CreateMenuParams, UpdateMenuParams } from './model'
+export * from './model'
 
 /**
  * 查询菜单树
@@ -47,7 +45,7 @@ export function deleteMenu(menuId: React.Key) {
  * 查询菜单详情
  */
 export function infoMenu(menuId: React.Key) {
-  return request<MenuResult>(`/menu/info/${menuId}`, {
+  return request<MenuModel>(`/menu/info/${menuId}`, {
     method: RequestEnum.GET,
   })
 }

@@ -1,7 +1,7 @@
 /**
  * 部门
  */
-export interface DeptResult {
+export interface DeptModel {
   /** 部门ID */
   deptId: number
 
@@ -21,7 +21,17 @@ export interface DeptResult {
 /**
  * 部门树
  */
-export interface DeptTreeResult extends DeptResult {
+export interface DeptTreeResult extends DeptModel {
   /** 子节点 */
   children?: DeptTreeResult[]
 }
+
+/**
+ * 添加部门
+ */
+export type CreateDeptParams = Omit<DeptModel, 'deptId'>
+
+/**
+ * 更新部门
+ */
+export type UpdateDeptParams = DeptModel

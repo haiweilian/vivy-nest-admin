@@ -2,28 +2,21 @@ import { UploadOutlined, DeleteOutlined } from '@ant-design/icons'
 import { ProTable } from '@ant-design/pro-components'
 import type { ProColumns, ActionType } from '@ant-design/pro-components'
 import { Button, Popconfirm } from 'antd'
+import { saveAs } from 'file-saver'
 import React, { useRef, useState } from 'react'
 import { listGenTable, deleteGenTable, syncDbTable, downloadCode } from '@/apis/gen/gen'
-import type { GenTableResult } from '@/apis/gen/gen'
+import type { GenTableModel } from '@/apis/gen/gen'
 import ImportModal from './components/ImportModal'
 import PreviewModal from './components/PreviewModal'
 import UpdateForm from './components/UpdateForm'
 
 const Gen = () => {
   const actionRef = useRef<ActionType>()
-  const [record, setRecord] = useState<GenTableResult>()
+  const [record, setRecord] = useState<GenTableModel>()
   const [importOpen, setImportOpen] = useState(false)
   const [previewOpen, setPreviewOpen] = useState(false)
   const [updateOpen, setUpdateOpen] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
-
-  /**
-   * 下载代码
-   * @param tableName 表名称
-   */
-  const handleGen = async (tableName: React.Key) => {
-    await downloadCode(tableName)
-  }
 
   /**
    * 同步表结构
@@ -44,9 +37,18 @@ const Gen = () => {
   }
 
   /**
+   * 下载代码
+   * @param tableName 表名称
+   */
+  const handleDownload = async (tableName: React.Key) => {
+    const { data } = await downloadCode(tableName)
+    saveAs(data, `${tableName}.zip`)
+  }
+
+  /**
    * 表格列配置
    */
-  const columns: ProColumns<GenTableResult>[] = [
+  const columns: ProColumns<GenTableModel>[] = [
     {
       title: '表名称',
       dataIndex: 'tableName',
@@ -96,13 +98,7 @@ const Gen = () => {
         <Popconfirm key="sync" title="是否确认强制同步表结构？" onConfirm={() => handleSync(record.tableName)}>
           <Button type="link">同步</Button>
         </Popconfirm>,
-        <Button
-          key="gen"
-          type="link"
-          onClick={() => {
-            handleGen(record.tableName)
-          }}
-        >
+        <Button key="gen" type="link" onClick={() => handleDownload(record.tableName)}>
           生成
         </Button>,
       ],
@@ -167,11 +163,7 @@ const Gen = () => {
         onCancel={() => setImportOpen(false)}
       />
 
-      <PreviewModal
-        // record={record}
-        open={previewOpen}
-        onCancel={() => setPreviewOpen(false)}
-      />
+      <PreviewModal record={record} open={previewOpen} onCancel={() => setPreviewOpen(false)} />
 
       <UpdateForm
         record={record}

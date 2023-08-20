@@ -177,7 +177,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'query_type',
     type: 'varchar',
     length: 100,
-    comment: '查询方式（等于、不等于、大于、小于、范围）',
+    comment: '查询方式',
   })
   @MaxLength(100)
   @IsNotEmpty()
@@ -187,7 +187,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     name: 'html_type',
     type: 'varchar',
     length: 100,
-    comment: '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
+    comment: '显示类型',
   })
   @MaxLength(100)
   @IsNotEmpty()

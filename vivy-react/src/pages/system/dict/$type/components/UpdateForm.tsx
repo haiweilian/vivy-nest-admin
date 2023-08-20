@@ -10,10 +10,10 @@ import {
 import { useModel, useParams } from '@umijs/max'
 import { useRef, useEffect } from 'react'
 import { addDictData, updateDictData, infoDictData } from '@/apis/system/dict-data'
-import type { CreateDictDataParams, DictDataResult } from '@/apis/system/dict-data'
+import type { CreateDictDataParams, DictDataModel } from '@/apis/system/dict-data'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record?: DictDataResult
+  record?: DictDataModel
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {

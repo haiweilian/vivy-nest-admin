@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { isArray, isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Between, Like, Repository } from 'typeorm'
 import { UAParser } from 'ua-parser-js'
@@ -35,9 +36,11 @@ export class LoginLogService {
           createTime: 'DESC',
         },
         where: {
-          loginName: Like(`%${loginLog.loginName}%`),
+          loginName: isNotEmpty(loginLog.loginName) ? Like(`%${loginLog.loginName}%`) : undefined,
           loginStatus: loginLog.loginStatus,
-          createTime: loginLog.createTime ? Between(loginLog.createTime[0], loginLog.createTime[1]) : undefined,
+          createTime: isArray(loginLog.createTime)
+            ? Between(loginLog.createTime[0], loginLog.createTime[1])
+            : undefined,
         },
       }
     )

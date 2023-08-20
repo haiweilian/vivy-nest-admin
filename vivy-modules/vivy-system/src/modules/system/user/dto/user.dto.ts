@@ -13,11 +13,11 @@ export class ListUserDto extends PaginateDto {
 
   /** 用户账号 */
   @Allow()
-  userName?: string = ''
+  userName?: string
 
   /** 用户昵称 */
   @Allow()
-  nickName?: string = ''
+  nickName?: string
 
   /** 用户状态（0正常 1停用） */
   @Allow()

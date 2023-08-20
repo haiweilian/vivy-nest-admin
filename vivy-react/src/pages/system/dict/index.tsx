@@ -5,14 +5,14 @@ import { Link, useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
 import { listDictType, deleteDictType } from '@/apis/system/dict-type'
-import type { DictTypeResult } from '@/apis/system/dict-type'
+import type { DictTypeModel } from '@/apis/system/dict-type'
 import { DictTag } from '@/components/Dict'
 import UpdateForm from './components/UpdateForm'
 
 const DictType = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
-  const [record, setRecord] = useState<DictTypeResult>()
+  const [record, setRecord] = useState<DictTypeModel>()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
@@ -35,7 +35,7 @@ const DictType = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<DictTypeResult>[] = [
+  const columns: ProColumns<DictTypeModel>[] = [
     {
       title: '字典编号',
       dataIndex: 'dictId',

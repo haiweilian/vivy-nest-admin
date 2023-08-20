@@ -9,11 +9,11 @@ import { SysRole } from '../entities/sys-role.entity'
 export class ListRoleDto extends PaginateDto {
   /** 角色名称 */
   @Allow()
-  roleName?: string = ''
+  roleName?: string
 
   /** 角色编码 */
   @Allow()
-  roleCode?: string = ''
+  roleCode?: string
 
   /** 角色状态（0正常 1停用） */
   @Allow()

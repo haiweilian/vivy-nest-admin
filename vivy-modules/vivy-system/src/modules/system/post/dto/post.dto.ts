@@ -9,11 +9,11 @@ import { SysPost } from '../entities/sys-post.entity'
 export class ListPostDto extends PaginateDto {
   /** 岗位名称 */
   @Allow()
-  postName?: string = ''
+  postName?: string
 
   /** 岗位编码 */
   @Allow()
-  postCode?: string = ''
+  postCode?: string
 
   /** 岗位状态（0正常 1停用） */
   @Allow()

@@ -3,7 +3,7 @@ import type { ProColumns } from '@ant-design/pro-components'
 import { useRequest } from '@umijs/max'
 import { DefaultOptionType } from 'antd/es/select'
 import React from 'react'
-import type { GenTableColumnResult } from '@/apis/gen/gen'
+import type { GenTableColumnModel } from '@/apis/gen/gen'
 import { selectableDictType } from '@/apis/system/dict-type'
 
 const tslangTypeOptions: DefaultOptionType[] = [
@@ -27,9 +27,9 @@ const queryTypeOptions: DefaultOptionType[] = [
   { label: '=', value: 'EQ' },
   { label: '!=', value: 'NE' },
   { label: '>', value: 'GT' },
-  { label: '>=', value: 'GTE' },
+  { label: '>=', value: 'GE' },
   { label: '<', value: 'LT' },
-  { label: '<=', value: 'LTE' },
+  { label: '<=', value: 'LE' },
   { label: 'LIKE', value: 'LIKE' },
   { label: 'BETWEEN', value: 'BETWEEN' },
 ]
@@ -49,8 +49,8 @@ const htmlTypeOptions: DefaultOptionType[] = [
 const checkboxOptions: DefaultOptionType[] = [{ label: '', value: '0' }]
 
 interface UpdateFormColumnProps {
-  value: GenTableColumnResult[]
-  onChange: (newColumns: GenTableColumnResult[]) => void
+  value: GenTableColumnModel[]
+  onChange: (newColumns: GenTableColumnModel[]) => void
 }
 
 const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) => {
@@ -68,7 +68,7 @@ const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) 
   /**
    * 表格列配置
    */
-  const columns: ProColumns<GenTableColumnResult>[] = [
+  const columns: ProColumns<GenTableColumnModel>[] = [
     {
       title: '字段列名',
       dataIndex: 'columnName',
@@ -178,7 +178,7 @@ const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) 
 
   return (
     <>
-      <EditableProTable<GenTableColumnResult>
+      <EditableProTable<GenTableColumnModel>
         rowKey="columnId"
         columns={columns}
         value={value}
@@ -191,7 +191,7 @@ const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) 
             list.forEach((item: any) => {
               Object.keys(item).forEach((key) => {
                 if (Array.isArray(item[key])) {
-                  item[key] = item[key][0]
+                  item[key] = item[key][0] || '1'
                 }
               })
             })

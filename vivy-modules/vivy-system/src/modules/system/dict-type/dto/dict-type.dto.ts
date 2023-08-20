@@ -9,11 +9,11 @@ import { SysDictType } from '../entities/sys-dict-type.entity'
 export class ListDictTypeDto extends PaginateDto {
   /** 字典名称 */
   @Allow()
-  dictName?: string = ''
+  dictName?: string
 
   /** 字典类型 */
   @Allow()
-  dictType?: string = ''
+  dictType?: string
 
   /** 字典状态（0正常 1停用） */
   @Allow()

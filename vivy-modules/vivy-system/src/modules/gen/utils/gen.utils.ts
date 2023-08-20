@@ -1,4 +1,4 @@
-import camelcase from 'camelcase'
+import * as camelcase from 'camelcase'
 import { GenTableColumn } from '../gen/entities/gen-table-column.entity'
 import { GenTable } from '../gen/entities/gen-table.entity'
 import { GenConstants } from './gen.constants'
@@ -123,7 +123,7 @@ export class GenUtils {
    * @param tableName 表名称
    * @return 类名
    */
-  private static getClassName(tableName: string): string {
+  static getClassName(tableName: string): string {
     return camelcase(tableName, { pascalCase: true })
   }
 
@@ -132,9 +132,9 @@ export class GenUtils {
    * @param tableName 表名称
    * @return 业务名
    */
-  private static getBusinessName(tableName: string): string {
+  static getBusinessName(tableName: string): string {
     const arr = tableName.split('_')
-    return arr[arr.length - 1]
+    return camelcase(arr[arr.length - 1])
   }
 
   /**
@@ -142,7 +142,7 @@ export class GenUtils {
    * @param tableComment 表注释信息
    * @return 功能名
    */
-  private static getFunctionName(tableComment: string): string {
+  static getFunctionName(tableComment: string): string {
     return tableComment.replace(/(?:表)/g, '')
   }
 
@@ -151,7 +151,7 @@ export class GenUtils {
    * @param columnType 列类型
    * @return 截取后的列类型
    */
-  private static getColumnType(columnType: string): string {
+  static getColumnType(columnType: string): string {
     if (columnType.indexOf('(') > 0) {
       return columnType.substring(0, columnType.indexOf('('))
     } else {
@@ -164,7 +164,7 @@ export class GenUtils {
    * @param columnType 列类型
    * @return 匹配后的长度信息
    */
-  private static getColumnMatchLength(columnType: string): string | null {
+  static getColumnMatchLength(columnType: string): string | null {
     return columnType.match(/(?<=\().*(?=\))/)?.[0]
   }
 
@@ -174,7 +174,7 @@ export class GenUtils {
    * @param matchContent 匹配的内容
    * @return true/false
    */
-  private static endsWithIgnoreCase(content: string, matchContent: string): boolean {
+  static endsWithIgnoreCase(content: string, matchContent: string): boolean {
     return new RegExp(`${matchContent}$`, 'i').test(content)
   }
 }

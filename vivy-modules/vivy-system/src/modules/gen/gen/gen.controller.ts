@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query, StreamableFile } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
@@ -91,7 +91,7 @@ export class GenController {
    * @returns 代码详情
    */
   @Get('preview/:tableName')
-  async preview(@Param('tableName') tableName: number): Promise<AjaxResult> {
+  async preview(@Param('tableName') tableName: string): Promise<AjaxResult> {
     return AjaxResult.success(await this.genService.preview(tableName))
   }
 
@@ -101,7 +101,7 @@ export class GenController {
    * @returns 代码详情
    */
   @Get('download/:tableName')
-  async download(@Param('tableName') tableName: number): Promise<AjaxResult> {
-    return AjaxResult.success(await this.genService.download(tableName))
+  async download(@Param('tableName') tableName: string): Promise<StreamableFile> {
+    return this.genService.download(tableName)
   }
 }

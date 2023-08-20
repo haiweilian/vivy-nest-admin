@@ -1,7 +1,7 @@
 /**
  * 菜单
  */
-export interface MenuResult {
+export interface MenuModel {
   /** 菜单ID */
   menuId: number
 
@@ -51,7 +51,17 @@ export interface MenuResult {
 /**
  * 菜单树
  */
-export interface MenuTreeResult extends MenuResult {
+export interface MenuTreeResult extends MenuModel {
   /** 子节点 */
   children?: MenuTreeResult[]
 }
+
+/**
+ * 添加菜单
+ */
+export type CreateMenuParams = Omit<MenuModel, 'menuId'>
+
+/**
+ * 更新菜单
+ */
+export type UpdateMenuParams = MenuModel

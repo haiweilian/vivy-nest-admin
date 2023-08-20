@@ -1,15 +1,13 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { ListOperLogParams } from './model-params'
-import type { OperLogResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import type { OperLogModel, ListOperLogParams } from './model'
+export * from './model'
 
 /**
  * 查询操作日志列表
  */
 export function listOperLog(params: ListOperLogParams) {
-  return request<Pagination<OperLogResult>>('/oper/log/list', {
+  return request<Pagination<OperLogModel>>('/oper/log/list', {
     method: RequestEnum.GET,
     params,
   })

@@ -1,0 +1,28 @@
+import { OmitType } from '@nestjs/mapped-types'
+import { PaginateDto } from '@vivy-common/core'
+import { Allow } from 'class-validator'
+import { {{classNamePascalCase}} } from '../entities/{{classNameKebabCase}}.entity'
+
+/**
+ * 查询{{functionName}}
+ */
+export class List{{businessNamePascalCase}}Dto extends PaginateDto {
+{{#each columns as | column |}}
+{{#if (isRequire column.isQuery)}}
+  /** {{column.columnComment}} */
+  @Allow()
+  {{column.fieldName}}?: {{column.tslangType}}{{#if (isEqual column.queryType 'BETWEEN')}}[]{{/if}}
+
+{{/if}}
+{{/each}}
+}
+
+/**
+ * 添加{{functionName}}
+ */
+export class Create{{businessNamePascalCase}}Dto extends OmitType({{classNamePascalCase}}, ['{{pkColumn.fieldName}}'] as const) {}
+
+/**
+ * 更新{{functionName}}
+ */
+export class Update{{businessNamePascalCase}}Dto extends OmitType({{classNamePascalCase}}, [] as const) {}

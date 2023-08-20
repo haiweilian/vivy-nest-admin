@@ -1,83 +1,75 @@
-import { Modal, ModalProps, Tabs } from 'antd'
-import type { TabsProps } from 'antd'
+import { CopyOutlined } from '@ant-design/icons'
+import { useRequest } from '@umijs/max'
+import { Button, Modal, ModalProps, Tabs, message } from 'antd'
+import Clipboard from 'clipboard'
+import { useEffect } from 'react'
+import { previewCode } from '@/apis/gen/gen'
+import type { GenTableModel, GenPreviewResult } from '@/apis/gen/gen'
 
-const PreviewModal: React.FC<ModalProps> = (props) => {
-  const items: TabsProps['items'] = [
-    {
-      key: 'Nest',
-      label: `xxx.dto`,
-      children: (
-        <Tabs
-          items={[
-            {
-              key: '3',
-              label: `xxxx.serve`,
-              children: `Content of Tab Pane 3`,
-            },
-            {
-              key: '11',
-              label: `xxx.dto`,
-              children: `Content of Tab Pane 1`,
-            },
-            {
-              key: '12',
-              label: `xxx.tsx`,
-              children: `Content of Tab Pane 2`,
-            },
-            {
-              key: '13',
-              label: `xxxx.serve`,
-              children: `Content of Tab Pane 3`,
-            },
-          ]}
-        />
-      ),
+interface UpdateFormProps extends ModalProps {
+  record?: GenTableModel
+}
+
+const removePrefix = (str: string) => {
+  return str.split('/').slice(1).join('/')
+}
+
+const PreviewModal: React.FC<UpdateFormProps> = ({ record, ...props }) => {
+  /**
+   * 查询预览
+   */
+  const { data } = useRequest(
+    () => {
+      if (record?.tableName) {
+        return previewCode(record.tableName)
+      }
     },
-    {
-      key: 'React',
-      label: `xxx.tsx`,
-      children: (
-        <Tabs
-          items={[
-            {
-              key: '21',
-              label: `xxx.dto`,
-              children: `Content of Tab Pane 1`,
-            },
-            {
-              key: '22',
-              label: `xxx.tsx`,
-              children: `Content of Tab Pane 2`,
-            },
-            {
-              key: '23',
-              label: `xxxx.serve`,
-              children: `Content of Tab Pane 3`,
-            },
-            {
-              key: '31',
-              label: `xxx.dto`,
-              children: `Content of Tab Pane 1`,
-            },
-            {
-              key: '32',
-              label: `xxx.tsx`,
-              children: `Content of Tab Pane 2`,
-            },
-            {
-              key: '33',
-              label: `xxxx.serve`,
-              children: `Content of Tab Pane 3`,
-            },
-          ]}
-        />
-      ),
-    },
-  ]
+    { refreshDeps: [record?.tableName] }
+  )
+
+  /**
+   * 复制代码
+   */
+  useEffect(() => {
+    const clipboard = new Clipboard('.copy')
+    clipboard.on('success', () => {
+      message.success('复制成功')
+    })
+    return () => {
+      clipboard.destroy()
+    }
+  }, [])
 
   return (
     <Modal {...props} title="代码预览" footer={null} width={1000}>
-      <Tabs tabBarStyle={{ marginBottom: 0 }} items={items} />
+      <Tabs
+        tabBarStyle={{ marginBottom: 0 }}
+        items={(data || []).map((item: GenPreviewResult) => ({
+          key: item.name,
+          label: item.name,
+          children: (
+            <Tabs
+              items={(item.files || []).map((file) => ({
+                key: file.name,
+                label: removePrefix(file.name),
+                children: (
+                  <div className="relative">
+                    <pre>{file.code}</pre>
+                    <Button
+                      className="absolute top-0 right-0 copy"
+                      data-clipboard-text={file.code}
+                      type="link"
+                      icon={<CopyOutlined />}
+                    >
+                      复制
+                    </Button>
+                  </div>
+                ),
+              }))}
+            />
+          ),
+        }))}
+      />
     </Modal>
   )
 }

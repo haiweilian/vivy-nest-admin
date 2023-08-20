@@ -5,13 +5,13 @@ import { useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm, Drawer, Descriptions } from 'antd'
 import { useRef, useState } from 'react'
 import { listOperLog, clearOperLog } from '@/apis/system/oper-log'
-import type { OperLogResult } from '@/apis/system/oper-log'
+import type { OperLogModel } from '@/apis/system/oper-log'
 import { DictTag, DictText } from '@/components/Dict'
 
 const OperationLog = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
-  const [record, setRecord] = useState<OperLogResult>()
+  const [record, setRecord] = useState<OperLogModel>()
   const [openDrawer, setOpenDrawer] = useState(false)
 
   /**
@@ -32,7 +32,7 @@ const OperationLog = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<OperLogResult>[] = [
+  const columns: ProColumns<OperLogModel>[] = [
     {
       title: '日志编号',
       dataIndex: 'operId',

@@ -5,7 +5,7 @@ import { useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef } from 'react'
 import { listLoginLog, clearLoginLog } from '@/apis/system/login-log'
-import type { LoginLogResult } from '@/apis/system/login-log'
+import type { LoginLogModel } from '@/apis/system/login-log'
 import { DictTag } from '@/components/Dict'
 
 const LoginLog = () => {
@@ -29,7 +29,7 @@ const LoginLog = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<LoginLogResult>[] = [
+  const columns: ProColumns<LoginLogModel>[] = [
     {
       title: '日志编号',
       dataIndex: 'loginId',

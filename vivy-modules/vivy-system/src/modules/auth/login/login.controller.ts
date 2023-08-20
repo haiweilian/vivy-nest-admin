@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { LoginType } from '@vivy-common/logger'
 import { Public, TokenUtils } from '@vivy-common/security'
-import { LoginInfoDto } from './dto/login.dto'
+import { LoginDto } from './dto/login.dto'
 import { LogService } from './log.service'
 import { LoginService } from './login.service'
 
@@ -27,7 +27,7 @@ export class LoginController {
    */
   @Post('login')
   @Public()
-  async login(@Body() form: LoginInfoDto): Promise<AjaxResult> {
+  async login(@Body() form: LoginDto): Promise<AjaxResult> {
     try {
       const user = await this.loginService.login(form)
       const token = await this.tokenUtils.createToken(user)

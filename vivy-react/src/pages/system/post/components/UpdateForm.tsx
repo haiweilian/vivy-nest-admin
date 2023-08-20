@@ -9,10 +9,10 @@ import {
 import { useModel } from '@umijs/max'
 import { useRef, useEffect } from 'react'
 import { addPost, updatePost, infoPost } from '@/apis/system/post'
-import type { CreatePostParams, PostResult } from '@/apis/system/post'
+import type { CreatePostParams, PostModel } from '@/apis/system/post'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record?: PostResult
+  record?: PostModel
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {

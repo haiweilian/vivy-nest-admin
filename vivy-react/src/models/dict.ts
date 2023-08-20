@@ -2,11 +2,11 @@ import { useMap } from 'ahooks'
 import { isArray } from 'lodash-es'
 import { useCallback } from 'react'
 import { getDictDataList } from '@/apis/system/dict-data'
-import type { DictDataResult } from '@/apis/system/dict-data'
+import type { DictDataModel } from '@/apis/system/dict-data'
 import { isNullOrUndef } from '@/utils/is'
 
 export type DictKeys = number | number[] | string | string[]
-export type DictData = DictDataResult & {
+export type DictData = DictDataModel & {
   label: string
   value: string
 }

@@ -1,15 +1,13 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import { CreateRoleParams, ListRoleParams, UpdateRoleParams } from './model-params'
-import { RoleInfoResult, RoleResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import { RoleInfoResult, RoleModel, CreateRoleParams, ListRoleParams, UpdateRoleParams } from './model'
+export * from './model'
 
 /**
  * 查询角色列表
  */
 export function listRole(params: ListRoleParams) {
-  return request<Pagination<RoleResult>>('/role/list', {
+  return request<Pagination<RoleModel>>('/role/list', {
     method: RequestEnum.GET,
     params,
   })
@@ -57,7 +55,7 @@ export function infoRole(roleId: React.Key) {
  * 查询角色选项列表
  */
 export function selectableRole() {
-  return request<RoleResult[]>('/role/selectable/role', {
+  return request<RoleModel[]>('/role/selectable/role', {
     method: RequestEnum.GET,
   })
 }

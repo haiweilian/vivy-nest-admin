@@ -1,9 +1,7 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { CreateDeptParams, UpdateDeptParams } from './model-params'
-import type { DeptResult, DeptTreeResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import type { CreateDeptParams, UpdateDeptParams, DeptModel, DeptTreeResult } from './model'
+export * from './model'
 
 /**
  * 查询部门树
@@ -47,7 +45,7 @@ export function deleteDept(deptId: React.Key) {
  * 查询部门详情
  */
 export function infoDept(deptId: React.Key) {
-  return request<DeptResult>(`/dept/info/${deptId}`, {
+  return request<DeptModel>(`/dept/info/${deptId}`, {
     method: RequestEnum.GET,
   })
 }

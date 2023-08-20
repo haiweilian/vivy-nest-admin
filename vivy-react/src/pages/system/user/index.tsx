@@ -9,7 +9,7 @@ import React, { useRef, useState } from 'react'
 import { selectableDeptTree } from '@/apis/system/dept'
 import type { DeptTreeResult } from '@/apis/system/dept'
 import { listUser, deleteUser } from '@/apis/system/user'
-import type { UserResult } from '@/apis/system/user'
+import type { UserModel } from '@/apis/system/user'
 import { DictTag } from '@/components/Dict'
 import { eachTree } from '@/utils/tree'
 import ImportForm from './components/ImportForm'
@@ -18,7 +18,7 @@ import UpdateForm from './components/UpdateForm'
 const User = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
-  const [record, setRecord] = useState<UserResult>()
+  const [record, setRecord] = useState<UserModel>()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [importOpen, setImportOpen] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
@@ -63,7 +63,7 @@ const User = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<UserResult>[] = [
+  const columns: ProColumns<UserModel>[] = [
     {
       title: '用户编号',
       dataIndex: 'userId',

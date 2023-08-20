@@ -4,8 +4,8 @@ import { isArray, intersection } from 'lodash-es'
  * 初始化状态
  */
 interface InitialState {
-  roles: string[]
-  permissions: string[]
+  roles?: string[]
+  permissions?: string[]
 }
 
 /**
@@ -33,7 +33,7 @@ const SUPER_ROLE_PERMISSION = '*:*:*'
  * @name Access 在这里按照初始化数据定义项目中的权限，统一管理
  * @doc https://umijs.org/docs/max/access
  */
-export default ({ roles = [], permissions = [] }: InitialState) => {
+export default ({ roles = [], permissions = [] }: InitialState = {}) => {
   /**
    * 校验是否包含角色
    * @param value 需要校验的角色标识

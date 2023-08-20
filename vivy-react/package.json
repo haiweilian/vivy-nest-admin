@@ -16,6 +16,8 @@
     "@umijs/max": "^4.0.57",
     "ahooks": "^3.7.5",
     "antd": "^5.0.0",
+    "clipboard": "^2.0.11",
+    "file-saver": "^2.0.5",
     "js-cookie": "^3.0.1",
     "lodash-es": "^4.17.21",
     "rc-menu": "^9.8.2",
@@ -23,6 +25,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "@types/js-cookie": "^3.0.3",
     "@types/lodash-es": "^4.17.7",
     "@types/react": "^18.0.0",

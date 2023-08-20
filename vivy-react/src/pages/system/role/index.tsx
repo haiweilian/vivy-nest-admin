@@ -5,14 +5,14 @@ import { useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
 import { listRole, deleteRole } from '@/apis/system/role'
-import type { RoleResult } from '@/apis/system/role'
+import type { RoleModel } from '@/apis/system/role'
 import { DictTag } from '@/components/Dict'
 import UpdateForm from './components/UpdateForm'
 
 const Role = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
-  const [record, setRecord] = useState<RoleResult>()
+  const [record, setRecord] = useState<RoleModel>()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
@@ -35,7 +35,7 @@ const Role = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<RoleResult>[] = [
+  const columns: ProColumns<RoleModel>[] = [
     {
       title: '角色编号',
       dataIndex: 'roleId',

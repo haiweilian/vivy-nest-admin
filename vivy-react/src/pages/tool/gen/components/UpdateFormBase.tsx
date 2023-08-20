@@ -22,13 +22,13 @@ const UpdateFormBase: React.FC = () => {
       <ProFormText
         name="businessName"
         label="生成业务名"
-        tooltip="用做类名称，例如 `user`"
+        help="用作代码中的基础命名标识(可以理解为业务英文名)，例如 `user`、`userPhoto`"
         rules={[{ required: true }]}
       />
       <ProFormText
         name="functionName"
         label="生成功能名"
-        tooltip="用做类描述，例如 `用户`"
+        help="用作代码中的基础注释标识(可以理解为业务中文名)，例如 `用户`、`用户照片`"
         rules={[{ required: true }]}
       />
       <ProFormText name="functionAuthor" label="生成作者名" rules={[{ required: true }]} />

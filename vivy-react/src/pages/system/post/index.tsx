@@ -5,14 +5,14 @@ import { useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
 import { listPost, deletePost } from '@/apis/system/post'
-import type { PostResult } from '@/apis/system/post'
+import type { PostModel } from '@/apis/system/post'
 import { DictTag } from '@/components/Dict'
 import UpdateForm from './components/UpdateForm'
 
 const Post = () => {
   const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
-  const [record, setRecord] = useState<PostResult>()
+  const [record, setRecord] = useState<PostModel>()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
@@ -35,7 +35,7 @@ const Post = () => {
   /**
    * 表格列配置
    */
-  const columns: ProColumns<PostResult>[] = [
+  const columns: ProColumns<PostModel>[] = [
     {
       title: '岗位编号',
       dataIndex: 'postId',

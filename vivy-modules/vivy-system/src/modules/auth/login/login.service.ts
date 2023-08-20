@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { SysLoginUser, ServiceException, PasswordUtils, UserStatusEnums } from '@vivy-common/core'
 import { isEmpty } from 'lodash'
 import { UserService } from '@/modules/system/user/user.service'
-import { LoginInfoDto } from './dto/login.dto'
+import { LoginDto } from './dto/login.dto'
 
 /**
  * 登录管理
@@ -16,7 +16,7 @@ export class LoginService {
    * 用户登录
    * @param form 登录账户信息
    */
-  async login(form: LoginInfoDto): Promise<SysLoginUser> {
+  async login(form: LoginDto): Promise<SysLoginUser> {
     const { username, password } = form
     if (isEmpty(username) || isEmpty(password)) {
       throw new ServiceException('用户/密码必须填写')
@@ -42,19 +42,5 @@ export class LoginService {
     }
 
     return data
-  }
-
-  /**
-   * 用户退出
-   */
-  async logout() {
-    throw new Error('Method not implemented.')
-  }
-
-  /**
-   * 刷新 Token
-   */
-  async refresh() {
-    throw new Error('Method not implemented.')
   }
 }

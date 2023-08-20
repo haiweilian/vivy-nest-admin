@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { ServiceException, BaseStatusEnums } from '@vivy-common/core'
+import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
 import { SysUserPost } from '@/modules/system/user/entities/sys-user-post.entity'
@@ -39,8 +40,8 @@ export class PostService {
         },
         where: {
           status: post.status,
-          postName: Like(`%${post.postName}%`),
-          postCode: Like(`%${post.postCode}%`),
+          postName: isNotEmpty(post.postName) ? Like(`%${post.postName}%`) : undefined,
+          postCode: isNotEmpty(post.postCode) ? Like(`%${post.postCode}%`) : undefined,
         },
       }
     )

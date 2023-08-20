@@ -1,0 +1,157 @@
+import {
+  type DrawerFormProps,
+  type ProFormInstance,
+  DrawerForm,
+  ProFormText,
+  ProFormTextArea,
+  ProFormDigit,
+  ProFormSelect,
+  ProFormRadio,
+  ProFormCheckbox,
+} from '@ant-design/pro-components'
+{{#if dictColumn}}import { useModel } from '@umijs/max'{{/if}}
+import { useRef, useEffect } from 'react'
+import { add{{businessNamePascalCase}}, update{{businessNamePascalCase}}, info{{businessNamePascalCase}} } from '@/apis/system/{{businessNameKebabCase}}'
+import type { Create{{businessNamePascalCase}}Params, {{businessNamePascalCase}}Model } from '@/apis/system/{{businessNameKebabCase}}'
+
+interface UpdateFormProps extends DrawerFormProps {
+  record?: {{businessNamePascalCase}}Model
+}
+
+const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
+  const formRef = useRef<ProFormInstance>()
+
+  {{#if dictColumn}}
+  /**
+   * 注册字典数据
+   */
+  const { loadDict, toSelect } = useModel('dict')
+  {{#each dictColumn as |column|}}
+  {{#if (isRequire column.isInsert)}}
+  const {{column.dictTypeCamelcase}} = loadDict('{{column.dictType}}')
+  {{/if}}
+  {{/each}}
+  {{/if}}
+
+  /**
+   * 获取初始化数据
+   */
+  useEffect(() => {
+    formRef.current?.resetFields()
+    if (record) {
+      info{{businessNamePascalCase}}(record.{{pkColumn.fieldName}}).then((info) => {
+        formRef.current?.setFieldsValue(info)
+      })
+    }
+  }, [record])
+
+  /**
+   * 提交表单
+   * @param values 表单值
+   */
+  const handleSubmit = async (values: Create{{businessNamePascalCase}}Params) => {
+    if (record) {
+      await update{{businessNamePascalCase}}({
+        ...values,
+        {{pkColumn.fieldName}}: record.{{pkColumn.fieldName}},
+      })
+    } else {
+      await add{{businessNamePascalCase}}(values)
+    }
+    formRef.current?.resetFields()
+  }
+
+  return (
+    <DrawerForm
+      {...props}
+      layout="horizontal"
+      labelCol=\{{ flex: '100px' }}
+      formRef={formRef}
+      title={record ? `编辑{{functionName}}` : `新增{{functionName}}`}
+      onFinish={async (values: any) => {
+        await handleSubmit(values)
+        props.onFinish?.(values)
+        return true
+      }}
+    >
+    {{#each columns as |column|}}
+    {{#if (isRequire column.isInsert)}}
+    {{#if (isEqual column.htmlType 'input')}}
+    <ProFormText
+      name="{{column.fieldName}}"
+      label="{{column.fieldLabel}}"
+      {{#if (isRequire column.isRequired)}}
+      rules={[{ required: true }]}
+      {{/if}}
+    />
+    {{/if}}
+    {{#if (isEqual column.htmlType 'number')}}
+    <ProFormDigit
+      name="{{column.fieldName}}"
+      label="{{column.fieldLabel}}"
+      {{#if (isRequire column.isRequired)}}
+      rules={[{ required: true }]}
+      {{/if}}
+    />
+    {{/if}}
+    {{#if (isEqual column.htmlType 'textarea')}}
+    <ProFormTextArea
+      name="{{column.fieldName}}"
+      label="{{column.fieldLabel}}"
+      {{#if (isRequire column.isRequired)}}
+      rules={[{ required: true }]}
+      {{/if}}
+    />
+    {{/if}}
+    {{#if (isEqual column.htmlType 'select')}}
+    <ProFormSelect
+      name="{{column.fieldName}}"
+      label="{{column.fieldLabel}}"
+      {{#if (isRequire column.isRequired)}}
+      rules={[{ required: true }]}
+      {{/if}}
+      {{#if column.dictType}}
+      fieldProps=\{{ options: toSelect({{column.dictTypeCamelcase}}) }}
+      {{else}}
+      fieldProps=\{{ options: [] }}
+      {{/if}}
+    />
+    {{/if}}
+    {{#if (isEqual column.htmlType 'radio')}}
+    <ProFormRadio.Group
+      name="{{column.fieldName}}"
+      label="{{column.fieldLabel}}"
+      {{#if (isRequire column.isRequired)}}
+      rules={[{ required: true }]}
+      {{/if}}
+      {{#if column.dictType}}
+      fieldProps=\{{ options: toSelect({{column.dictTypeCamelcase}}) }}
+      {{else}}
+      fieldProps=\{{ options: [] }}
+      {{/if}}
+    />
+    {{/if}}
+    {{#if (isEqual column.htmlType 'checkbox')}}
+    <ProFormCheckbox.Group
+      name="{{column.fieldName}}"
+      label="{{column.fieldLabel}}"
+      {{#if (isRequire column.isRequired)}}
+      rules={[{ required: true }]}
+      {{/if}}
+      {{#if column.dictType}}
+      fieldProps=\{{ options: toSelect({{column.dictTypeCamelcase}}) }}
+      {{else}}
+      fieldProps=\{{ options: [] }}
+      {{/if}}
+    />
+    {{/if}}
+    {{!-- {{#if (isEqual column.htmlType 'datetime')}}{{/if}} --}}
+    {{!-- {{#if (isEqual column.htmlType 'upload')}}{{/if}} --}}
+    {{!-- {{#if (isEqual column.htmlType 'editor')}}{{/if}} --}}
+    {{/if}}
+    {{/each}}
+    </DrawerForm>
+  )
+}
+
+export default UpdateForm

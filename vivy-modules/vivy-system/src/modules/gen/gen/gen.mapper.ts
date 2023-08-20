@@ -20,8 +20,8 @@ export class GenMapper {
    */
   async selectDbTableList(name: string, comment: string): Promise<GenTable[]> {
     const sql = this.mybatisService.getSql('gen.gen.mapper', 'selectDbTableList', {
-      name,
-      comment,
+      name: name || '',
+      comment: comment || '',
     })
     return this.entityManager.query(sql)
   }

@@ -1,7 +1,7 @@
 /**
  * 代码生成表
  */
-export interface GenTableResult {
+export interface GenTableModel {
   /** 编号 */
   tableId: number
 
@@ -33,13 +33,13 @@ export interface GenTableResult {
   functionAuthor: string
 
   /** 生成表列字段 */
-  columns: GenTableColumnResult[]
+  columns: GenTableColumnModel[]
 }
 
 /**
  * 代码生成表字段
  */
-export interface GenTableColumnResult {
+export interface GenTableColumnModel {
   /** 编号 */
   columnId: number
 
@@ -96,4 +96,37 @@ export interface GenTableColumnResult {
 
   /** 字典类型 */
   dictType?: string
+}
+
+/**
+ * 查询代码生成
+ */
+export interface ListGenParams extends PaginateParams {
+  /** 表名称 */
+  tableName?: string
+
+  /** 表注释 */
+  tableComment?: string
+}
+
+/**
+ * 更新代码生成
+ */
+export type UpdateGenParams = GenTableModel
+
+/**
+ * 生成预览
+ */
+export interface GenPreviewResult {
+  /** 分类名称 */
+  name: string
+
+  /** 文件列表 */
+  files: Array<{
+    /** 文件名称 */
+    name: string
+
+    /** 文件代码 */
+    code: string
+  }>
 }

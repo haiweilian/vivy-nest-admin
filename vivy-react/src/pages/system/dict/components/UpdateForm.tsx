@@ -9,10 +9,10 @@ import {
 import { useModel } from '@umijs/max'
 import { useRef, useEffect } from 'react'
 import { addDictType, updateDictType, infoDictType } from '@/apis/system/dict-type'
-import type { CreateDictTypeParams, DictTypeResult } from '@/apis/system/dict-type'
+import type { CreateDictTypeParams, DictTypeModel } from '@/apis/system/dict-type'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record?: DictTypeResult
+  record?: DictTypeModel
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {

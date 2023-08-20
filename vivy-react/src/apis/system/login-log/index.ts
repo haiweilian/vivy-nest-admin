@@ -1,9 +1,7 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { ListLoginLogParams } from './model-params'
-import type { LoginLogListResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import type { LoginLogListResult, ListLoginLogParams } from './model'
+export * from './model'
 
 /**
  * 查询登录日志列表

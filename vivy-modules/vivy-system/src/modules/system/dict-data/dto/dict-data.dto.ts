@@ -13,7 +13,7 @@ export class ListDictDataDto extends PaginateDto {
 
   /** 字典标签 */
   @Allow()
-  dictLabel?: string = ''
+  dictLabel?: string
 
   /** 字典状态（0正常 1停用） */
   @Allow()

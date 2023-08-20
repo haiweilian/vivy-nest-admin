@@ -9,11 +9,11 @@ import { GenTable } from '../entities/gen-table.entity'
 export class ListGenDto extends PaginateDto {
   /** 表名称 */
   @Allow()
-  tableName?: string = ''
+  tableName?: string
 
   /** 表注释 */
   @Allow()
-  tableComment?: string = ''
+  tableComment?: string
 }
 
 /**

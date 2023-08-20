@@ -1,9 +1,7 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { LoginParams } from './model-params'
-import type { LoginResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import type { LoginParams, LoginResult } from './model'
+export * from './model'
 
 /**
  * 用户登录

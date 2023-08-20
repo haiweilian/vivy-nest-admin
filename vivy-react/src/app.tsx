@@ -167,6 +167,7 @@ export const request: RequestConfig = {
       (response: any) => {
         const code = response.data.code || 200
         const message = response.data.message || '系统未知错误，请反馈给管理员'
+        const getResponse = response.config.getResponse
         const skipErrorHandler = response.config.skipErrorHandler
 
         // 错误判断
@@ -197,7 +198,7 @@ export const request: RequestConfig = {
           return Promise.reject(new Error(message))
         }
 
-        return response.data
+        return getResponse ? response : response.data
       },
       (error: any) => {
         const skipErrorHandler = error.config.skipErrorHandler

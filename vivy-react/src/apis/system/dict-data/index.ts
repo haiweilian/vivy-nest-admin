@@ -1,15 +1,13 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { CreateDictDataParams, ListDictDataParams, UpdateDictDataParams } from './model-params'
-import type { DictDataResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import type { DictDataModel, CreateDictDataParams, ListDictDataParams, UpdateDictDataParams } from './model'
+export * from './model'
 
 /**
  * 查询字典数据列表
  */
 export function listDictData(params: ListDictDataParams) {
-  return request<Pagination<DictDataResult>>('/dict/data/list', {
+  return request<Pagination<DictDataModel>>('/dict/data/list', {
     method: RequestEnum.GET,
     params,
   })
@@ -48,7 +46,7 @@ export function deleteDictData(postIds: React.Key) {
  * 查询字典数据详情
  */
 export function infoDictData(postId: React.Key) {
-  return request<DictDataResult>(`/dict/data/info/${postId}`, {
+  return request<DictDataModel>(`/dict/data/info/${postId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -57,7 +55,7 @@ export function infoDictData(postId: React.Key) {
  * 根据字典类型查询字典数据列表
  */
 export function getDictDataList(type: string) {
-  return request<DictDataResult[]>(`/dict/data/list/${type}`, {
+  return request<DictDataModel[]>(`/dict/data/list/${type}`, {
     method: RequestEnum.GET,
   })
 }

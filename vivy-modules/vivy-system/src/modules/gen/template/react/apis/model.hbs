@@ -1,0 +1,35 @@
+/**
+ * {{functionName}}信息
+ */
+export interface {{businessNamePascalCase}}Model {
+{{#each columns as | column |}}
+{{#if (notIn ../constants.BASE_ENTITY column.fieldName)}}
+  /** {{column.columnComment}} */
+  {{column.fieldName}}: {{column.tslangType}}
+
+{{/if}}
+{{/each}}
+}
+
+/**
+ * 查询{{functionName}}
+ */
+export interface List{{businessNamePascalCase}}Params extends PaginateParams {
+{{#each columns as | column |}}
+{{#if (isRequire column.isQuery)}}
+  /** {{column.columnComment}} */
+  {{column.fieldName}}?: {{column.tslangType}}{{#if (isEqual column.queryType 'BETWEEN')}}[]{{/if}}
+
+{{/if}}
+{{/each}}
+}
+
+/**
+ * 添加{{functionName}}
+ */
+export type Create{{businessNamePascalCase}}Params = Omit<{{businessNamePascalCase}}Model, '{{pkColumn.fieldName}}'>
+
+/**
+ * 更新{{functionName}}
+ */
+export type Update{{businessNamePascalCase}}Params = {{businessNamePascalCase}}Model

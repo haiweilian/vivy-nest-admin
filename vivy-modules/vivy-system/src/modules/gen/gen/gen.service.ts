@@ -1,14 +1,19 @@
-import { Injectable } from '@nestjs/common'
+import * as fs from 'fs/promises'
+import * as path from 'path'
+import { Injectable, StreamableFile } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { ServiceException } from '@vivy-common/core'
-import { isEmpty } from 'lodash'
+import * as archiver from 'archiver'
+import { isEmpty, isNotEmpty } from 'class-validator'
 import { Pagination, paginate } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
 import { GenUtils } from '../utils/gen.utils'
+import { TemplateUtils } from '../utils/template.utils'
 import { ListGenDto, UpdateGenDto } from './dto/gen.dto'
 import { GenTableColumn } from './entities/gen-table-column.entity'
 import { GenTable } from './entities/gen-table.entity'
 import { GenMapper } from './gen.mapper'
+import { GenPreviewVo } from './vo/gen.vo'
 
 /**
  * 代码生成
@@ -40,8 +45,8 @@ export class GenService {
       },
       {
         where: {
-          tableName: Like(`%${gen.tableName}%`),
-          tableComment: Like(`%${gen.tableComment}%`),
+          tableName: isNotEmpty(gen.tableName) ? Like(`%${gen.tableName}%`) : undefined,
+          tableComment: isNotEmpty(gen.tableComment) ? Like(`%${gen.tableComment}%`) : undefined,
         },
       }
     )
@@ -162,8 +167,35 @@ export class GenService {
    * @param tableName 表名称
    * @returns 代码详情
    */
-  async preview(tableName: number): Promise<any> {
-    throw new Error('Method not implemented.')
+  async preview(tableName: string): Promise<GenPreviewVo[]> {
+    const result: GenPreviewVo[] = []
+
+    // 查询表信息
+    const table = await this.tableRepository.findOne({
+      where: {
+        tableName,
+      },
+      relations: {
+        columns: true,
+      },
+    })
+
+    // 获取模板列表
+    const templates = TemplateUtils.getTemplateList()
+    for (const template of templates) {
+      const item: GenPreviewVo = { name: template.name, files: [] }
+      result.push(item)
+
+      // 渲染模板代码
+      for (const file of template.files) {
+        const raw = await fs.readFile(path.join(__dirname, '../template', file), 'utf-8')
+        const name = TemplateUtils.getFileName(file, table)
+        const code = TemplateUtils.compileTemplate(raw, table)
+        item.files.push({ name, code })
+      }
+    }
+
+    return result
   }
 
   /**
@@ -171,7 +203,17 @@ export class GenService {
    * @param tableName 表名称
    * @returns 代码详情
    */
-  async download(tableName: number): Promise<any> {
-    throw new Error('Method not implemented.')
+  async download(tableName: string): Promise<StreamableFile> {
+    const preview = await this.preview(tableName)
+    const archive = archiver('zip')
+
+    for (const code of preview) {
+      for (const file of code.files) {
+        archive.append(file.code, { name: `${tableName}/${file.name}` })
+      }
+    }
+    archive.finalize()
+
+    return new StreamableFile(archive)
   }
 }

@@ -1,0 +1,52 @@
+import { request } from '@umijs/max'
+import { RequestEnum } from '@/enums/httpEnum'
+import { Create{{businessNamePascalCase}}Params, List{{businessNamePascalCase}}Params, Update{{businessNamePascalCase}}Params, {{businessNamePascalCase}}Model } from './model'
+export * from './model'
+
+/**
+ * 查询{{functionName}}列表
+ */
+export function list{{businessNamePascalCase}}(params: List{{businessNamePascalCase}}Params) {
+  return request<Pagination<{{businessNamePascalCase}}Model>>('/{{businessNameCamelcase}}/list', {
+    method: RequestEnum.GET,
+    params,
+  })
+}
+
+/**
+ * 添加{{functionName}}
+ */
+export function add{{businessNamePascalCase}}(params: Create{{businessNamePascalCase}}Params) {
+  return request('/{{businessNameCamelcase}}/add', {
+    method: RequestEnum.POST,
+    data: params,
+  })
+}
+
+/**
+ * 更新{{functionName}}
+ */
+export function update{{businessNamePascalCase}}(params: Update{{businessNamePascalCase}}Params) {
+  return request('/{{businessNameCamelcase}}/update', {
+    method: RequestEnum.PUT,
+    data: params,
+  })
+}
+
+/**
+ * 删除{{functionName}}
+ */
+export function delete{{businessNamePascalCase}}({{pkColumn.fieldName}}s: React.Key) {
+  return request(`/{{businessNameCamelcase}}/delete/${ {{~pkColumn.fieldName~}} s}`, {
+    method: RequestEnum.DELETE,
+  })
+}
+
+/**
+ * 查询{{functionName}}详情
+ */
+export function info{{businessNamePascalCase}}({{pkColumn.fieldName}}: React.Key) {
+  return request<{{businessNamePascalCase}}Model>(`/{{businessNameCamelcase}}/info/${ {{~pkColumn.fieldName~}} }`, {
+    method: RequestEnum.GET,
+  })
+}

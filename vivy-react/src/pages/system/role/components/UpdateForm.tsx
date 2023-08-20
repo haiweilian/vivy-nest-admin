@@ -12,10 +12,10 @@ import { TreeSelect } from 'antd'
 import { useRef, useEffect } from 'react'
 import { selectableMenuTree } from '@/apis/system/menu'
 import { addRole, updateRole, infoRole } from '@/apis/system/role'
-import type { CreateRoleParams, RoleResult } from '@/apis/system/role'
+import type { CreateRoleParams, RoleModel } from '@/apis/system/role'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record?: RoleResult
+  record?: RoleModel
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {

@@ -77,7 +77,7 @@ export class AuthUtils {
    * @param role 角色
    * @returns 用户是否具备某角色权限
    */
-  containRole(roles: string[], role: string): boolean {
+  inRole(roles: string[], role: string): boolean {
     return roles.includes(UserConstants.SUPER_ROLE_CODE) || roles.includes(role)
   }
 
@@ -87,7 +87,7 @@ export class AuthUtils {
    * @returns 用户是否具备某角色
    */
   hasRole(role: string): boolean {
-    return this.containRole(this.getRoleList(), role)
+    return this.inRole(this.getRoleList(), role)
   }
 
   /**
@@ -156,7 +156,7 @@ export class AuthUtils {
    * @param permission 权限字符串
    * @returns 用户是否具备某权限
    */
-  containPermission(permissions: string[], permission: string): boolean {
+  inPermission(permissions: string[], permission: string): boolean {
     return permissions.includes(UserConstants.SUPER_ROLE_PERMISSION) || permissions.includes(permission)
   }
 
@@ -166,7 +166,7 @@ export class AuthUtils {
    * @returns 用户是否具备某权限
    */
   hasPermission(permission: string): boolean {
-    return this.containPermission(this.getPermissionList(), permission)
+    return this.inPermission(this.getPermissionList(), permission)
   }
 
   /**

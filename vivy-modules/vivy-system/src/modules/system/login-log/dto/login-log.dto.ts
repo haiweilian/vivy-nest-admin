@@ -9,7 +9,7 @@ import { SysLoginLog } from '../entities/sys-login-log.entity'
 export class ListLoginLogDto extends PaginateDto {
   /** 用户账号 */
   @Allow()
-  loginName?: string = ''
+  loginName?: string
 
   /** 登录状态(enum OperStatus) */
   @Allow()

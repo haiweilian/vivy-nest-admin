@@ -1,15 +1,13 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import { CreatePostParams, ListPostParams, UpdatePostParams } from './model-params'
-import { PostResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import { CreatePostParams, ListPostParams, UpdatePostParams, PostModel } from './model'
+export * from './model'
 
 /**
  * 查询岗位列表
  */
 export function listPost(params: ListPostParams) {
-  return request<Pagination<PostResult>>('/post/list', {
+  return request<Pagination<PostModel>>('/post/list', {
     method: RequestEnum.GET,
     params,
   })
@@ -48,7 +46,7 @@ export function deletePost(postIds: React.Key) {
  * 查询岗位详情
  */
 export function infoPost(postId: React.Key) {
-  return request<PostResult>(`/post/info/${postId}`, {
+  return request<PostModel>(`/post/info/${postId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -57,7 +55,7 @@ export function infoPost(postId: React.Key) {
  * 查询岗位选项列表
  */
 export function selectablePost() {
-  return request<PostResult[]>('/post/selectable/post', {
+  return request<PostModel[]>('/post/selectable/post', {
     method: RequestEnum.GET,
   })
 }

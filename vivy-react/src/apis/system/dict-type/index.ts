@@ -1,15 +1,13 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { CreateDictTypeParams, ListDictTypeParams, UpdateDictTypeParams } from './model-params'
-import type { DictTypeResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import type { DictTypeModel, CreateDictTypeParams, ListDictTypeParams, UpdateDictTypeParams } from './model'
+export * from './model'
 
 /**
  * 查询字典类型列表
  */
 export function listDictType(params: ListDictTypeParams) {
-  return request<Pagination<DictTypeResult>>('/dict/type/list', {
+  return request<Pagination<DictTypeModel>>('/dict/type/list', {
     method: RequestEnum.GET,
     params,
   })
@@ -48,7 +46,7 @@ export function deleteDictType(postIds: React.Key) {
  * 查询字典类型详情
  */
 export function infoDictType(postId: React.Key) {
-  return request<DictTypeResult>(`/dict/type/info/${postId}`, {
+  return request<DictTypeModel>(`/dict/type/info/${postId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -57,7 +55,7 @@ export function infoDictType(postId: React.Key) {
  * 查询字典类型选项列表
  */
 export function selectableDictType() {
-  return request<DictTypeResult[]>('/dict/type/selectable/dictType', {
+  return request<DictTypeModel[]>('/dict/type/selectable/dictType', {
     method: RequestEnum.GET,
   })
 }

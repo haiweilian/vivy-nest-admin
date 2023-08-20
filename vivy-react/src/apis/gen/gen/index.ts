@@ -1,15 +1,13 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { ListGenParams, UpdateGenParams } from './model-params'
-import type { GenTableResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import type { GenTableModel, GenPreviewResult, ListGenParams, UpdateGenParams } from './model'
+export * from './model'
 
 /**
  * 查询代码生成表列表
  */
-export function listGenTable(params: Partial<ListGenParams>) {
-  return request<Pagination<GenTableResult>>('/gen/list', {
+export function listGenTable(params: ListGenParams) {
+  return request<Pagination<GenTableModel>>('/gen/list', {
     method: RequestEnum.GET,
     params,
   })
@@ -18,7 +16,7 @@ export function listGenTable(params: Partial<ListGenParams>) {
 /**
  * 更新代码生成表
  */
-export function updateGenTable(params: Partial<UpdateGenParams>) {
+export function updateGenTable(params: UpdateGenParams) {
   return request('/gen/update', {
     method: RequestEnum.PUT,
     data: params,
@@ -38,7 +36,7 @@ export function deleteGenTable(tableIds: React.Key) {
  * 查询代码生成表详情
  */
 export function infoGenTable(tableId: React.Key) {
-  return request<GenTableResult>(`/gen/info/${tableId}`, {
+  return request<GenTableModel>(`/gen/info/${tableId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -46,8 +44,8 @@ export function infoGenTable(tableId: React.Key) {
 /**
  * 查询数据库表列表
  */
-export function listDbTable(params: Partial<ListGenParams>) {
-  return request<GenTableResult[]>('/gen/dblist', {
+export function listDbTable(params: ListGenParams) {
+  return request<GenTableModel[]>('/gen/dblist', {
     method: RequestEnum.GET,
     params,
   })
@@ -75,7 +73,7 @@ export function syncDbTable(tableName: React.Key) {
  * 预览代码
  */
 export function previewCode(tableName: React.Key) {
-  return request(`/gen/preview/${tableName}`, {
+  return request<GenPreviewResult[]>(`/gen/preview/${tableName}`, {
     method: RequestEnum.GET,
   })
 }
@@ -86,5 +84,7 @@ export function previewCode(tableName: React.Key) {
 export function downloadCode(tableName: React.Key) {
   return request(`/gen/download/${tableName}`, {
     method: RequestEnum.GET,
+    responseType: 'blob',
+    getResponse: true,
   })
 }

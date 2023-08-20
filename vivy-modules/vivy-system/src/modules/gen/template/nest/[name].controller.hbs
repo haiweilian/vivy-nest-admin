@@ -1,0 +1,67 @@
+import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { AjaxResult } from '@vivy-common/core'
+import { Log, OperType } from '@vivy-common/logger'
+import { List{{businessNamePascalCase}}Dto, Create{{businessNamePascalCase}}Dto, Update{{businessNamePascalCase}}Dto } from './dto/{{businessNameKebabCase}}.dto'
+import { {{businessNamePascalCase}}Service } from './{{businessNameKebabCase}}.service'
+
+/**
+ * {{functionName}}
+ * @author {{functionAuthor}}
+ */
+@ApiTags('{{functionName}}')
+@ApiBearerAuth()
+@Controller('{{businessNameCamelcase}}')
+export class {{businessNamePascalCase}}Controller {
+  constructor(private {{businessNameCamelcase}}Service: {{businessNamePascalCase}}Service) {}
+
+  /**
+   * {{functionName}}列表
+   * @param {{businessNameCamelcase}} {{functionName}}信息
+   * @returns {{functionName}}列表
+   */
+  @Get('list')
+  async list(@Query() {{businessNameCamelcase}}: List{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
+    return AjaxResult.success(await this.{{businessNameCamelcase}}Service.list({{businessNameCamelcase}}))
+  }
+
+  /**
+   * 添加{{functionName}}
+   * @param {{businessNameCamelcase}} {{functionName}}信息
+   */
+  @Post('add')
+  @Log({ title: '{{functionName}}', operType: OperType.INSERT })
+  async add(@Body() {{businessNameCamelcase}}: Create{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
+    return AjaxResult.success(await this.{{businessNameCamelcase}}Service.add({{businessNameCamelcase}}))
+  }
+
+  /**
+   * 更新{{functionName}}
+   * @param {{businessNameCamelcase}} {{functionName}}信息
+   */
+  @Put('update')
+  @Log({ title: '{{functionName}}', operType: OperType.UPDATE })
+  async update(@Body() {{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
+    return AjaxResult.success(await this.{{businessNameCamelcase}}Service.update({{businessNameCamelcase}}))
+  }
+
+  /**
+   * 删除{{functionName}}
+   * @param {{pkColumn.fieldName}}s {{functionName}}ID
+   */
+  @Delete('delete/:{{pkColumn.fieldName}}s')
+  @Log({ title: '{{functionName}}', operType: OperType.DELETE })
+  async delete(@Param('{{pkColumn.fieldName}}s', ParseArrayPipe) {{pkColumn.fieldName}}s: {{pkColumn.tslangType}}[]): Promise<AjaxResult> {
+    return AjaxResult.success(await this.{{businessNameCamelcase}}Service.delete({{pkColumn.fieldName}}s))
+  }
+
+  /**
+   * {{functionName}}详情
+   * @param {{pkColumn.fieldName}} {{functionName}}ID
+   * @returns {{functionName}}详情
+   */
+  @Get('info/:{{pkColumn.fieldName}}')
+  async info(@Param('{{pkColumn.fieldName}}') {{pkColumn.fieldName}}: {{pkColumn.tslangType}}): Promise<AjaxResult> {
+    return AjaxResult.success(await this.{{businessNameCamelcase}}Service.info({{pkColumn.fieldName}}))
+  }
+}

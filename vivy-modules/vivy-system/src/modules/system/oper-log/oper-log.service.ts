@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { isArray, isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Between, Like, Repository } from 'typeorm'
 import { ListOperLogDto, CreateOperLogDto } from './dto/oper-log.dto'
@@ -33,12 +34,12 @@ export class OperLogService {
           createTime: 'DESC',
         },
         where: {
-          title: Like(`%${operLog.title}%`),
+          title: isNotEmpty(operLog.title) ? Like(`%${operLog.title}%`) : undefined,
           operType: operLog.operType,
-          operName: Like(`%${operLog.operName}%`),
+          operName: isNotEmpty(operLog.operName) ? Like(`%${operLog.operName}%`) : undefined,
           operStatus: operLog.operStatus,
-          requestUrl: Like(`%${operLog.requestUrl}%`),
-          createTime: operLog.createTime ? Between(operLog.createTime[0], operLog.createTime[1]) : undefined,
+          requestUrl: isNotEmpty(operLog.requestUrl) ? Like(`%${operLog.requestUrl}%`) : undefined,
+          createTime: isArray(operLog.createTime) ? Between(operLog.createTime[0], operLog.createTime[1]) : undefined,
         },
       }
     )

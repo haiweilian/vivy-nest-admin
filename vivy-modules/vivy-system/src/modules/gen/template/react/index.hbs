@@ -1,0 +1,143 @@
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import type { ActionType, ProColumns } from '@ant-design/pro-components'
+import { ProTable } from '@ant-design/pro-components'
+{{#if dictColumn}}import { useModel } from '@umijs/max'{{/if}}
+import { Button, Popconfirm } from 'antd'
+import { useRef, useState } from 'react'
+import { list{{businessNamePascalCase}}, delete{{businessNamePascalCase}} } from '@/apis/system/{{businessNameKebabCase}}'
+import type { {{businessNamePascalCase}}Model } from '@/apis/system/{{businessNameKebabCase}}'
+{{#if dictColumn}}import { DictTag } from '@/components/Dict'{{/if}}
+import UpdateForm from './components/UpdateForm'
+
+const {{businessNamePascalCase}} = () => {
+  const actionRef = useRef<ActionType>()
+  const [record, setRecord] = useState<{{businessNamePascalCase}}Model>()
+  const [updateOpen, setUpdateOpen] = useState(false)
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
+
+  {{#if dictColumn}}
+  /**
+   * 注册字典数据
+   */
+  const { loadDict, toSelect } = useModel('dict')
+  {{#each dictColumn as |column|}}
+  {{#if (isRequire column.isList)}}
+  const {{column.dictTypeCamelcase}} = loadDict('{{column.dictType}}')
+  {{/if}}
+  {{/each}}
+  {{/if}}
+
+  /**
+   * 删除{{functionName}}
+   * @param {{pkColumn.fieldName}}s {{functionName}}ID
+   */
+  const handleDelete = async ({{pkColumn.fieldName}}s: React.Key) => {
+    await delete{{businessNamePascalCase}}({{pkColumn.fieldName}}s)
+    setSelectedRowKeys([])
+    actionRef.current?.reload()
+  }
+
+  /**
+   * 表格列配置
+   */
+  const columns: ProColumns<{{businessNamePascalCase}}Model>[] = [
+    {{#each columns as |column|}}
+    {{#if (isRequire column.isList)}}
+    {
+      title: '{{column.fieldLabel}}',
+      dataIndex: '{{column.fieldName}}',
+      {{#if (notRequire column.isQuery)}}
+      search: false,
+      {{/if}}
+      {{#if column.dictType}}
+      valueType: 'select',
+      fieldProps: { options: toSelect({{column.dictTypeCamelcase}}) },
+      render: (_, record) => {
+        return <DictTag options={ {{~column.dictTypeCamelcase~}} } value={record.{{~column.fieldName~}}} />
+      },
+      {{/if}}
+    },
+    {{/if}}
+    {{/each}}
+    {
+      title: '操作',
+      valueType: 'option',
+      key: 'option',
+      render: (_, record) => [
+        <Button
+          type="link"
+          onClick={() => {
+            setRecord(record)
+            setUpdateOpen(true)
+          }}
+        >
+          编辑
+        </Button>,
+        <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.{{pkColumn.fieldName}})}>
+          <Button type="link" danger>
+            删除
+          </Button>
+        </Popconfirm>,
+      ],
+    },
+  ]
+
+  return (
+    <>
+      <ProTable
+        rowKey="{{pkColumn.fieldName}}"
+        headerTitle="{{functionName}}列表"
+        bordered
+        columns={columns}
+        actionRef={actionRef}
+        rowSelection=\{{
+          selectedRowKeys,
+          onChange: setSelectedRowKeys,
+        }}
+        request={async (params) => {
+          const { items, meta } = await list{{businessNamePascalCase}}({
+            ...params,
+            page: params.current,
+            limit: params.pageSize,
+          })
+          return {
+            data: items,
+            total: meta.totalItems,
+          }
+        }}
+        toolbar=\{{
+          actions: [
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => {
+                setRecord(undefined)
+                setUpdateOpen(true)
+              }}
+            >
+              新增
+            </Button>,
+            <Popconfirm
+              title="是否确认删除？"
+              disabled={!selectedRowKeys.length}
+              onConfirm={() => handleDelete(selectedRowKeys.join(','))}
+            >
+              <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
+                删除
+              </Button>
+            </Popconfirm>,
+          ],
+        }}
+      />
+
+      <UpdateForm
+        record={record}
+        open={updateOpen}
+        onOpenChange={setUpdateOpen}
+        onFinish={async () => actionRef.current?.reload()}
+      />
+    </>
+  )
+}
+
+export default {{businessNamePascalCase}}

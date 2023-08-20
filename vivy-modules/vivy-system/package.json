@@ -10,10 +10,14 @@
     "start:prod": "node dist/main"
   },
   "dependencies": {
+    "archiver": "^5.3.1",
     "camelcase": "^6.0.0",
+    "decamelize": "^5.0.0",
+    "handlebars": "^4.7.7",
     "ua-parser-js": "^1.0.35"
   },
   "devDependencies": {
+    "@types/archiver": "^5.3.2",
     "@types/ua-parser-js": "^0.7.36"
   }
 }

@@ -13,10 +13,10 @@ import { selectableDeptTree } from '@/apis/system/dept'
 import { selectablePost } from '@/apis/system/post'
 import { selectableRole } from '@/apis/system/role'
 import { addUser, updateUser, infoUser } from '@/apis/system/user'
-import type { CreateUserParams, UserResult } from '@/apis/system/user'
+import type { CreateUserParams, UserModel } from '@/apis/system/user'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record?: UserResult
+  record?: UserModel
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {

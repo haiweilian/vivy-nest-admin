@@ -1,7 +1,7 @@
 /**
  * 用户信息
  */
-export interface UserResult {
+export interface UserModel {
   /** 用户ID */
   userId: number
 
@@ -39,10 +39,37 @@ export interface UserResult {
 /**
  * 用户详情
  */
-export interface UserInfoResult extends UserResult {
+export interface UserInfoResult extends UserModel {
   /** 用户角色 */
   roleIds: number[]
 
   /** 用户岗位 */
   postIds: number[]
 }
+
+/**
+ * 查询用户
+ */
+export interface ListUserParams extends PaginateParams {
+  /** 部门ID */
+  deptId?: number
+
+  /** 用户账号 */
+  userName?: string
+
+  /** 用户昵称 */
+  nickName?: string
+
+  /** 用户状态（0正常 1停用） */
+  status?: string
+}
+
+/**
+ * 新增
+ */
+export type CreateUserParams = Omit<UserModel, 'userId'>
+
+/**
+ * 更新
+ */
+export type UpdateUserParams = UserModel

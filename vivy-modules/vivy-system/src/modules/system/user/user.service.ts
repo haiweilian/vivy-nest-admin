@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
 import { ServiceException, PasswordUtils, IdentityUtils, SysLoginUser, UserConstants } from '@vivy-common/core'
+import { isNotEmpty } from 'class-validator'
 import { isEmpty, isArray, isObject } from 'lodash'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { EntityManager, In, Like, Repository } from 'typeorm'
@@ -51,8 +52,8 @@ export class UserService {
         where: {
           status: user.status,
           deptId: user.deptId,
-          userName: Like(`%${user.userName}%`),
-          nickName: Like(`%${user.nickName}%`),
+          userName: isNotEmpty(user.userName) ? Like(`%${user.userName}%`) : undefined,
+          nickName: isNotEmpty(user.nickName) ? Like(`%${user.nickName}%`) : undefined,
         },
       }
     )

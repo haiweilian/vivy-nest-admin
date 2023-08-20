@@ -1,0 +1,100 @@
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { isArray, isNotEmpty } from 'class-validator'
+import { paginate, Pagination } from 'nestjs-typeorm-paginate'
+import { Like, Repository } from 'typeorm'
+import { List{{businessNamePascalCase}}Dto, Create{{businessNamePascalCase}}Dto, Update{{businessNamePascalCase}}Dto } from './dto/{{businessNameKebabCase}}.dto'
+import { {{classNamePascalCase}} } from './entities/{{classNameKebabCase}}.entity'
+
+/**
+ * {{functionName}}
+ * @author {{functionAuthor}}
+ */
+@Injectable()
+export class {{businessNamePascalCase}}Service {
+  constructor(
+    @InjectRepository({{classNamePascalCase}})
+    private {{businessNameCamelcase}}Repository: Repository<{{classNamePascalCase}}>
+  ) {}
+
+  /**
+   * {{functionName}}列表
+   * @param {{businessNameCamelcase}} {{functionName}}信息
+   * @returns {{functionName}}列表
+   */
+  async list({{businessNameCamelcase}}: List{{businessNamePascalCase}}Dto): Promise<Pagination<{{classNamePascalCase}}>> {
+    return paginate<{{classNamePascalCase}}>(
+      this.{{businessNameCamelcase}}Repository,
+      {
+        page: {{businessNameCamelcase}}.page,
+        limit: {{businessNameCamelcase}}.limit,
+      },
+      {
+        where: {
+        {{#each columns as | column |}}
+        {{#if (isRequire column.isQuery)}}
+          {{column.fieldName}}: {{space}}
+          {{~#if (isEqual column.queryType 'EQ')~}}
+            {{../businessNameCamelcase}}.{{column.fieldName}},
+          {{/if}}
+          {{~#if (isEqual column.queryType 'NE')~}}
+            isNotEmpty({{../businessNameCamelcase}}.{{column.fieldName}}) ? Not({{../businessNameCamelcase}}.{{column.fieldName}}) : undefined,
+          {{/if}}
+          {{~#if (isEqual column.queryType 'GT')~}}
+            isNotEmpty({{../businessNameCamelcase}}.{{column.fieldName}}) ? MoreThan({{../businessNameCamelcase}}.{{column.fieldName}}) : undefined,
+          {{/if}}
+          {{~#if (isEqual column.queryType 'GE')~}}
+            isNotEmpty({{../businessNameCamelcase}}.{{column.fieldName}}) ? MoreThanOrEqual({{../businessNameCamelcase}}.{{column.fieldName}}) : undefined,
+          {{/if}}
+          {{~#if (isEqual column.queryType 'LT')~}}
+            isNotEmpty({{../businessNameCamelcase}}.{{column.fieldName}}) ? LessThan({{../businessNameCamelcase}}.{{column.fieldName}}) : undefined,
+          {{/if}}
+          {{~#if (isEqual column.queryType 'LE')~}}
+            isNotEmpty({{../businessNameCamelcase}}.{{column.fieldName}}) ? LessThanOrEqual({{../businessNameCamelcase}}.{{column.fieldName}}) : undefined,
+          {{/if}}
+          {{~#if (isEqual column.queryType 'LIKE')~}}
+            isNotEmpty({{../businessNameCamelcase}}.{{column.fieldName}}) ? Like(`%${ {{~../businessNameCamelcase}}.{{column.fieldName~}} }%`) : undefined,
+          {{/if}}
+          {{~#if (isEqual column.queryType 'BETWEEN')~}}
+            isArray({{../businessNameCamelcase}}.{{column.fieldName}}) ? Between({{../businessNameCamelcase}}.{{column.fieldName}}[0], {{../businessNameCamelcase}}.{{column.fieldName}}[1]) : undefined,
+          {{/if}}
+        {{/if}}
+        {{/each}}
+        },
+      }
+    )
+  }
+
+  /**
+   * 添加{{functionName}}
+   * @param {{businessNameCamelcase}} {{functionName}}信息
+   */
+  async add({{businessNameCamelcase}}: Create{{businessNamePascalCase}}Dto): Promise<void> {
+    await this.{{businessNameCamelcase}}Repository.insert({{businessNameCamelcase}})
+  }
+
+  /**
+   * 更新{{functionName}}
+   * @param {{businessNameCamelcase}} {{functionName}}信息
+   */
+  async update({{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<void> {
+    await this.{{businessNameCamelcase}}Repository.update({{businessNameCamelcase}}.{{pkColumn.fieldName}}, {{businessNameCamelcase}})
+  }
+
+  /**
+   * 删除{{functionName}}
+   * @param {{pkColumn.fieldName}}s {{functionName}}ID
+   */
+  async delete({{pkColumn.fieldName}}s: {{pkColumn.tslangType}}[]): Promise<void> {
+    await this.{{businessNameCamelcase}}Repository.delete({{pkColumn.fieldName}}s)
+  }
+
+  /**
+   * {{functionName}}详情
+   * @param {{pkColumn.fieldName}} {{functionName}}ID
+   * @returns {{functionName}}详情
+   */
+  async info({{pkColumn.fieldName}}: {{pkColumn.tslangType}}): Promise<{{classNamePascalCase}}> {
+    return this.{{businessNameCamelcase}}Repository.findOneBy({ {{pkColumn.fieldName}} })
+  }
+}

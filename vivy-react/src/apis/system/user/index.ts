@@ -1,15 +1,13 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import { CreateUserParams, ListUserParams, UpdateUserParams } from './model-params'
-import { UserInfoResult, UserResult } from './model-result'
-export * from './model-params'
-export * from './model-result'
+import { UserInfoResult, UserModel, CreateUserParams, ListUserParams, UpdateUserParams } from './model'
+export * from './model'
 
 /**
  * 查询用户列表
  */
 export function listUser(params: ListUserParams) {
-  return request<Pagination<UserResult>>('/user/list', {
+  return request<Pagination<UserModel>>('/user/list', {
     method: RequestEnum.GET,
     params,
   })
