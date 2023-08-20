@@ -89,8 +89,10 @@ importers:
 
   docs:
     specifiers:
+      markdown-it-task-lists: ^2.1.1
       vitepress: 1.0.0-beta.5
     devDependencies:
+      markdown-it-task-lists: 2.1.1
       vitepress: 1.0.0-beta.5
 
   vivy-common:
@@ -11906,6 +11908,10 @@ packages:
 
   /mark.js/8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
+    dev: true
+
+  /markdown-it-task-lists/2.1.1:
+    resolution: {integrity: sha512-TxFAc76Jnhb2OUu+n3yz9RMu4CwGfaT788br6HhEDlvWfdeJcLUsxk1Hgw2yJio0OXsxv7pyIPmvECY7bMbluA==}
     dev: true
 
   /math-random/1.0.4:

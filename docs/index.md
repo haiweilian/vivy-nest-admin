@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: vivy-nest-admin
+  name: Vivy Nest Admin
   tagline: 基于 Nest.js & React.js 的后台权限管理系统
   actions:
     - theme: brand
