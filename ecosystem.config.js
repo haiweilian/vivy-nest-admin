@@ -17,10 +17,10 @@ module.exports = {
       script: 'vivy-modules/vivy-system/dist/main.js',
       ...env,
     },
-    {
-      name: 'vivy-template',
-      script: 'vivy-modules/vivy-template/dist/main.js',
-      ...env,
-    },
+    // {
+    //   name: 'vivy-template',
+    //   script: 'vivy-modules/vivy-template/dist/main.js',
+    //   ...env,
+    // },
   ],
 }

@@ -6,7 +6,7 @@
   "author": "haiweilian <haiweilian@foxmail.com>",
   "homepage": "https://github.com/haiweilian/vivy-nest-admin",
   "scripts": {
-    "prepare": "husky install && pnpm build:common",
+    "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
     "commit": "npx git-cz",
     "lint:lint-staged": "lint-staged",
@@ -15,7 +15,7 @@
     "pm2:dev": "pm2 start ecosystem.config.js --env development",
     "pm2:prod": "pm2 start ecosystem.config.js --env production",
     "pm2:stop": "pm2 stop ecosystem.config.js",
-    "build:all": "pnpm build:common && pnpm --filter=!@vivy-common/** --recursive --stream build",
+    "build": "pnpm build:common && pnpm --recursive --stream build",
     "build:common": "pnpm --filter=@vivy-common/** build",
     "docker:rm": "docker-compose rm",
     "docker:stop": "docker-compose stop",

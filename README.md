@@ -1,3 +1,6 @@
+<p align="center">
+  <img width="100px" src="./docs/public/logo.png">
+</p>
 <h1 align="center">Vivy Nest Admin</h1>
 <h4 align="center">基于 Nest.js & React.js 的后台权限管理系统</h4>
 <p align="center">
@@ -20,8 +23,8 @@
 - 采用前后端分离的模式，使用 `Monorepo` 组织项目模块。
 - 后端使用 `Nest`、`MySql`、`TypeOrm`、`Redis` 等技术。
 - 前端使用 `React`、`Umi Max`、`Ant Design` 等技术。
-- 演示地址：<https://github.com/haiweilian/vivy-nest-admin>
-- 文档地址：<https://github.com/haiweilian/vivy-nest-admin>
+- 演示地址：<http://43.140.221.180:8000>
+- 文档地址：<https://haiweilian.github.io/vivy-nest-admin>
 
 ## 系统模块
 
@@ -35,11 +38,11 @@ vivy
 │       └── vivy-common-logger                      // 日志模块
 │       └── vivy-common-security                    // 安全模块
 │       └── vivy-common-swagger                     // 系统接口
-│       └── vivy-plugin-config                      // 配置插件
+│       └── vivy-plugin-config                      // Config插件
 │       └── vivy-plugin-mybatis                     // Mybatis插件
 ├── vivy-modules          // 业务模块
 │       └── vivy-system                             // 系统模块
-│       └── vivy-template                           // 模块模块
+│       └── vivy-template                           // 模板模块
 ```
 
 ## 内置功能
