@@ -1,0 +1,1 @@
+import{_ as s,o as a,c as n,Q as e}from"./chunks/framework.93aafbf2.js";const E=JSON.parse('{"title":"本地开发","description":"","frontmatter":{},"headers":[],"relativePath":"development.md","filePath":"development.md"}'),p={name:"development.md"},l=e("",18),o=[l];function t(c,r,i,d,h,y){return a(),n("div",null,o)}const u=s(p,[["render",t]]);export{E as __pageData,u as default};
