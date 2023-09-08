@@ -1,5 +1,5 @@
-import { BaseBusinessEntity } from '@vivy-common/core'
-import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
+import { BaseBusinessEntity, BaseStatusEnums } from '@vivy-common/core'
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -9,7 +9,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 export class SysDept extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'dept_id',
-    type: 'int',
+    type: 'bigint',
     comment: '部门ID',
   })
   @IsInt()
@@ -18,7 +18,7 @@ export class SysDept extends BaseBusinessEntity {
 
   @Column({
     name: 'parent_id',
-    type: 'int',
+    type: 'bigint',
     nullable: true,
     comment: '父部门ID',
   })
@@ -53,7 +53,7 @@ export class SysDept extends BaseBusinessEntity {
     default: '0',
     comment: '部门状态（0正常 1停用）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   status: string
 }

@@ -46,9 +46,21 @@ export interface ListRoleParams extends PaginateParams {
 /**
  * 添加角色
  */
-export type CreateRoleParams = Omit<RoleModel, 'roleId'>
+export interface CreateRoleParams extends Omit<RoleModel, 'roleId'> {
+  /** 菜单权限 */
+  menuIds: number[]
+
+  /** 部门权限 */
+  deptIds: number[]
+}
 
 /**
  * 更新角色
  */
-export type UpdateRoleParams = RoleModel
+export interface UpdateRoleParams extends RoleModel {
+  /** 菜单权限 */
+  menuIds: number[]
+
+  /** 部门权限 */
+  deptIds: number[]
+}

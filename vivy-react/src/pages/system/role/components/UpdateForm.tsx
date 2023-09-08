@@ -75,8 +75,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         return true
       }}
     >
-      <ProFormText name="roleName" label="角色名称" rules={[{ required: true }]} />
-      <ProFormText name="roleCode" label="权限字符" rules={[{ required: true }]} />
+      <ProFormText name="roleName" label="角色名称" rules={[{ required: true, max: 50 }]} />
+      <ProFormText name="roleCode" label="权限字符" rules={[{ required: true, max: 50 }]} />
       <ProFormDigit name="roleSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormRadio.Group
         name="status"

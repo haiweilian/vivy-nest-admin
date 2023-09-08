@@ -9,7 +9,7 @@ export interface OperLogModel extends BaseTimeEntity {
   title: string
 
   /** 操作类型 */
-  operType: number
+  operType: string
 
   /** 操作人员 */
   operName: string
@@ -24,7 +24,7 @@ export interface OperLogModel extends BaseTimeEntity {
   operLocation?: string
 
   /** 操作状态 */
-  operStatus: number
+  operStatus: string
 
   /** 请求URL */
   requestUrl: string
@@ -50,13 +50,13 @@ export interface ListOperLogParams extends PaginateParams {
   title?: string
 
   /** 操作类型(enum OperType) */
-  operType?: number
+  operType?: string
 
   /** 操作人员 */
   operName?: string
 
   /** 操作状态(enum OperStatus) */
-  operStatus?: number
+  operStatus?: string
 
   /** 请求地址 */
   requestUrl?: string

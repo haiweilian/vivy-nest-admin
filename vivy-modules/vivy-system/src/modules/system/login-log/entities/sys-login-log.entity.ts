@@ -1,5 +1,6 @@
-import { BaseTimeEntity } from '@vivy-common/core'
-import { IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
+import { BaseStatusEnums, BaseTimeEntity } from '@vivy-common/core'
+import { LoginType } from '@vivy-common/logger'
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -9,7 +10,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 export class SysLoginLog extends BaseTimeEntity {
   @PrimaryGeneratedColumn({
     name: 'login_id',
-    type: 'int',
+    type: 'bigint',
     comment: '登录ID',
   })
   @IsInt()
@@ -28,23 +29,23 @@ export class SysLoginLog extends BaseTimeEntity {
 
   @Column({
     name: 'login_type',
-    type: 'tinyint',
-    unsigned: true,
-    comment: '登录类型(enum LoginType)',
+    type: 'char',
+    length: 1,
+    comment: '登录类型',
   })
-  @IsInt()
+  @IsEnum(LoginType)
   @IsNotEmpty()
-  loginType: number
+  loginType: string
 
   @Column({
     name: 'login_status',
-    type: 'tinyint',
-    unsigned: true,
-    comment: '登录状态(enum OperStatus)',
+    type: 'char',
+    length: 1,
+    comment: '登录状态',
   })
-  @IsInt()
+  @IsEnum(BaseStatusEnums)
   @IsNotEmpty()
-  loginStatus: number
+  loginStatus: string
 
   @Column({
     name: 'login_ip',

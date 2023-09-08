@@ -1,9 +1,9 @@
 import { DynamicModule, Global, MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { ClsModule } from 'nestjs-cls'
+import { NestGlobalContext } from './context/global'
 import { NestGlobalFilters } from './exceptions-filters/global'
 import { NestGlobalMiddlewares } from './middlewares/global'
 import { NestGlobalPipes } from './pipes/global'
-import { NestGlobalServices } from './services/global'
 
 @Global()
 @Module({})
@@ -22,8 +22,8 @@ export class CoreModule implements NestModule {
           },
         }),
       ],
-      providers: [...NestGlobalPipes, ...NestGlobalFilters, ...NestGlobalServices],
-      exports: [...NestGlobalServices],
+      providers: [...NestGlobalPipes, ...NestGlobalFilters, ...NestGlobalContext],
+      exports: [...NestGlobalContext],
     }
   }
 

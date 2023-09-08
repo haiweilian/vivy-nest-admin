@@ -9,10 +9,10 @@ export interface LoginLogModel extends BaseTimeEntity {
   loginName: string
 
   /** 登录类型 */
-  loginType: number
+  loginType: string
 
   /** 登录状态 */
-  loginStatus: number
+  loginStatus: string
 
   /** 主机地址 */
   loginIp?: string
@@ -46,7 +46,7 @@ export interface ListLoginLogParams extends PaginateParams {
   loginName?: string
 
   /** 登录状态 */
-  loginStatus?: number
+  loginStatus?: string
 
   /** 登录时间 */
   createTime?: string[]

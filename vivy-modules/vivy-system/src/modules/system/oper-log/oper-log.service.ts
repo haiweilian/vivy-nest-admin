@@ -34,10 +34,10 @@ export class OperLogService {
           createTime: 'DESC',
         },
         where: {
-          title: isNotEmpty(operLog.title) ? Like(`%${operLog.title}%`) : undefined,
           operType: operLog.operType,
-          operName: isNotEmpty(operLog.operName) ? Like(`%${operLog.operName}%`) : undefined,
           operStatus: operLog.operStatus,
+          title: isNotEmpty(operLog.title) ? Like(`%${operLog.title}%`) : undefined,
+          operName: isNotEmpty(operLog.operName) ? Like(`%${operLog.operName}%`) : undefined,
           requestUrl: isNotEmpty(operLog.requestUrl) ? Like(`%${operLog.requestUrl}%`) : undefined,
           createTime: isArray(operLog.createTime) ? Between(operLog.createTime[0], operLog.createTime[1]) : undefined,
         },

@@ -5,55 +5,55 @@ export enum OperType {
   /**
    * 其它
    */
-  OTHER,
+  OTHER = '0',
 
   /**
    * 查询
    */
-  SELECT,
+  SELECT = '1',
 
   /**
    * 新增
    */
-  INSERT,
+  INSERT = '2',
 
   /**
    * 修改
    */
-  UPDATE,
+  UPDATE = '3',
 
   /**
    * 删除
    */
-  DELETE,
+  DELETE = '4',
 
   /**
    * 授权
    */
-  GRANT,
+  GRANT = '5',
 
   /**
    * 导出
    */
-  EXPORT,
+  EXPORT = '6',
 
   /**
    * 导入
    */
-  IMPORT,
+  IMPORT = '7',
 
   /**
    * 强退
    */
-  FORCE,
+  FORCE = '8',
 
   /**
    * 生成代码
    */
-  GENCODE,
+  GENCODE = '9',
 
   /**
    * 清空数据
    */
-  CLEAN,
+  CLEAN = '10',
 }

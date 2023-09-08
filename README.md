@@ -21,7 +21,7 @@
 ## 简介
 
 - 采用前后端分离的模式，使用 `Monorepo` 组织项目模块。
-- 后端使用 `Nest`、`MySql`、`TypeOrm`、`Redis` 等技术。
+- 后端使用 `Nest`、`MySQL`、`TypeORM`、`Redis` 等技术。
 - 前端使用 `React`、`Umi Max`、`Ant Design` 等技术。
 - 演示地址：<http://43.140.221.180:8000>
 - 文档地址：<https://haiweilian.github.io/vivy-nest-admin>

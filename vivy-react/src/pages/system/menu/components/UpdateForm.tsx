@@ -97,7 +97,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
           options: menuTypeOptions,
         }}
       />
-      <ProFormText name="menuName" label="菜单名称" rules={[{ required: true }]} />
+      <ProFormText name="menuName" label="菜单名称" rules={[{ required: true, max: 50 }]} />
       <ProFormDigit name="menuSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormDependency name={['menuType']}>
         {({ menuType }: Record<string, MenuType['value']>) => (
@@ -107,6 +107,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
               <ProFormText
                 name="icon"
                 label="菜单图标"
+                rules={[{ max: 100 }]}
                 fieldProps={{
                   addonBefore: (
                     <IconPicker
@@ -126,6 +127,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 name="path"
                 label="路由地址"
                 tooltip="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头"
+                rules={[{ max: 255 }]}
               />
             ) : null}
             {/* 菜单 */}
@@ -134,6 +136,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 name="component"
                 label="组件路径"
                 tooltip="访问的组件路径，如：`system/user/index`，默认在`pages`目录下"
+                rules={[{ max: 255 }]}
               />
             ) : null}
             {/* 菜单 */}
@@ -142,6 +145,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 name="query"
                 label="路由参数"
                 tooltip='访问路由的默认传递参数，如：`{"id": 1, "name": "vivy"}`'
+                rules={[{ max: 255 }]}
               />
             ) : null}
             {/* 菜单、按钮 */}
@@ -150,6 +154,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 name="permission"
                 label="权限字符"
                 tooltip="控制器中定义的权限字符，如：@RequirePermissions('system:operlog:remove')"
+                rules={[{ max: 100 }]}
               />
             ) : null}
             {/* 目录、菜单 */}

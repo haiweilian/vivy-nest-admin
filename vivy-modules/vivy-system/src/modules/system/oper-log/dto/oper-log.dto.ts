@@ -11,17 +11,17 @@ export class ListOperLogDto extends PaginateDto {
   @Allow()
   title?: string
 
-  /** 操作类型(enum OperType) */
+  /** 操作类型 */
   @Allow()
-  operType?: number
+  operType?: string
 
   /** 操作人员 */
   @Allow()
   operName?: string
 
-  /** 操作状态(enum OperStatus) */
+  /** 操作状态 */
   @Allow()
-  operStatus?: number
+  operStatus?: string
 
   /** 请求地址 */
   @Allow()

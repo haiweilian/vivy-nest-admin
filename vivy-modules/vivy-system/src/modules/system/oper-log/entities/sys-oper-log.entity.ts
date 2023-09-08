@@ -1,5 +1,6 @@
-import { BaseTimeEntity } from '@vivy-common/core'
-import { IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
+import { BaseStatusEnums, BaseTimeEntity } from '@vivy-common/core'
+import { OperType } from '@vivy-common/logger'
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -9,7 +10,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 export class SysOperLog extends BaseTimeEntity {
   @PrimaryGeneratedColumn({
     name: 'oper_id',
-    type: 'int',
+    type: 'bigint',
     comment: '操作ID',
   })
   @IsInt()
@@ -28,13 +29,13 @@ export class SysOperLog extends BaseTimeEntity {
 
   @Column({
     name: 'oper_type',
-    type: 'tinyint',
-    unsigned: true,
-    comment: '操作类型(enum OperType)',
+    type: 'char',
+    length: 2,
+    comment: '操作类型',
   })
-  @IsInt()
+  @IsEnum(OperType)
   @IsNotEmpty()
-  operType: number
+  operType: string
 
   @Column({
     name: 'oper_name',
@@ -80,13 +81,13 @@ export class SysOperLog extends BaseTimeEntity {
 
   @Column({
     name: 'oper_status',
-    type: 'tinyint',
-    unsigned: true,
-    comment: '操作状态(enum OperStatus)',
+    type: 'char',
+    length: 1,
+    comment: '操作状态',
   })
-  @IsInt()
+  @IsEnum(BaseStatusEnums)
   @IsNotEmpty()
-  operStatus: number
+  operStatus: string
 
   @Column({
     name: 'request_url',

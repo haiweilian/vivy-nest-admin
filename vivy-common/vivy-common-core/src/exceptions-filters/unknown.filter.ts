@@ -1,7 +1,15 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from '@nestjs/common'
-import { Response } from 'express'
-import { isArray, isString } from 'lodash'
-import { AjaxResult } from '../class'
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpStatus,
+  Logger,
+  HttpException,
+  NotFoundException,
+  RequestTimeoutException,
+} from '@nestjs/common'
+import { Request, Response } from 'express'
+import { AjaxResult } from '../class/ajax-result'
 
 /**
  * 未知异常过滤器
@@ -12,52 +20,43 @@ export class UnknownExceptionFilter implements ExceptionFilter {
 
   catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
+    const request = ctx.getRequest<Request>()
     const response = ctx.getResponse<Response>()
+    response.status(HttpStatus.OK)
 
-    const code = this.initCode(exception)
-    const { cause, message } = this.initMessage(exception)
+    if (exception instanceof NotFoundException) {
+      return response.json(this.NotFoundException(exception, request))
+    }
 
-    this.logger.error(cause, exception.stack)
-    response.status(HttpStatus.OK).json(AjaxResult.error(message, code))
+    if (exception instanceof RequestTimeoutException) {
+      return response.json(this.RequestTimeoutException(exception, request))
+    }
+
+    return response.json(this.DefaultException(exception, request))
   }
 
-  private initCode(exception: Error) {
-    if (exception instanceof HttpException) {
-      return exception.getStatus()
-    } else {
-      return HttpStatus.INTERNAL_SERVER_ERROR
-    }
+  /**
+   * 默认异常
+   */
+  private DefaultException(exception: Error, request: Request): AjaxResult {
+    const response = exception instanceof HttpException ? exception.getResponse() : undefined
+    this.logger.error({ message: exception.message, response }, exception.stack)
+    return AjaxResult.error('服务异常，请稍后重试', HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
-  private initMessage(exception: Error) {
-    if (exception instanceof HttpException) {
-      const response = exception.getResponse() as any
-      if (isString(response)) {
-        return {
-          cause: response,
-          message: response,
-        }
-      } else if (isString(response?.message)) {
-        return {
-          cause: response.message,
-          message: response.message,
-        }
-      } else if (isArray(response?.message)) {
-        return {
-          cause: JSON.stringify(response.message),
-          message: response.message[0],
-        }
-      } else {
-        return {
-          cause: response ? JSON.stringify(response) : exception.message,
-          message: exception.message,
-        }
-      }
-    } else {
-      return {
-        cause: exception.message,
-        message: '服务异常，请稍后再试',
-      }
-    }
+  /**
+   * 资源不存在异常
+   */
+  private NotFoundException(exception: NotFoundException, request: Request): AjaxResult {
+    this.logger.error({ url: request.url, message: exception.message })
+    return AjaxResult.error('请求资源不存在，请稍后重试', exception.getStatus())
+  }
+
+  /**
+   * 请求超时异常
+   */
+  private RequestTimeoutException(exception: RequestTimeoutException, request: Request): AjaxResult {
+    this.logger.error({ url: request.url, message: exception.message })
+    return AjaxResult.error('请求超时，请稍后重试', exception.getStatus())
   }
 }

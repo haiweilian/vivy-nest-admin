@@ -8,9 +8,19 @@ import {
   ProFormSelect,
 } from '@ant-design/pro-components'
 import { useModel, useParams } from '@umijs/max'
+import type { DefaultOptionType } from 'antd/es/cascader'
 import { useRef, useEffect } from 'react'
 import { addDictData, updateDictData, infoDictData } from '@/apis/system/dict-data'
 import type { CreateDictDataParams, DictDataModel } from '@/apis/system/dict-data'
+
+const listClassOptions: DefaultOptionType[] = [
+  { label: '默认', value: 'default' },
+  { label: '主要', value: 'primary' },
+  { label: '成功', value: 'success' },
+  { label: '信息', value: 'info' },
+  { label: '警告', value: 'warning' },
+  { label: '危险', value: 'danger' },
+]
 
 interface UpdateFormProps extends DrawerFormProps {
   record?: DictDataModel
@@ -71,24 +81,17 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         return true
       }}
     >
-      <ProFormText name="dictLabel" label="数据标签" rules={[{ required: true }]} />
-      <ProFormText name="dictValue" label="数据键值" rules={[{ required: true }]} />
+      <ProFormText name="dictLabel" label="数据标签" rules={[{ required: true, max: 100 }]} />
+      <ProFormText name="dictValue" label="数据键值" rules={[{ required: true, max: 100 }]} />
       <ProFormDigit name="dictSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormSelect
         name="listClass"
         label="回显样式"
         fieldProps={{
-          options: [
-            { label: '默认', value: 'default' },
-            { label: '主要', value: 'primary' },
-            { label: '成功', value: 'success' },
-            { label: '信息', value: 'info' },
-            { label: '警告', value: 'warning' },
-            { label: '危险', value: 'danger' },
-          ],
+          options: listClassOptions,
         }}
       />
-      <ProFormText name="cssClass" label="样式属性" />
+      <ProFormText name="cssClass" label="样式属性" rules={[{ max: 100 }]} />
       <ProFormRadio.Group
         name="status"
         label="状态"

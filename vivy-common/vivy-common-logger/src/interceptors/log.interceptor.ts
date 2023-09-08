@@ -1,10 +1,9 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpStatus, StreamableFile } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import { SecurityConstants, AjaxResult, IpUtils } from '@vivy-common/core'
+import { SecurityConstants, AjaxResult, IpUtils, BaseStatusEnums } from '@vivy-common/core'
 import { Request } from 'express'
 import { Observable, tap, catchError, throwError } from 'rxjs'
 import { LogOptions } from '../decorators/log.decorator'
-import { OperStatus } from '../enums/oper-status.enum'
 import { LOGGER_LOG_METADATA } from '../logger.constants'
 import { OperLogDto } from '../services/dto/oper-log.dto'
 import { RpcLogService } from '../services/rpc-log.service'
@@ -66,10 +65,10 @@ export class LogInterceptor implements NestInterceptor {
     }
 
     if (isStreamableFile || result.code === HttpStatus.OK) {
-      operLog.operStatus = OperStatus.OK
+      operLog.operStatus = BaseStatusEnums.NORMAL
       operLog.requestErrmsg = undefined
     } else {
-      operLog.operStatus = OperStatus.FAIL
+      operLog.operStatus = BaseStatusEnums.ABNORMAL
       operLog.requestErrmsg = result.message
     }
 

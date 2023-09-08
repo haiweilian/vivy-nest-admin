@@ -16,7 +16,7 @@ const LoginLog = () => {
    * 注册字典数据
    */
   const { loadDict, toSelect } = useModel('dict')
-  const sysOperStatus = loadDict('sys_oper_status')
+  const sysSuccessFailure = loadDict('sys_success_failure')
 
   /**
    * 清空登录日志
@@ -63,9 +63,9 @@ const LoginLog = () => {
       title: '登录状态',
       dataIndex: 'loginStatus',
       valueType: 'select',
-      fieldProps: { options: toSelect(sysOperStatus) },
+      fieldProps: { options: toSelect(sysSuccessFailure) },
       render: (_, record) => {
-        return <DictTag options={sysOperStatus} value={record.loginStatus} />
+        return <DictTag options={sysSuccessFailure} value={record.loginStatus} />
       },
     },
     {

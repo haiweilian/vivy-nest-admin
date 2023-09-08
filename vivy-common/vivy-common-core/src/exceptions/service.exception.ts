@@ -16,7 +16,7 @@ export class ServiceException extends HttpException {
 
   constructor(msg: string, code?: number) {
     super(msg, HttpStatus.OK)
-    this.code = code || HttpStatus.INTERNAL_SERVER_ERROR
+    this.code = code || HttpStatus.BAD_REQUEST
     this.message = msg
   }
 

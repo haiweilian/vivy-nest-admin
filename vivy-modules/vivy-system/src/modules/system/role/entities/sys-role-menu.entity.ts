@@ -8,7 +8,7 @@ import { Column, Entity } from 'typeorm'
 export class SysRoleMenu extends BaseTimeEntity {
   @Column({
     name: 'role_id',
-    type: 'int',
+    type: 'bigint',
     primary: true,
     comment: '角色ID',
   })
@@ -16,7 +16,7 @@ export class SysRoleMenu extends BaseTimeEntity {
 
   @Column({
     name: 'menu_id',
-    type: 'int',
+    type: 'bigint',
     primary: true,
     comment: '菜单ID',
   })

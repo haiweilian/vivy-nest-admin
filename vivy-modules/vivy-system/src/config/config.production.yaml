@@ -18,3 +18,5 @@ datasource:
     database: vivy-nest-admin
     synchronize: false
     autoLoadEntities: true
+    bigNumberStrings: false
+    supportBigNumbers: true

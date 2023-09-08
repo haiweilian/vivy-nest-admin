@@ -1,5 +1,5 @@
-import { BaseBusinessEntity } from '@vivy-common/core'
-import { IsBooleanString, IsEmail, IsInt, IsMobilePhone, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
+import { BaseBusinessEntity, BaseStatusEnums } from '@vivy-common/core'
+import { IsEmail, IsEnum, IsIn, IsInt, IsMobilePhone, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -9,7 +9,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 export class SysUser extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'user_id',
-    type: 'int',
+    type: 'bigint',
     comment: '用户ID',
   })
   @IsInt()
@@ -18,7 +18,7 @@ export class SysUser extends BaseBusinessEntity {
 
   @Column({
     name: 'dept_id',
-    type: 'int',
+    type: 'bigint',
     nullable: true,
     comment: '部门ID',
   })
@@ -54,7 +54,6 @@ export class SysUser extends BaseBusinessEntity {
     default: '00',
     comment: '用户类型（00系统用户）',
   })
-  @MaxLength(2)
   @IsOptional()
   userType: string
 
@@ -87,7 +86,7 @@ export class SysUser extends BaseBusinessEntity {
     default: '2',
     comment: '用户性别（0男 1女 2未知）',
   })
-  @MaxLength(1)
+  @IsIn(['0', '1', '2'])
   @IsOptional()
   sex: string
 
@@ -109,7 +108,7 @@ export class SysUser extends BaseBusinessEntity {
     select: false,
     comment: '密码',
   })
-  @MaxLength(255)
+  @MaxLength(36) // bcrypt max 72 bytes
   @IsNotEmpty()
   password: string
 
@@ -120,7 +119,7 @@ export class SysUser extends BaseBusinessEntity {
     default: '0',
     comment: '用户状态（0正常 1停用）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   status: string
 

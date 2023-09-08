@@ -7,7 +7,6 @@ export class LoginDto {
    */
   @Allow()
   @ApiProperty({
-    name: '用户名',
     default: 'admin',
   })
   username: string
@@ -17,7 +16,6 @@ export class LoginDto {
    */
   @Allow()
   @ApiProperty({
-    name: '用户密码',
     default: 'Aa@123456',
   })
   password: string

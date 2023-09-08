@@ -1,5 +1,4 @@
-import { BaseTimeEntity } from '@vivy-common/core'
-import { OperStatus } from '../../enums/oper-status.enum'
+import { BaseStatusEnums, BaseTimeEntity } from '@vivy-common/core'
 import { OperType } from '../../enums/oper-type.enum'
 
 export class OperLogDto extends BaseTimeEntity {
@@ -36,7 +35,7 @@ export class OperLogDto extends BaseTimeEntity {
   /**
    * 操作状态
    */
-  operStatus: OperStatus
+  operStatus: BaseStatusEnums
 
   /**
    * 请求URL

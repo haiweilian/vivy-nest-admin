@@ -3,24 +3,24 @@ import { Request } from 'express'
 import { SysLoginUser } from '../class/sys-login-user'
 import { SecurityConstants } from '../constants/security.constants'
 import { TokenConstants } from '../constants/token.constants'
-import { RequestContextService } from './request-context.service'
+import { RequestContext } from './request.context'
 
 /**
- * 权限上下文
+ * 安全上下文
  *
  * 注意：必须提前设置请求头，否则这里无法获取。
  *  - 在 vivy-gateway(AuthFilter)中通过设置请求头的方法传入。
  *  - 在 vivy-common-security(AuthGuard)中通过设置请求头的方法传入。
  */
 @Injectable()
-export class SecurityContextService {
-  constructor(private requestContextService: RequestContextService) {}
+export class SecurityContext {
+  constructor(private requestContext: RequestContext) {}
 
   /**
    * 获取 request
    */
   getRequest(req?: Request): Request {
-    return req || this.requestContextService.getRequest()
+    return req || this.requestContext.getRequest()
   }
 
   /**

@@ -74,7 +74,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
           fieldNames: { label: 'deptName', value: 'deptId' },
         }}
       />
-      <ProFormText name="deptName" label="部门名称" rules={[{ required: true }]} />
+      <ProFormText name="deptName" label="部门名称" rules={[{ required: true, max: 50 }]} />
       <ProFormDigit name="deptSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormRadio.Group
         name="status"

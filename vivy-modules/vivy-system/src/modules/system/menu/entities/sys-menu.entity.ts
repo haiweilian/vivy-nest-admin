@@ -1,5 +1,5 @@
-import { BaseBusinessEntity } from '@vivy-common/core'
-import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
+import { BaseBusinessEntity, BaseStatusEnums } from '@vivy-common/core'
+import { IsEnum, IsIn, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -9,7 +9,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 export class SysMenu extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'menu_id',
-    type: 'int',
+    type: 'bigint',
     comment: '菜单ID',
   })
   @IsInt()
@@ -18,7 +18,7 @@ export class SysMenu extends BaseBusinessEntity {
 
   @Column({
     name: 'parent_id',
-    type: 'int',
+    type: 'bigint',
     nullable: true,
     comment: '父菜单ID',
   })
@@ -42,7 +42,7 @@ export class SysMenu extends BaseBusinessEntity {
     length: 1,
     comment: '菜单类型（M目录 C菜单 F按钮）',
   })
-  @MaxLength(1)
+  @IsIn(['M', 'C', 'F'])
   @IsNotEmpty()
   menuType: string
 
@@ -63,7 +63,7 @@ export class SysMenu extends BaseBusinessEntity {
     default: '0',
     comment: '菜单状态（0正常 1停用）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   status: string
 
@@ -129,7 +129,7 @@ export class SysMenu extends BaseBusinessEntity {
     default: '0',
     comment: '是否显示（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isVisible: string
 
@@ -140,7 +140,7 @@ export class SysMenu extends BaseBusinessEntity {
     default: '1',
     comment: '是否为外链（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isLink: string
 
@@ -151,7 +151,7 @@ export class SysMenu extends BaseBusinessEntity {
     default: '1',
     comment: '是否为内嵌（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isFrame: string
 
@@ -162,7 +162,7 @@ export class SysMenu extends BaseBusinessEntity {
     default: '1',
     comment: '是否缓存（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isCache: string
 }

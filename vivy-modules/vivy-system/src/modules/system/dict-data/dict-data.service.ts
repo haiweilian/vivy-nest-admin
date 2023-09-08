@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
 import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dict-data.dto'
@@ -36,7 +37,7 @@ export class DictDataService {
         where: {
           status: dictData.status,
           dictType: dictData.dictType,
-          dictLabel: Like(`%${dictData.dictLabel}%`),
+          dictLabel: isNotEmpty(dictData.dictLabel) ? Like(`%${dictData.dictLabel}%`) : undefined,
         },
       }
     )

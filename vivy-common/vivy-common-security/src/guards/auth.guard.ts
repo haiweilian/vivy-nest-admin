@@ -4,17 +4,17 @@ import { NotLoginException, SecurityConstants } from '@vivy-common/core'
 import { Request } from 'express'
 import { isEmpty } from 'lodash'
 import { PUBLIC_METADATA } from '../security.constants'
-import { TokenUtils } from '../utils/token.utils'
+import { TokenService } from '../services/token.service'
 
 /**
- * 认证校验守卫
+ * 认证守卫
  * 注意：此守卫会同时验证当前用户有效期自动刷新有效期
  */
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private tokenUtils: TokenUtils
+    private tokenService: TokenService
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -36,17 +36,17 @@ export class AuthGuard implements CanActivate {
     if (isPublic) return true
 
     // 用户登录认证状态校验
-    const token = this.tokenUtils.getToken(request)
+    const token = this.tokenService.getToken(request)
     if (isEmpty(token)) {
       throw new NotLoginException('令牌不能为空')
     }
 
-    const claims = this.tokenUtils.parseToken(token)
+    const claims = this.tokenService.parseToken(token)
     if (isEmpty(claims)) {
       throw new NotLoginException('令牌已过期或验证不正确')
     }
 
-    const loginUser = await this.tokenUtils.getLoginUser(token)
+    const loginUser = await this.tokenService.getLoginUser(token)
     if (isEmpty(loginUser)) {
       throw new NotLoginException('登录状态已过期')
     }
@@ -56,7 +56,7 @@ export class AuthGuard implements CanActivate {
     request[SecurityConstants.USER_ID] = loginUser.userId
     request[SecurityConstants.USER_NAME] = loginUser.userName
     request[SecurityConstants.LOGIN_USER] = loginUser
-    await this.tokenUtils.verifyTokenExpire(loginUser)
+    await this.tokenService.verifyTokenExpire(loginUser)
 
     return true
   }

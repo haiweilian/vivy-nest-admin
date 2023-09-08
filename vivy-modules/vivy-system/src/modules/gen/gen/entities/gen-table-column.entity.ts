@@ -1,5 +1,5 @@
-import { BaseBusinessEntity } from '@vivy-common/core'
-import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator'
+import { BaseBusinessEntity, BaseStatusEnums } from '@vivy-common/core'
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
 import { GenTable } from './gen-table.entity'
 
@@ -59,11 +59,11 @@ export class GenTableColumn extends BaseBusinessEntity {
   @Column({
     name: 'column_comment',
     type: 'varchar',
-    length: 500,
+    length: 100,
     comment: '列描述',
   })
-  @MaxLength(500)
-  @IsString()
+  @MaxLength(100)
+  @IsNotEmpty()
   columnComment: string
 
   @Column({
@@ -73,7 +73,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否主键（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isPk?: string
 
@@ -84,7 +84,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否自增（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isIncrement?: string
 
@@ -95,7 +95,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否必填（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isRequired?: string
 
@@ -106,7 +106,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否为插入字段（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isInsert?: string
 
@@ -117,7 +117,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否编辑字段（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isEdit?: string
 
@@ -128,7 +128,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否列表字段（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isList?: string
 
@@ -139,7 +139,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否查询字段（0是 1否）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   isQuery?: string
 
@@ -209,6 +209,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     foreignKeyConstraintName: 'table_fk',
   })
   @ManyToOne(() => GenTable, (table) => table.columns, {
+    onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
   table: GenTable

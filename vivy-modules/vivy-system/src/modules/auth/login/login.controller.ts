@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { LoginType } from '@vivy-common/logger'
-import { Public, TokenUtils } from '@vivy-common/security'
+import { Public, TokenService } from '@vivy-common/security'
 import { LoginDto } from './dto/login.dto'
 import { LogService } from './log.service'
 import { LoginService } from './login.service'
@@ -16,9 +16,9 @@ import { LoginService } from './login.service'
 @Controller('auth')
 export class LoginController {
   constructor(
-    private tokenUtils: TokenUtils,
     private logService: LogService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private tokenService: TokenService
   ) {}
 
   /**
@@ -30,7 +30,7 @@ export class LoginController {
   async login(@Body() form: LoginDto): Promise<AjaxResult> {
     try {
       const user = await this.loginService.login(form)
-      const token = await this.tokenUtils.createToken(user)
+      const token = await this.tokenService.createToken(user)
       this.logService.ok(LoginType.ACCOUNT_PASSWORD, form.username, '登录成功')
       return AjaxResult.success(token, '登录成功')
     } catch (error) {
@@ -44,9 +44,9 @@ export class LoginController {
    */
   @Post('logout')
   async logout(): Promise<AjaxResult> {
-    const token = this.tokenUtils.getToken()
+    const token = this.tokenService.getToken()
     if (token) {
-      await this.tokenUtils.delLoginUser(token)
+      await this.tokenService.delLoginUser(token)
     }
     return AjaxResult.success(null, '退出成功')
   }
@@ -56,11 +56,11 @@ export class LoginController {
    */
   @Post('refresh')
   async refresh(): Promise<AjaxResult> {
-    const token = this.tokenUtils.getToken()
+    const token = this.tokenService.getToken()
     if (token) {
-      const loginUser = await this.tokenUtils.getLoginUser(token)
+      const loginUser = await this.tokenService.getLoginUser(token)
       if (loginUser) {
-        await this.tokenUtils.refreshToken(loginUser)
+        await this.tokenService.refreshToken(loginUser)
       }
     }
     return AjaxResult.success(null, '刷新成功')
@@ -71,8 +71,8 @@ export class LoginController {
    */
   @Get('getLoginUserInfo')
   async getLoginUserInfo(): Promise<AjaxResult> {
-    const token = this.tokenUtils.getToken()
-    const loginUser = await this.tokenUtils.getLoginUser(token)
+    const token = this.tokenService.getToken()
+    const loginUser = await this.tokenService.getLoginUser(token)
     delete loginUser?.sysUser?.password
     return AjaxResult.success(loginUser)
   }

@@ -71,15 +71,15 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         return true
       }}
     >
-      <ProFormText name="nickName" label="用户昵称" rules={[{ required: true }]} />
+      <ProFormText name="nickName" label="用户昵称" rules={[{ required: true, max: 50 }]} />
       {record ? null : (
         <>
-          <ProFormText name="userName" label="用户名称" rules={[{ required: true }]} />
+          <ProFormText name="userName" label="用户名称" rules={[{ required: true, max: 50 }]} />
           <ProFormText.Password
             name="password"
             label="用户密码"
             initialValue={'Aa@123456'}
-            rules={[{ required: true }]}
+            rules={[{ required: true, max: 36 }]}
           />
         </>
       )}
@@ -91,8 +91,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
           fieldNames: { label: 'deptName', value: 'deptId' },
         }}
       />
-      <ProFormText name="phonenumber" label="手机号码" />
-      <ProFormText name="email" label="邮箱" />
+      <ProFormText name="phonenumber" label="手机号码" rules={[{ max: 11 }]} />
+      <ProFormText name="email" label="邮箱" rules={[{ max: 50 }]} />
       <ProFormSelect name="sex" label="用户性别" fieldProps={{ options: toSelect(sysUserSex) }} />
       <ProFormRadio.Group
         name="status"

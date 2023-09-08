@@ -65,8 +65,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         return true
       }}
     >
-      <ProFormText name="postName" label="岗位名称" rules={[{ required: true }]} />
-      <ProFormText name="postCode" label="岗位编码" rules={[{ required: true }]} />
+      <ProFormText name="postName" label="岗位名称" rules={[{ required: true, max: 50 }]} />
+      <ProFormText name="postCode" label="岗位编码" rules={[{ required: true, max: 50 }]} />
       <ProFormDigit name="postSort" label="显示顺序" fieldProps={{ min: 0, precision: 0 }} />
       <ProFormRadio.Group
         name="status"

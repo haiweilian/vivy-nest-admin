@@ -1,5 +1,5 @@
-import { BaseBusinessEntity } from '@vivy-common/core'
-import { IsBooleanString, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
+import { BaseBusinessEntity, BaseStatusEnums } from '@vivy-common/core'
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -9,7 +9,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 export class SysDictType extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'dict_id',
-    type: 'int',
+    type: 'bigint',
     comment: '字典ID',
   })
   @IsInt()
@@ -53,7 +53,7 @@ export class SysDictType extends BaseBusinessEntity {
     default: '0',
     comment: '字典状态（0正常 1停用）',
   })
-  @IsBooleanString()
+  @IsEnum(BaseStatusEnums)
   @IsOptional()
   status: string
 }

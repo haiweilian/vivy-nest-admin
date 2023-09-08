@@ -11,9 +11,9 @@ export class ListLoginLogDto extends PaginateDto {
   @Allow()
   loginName?: string
 
-  /** 登录状态(enum OperStatus) */
+  /** 登录状态 */
   @Allow()
-  loginStatus?: number
+  loginStatus?: string
 
   /** 登录时间 */
   @Allow()

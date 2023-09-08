@@ -1,5 +1,6 @@
 {
   "name": "docs",
+  "type": "module",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
@@ -14,7 +15,7 @@
   "devDependencies": {
     "gh-pages": "^6.0.0",
     "markdown-it-task-lists": "^2.1.1",
-    "vitepress": "1.0.0-beta.5"
+    "vitepress": "1.0.0-rc.10"
   },
   "pnpm": {
     "peerDependencyRules": {

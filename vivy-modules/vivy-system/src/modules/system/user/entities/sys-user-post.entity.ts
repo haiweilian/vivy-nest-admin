@@ -8,7 +8,7 @@ import { Column, Entity } from 'typeorm'
 export class SysUserPost extends BaseTimeEntity {
   @Column({
     name: 'user_id',
-    type: 'int',
+    type: 'bigint',
     primary: true,
     comment: '用户ID',
   })
@@ -16,7 +16,7 @@ export class SysUserPost extends BaseTimeEntity {
 
   @Column({
     name: 'post_id',
-    type: 'int',
+    type: 'bigint',
     primary: true,
     comment: '岗位ID',
   })

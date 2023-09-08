@@ -5,36 +5,17 @@ import {
   NotLoginException,
   NotPermissionException,
   NotRoleException,
-  SecurityContextService,
+  SecurityContext,
 } from '@vivy-common/core'
 import { Logical } from '../enums/logical.enums'
 import { RequireMetadata } from '../interfaces/require-metadata.interface'
-import { TokenUtils } from './token.utils'
 
 /**
  * 权限验证工具类
  */
 @Injectable()
-export class AuthUtils {
-  constructor(
-    private tokenUtils: TokenUtils,
-    private securityContextService: SecurityContextService
-  ) {}
-
-  /**
-   * 会话注销
-   */
-  async logout() {
-    const token = this.securityContextService.getToken()
-    return this.logoutByToken(token)
-  }
-
-  /**
-   * 会话注销，根据指定Token
-   */
-  async logoutByToken(token: string) {
-    return this.tokenUtils.delLoginUser(token)
-  }
+export class AuthService {
+  constructor(private securityContext: SecurityContext) {}
 
   /**
    * 检验用户是否已经登录，如未登录，则抛出异常: NotLoginException
@@ -47,12 +28,12 @@ export class AuthUtils {
    * 获取当前用户缓存信息, 如果未登录，则抛出异常: NotLoginException
    */
   getLoginUser(): SysLoginUser {
-    const token = this.securityContextService.getToken()
+    const token = this.securityContext.getToken()
     if (!token) {
       throw new NotLoginException('令牌不能为空')
     }
 
-    const loginUser = this.securityContextService.getLoginUser()
+    const loginUser = this.securityContext.getLoginUser()
     if (!loginUser) {
       throw new NotLoginException('令牌已过期或验证不正确！')
     }

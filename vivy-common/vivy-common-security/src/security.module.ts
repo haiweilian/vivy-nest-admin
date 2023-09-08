@@ -6,8 +6,8 @@ import { InnerAuthGuard } from './guards/inner-auth.guard'
 import { RequireAuthGuard } from './guards/require-auth.guard'
 import { SecurityAsyncOptions, SecurityOptions } from './interfaces/security-options.interface'
 import { SECURITY_OPTIONS } from './security.constants'
-import { AuthUtils } from './utils/auth.utils'
-import { TokenUtils } from './utils/token.utils'
+import { AuthService } from './services/auth.service'
+import { TokenService } from './services/token.service'
 
 @Global()
 @Module({})
@@ -45,8 +45,8 @@ export class SecurityModule {
       ],
       providers: [
         OptionsProvider,
-        AuthUtils,
-        TokenUtils,
+        AuthService,
+        TokenService,
         {
           provide: APP_GUARD,
           useClass: AuthGuard,
@@ -60,7 +60,7 @@ export class SecurityModule {
           useClass: RequireAuthGuard,
         },
       ],
-      exports: [AuthUtils, TokenUtils],
+      exports: [AuthService, TokenService],
     }
   }
 }

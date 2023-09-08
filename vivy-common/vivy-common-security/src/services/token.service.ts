@@ -2,13 +2,7 @@ import { randomUUID } from 'crypto'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Redis, InjectRedis } from '@nestjs-modules/ioredis'
-import {
-  IpUtils,
-  CacheConstants,
-  SecurityConstants,
-  SecurityContextService,
-  type SysLoginUser,
-} from '@vivy-common/core'
+import { IpUtils, CacheConstants, SecurityConstants, SecurityContext, type SysLoginUser } from '@vivy-common/core'
 import { Request } from 'express'
 import { JwtToken } from '../interfaces/jwt-token.interface'
 
@@ -16,12 +10,12 @@ import { JwtToken } from '../interfaces/jwt-token.interface'
  * 令牌验证工具类
  */
 @Injectable()
-export class TokenUtils {
+export class TokenService {
   constructor(
     @InjectRedis()
     private redis: Redis,
     private jwtService: JwtService,
-    private securityContextService: SecurityContextService
+    private securityContext: SecurityContext
   ) {}
 
   private MILLIS_SECOND = 1000
@@ -34,7 +28,7 @@ export class TokenUtils {
    * 获取令牌
    */
   getToken(req?: Request): string | null {
-    return this.securityContextService.getToken(req)
+    return this.securityContext.getToken(req)
   }
 
   /**
@@ -59,7 +53,7 @@ export class TokenUtils {
     loginUser.userSk = userSk
     loginUser.userId = userId
     loginUser.userName = userName
-    loginUser.ipaddr = IpUtils.requestIp(this.securityContextService.getRequest())
+    loginUser.ipaddr = IpUtils.requestIp(this.securityContext.getRequest())
     await this.setLoginUser(loginUser)
 
     // Jwt存储信息

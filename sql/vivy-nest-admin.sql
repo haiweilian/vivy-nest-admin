@@ -22,8 +22,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
-  `dept_id` int NOT NULL AUTO_INCREMENT COMMENT '部门ID',
-  `parent_id` int DEFAULT NULL COMMENT '父部门ID',
+  `dept_id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门ID',
+  `parent_id` bigint DEFAULT NULL COMMENT '父部门ID',
   `dept_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '部门名称',
   `dept_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
@@ -55,7 +55,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data` (
-  `dict_id` int NOT NULL AUTO_INCREMENT COMMENT '字典ID',
+  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典ID',
   `dict_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典类型',
   `dict_label` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典标签',
   `dict_value` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典键值',
@@ -81,8 +81,8 @@ INSERT INTO `sys_dict_data` VALUES (4, 'sys_yes_no', '是', '0', 1, '0', NULL, N
 INSERT INTO `sys_dict_data` VALUES (5, 'sys_yes_no', '否', '1', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_data` VALUES (6, 'sys_normal_disable', '正常', '0', 1, '0', NULL, 'success', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_data` VALUES (7, 'sys_normal_disable', '停用', '1', 2, '0', NULL, 'danger', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (8, 'sys_oper_status', '成功', '0', 1, '0', NULL, 'success', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (9, 'sys_oper_status', '失败', '1', 2, '0', NULL, 'danger', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (8, 'sys_success_failure', '成功', '0', 1, '0', NULL, 'success', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (9, 'sys_success_failure', '失败', '1', 2, '0', NULL, 'danger', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_data` VALUES (10, 'sys_oper_type', '其它', '0', 99, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_data` VALUES (11, 'sys_oper_type', '查询', '1', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_data` VALUES (12, 'sys_oper_type', '新增', '2', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
@@ -101,7 +101,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type` (
-  `dict_id` int NOT NULL AUTO_INCREMENT COMMENT '字典ID',
+  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典ID',
   `dict_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典名称',
   `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典类型',
   `dict_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
@@ -120,7 +120,7 @@ BEGIN;
 INSERT INTO `sys_dict_type` VALUES (1, '用户性别', 'sys_user_sex', 1, '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_type` VALUES (2, '系统是否', 'sys_yes_no', 2, '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_type` VALUES (3, '系统开关', 'sys_normal_disable', 3, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_type` VALUES (4, '操作状态', 'sys_oper_status', 4, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_type` VALUES (4, '系统成败', 'sys_success_failure', 4, '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_type` VALUES (5, '操作类型', 'sys_oper_type', 5, '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
@@ -129,10 +129,10 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_login_log`;
 CREATE TABLE `sys_login_log` (
-  `login_id` int NOT NULL AUTO_INCREMENT COMMENT '登录ID',
+  `login_id` bigint NOT NULL AUTO_INCREMENT COMMENT '登录ID',
   `login_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户账号',
-  `login_type` tinyint unsigned NOT NULL COMMENT '登录类型(enum LoginType)',
-  `login_status` tinyint unsigned NOT NULL COMMENT '登录状态(enum OperStatus)',
+  `login_type` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '登录类型',
+  `login_status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '登录状态',
   `login_ip` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '主机地址',
   `login_location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '登录地点',
   `login_message` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '登录信息',
@@ -153,8 +153,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `menu_id` int NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
-  `parent_id` int DEFAULT NULL COMMENT '父菜单ID',
+  `menu_id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `parent_id` bigint DEFAULT NULL COMMENT '父菜单ID',
   `menu_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜单名称',
   `menu_type` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜单类型（M目录 C菜单 F按钮）',
   `menu_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
@@ -238,14 +238,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log` (
-  `oper_id` int NOT NULL AUTO_INCREMENT COMMENT '操作ID',
+  `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '操作ID',
   `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模块标题',
-  `oper_type` tinyint unsigned NOT NULL COMMENT '操作类型(enum OperType)',
+  `oper_type` char(2) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作类型',
   `oper_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作人员',
   `oper_method` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '方法名称',
   `oper_ip` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '主机地址',
   `oper_location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '操作地点',
-  `oper_status` tinyint unsigned NOT NULL COMMENT '操作状态(enum OperStatus)',
+  `oper_status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作状态',
   `request_url` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求URL',
   `request_method` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求方式',
   `request_param` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '请求参数',
@@ -267,7 +267,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_post`;
 CREATE TABLE `sys_post` (
-  `post_id` int NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
+  `post_id` bigint NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
   `post_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '岗位名称',
   `post_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '岗位编码',
   `post_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
@@ -294,7 +294,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `role_id` int NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `role_id` bigint NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `role_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色名称',
   `role_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色编码',
   `role_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
@@ -319,8 +319,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
 CREATE TABLE `sys_role_dept` (
-  `role_id` int NOT NULL COMMENT '用户ID',
-  `dept_id` int NOT NULL COMMENT '部门ID',
+  `role_id` bigint NOT NULL COMMENT '用户ID',
+  `dept_id` bigint NOT NULL COMMENT '部门ID',
   `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
   `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
   PRIMARY KEY (`role_id`,`dept_id`)
@@ -340,8 +340,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `role_id` int NOT NULL COMMENT '角色ID',
-  `menu_id` int NOT NULL COMMENT '菜单ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
+  `menu_id` bigint NOT NULL COMMENT '菜单ID',
   `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
   `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
   PRIMARY KEY (`role_id`,`menu_id`)
@@ -410,8 +410,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `user_id` int NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `dept_id` int DEFAULT NULL COMMENT '部门ID',
+  `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `dept_id` bigint DEFAULT NULL COMMENT '部门ID',
   `user_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户账号',
   `nick_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户昵称',
   `user_type` char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '00' COMMENT '用户类型（00系统用户）',
@@ -443,8 +443,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_post`;
 CREATE TABLE `sys_user_post` (
-  `user_id` int NOT NULL COMMENT '用户ID',
-  `post_id` int NOT NULL COMMENT '岗位ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `post_id` bigint NOT NULL COMMENT '岗位ID',
   `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
   `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
   PRIMARY KEY (`user_id`,`post_id`)
@@ -463,8 +463,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `user_id` int NOT NULL COMMENT '用户ID',
-  `role_id` int NOT NULL COMMENT '角色ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
   `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
   `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
   PRIMARY KEY (`user_id`,`role_id`)
@@ -485,7 +485,7 @@ DROP TABLE IF EXISTS `gen_table`;
 CREATE TABLE `gen_table` (
   `table_id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
   `table_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表名称',
-  `table_comment` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表描述',
+  `table_comment` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表描述',
   `sub_table_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '关联子表的表名',
   `sub_table_fk_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '子表关联的外键名',
   `class_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '实体类名称',
@@ -516,7 +516,7 @@ CREATE TABLE `gen_table_column` (
   `column_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '列名称',
   `column_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '列类型',
   `column_sort` int NOT NULL DEFAULT '0' COMMENT '列顺序',
-  `column_comment` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '列描述',
+  `column_comment` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '列描述',
   `is_pk` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否主键（0是 1否）',
   `is_increment` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否自增（0是 1否）',
   `is_required` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否必填（0是 1否）',

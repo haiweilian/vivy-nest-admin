@@ -19,7 +19,7 @@ const OperationLog = () => {
    */
   const { loadDict, toSelect } = useModel('dict')
   const sysOperType = loadDict('sys_oper_type')
-  const sysOperStatus = loadDict('sys_oper_status')
+  const sysSuccessFailure = loadDict('sys_success_failure')
 
   /**
    * 清空操作日志
@@ -69,9 +69,9 @@ const OperationLog = () => {
       title: '操作状态',
       dataIndex: 'operStatus',
       valueType: 'select',
-      fieldProps: { options: toSelect(sysOperStatus) },
+      fieldProps: { options: toSelect(sysSuccessFailure) },
       render: (_, record) => {
-        return <DictTag options={sysOperStatus} value={record.operStatus} />
+        return <DictTag options={sysSuccessFailure} value={record.operStatus} />
       },
     },
     {
@@ -156,7 +156,7 @@ const OperationLog = () => {
               {record.requestErrmsg}
             </Descriptions.Item>
             <Descriptions.Item label="操作状态" span={2}>
-              <DictText options={sysOperStatus} value={record.operStatus} />
+              <DictText options={sysSuccessFailure} value={record.operStatus} />
             </Descriptions.Item>
             <Descriptions.Item label="操作时间">{record.createTime}</Descriptions.Item>
           </Descriptions>

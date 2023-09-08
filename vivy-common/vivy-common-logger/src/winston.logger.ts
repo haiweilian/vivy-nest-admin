@@ -32,16 +32,16 @@ export class NestWinstonLogger implements LoggerService {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { message: msg, name, stack, ...meta } = message
 
-      return this.logger.error(msg, { context, stack: [trace || message.stack], error: message, ...meta })
+      return this.logger.error(msg, { context, stack: trace || message.stack, error: message, ...meta })
     }
 
     if (!!message && typeof message === 'object') {
       const { message: msg, ...meta } = message
 
-      return this.logger.error(msg as string, { context, stack: [trace], ...meta })
+      return this.logger.error(msg as string, { context, stack: trace, ...meta })
     }
 
-    return this.logger.error(message, { context, stack: [trace] })
+    return this.logger.error(message, { context, stack: trace })
   }
 
   public warn(message: any, context?: string): any {

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common'
-import { IpUtils, RequestContextService } from '@vivy-common/core'
-import { LoginType, OperStatus } from '@vivy-common/logger'
+import { BaseStatusEnums, IpUtils, RequestContext } from '@vivy-common/core'
+import { LoginType } from '@vivy-common/logger'
 import { CreateLoginLogDto } from '@/modules/system/login-log/dto/login-log.dto'
 import { LoginLogService } from '@/modules/system/login-log/login-log.service'
 
 @Injectable()
 export class LogService {
   constructor(
-    private loginLogService: LoginLogService,
-    private requestContextService: RequestContextService
+    private requestContext: RequestContext,
+    private loginLogService: LoginLogService
   ) {}
 
   /**
@@ -18,7 +18,7 @@ export class LogService {
    * @param message 登录消息
    */
   ok(type: LoginType, name: string, message: string) {
-    this.saveLoginLog(type, name, OperStatus.OK, message)
+    this.saveLoginLog(type, name, BaseStatusEnums.NORMAL, message)
   }
 
   /**
@@ -28,7 +28,7 @@ export class LogService {
    * @param message 登录消息
    */
   fail(type: LoginType, name: string, message: string) {
-    this.saveLoginLog(type, name, OperStatus.FAIL, message)
+    this.saveLoginLog(type, name, BaseStatusEnums.ABNORMAL, message)
   }
 
   /**
@@ -38,14 +38,14 @@ export class LogService {
    * @param status 登录状态
    * @param message 登录消息
    */
-  private saveLoginLog(type: LoginType, name: string, status: OperStatus, message: string) {
+  private saveLoginLog(type: LoginType, name: string, status: BaseStatusEnums, message: string) {
     const loginLog = new CreateLoginLogDto()
     loginLog.loginName = name
     loginLog.loginType = type
     loginLog.loginStatus = status
     loginLog.loginMessage = message
 
-    const request = this.requestContextService.getRequest()
+    const request = this.requestContext.getRequest()
     loginLog.loginIp = IpUtils.requestIp(request)
     const region = IpUtils.ip2Region(IpUtils.requestIp(request))
     loginLog.loginLocation = `${region.country} ${region.province} ${region.city}`

@@ -7,7 +7,7 @@ import { ClsService, CLS_ID, CLS_REQ, CLS_RES } from 'nestjs-cls'
  * https://github.com/Papooch/nestjs-cls
  */
 @Injectable()
-export class RequestContextService {
+export class RequestContext {
   constructor(private clsService: ClsService) {}
 
   /**

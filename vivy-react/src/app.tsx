@@ -1,4 +1,4 @@
-import { GithubOutlined } from '@ant-design/icons'
+import { GithubOutlined, ReadFilled } from '@ant-design/icons'
 import { SettingDrawer } from '@ant-design/pro-components'
 import type { Settings as LayoutSettings } from '@ant-design/pro-components'
 import { history } from '@umijs/max'
@@ -103,6 +103,12 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     ],
     actionsRender: () => {
       return [
+        <ReadFilled
+          key="docs"
+          onClick={() => {
+            window.open('https://haiweilian.github.io/vivy-nest-admin')
+          }}
+        />,
         <GithubOutlined
           key="github"
           onClick={() => {
