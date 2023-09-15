@@ -1,19 +1,19 @@
 import { useRequest } from '@umijs/max'
 import { Row, Col, Card, Tabs } from 'antd'
-import { getLoginUserInfo } from '@/apis/auth/login'
+import { getProfile } from '@/apis/system/profile'
 import UpdateInfo from './components/UpdateInfo'
 import UpdatePassword from './components/UpdatePassword'
 import UserInfo from './components/UserInfo'
 
 const Center = () => {
-  const { data, loading } = useRequest(getLoginUserInfo)
+  const { data, loading } = useRequest(getProfile)
   if (!data) return null
 
   return (
     <Row>
       <Col span={8}>
         <Card title="基本信息" bodyStyle={{ paddingTop: '0px' }} loading={loading}>
-          <UserInfo user={data.sysUser} />
+          <UserInfo profile={data} />
         </Card>
       </Col>
       <Col span={15} className="ml-4">
@@ -24,7 +24,7 @@ const Center = () => {
               {
                 key: 'info',
                 label: '基本资料',
-                children: <UpdateInfo user={data.sysUser} />,
+                children: <UpdateInfo profile={data} />,
               },
               {
                 key: 'password',
