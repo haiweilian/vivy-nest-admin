@@ -1,7 +1,6 @@
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { history, useModel } from '@umijs/max'
 import { Dropdown } from 'antd'
-import type { MenuInfo } from 'rc-menu/lib/interface'
 import React, { useCallback } from 'react'
 import { flushSync } from 'react-dom'
 import { logout } from '@/apis/auth/login'
@@ -18,7 +17,7 @@ const AvatarDropdown: React.FC<{ children: React.ReactNode }> = ({ children }) =
   }
 
   const onMenuClick = useCallback(
-    async (event: MenuInfo) => {
+    async (event: any) => {
       const { key } = event
       if (key === 'logout') {
         await handleLogout()

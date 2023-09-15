@@ -44,7 +44,17 @@ const ImportModal: React.FC<ModalProps> = (props) => {
   ]
 
   return (
-    <Modal {...props} title="导入列表" width={1000} confirmLoading={confirmLoading} onOk={handleSubmit}>
+    <Modal
+      {...props}
+      title="导入列表"
+      width={1000}
+      confirmLoading={confirmLoading}
+      onOk={handleSubmit}
+      afterOpenChange={(open) => {
+        open && actionRef.current?.reload()
+        props.afterOpenChange?.(open)
+      }}
+    >
       <ProTable
         rowKey="tableName"
         bordered

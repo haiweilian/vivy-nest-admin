@@ -22,7 +22,7 @@ export class PostController {
    * @returns 岗位列表
    */
   @Get('list')
-  @RequirePermissions('system:post:query')
+  @RequirePermissions('system:post:list')
   async list(@Query() post: ListPostDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.postService.list(post))
   }
@@ -91,8 +91,8 @@ export class PostController {
    * 岗位选项列表
    * @returns 岗位选项列表
    */
-  @Get('selectable/post')
-  async selectablePost(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.postService.selectablePost())
+  @Get('option/list')
+  async optionList(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.postService.optionList())
   }
 }

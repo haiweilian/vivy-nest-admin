@@ -1,12 +1,10 @@
 import { history } from '@umijs/max'
 import { Button, Result } from 'antd'
-import React from 'react'
 
-const NoFoundPage: React.FC = () => (
+const Exception: React.FC<{ title: string }> = ({ title }) => (
   <Result
-    status="404"
-    title="404"
-    subTitle="抱歉，您访问的页面不存在"
+    status="error"
+    title={title}
     extra={
       <Button type="primary" onClick={() => history.push('/')}>
         返回首页
@@ -15,4 +13,4 @@ const NoFoundPage: React.FC = () => (
   />
 )
 
-export default NoFoundPage
+export { Exception }

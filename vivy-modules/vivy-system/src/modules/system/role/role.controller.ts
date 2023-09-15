@@ -22,7 +22,7 @@ export class RoleController {
    * @returns 角色列表
    */
   @Get('list')
-  @RequirePermissions('system:role:query')
+  @RequirePermissions('system:role:list')
   async list(@Query() role: ListRoleDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.roleService.list(role))
   }
@@ -94,8 +94,8 @@ export class RoleController {
    * 角色选项列表
    * @returns 角色选项列表
    */
-  @Get('selectable/role')
-  async selectableRole(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.roleService.selectableRole())
+  @Get('option/list')
+  async optionList(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.roleService.optionList())
   }
 }

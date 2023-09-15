@@ -4,7 +4,7 @@ import { useRequest } from '@umijs/max'
 import { DefaultOptionType } from 'antd/es/select'
 import React from 'react'
 import type { GenTableColumnModel } from '@/apis/gen/gen'
-import { selectableDictType } from '@/apis/system/dict-type'
+import { optionDictType } from '@/apis/system/dict-type'
 
 const tslangTypeOptions: DefaultOptionType[] = [
   { label: 'number', value: 'number' },
@@ -59,7 +59,7 @@ const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) 
   /**
    * 字典数据
    */
-  const { data } = useRequest(selectableDictType)
+  const { data } = useRequest(optionDictType)
   const dictTypeOptions: DefaultOptionType[] = (data || [])?.map((item) => ({
     label: item.dictName,
     value: item.dictType,

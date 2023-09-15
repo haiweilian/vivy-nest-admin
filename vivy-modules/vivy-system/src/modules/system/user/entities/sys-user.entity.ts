@@ -65,6 +65,7 @@ export class SysUser extends BaseBusinessEntity {
     comment: '用户邮箱',
   })
   @IsEmail()
+  @MaxLength(50)
   @IsOptional()
   email?: string
 
@@ -76,6 +77,7 @@ export class SysUser extends BaseBusinessEntity {
     comment: '手机号码',
   })
   @IsMobilePhone('zh-CN')
+  @MaxLength(11)
   @IsOptional()
   phonenumber?: string
 

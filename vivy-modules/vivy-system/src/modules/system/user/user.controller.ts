@@ -22,7 +22,7 @@ export class UserController {
    * @returns 用户列表
    */
   @Get('list')
-  @RequirePermissions('system:user:query')
+  @RequirePermissions('system:user:list')
   async list(@Query() user: ListUserDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.userService.list(user))
   }
@@ -37,6 +37,14 @@ export class UserController {
   async add(@Body() user: CreateUserDto): Promise<AjaxResult> {
     if (!(await this.userService.checkUserNameUnique(user))) {
       return AjaxResult.error(`新增用户${user.userName}失败，登录账号已存在`)
+    }
+
+    if (!(await this.userService.checkUserEmailUnique(user))) {
+      return AjaxResult.error(`新增用户${user.userName}失败，邮箱账号已存在`)
+    }
+
+    if (!(await this.userService.checkUserPhoneUnique(user))) {
+      return AjaxResult.error(`新增用户${user.userName}失败，手机号码已存在`)
     }
 
     return AjaxResult.success(await this.userService.add(user))
@@ -54,6 +62,14 @@ export class UserController {
 
     if (!(await this.userService.checkUserNameUnique(user))) {
       return AjaxResult.error(`修改用户${user.userName}失败，登录账号已存在`)
+    }
+
+    if (!(await this.userService.checkUserEmailUnique(user))) {
+      return AjaxResult.error(`修改用户${user.userName}失败，邮箱账号已存在`)
+    }
+
+    if (!(await this.userService.checkUserPhoneUnique(user))) {
+      return AjaxResult.error(`修改用户${user.userName}失败，手机号码已存在`)
     }
 
     return AjaxResult.success(await this.userService.update(user))

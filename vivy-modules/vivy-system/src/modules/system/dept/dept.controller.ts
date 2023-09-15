@@ -20,7 +20,7 @@ export class DeptController {
    * 查询部门树结构
    */
   @Get('tree')
-  @RequirePermissions('system:dept:query')
+  @RequirePermissions('system:dept:list')
   async tree(): Promise<AjaxResult> {
     return AjaxResult.success(await this.deptService.tree())
   }
@@ -85,8 +85,8 @@ export class DeptController {
    * 查询部门选项树
    * @returns 部门选项树
    */
-  @Get('selectable/deptTree')
-  async selectableDeptTree(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.deptService.selectableDeptTree())
+  @Get('option/tree')
+  async optionTree(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.deptService.optionTree())
   }
 }

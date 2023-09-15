@@ -7,6 +7,7 @@ import { LoginLogModule } from './login-log/login-log.module'
 import { MenuModule } from './menu/menu.module'
 import { OperLogModule } from './oper-log/oper-log.module'
 import { PostModule } from './post/post.module'
+import { ProfileModule } from './profile/profile.module'
 import { RoleModule } from './role/role.module'
 import { UserModule } from './user/user.module'
 
@@ -19,6 +20,7 @@ import { UserModule } from './user/user.module'
     MenuModule,
     OperLogModule,
     PostModule,
+    ProfileModule,
     RoleModule,
     UserModule,
   ],

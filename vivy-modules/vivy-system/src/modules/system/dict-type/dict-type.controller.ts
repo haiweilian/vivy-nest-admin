@@ -22,7 +22,7 @@ export class DictTypeController {
    * @returns 字典类型列表
    */
   @Get('list')
-  @RequirePermissions('system:dict:query')
+  @RequirePermissions('system:dict:list')
   async list(@Query() dictType: ListDictTypeDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.dictTypeService.list(dictType))
   }
@@ -91,8 +91,8 @@ export class DictTypeController {
    * 字典类型选项列表
    * @returns 字典类型选项列表
    */
-  @Get('selectable/dictType')
-  async selectableDictType(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.dictTypeService.selectableDictType())
+  @Get('option/list')
+  async optionList(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.dictTypeService.optionList())
   }
 }

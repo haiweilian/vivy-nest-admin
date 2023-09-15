@@ -10,7 +10,7 @@ import {
 import { useModel } from '@umijs/max'
 import { TreeSelect } from 'antd'
 import { useRef, useEffect } from 'react'
-import { selectableMenuTree } from '@/apis/system/menu'
+import { optionMenuTree } from '@/apis/system/menu'
 import { addRole, updateRole, infoRole } from '@/apis/system/role'
 import type { CreateRoleParams, RoleModel } from '@/apis/system/role'
 
@@ -87,7 +87,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormTreeSelect
         name="menuIds"
         label="菜单权限"
-        request={selectableMenuTree}
+        request={optionMenuTree}
         fieldProps={{
           fieldNames: { label: 'menuName', value: 'menuId' },
           maxTagCount: 3,

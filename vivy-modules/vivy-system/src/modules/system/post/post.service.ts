@@ -124,7 +124,7 @@ export class PostService {
    * 岗位选项列表
    * @returns 岗位选项列表
    */
-  async selectablePost(): Promise<SysPost[]> {
+  async optionList(): Promise<SysPost[]> {
     return this.postRepository.find({
       select: ['postId', 'postName', 'postCode'],
       order: {

@@ -11,8 +11,10 @@
     "postinstall": "max setup"
   },
   "dependencies": {
+    "@ant-design/charts": "^1.4.2",
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.0.1",
+    "@iconify-json/ion": "^1.1.12",
     "@umijs/max": "^4.0.57",
     "ahooks": "^3.7.5",
     "antd": "^5.0.0",
@@ -20,9 +22,9 @@
     "file-saver": "^2.0.5",
     "js-cookie": "^3.0.1",
     "lodash-es": "^4.17.21",
-    "rc-menu": "^9.8.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",

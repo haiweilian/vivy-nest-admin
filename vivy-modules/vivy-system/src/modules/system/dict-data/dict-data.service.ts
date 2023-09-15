@@ -113,8 +113,11 @@ export class DictDataService {
    * @param dictType 字典类型
    * @returns 字典数据选项列表
    */
-  async listByDictType(dictType: string): Promise<SysDictData[]> {
+  async optionList(dictType: string): Promise<SysDictData[]> {
     return this.dictDataRepository.find({
+      order: {
+        dictSort: 'ASC',
+      },
       where: {
         dictType,
       },

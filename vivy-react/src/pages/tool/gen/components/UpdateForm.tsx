@@ -1,31 +1,28 @@
 import { type DrawerFormProps, type ProFormInstance, DrawerForm } from '@ant-design/pro-components'
 import { Tabs } from 'antd'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
 import { infoGenTable, updateGenTable } from '@/apis/gen/gen'
 import type { GenTableModel, GenTableColumnModel, UpdateGenParams } from '@/apis/gen/gen'
 import UpdateFormBase from './UpdateFormBase'
 import UpdateFormColumn from './UpdateFormColumn'
 
 interface UpdateFormProps extends DrawerFormProps {
-  record?: GenTableModel
+  record: GenTableModel
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   const formRef = useRef<ProFormInstance>()
-  const [tableInfo, setTableInfo] = useState<GenTableModel>()
 
   /**
    * 获取初始化数据
    */
-  useEffect(() => {
+  const [tableInfo, setTableInfo] = useState<GenTableModel>()
+  const getTableColumnData = async () => {
     formRef.current?.resetFields()
-    if (record) {
-      infoGenTable(record.tableId).then((info) => {
-        setTableInfo(info)
-        formRef.current?.setFieldsValue(info)
-      })
-    }
-  }, [record])
+    const data = await infoGenTable(record.tableId)
+    setTableInfo(data)
+    formRef.current?.setFieldsValue(data)
+  }
 
   /**
    * 提交表单
@@ -51,6 +48,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       drawerProps={{ bodyStyle: { paddingTop: 0 } }}
       formRef={formRef}
       title={record ? `编辑表` : `新增表`}
+      onOpenChange={(open) => {
+        open && getTableColumnData()
+        props.onOpenChange?.(open)
+      }}
       onFinish={async (values: any) => {
         await handleSubmit(values)
         props.onFinish?.(values)

@@ -22,7 +22,7 @@ export class LoginLogController {
    * @returns 登录日志列表
    */
   @Get('list')
-  @RequirePermissions('system:loginlog:query')
+  @RequirePermissions('system:loginlog:list')
   async list(@Query() loginLog: ListLoginLogDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.loginLogService.list(loginLog))
   }

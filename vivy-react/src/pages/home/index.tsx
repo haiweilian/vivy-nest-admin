@@ -1,14 +1,29 @@
-import { PageContainer } from '@ant-design/pro-components'
-import { useRequest } from '@umijs/max'
-import { getLoginUserInfo } from '@/apis/auth/login'
+import { Card } from 'antd'
+import SvgIllustration from '../../assets/svg/illustration.svg'
+import Header from './components/Header'
+import PlotCharts from './components/PlotCharts'
+import ProjectCard from './components/ProjectCard'
+import QuickNav from './components/QuickNav'
 
 const Home = () => {
-  const { data } = useRequest(getLoginUserInfo)
-
   return (
-    <PageContainer ghost>
-      <div style={{ wordBreak: 'break-all' }}>{JSON.stringify(data)}</div>
-    </PageContainer>
+    <>
+      <Header />
+      <div className="flex mt-4">
+        <div className="w-4/6 mr-4">
+          <ProjectCard />
+          <div className="mt-4">
+            <PlotCharts />
+          </div>
+        </div>
+        <div className="w-2/6">
+          <QuickNav />
+          <Card className="mt-4">
+            <img className="mx-auto h-50" src={SvgIllustration} />
+          </Card>
+        </div>
+      </div>
+    </>
   )
 }
 

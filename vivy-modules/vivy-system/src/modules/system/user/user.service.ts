@@ -151,6 +151,14 @@ export class UserService {
   }
 
   /**
+   * 更新用户基本信息
+   * @param user 用户信息
+   */
+  async updateBasicInfo(user: Partial<SysUser>): Promise<void> {
+    await this.userRepository.update(user.userId, user)
+  }
+
+  /**
    * 校验用户是否允许操作，检验失败抛出错误
    * @param user 用户信息
    */
@@ -183,6 +191,40 @@ export class UserService {
     const { userId, userName } = user
 
     const info = await this.userRepository.findOneBy({ userName })
+    if (info && info.userId !== userId) {
+      return false
+    }
+
+    return true
+  }
+
+  /**
+   * 校验用户邮箱是否唯一
+   * @param user 用户信息
+   * @returns true 唯一 / false 不唯一
+   */
+  async checkUserEmailUnique(user: Partial<SysUser>): Promise<boolean> {
+    const { userId, email } = user
+    if (!email) return true
+
+    const info = await this.userRepository.findOneBy({ email })
+    if (info && info.userId !== userId) {
+      return false
+    }
+
+    return true
+  }
+
+  /**
+   * 校验用户手机号是否唯一
+   * @param user 用户信息
+   * @returns true 唯一 / false 不唯一
+   */
+  async checkUserPhoneUnique(user: Partial<SysUser>): Promise<boolean> {
+    const { userId, phonenumber } = user
+    if (!phonenumber) return true
+
+    const info = await this.userRepository.findOneBy({ phonenumber })
     if (info && info.userId !== userId) {
       return false
     }

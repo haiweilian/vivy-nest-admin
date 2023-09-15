@@ -23,7 +23,7 @@ export class DictDataController {
    * @returns 字典数据列表
    */
   @Get('list')
-  @RequirePermissions('system:dict:query')
+  @RequirePermissions('system:dict:list')
   async list(@Query() dictData: ListDictDataDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.dictDataService.list(dictData))
   }
@@ -93,8 +93,8 @@ export class DictDataController {
    * @param dictType 字典类型
    * @returns 字典数据选项列表
    */
-  @Get('list/:dictType')
-  async listByDictType(@Param('dictType') dictType: string): Promise<AjaxResult> {
-    return AjaxResult.success(await this.dictDataService.listByDictType(dictType))
+  @Get('option/:dictType')
+  async optionList(@Param('dictType') dictType: string): Promise<AjaxResult> {
+    return AjaxResult.success(await this.dictDataService.optionList(dictType))
   }
 }

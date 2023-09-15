@@ -22,7 +22,7 @@ export class OperLogController {
    * @returns 操作日志列表
    */
   @Get('list')
-  @RequirePermissions('system:operlog:query')
+  @RequirePermissions('system:operlog:list')
   async list(@Query() operLog: ListOperLogDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.operLogService.list(operLog))
   }

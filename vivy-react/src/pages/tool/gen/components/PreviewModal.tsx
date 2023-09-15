@@ -1,13 +1,12 @@
 import { CopyOutlined } from '@ant-design/icons'
-import { useRequest } from '@umijs/max'
-import { Button, Modal, ModalProps, Tabs, message } from 'antd'
+import { Button, Modal, ModalProps, Tabs, App } from 'antd'
 import Clipboard from 'clipboard'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { previewCode } from '@/apis/gen/gen'
 import type { GenTableModel, GenPreviewResult } from '@/apis/gen/gen'
 
 interface UpdateFormProps extends ModalProps {
-  record?: GenTableModel
+  record: GenTableModel
 }
 
 const removePrefix = (str: string) => {
@@ -15,17 +14,16 @@ const removePrefix = (str: string) => {
 }
 
 const PreviewModal: React.FC<UpdateFormProps> = ({ record, ...props }) => {
+  const { message } = App.useApp()
+
   /**
    * 查询预览
    */
-  const { data } = useRequest(
-    () => {
-      if (record?.tableName) {
-        return previewCode(record.tableName)
-      }
-    },
-    { refreshDeps: [record?.tableName] }
-  )
+  const [codeInfo, setCodeInfo] = useState<GenPreviewResult[]>([])
+  const getCodeData = async () => {
+    const data = await previewCode(record.tableName)
+    setCodeInfo(data)
+  }
 
   /**
    * 复制代码
@@ -41,10 +39,19 @@ const PreviewModal: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   }, [])
 
   return (
-    <Modal {...props} title="代码预览" footer={null} width={1000}>
+    <Modal
+      {...props}
+      title="代码预览"
+      footer={null}
+      width={1000}
+      afterOpenChange={(open) => {
+        open && getCodeData()
+        props.afterOpenChange?.(open)
+      }}
+    >
       <Tabs
         tabBarStyle={{ marginBottom: 0 }}
-        items={(data || []).map((item: GenPreviewResult) => ({
+        items={codeInfo.map((item: GenPreviewResult) => ({
           key: item.name,
           label: item.name,
           children: (

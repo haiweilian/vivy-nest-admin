@@ -10,5 +10,6 @@ import { SysDept } from './entities/sys-dept.entity'
   imports: [TypeOrmModule.forFeature([SysDept, SysUser])],
   controllers: [DeptController],
   providers: [DeptService],
+  exports: [DeptService],
 })
 export class DeptModule {}

@@ -11,7 +11,7 @@ import {
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { useRef, useEffect } from 'react'
-import { addMenu, updateMenu, infoMenu, selectableMenuTree } from '@/apis/system/menu'
+import { addMenu, updateMenu, infoMenu, optionMenuTree } from '@/apis/system/menu'
 import type { CreateMenuParams, MenuTreeResult } from '@/apis/system/menu'
 import { IconPicker } from '@/components/Icon'
 
@@ -83,7 +83,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormTreeSelect
         name="parentId"
         label="上级菜单"
-        request={selectableMenuTree}
+        request={optionMenuTree}
         fieldProps={{
           fieldNames: { label: 'menuName', value: 'menuId' },
         }}

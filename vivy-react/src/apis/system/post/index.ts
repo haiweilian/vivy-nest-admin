@@ -54,8 +54,8 @@ export function infoPost(postId: React.Key) {
 /**
  * 查询岗位选项列表
  */
-export function selectablePost() {
-  return request<PostModel[]>('/post/selectable/post', {
+export function optionPost() {
+  return request<PostModel[]>('/post/option/list', {
     method: RequestEnum.GET,
   })
 }

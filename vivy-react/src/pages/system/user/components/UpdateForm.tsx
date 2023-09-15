@@ -9,9 +9,9 @@ import {
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { useRef, useEffect } from 'react'
-import { selectableDeptTree } from '@/apis/system/dept'
-import { selectablePost } from '@/apis/system/post'
-import { selectableRole } from '@/apis/system/role'
+import { optionDeptTree } from '@/apis/system/dept'
+import { optionPost } from '@/apis/system/post'
+import { optionRole } from '@/apis/system/role'
 import { addUser, updateUser, infoUser } from '@/apis/system/user'
 import type { CreateUserParams, UserModel } from '@/apis/system/user'
 
@@ -86,7 +86,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormTreeSelect
         name="deptId"
         label="归属部门"
-        request={selectableDeptTree}
+        request={optionDeptTree}
         fieldProps={{
           fieldNames: { label: 'deptName', value: 'deptId' },
         }}
@@ -103,7 +103,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormSelect
         name="roleIds"
         label="角色"
-        request={selectableRole}
+        request={optionRole}
         fieldProps={{
           mode: 'multiple',
           fieldNames: { label: 'roleName', value: 'roleId' },
@@ -112,7 +112,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormSelect
         name="postIds"
         label="岗位"
-        request={selectablePost}
+        request={optionPost}
         fieldProps={{
           mode: 'multiple',
           fieldNames: { label: 'postName', value: 'postId' },

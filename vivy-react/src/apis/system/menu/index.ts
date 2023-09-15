@@ -1,6 +1,6 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { MenuModel, MenuTreeResult, CreateMenuParams, UpdateMenuParams } from './model'
+import type { MenuModel, MenuTreeResult, CreateMenuParams, UpdateMenuParams, RouterTreeResult } from './model'
 export * from './model'
 
 /**
@@ -53,8 +53,17 @@ export function infoMenu(menuId: React.Key) {
 /**
  * 查询菜单选项树
  */
-export function selectableMenuTree() {
-  return request<MenuTreeResult[]>('/menu/selectable/menuTree', {
+export function optionMenuTree() {
+  return request<MenuTreeResult[]>('/menu/option/tree', {
+    method: RequestEnum.GET,
+  })
+}
+
+/**
+ * 查询用户路由&菜单
+ */
+export function getUserRouters() {
+  return request<RouterTreeResult[]>('/menu/getUserRouters', {
     method: RequestEnum.GET,
   })
 }

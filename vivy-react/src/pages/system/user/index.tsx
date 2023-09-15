@@ -6,7 +6,7 @@ import type { TreeProps, TreeDataNode } from 'antd'
 import { Tree, Button, Popconfirm } from 'antd'
 import { isEmpty } from 'lodash-es'
 import React, { useRef, useState } from 'react'
-import { selectableDeptTree } from '@/apis/system/dept'
+import { optionDeptTree } from '@/apis/system/dept'
 import type { DeptTreeResult } from '@/apis/system/dept'
 import { listUser, deleteUser } from '@/apis/system/user'
 import type { UserModel } from '@/apis/system/user'
@@ -38,7 +38,7 @@ const User = () => {
     setSelectedDeptKeys(selectedKeys)
     actionRef.current?.reload()
   }
-  const { data: deptData } = useRequest(selectableDeptTree, {
+  const { data: deptData } = useRequest(optionDeptTree, {
     onSuccess(data) {
       const keys: React.Key[] = []
       eachTree<DeptTreeResult>(data, (item) => {

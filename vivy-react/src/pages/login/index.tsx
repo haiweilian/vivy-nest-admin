@@ -1,7 +1,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
 import { useModel, history } from '@umijs/max'
-import { message } from 'antd'
+import { App } from 'antd'
 import { flushSync } from 'react-dom'
 import { login } from '@/apis/auth/login'
 import type { LoginParams } from '@/apis/auth/login'
@@ -10,6 +10,7 @@ import { PageEnum } from '@/enums/pageEnum'
 import { setToken } from '@/utils/auth'
 
 const Login = () => {
+  const { message } = App.useApp()
   const { initialState, setInitialState } = useModel('@@initialState')
 
   const fetchUserInfo = async (): Promise<void> => {
@@ -31,8 +32,9 @@ const Login = () => {
       await fetchUserInfo()
       message.success('登录成功！')
       history.replace(PageEnum.BASE_HOME)
-    } catch (error) {
-      message.error('登录失败，请重试！')
+      window.location.reload()
+    } catch (error: any) {
+      message.error(error.message || '登录失败，请重试！')
     }
   }
 

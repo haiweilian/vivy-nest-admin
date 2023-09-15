@@ -53,8 +53,8 @@ export function infoDept(deptId: React.Key) {
 /**
  * 查询部门选项树
  */
-export function selectableDeptTree() {
-  return request<DeptTreeResult[]>('/dept/selectable/deptTree', {
+export function optionDeptTree() {
+  return request<DeptTreeResult[]>('/dept/option/tree', {
     method: RequestEnum.GET,
   })
 }

@@ -7,7 +7,7 @@ type DictProps = {
   options: DictData[]
 }
 
-const getColor = (color: string) => {
+const getColor = (color?: string) => {
   if (color === 'info') return 'lime'
   if (color === 'danger') return 'red'
   if (color === 'primary') return 'blue'
