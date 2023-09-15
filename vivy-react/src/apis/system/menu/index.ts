@@ -65,5 +65,6 @@ export function optionMenuTree() {
 export function getUserRouters() {
   return request<RouterTreeResult[]>('/menu/getUserRouters', {
     method: RequestEnum.GET,
+    skipErrorHandler: true,
   })
 }

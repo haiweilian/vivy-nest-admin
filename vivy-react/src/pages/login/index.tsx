@@ -1,6 +1,6 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
-import { useModel, history } from '@umijs/max'
+import { useModel } from '@umijs/max'
 import { App } from 'antd'
 import { flushSync } from 'react-dom'
 import { login } from '@/apis/auth/login'
@@ -31,15 +31,14 @@ const Login = () => {
       setToken(token.access_token)
       await fetchUserInfo()
       message.success('登录成功！')
-      history.replace(PageEnum.BASE_HOME)
-      window.location.reload()
+      window.location.href = PageEnum.BASE_HOME
     } catch (error: any) {
       message.error(error.message || '登录失败，请重试！')
     }
   }
 
   return (
-    <div className="flex flex-col justify-center h-full">
+    <div className="flex flex-col justify-center h-[100vh]">
       <div>
         <LoginForm title="Vivy" subTitle="基于 Nest & React 权限管理系统" onFinish={handleLogin}>
           <ProFormText

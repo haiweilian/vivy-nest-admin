@@ -58,8 +58,8 @@ export async function getInitialState(): Promise<InitialState> {
       settings: defaultSettings as Partial<LayoutSettings>,
     }
   } else {
-    removeToken()
     if (location.pathname !== PageEnum.BASE_LOGIN) {
+      removeToken()
       history.push(PageEnum.BASE_LOGIN)
     }
   }
@@ -221,7 +221,7 @@ export const request: RequestConfig = {
   ],
 }
 
-let dynamicRoutes: any[]
+let dynamicRoutes: any[] = []
 /**
  * @name patchClientRoutes 修改路由表
  * @doc https://umijs.org/docs/api/runtime-config#patchclientroutes-routes-
@@ -237,10 +237,17 @@ export const patchClientRoutes: RuntimeConfig['patchClientRoutes'] = ({ routes }
 export const render: RuntimeConfig['render'] = (oldRender) => {
   const token = getToken()
   if (token) {
-    getUserRouters().then((data) => {
-      dynamicRoutes = data
-      oldRender()
-    })
+    getUserRouters()
+      .then((data) => {
+        dynamicRoutes = data
+      })
+      .catch(() => {
+        removeToken()
+        history.push(PageEnum.BASE_LOGIN)
+      })
+      .finally(() => {
+        oldRender()
+      })
   } else {
     dynamicRoutes = []
     oldRender()
