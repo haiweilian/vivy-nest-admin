@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { TreeUtils, BaseStatusEnums } from '@vivy-common/core'
+import { TreeUtils, BaseStatusEnums, MenuConstants, IdentityUtils } from '@vivy-common/core'
 import { Repository } from 'typeorm'
 import { SysRoleMenu } from '@/modules/system/role/entities/sys-role-menu.entity'
 import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto'
 import { SysMenu } from './entities/sys-menu.entity'
-import { MenuTreeVo } from './vo/menu.vo'
+import { MenuTreeVo, RouterTreeVo } from './vo/menu.vo'
 
 /**
  * 菜单管理
@@ -93,7 +93,7 @@ export class MenuService {
    * 查询菜单选项树
    * @returns 菜单选项树
    */
-  async selectableMenuTree(): Promise<MenuTreeVo[]> {
+  async optionTree(): Promise<MenuTreeVo[]> {
     const list = await this.menuRepository.find({
       select: ['menuId', 'menuName', 'parentId'],
       order: {
@@ -111,7 +111,7 @@ export class MenuService {
 
   /**
    * 根据用户ID查询菜单列表
-   * @param userId 用户用户ID
+   * @param userId 用户ID
    * @returns 用户菜单列表
    */
   async selectMenuByUserId(userId: number): Promise<SysMenu[]> {
@@ -125,5 +125,80 @@ export class MenuService {
       .andWhere('r.status = :status', { status: BaseStatusEnums.NORMAL })
       .distinct()
       .getMany()
+  }
+
+  /**
+   * 查询用户菜单信息
+   * @param userId 用户ID
+   * @returns 用户菜单信息
+   */
+  async selectUserMenuTree(userId: number): Promise<MenuTreeVo[]> {
+    let menus: SysMenu[] = []
+
+    if (IdentityUtils.isAdmin(userId)) {
+      menus = await this.menuRepository
+        .createQueryBuilder('m')
+        .where('m.status = :status', { status: BaseStatusEnums.NORMAL })
+        .andWhere('m.menu_type IN (:...menuType)', { menuType: [MenuConstants.TYPE_DIR, MenuConstants.TYPE_MENU] })
+        .orderBy('m.menu_sort', 'ASC')
+        .getMany()
+    } else {
+      menus = await this.menuRepository
+        .createQueryBuilder('m')
+        .leftJoin('sys_role_menu', 'rm', 'm.menu_id = rm.menu_id')
+        .leftJoin('sys_user_role', 'ur', 'rm.role_id = ur.role_id')
+        .leftJoin('sys_role', 'r', 'ur.role_id = r.role_id')
+        .where('ur.user_id = :userId', { userId })
+        .andWhere('m.status = :status', { status: BaseStatusEnums.NORMAL })
+        .andWhere('r.status = :status', { status: BaseStatusEnums.NORMAL })
+        .andWhere('m.menu_type IN (:...menuType)', { menuType: [MenuConstants.TYPE_DIR, MenuConstants.TYPE_MENU] })
+        .orderBy('m.menu_sort', 'ASC')
+        .distinct()
+        .getMany()
+    }
+
+    return TreeUtils.listToTree<MenuTreeVo>(menus, {
+      id: 'menuId',
+      pid: 'parentId',
+    })
+  }
+
+  /**
+   * 构建前端 UmiMax 所需要的路由
+   * @param 菜单列表
+   * @returns 路由列表
+   */
+  buildUmiMaxRouters(menus: MenuTreeVo[]): RouterTreeVo[] {
+    const routers: RouterTreeVo[] = []
+
+    for (const menu of menus) {
+      const router = new RouterTreeVo()
+      router.name = menu.menuName
+      router.path = this.getRouterPath(menu)
+      router.icon = menu.icon
+      router.component = menu.component
+      router.locale = false
+      router.hideInMenu = menu.isVisible === BaseStatusEnums.ABNORMAL
+      router.children = menu.children && this.buildUmiMaxRouters(menu.children)
+      routers.push(router)
+    }
+
+    return routers
+  }
+
+  /**
+   * 获取路由路径
+   * @param menu 菜单信息
+   */
+  private getRouterPath(menu: MenuTreeVo): string {
+    if (
+      menu.parentId === null &&
+      menu.isLink === BaseStatusEnums.ABNORMAL &&
+      menu.isFrame === BaseStatusEnums.ABNORMAL
+    ) {
+      return `/${menu.path}`
+    } else {
+      return menu.path
+    }
   }
 }

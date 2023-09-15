@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, UserId } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto'
@@ -20,7 +20,7 @@ export class MenuController {
    * 查询菜单树结构
    */
   @Get('tree')
-  @RequirePermissions('system:menu:query')
+  @RequirePermissions('system:menu:list')
   async tree(): Promise<AjaxResult> {
     return AjaxResult.success(await this.menuService.tree())
   }
@@ -85,8 +85,18 @@ export class MenuController {
    * 查询菜单选项树
    * @returns 菜单选项树
    */
-  @Get('selectable/menuTree')
-  async selectableMenuTree(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.menuService.selectableMenuTree())
+  @Get('option/tree')
+  async optionTree(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.menuService.optionTree())
+  }
+
+  /**
+   * 查询用户路由信息
+   * @returns 用户路由信息
+   */
+  @Get('getUserRouters')
+  async getUserRouters(@UserId() userId: number): Promise<AjaxResult> {
+    const menus = await this.menuService.selectUserMenuTree(userId)
+    return AjaxResult.success(this.menuService.buildUmiMaxRouters(menus))
   }
 }

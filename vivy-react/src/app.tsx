@@ -2,13 +2,17 @@ import { GithubOutlined, ReadFilled } from '@ant-design/icons'
 import { SettingDrawer } from '@ant-design/pro-components'
 import type { Settings as LayoutSettings } from '@ant-design/pro-components'
 import { history } from '@umijs/max'
-import type { RunTimeLayoutConfig, RequestConfig } from '@umijs/max'
+import type { RuntimeConfig, RunTimeLayoutConfig, RequestConfig } from '@umijs/max'
 import { message as Message, Modal } from 'antd'
 import { getLoginUserInfo } from '@/apis/auth/login'
+import { getUserRouters } from '@/apis/system/menu'
 import { AvatarName, AvatarDropdown } from '@/components/Layout'
 import { PageEnum } from '@/enums/pageEnum'
 import { getToken, removeToken } from '@/utils/auth'
 import defaultSettings from '../config/setting'
+import { buildMenus } from './router/helper/menu'
+import { buildRoutes } from './router/helper/route'
+import { localRoutes } from './router/routes/index'
 
 /**
  * @name InitialState 全局初始化数据配置用于 Layout 用户信息和权限初始化
@@ -71,12 +75,12 @@ export async function getInitialState(): Promise<InitialState> {
  * @doc https://procomponents.ant.design/components/layout#prolayout
  */
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
-  const user = initialState?.userInfo as UserInfo
+  const user = initialState?.userInfo
 
   return {
     avatarProps: {
-      src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-      title: <AvatarName name={user.nickName} />,
+      src: user?.avatar,
+      title: <AvatarName name={user?.nickName || ''} />,
       render: (_, children) => {
         return <AvatarDropdown>{children}</AvatarDropdown>
       },
@@ -101,6 +105,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         width: '331px',
       },
     ],
+    postMenuData(menuData) {
+      return buildMenus(menuData!)
+    },
     actionsRender: () => {
       return [
         <ReadFilled
@@ -117,9 +124,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         />,
       ]
     },
-    // footerRender: () => {
-    //   return <Footer />;
-    // },
     childrenRender: (children) => {
       return (
         <>
@@ -138,9 +142,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         </>
       )
     },
-    // onPageChange: (location) => {
-    //   console.log('onPageChange', location);
-    // },
     ...initialState?.settings,
   }
 }
@@ -191,6 +192,7 @@ export const request: RequestConfig = {
               okText: '重新登录',
               onOk() {
                 status.isOpen = true
+                removeToken()
                 history.push(PageEnum.BASE_LOGIN)
               },
               onCancel() {
@@ -217,4 +219,30 @@ export const request: RequestConfig = {
       },
     ],
   ],
+}
+
+let dynamicRoutes: any[]
+/**
+ * @name patchClientRoutes 修改路由表
+ * @doc https://umijs.org/docs/api/runtime-config#patchclientroutes-routes-
+ */
+export const patchClientRoutes: RuntimeConfig['patchClientRoutes'] = ({ routes }) => {
+  buildRoutes(routes, [...localRoutes, ...dynamicRoutes])
+}
+
+/**
+ * @name render 覆写渲染函数
+ * @doc https://umijs.org/docs/api/runtime-config#renderoldrender-function
+ */
+export const render: RuntimeConfig['render'] = (oldRender) => {
+  const token = getToken()
+  if (token) {
+    getUserRouters().then((data) => {
+      dynamicRoutes = data
+      oldRender()
+    })
+  } else {
+    dynamicRoutes = []
+    oldRender()
+  }
 }

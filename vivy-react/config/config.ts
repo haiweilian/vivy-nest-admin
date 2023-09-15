@@ -1,10 +1,16 @@
+import { resolve } from 'path'
 import { defineConfig } from '@umijs/max'
 import proxy from './proxy'
-import routes from './routes'
+// import routes from './routes'
 import defaultSettings from './setting'
 
 export default defineConfig({
   npmClient: 'pnpm',
+  /**
+   * @name 开发插件
+   * @doc https://umijs.org/docs/guides/plugins
+   */
+  plugins: [resolve(__dirname, './plugins/html')],
   /**
    * @name 开启 hash 模式
    * @description 让 build 之后的产物包含 hash 后缀。通常用于增量发布和避免浏览器加载缓存。
@@ -16,7 +22,7 @@ export default defineConfig({
    * @description 只支持 path，component，routes，redirect，wrappers，title 的配置
    * @doc https://umijs.org/docs/guides/routes
    */
-  routes,
+  // routes,
   /**
    * @name 代理配置
    * @description 可以让你的本地服务器代理到你的服务器上，这样你就可以访问服务器的数据了
@@ -30,7 +36,10 @@ export default defineConfig({
    * @description 内置了 babel import 插件
    * @doc https://umijs.org/docs/max/antd#antd
    */
-  antd: {},
+  antd: {
+    appConfig: {},
+    configProvider: {},
+  },
   /**
    * @name 权限插件
    * @description 基于 initialState 的权限插件，必须先打开 initialState
@@ -69,4 +78,31 @@ export default defineConfig({
    * @doc https://umijs.org/docs/guides/generator#tailwind-css-%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E5%99%A8
    */
   tailwindcss: {},
+  /**
+   * @name 约定式路由规则
+   * @doc https://umijs.org/docs/api/config#conventionroutes
+   */
+  conventionRoutes: {
+    exclude: [/\/components\//, /\/models\//],
+  },
+  /**
+   * @name icons 插件
+   * @doc https://umijs.org/docs/api/config#icons
+   */
+  icons: {
+    include: [
+      'ion:logo-github',
+      'ion:logo-vue',
+      'ion:logo-html5',
+      'ion:logo-angular',
+      'ion:logo-react',
+      'ion:logo-javascript',
+      'ion:home-outline',
+      'ion:grid-outline',
+      'ion:layers-outline',
+      'ion:settings-outline',
+      'ion:key-outline',
+      'ion:bar-chart-outline',
+    ],
+  },
 })

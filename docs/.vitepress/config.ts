@@ -129,6 +129,10 @@ export default defineConfig({
             link: '/front/introduce',
           },
           {
+            text: '动态菜单',
+            link: '/front/dynamic-menu',
+          },
+          {
             text: '项目组件',
             items: [
               {
