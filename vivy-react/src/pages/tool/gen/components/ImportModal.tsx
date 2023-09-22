@@ -21,7 +21,6 @@ const ImportModal: React.FC<ModalProps> = (props) => {
 
     setSelectedRowKeys([])
     props.onOk?.(e)
-    actionRef.current?.reload()
   }
 
   /**
@@ -35,11 +34,6 @@ const ImportModal: React.FC<ModalProps> = (props) => {
     {
       title: '表描述',
       dataIndex: 'tableComment',
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      search: false,
     },
   ]
 

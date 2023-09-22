@@ -83,6 +83,16 @@ export class GenTable extends BaseBusinessEntity {
   templateCategory: string
 
   @Column({
+    name: 'module_name',
+    type: 'varchar',
+    length: 100,
+    comment: '生成模块名',
+  })
+  @MaxLength(100)
+  @IsNotEmpty()
+  moduleName: string
+
+  @Column({
     name: 'business_name',
     type: 'varchar',
     length: 100,

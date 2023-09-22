@@ -20,7 +20,12 @@ export class SwaggerService {
     this.builderAuth()
 
     const document = SwaggerModule.createDocument(this.app, this.builder.build())
-    SwaggerModule.setup('swagger', this.app, document)
+    SwaggerModule.setup('swagger', this.app, document, {
+      // https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/
+      swaggerOptions: {
+        persistAuthorization: true,
+      },
+    })
 
     return this.builder
   }

@@ -85,7 +85,7 @@ export default defineConfig({
             text: '业务模块',
             items: [
               {
-                text: '代码生成🚧',
+                text: '代码生成',
                 link: '/back/business/gen',
               },
               {

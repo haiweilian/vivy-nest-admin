@@ -12,8 +12,8 @@ const AvatarDropdown: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
   const handleLogout = async () => {
     await logout()
-    history.replace(PageEnum.BASE_LOGIN)
     removeToken()
+    history.push(PageEnum.BASE_LOGIN)
   }
 
   const onMenuClick = useCallback(

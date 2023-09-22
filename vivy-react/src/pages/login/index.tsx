@@ -30,7 +30,7 @@ const Login = () => {
       const token = await login(values)
       setToken(token.access_token)
       await fetchUserInfo()
-      message.success('登录成功！')
+      message.loading('登录中...')
       window.location.href = PageEnum.BASE_HOME
     } catch (error: any) {
       message.error(error.message || '登录失败，请重试！')
@@ -71,29 +71,6 @@ const Login = () => {
               },
             ]}
           />
-          {/* <Space>
-            <ProFormText
-              name="code"
-              fieldProps={{
-                size: 'large',
-                prefix: <KeyOutlined className={'prefixIcon'} />,
-                autoFocus: true,
-              }}
-              placeholder={'验证码'}
-              rules={[
-                {
-                  required: true,
-                  message: '请输入验证码!',
-                },
-              ]}
-            />
-            <img
-              className={styles.code}
-              src={`data:image/gif;base64,${data?.img}`}
-              onClick={refresh}
-            />
-          </Space> */}
-
           <div className="mb-5">
             <ProFormCheckbox noStyle name="autoLogin">
               自动登录

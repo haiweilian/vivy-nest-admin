@@ -531,6 +531,7 @@ CREATE TABLE `gen_table` (
   `sub_table_fk_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '子表关联的外键名',
   `class_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '实体类名称',
   `template_category` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1' COMMENT '生成模板分类',
+  `module_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '生成模块名',
   `business_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '生成业务名',
   `function_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '生成功能名',
   `function_author` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '生成功能作者',

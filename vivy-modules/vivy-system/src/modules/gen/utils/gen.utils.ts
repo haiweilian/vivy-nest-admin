@@ -23,6 +23,7 @@ export class GenUtils {
   static initTable(table: GenTable) {
     table.updateTime = undefined
     table.className = this.getClassName(table.tableName)
+    table.moduleName = GenConstants.MODULE
     table.businessName = this.getBusinessName(table.tableName)
     table.functionName = this.getFunctionName(table.tableComment)
     table.functionAuthor = GenConstants.AUTHOR

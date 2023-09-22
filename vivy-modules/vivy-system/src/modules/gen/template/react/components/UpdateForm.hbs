@@ -83,6 +83,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       {{#if (isRequire column.isRequired)}}
       rules={[{ required: true }]}
       {{/if}}
+      {{#if column.columnLength}}
+      fieldProps=\{{ maxLength: {{column.columnLength}} }}
+      {{/if}}
     />
     {{/if}}
     {{#if (isEqual column.htmlType 'number')}}
@@ -92,6 +95,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       {{#if (isRequire column.isRequired)}}
       rules={[{ required: true }]}
       {{/if}}
+      {{#if column.columnScale}}
+      fieldProps=\{{ precision: {{column.columnScale}} }}
+      {{/if}}
+      {{#unless column.columnScale}}
+      fieldProps=\{{ precision: 0 }}
+      {{/unless}}
     />
     {{/if}}
     {{#if (isEqual column.htmlType 'textarea')}}
@@ -100,6 +109,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       label="{{column.fieldLabel}}"
       {{#if (isRequire column.isRequired)}}
       rules={[{ required: true }]}
+      {{/if}}
+      {{#if column.columnLength}}
+      fieldProps=\{{ maxLength: {{column.columnLength}}, showCount: true }}
       {{/if}}
     />
     {{/if}}

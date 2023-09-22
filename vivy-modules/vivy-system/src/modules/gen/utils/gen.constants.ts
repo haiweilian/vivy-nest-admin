@@ -6,6 +6,9 @@ export class GenConstants {
   /** 所有者 */
   static AUTHOR = 'vivy'
 
+  /** 模块名 */
+  static MODULE = 'system'
+
   /** 数据库字符串类型 */
   static COLUMNTYPE_STR = ['char', 'varchar', 'nvarchar', 'varchar2']
 

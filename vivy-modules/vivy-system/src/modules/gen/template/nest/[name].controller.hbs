@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query 
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
+import { RequirePermissions } from '@vivy-common/security'
 import { List{{businessNamePascalCase}}Dto, Create{{businessNamePascalCase}}Dto, Update{{businessNamePascalCase}}Dto } from './dto/{{businessNameKebabCase}}.dto'
 import { {{businessNamePascalCase}}Service } from './{{businessNameKebabCase}}.service'
 
@@ -21,6 +22,7 @@ export class {{businessNamePascalCase}}Controller {
    * @returns {{functionName}}列表
    */
   @Get('list')
+  @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:list')
   async list(@Query() {{businessNameCamelcase}}: List{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
     return AjaxResult.success(await this.{{businessNameCamelcase}}Service.list({{businessNameCamelcase}}))
   }
@@ -31,6 +33,7 @@ export class {{businessNamePascalCase}}Controller {
    */
   @Post('add')
   @Log({ title: '{{functionName}}', operType: OperType.INSERT })
+  @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:add')
   async add(@Body() {{businessNameCamelcase}}: Create{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
     return AjaxResult.success(await this.{{businessNameCamelcase}}Service.add({{businessNameCamelcase}}))
   }
@@ -41,6 +44,7 @@ export class {{businessNamePascalCase}}Controller {
    */
   @Put('update')
   @Log({ title: '{{functionName}}', operType: OperType.UPDATE })
+  @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:update')
   async update(@Body() {{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
     return AjaxResult.success(await this.{{businessNameCamelcase}}Service.update({{businessNameCamelcase}}))
   }
@@ -51,6 +55,7 @@ export class {{businessNamePascalCase}}Controller {
    */
   @Delete('delete/:{{pkColumn.fieldName}}s')
   @Log({ title: '{{functionName}}', operType: OperType.DELETE })
+  @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:delete')
   async delete(@Param('{{pkColumn.fieldName}}s', ParseArrayPipe) {{pkColumn.fieldName}}s: {{pkColumn.tslangType}}[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.{{businessNameCamelcase}}Service.delete({{pkColumn.fieldName}}s))
   }
@@ -61,6 +66,7 @@ export class {{businessNamePascalCase}}Controller {
    * @returns {{functionName}}详情
    */
   @Get('info/:{{pkColumn.fieldName}}')
+  @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:query')
   async info(@Param('{{pkColumn.fieldName}}') {{pkColumn.fieldName}}: {{pkColumn.tslangType}}): Promise<AjaxResult> {
     return AjaxResult.success(await this.{{businessNameCamelcase}}Service.info({{pkColumn.fieldName}}))
   }

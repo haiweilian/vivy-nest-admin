@@ -14,8 +14,8 @@ const Gen = () => {
   const actionRef = useRef<ActionType>()
   const [record, setRecord] = useState<GenTableModel>()
   const [importOpen, setImportOpen] = useState(false)
-  const [previewOpen, setPreviewOpen] = useState(false)
   const [updateOpen, setUpdateOpen] = useState(false)
+  const [previewOpen, setPreviewOpen] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
@@ -163,14 +163,14 @@ const Gen = () => {
         onCancel={() => setImportOpen(false)}
       />
 
-      <PreviewModal record={record} open={previewOpen} onCancel={() => setPreviewOpen(false)} />
-
       <UpdateForm
-        record={record}
+        record={record!}
         open={updateOpen}
         onOpenChange={setUpdateOpen}
         onFinish={async () => actionRef.current?.reload()}
       />
+
+      <PreviewModal record={record!} open={previewOpen} onCancel={() => setPreviewOpen(false)} />
     </>
   )
 }

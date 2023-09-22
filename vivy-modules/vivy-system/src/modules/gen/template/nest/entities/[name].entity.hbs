@@ -1,5 +1,5 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
-import { Allow } from 'class-validator'
+import { IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -36,7 +36,20 @@ export class {{classNamePascalCase}} extends BaseBusinessEntity {
     {{/if}}
     comment: '{{column.columnComment}}',
   })
-  @Allow()
+  {{#if column.columnLength}}
+  @MaxLength({{column.columnLength}})
+  {{/if}}
+  {{#if (isRequire column.isPk)}}
+  @IsNotEmpty()
+  {{/if}}
+  {{#if (isRequire column.isRequired)}}
+  @IsNotEmpty()
+  {{/if}}
+  {{#if (notRequire column.isPk)}}
+  {{#if (notRequire column.isRequired)}}
+  @IsOptional()
+  {{/if}}
+  {{/if}}
   {{column.fieldName}}{{#if (notRequire column.isPk)}}{{#if (notRequire column.isRequired)}}?{{/if}}{{/if}}: {{column.tslangType}}
 
 {{/if}}

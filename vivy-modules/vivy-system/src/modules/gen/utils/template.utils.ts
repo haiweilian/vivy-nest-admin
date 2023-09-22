@@ -158,7 +158,7 @@ export class TemplateUtils {
      */
     table.columns.forEach((column: ColumnContext) => {
       if (column.columnComment) {
-        column.fieldLabel = column.columnComment.replace(/（.+）/, '').replace(/\(.+\)/, '')
+        column.fieldLabel = column.columnComment.replace(/\(.+\)/, '').replace(/（.+）/, '')
       }
       if (column.dictType) {
         column.dictTypeCamelcase = camelcase(column.dictType)
@@ -167,7 +167,7 @@ export class TemplateUtils {
         const dataType = GenUtils.getColumnType(column.columnType)
         if (GenConstants.COLUMNTYPE_NUMBER.includes(dataType)) {
           const match = GenUtils.getColumnMatchLength(column.columnType)?.split(',')
-          if (match && match.length) {
+          if (match && match.length === 2) {
             column.columnPrecision = match[0]
             column.columnScale = match[1]
           }
