@@ -13,6 +13,7 @@ import { AppService } from './app.service'
 import { CommonModule } from './common/common.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { GenModule } from './modules/gen/gen.module'
+import { MonitorModule } from './modules/monitor/monitor.module'
 import { SystemModule } from './modules/system/system.module'
 
 @Module({
@@ -64,12 +65,13 @@ import { SystemModule } from './modules/system/system.module'
         }
       },
     }),
+    CommonModule,
 
     // modules
-    CommonModule,
     AuthModule,
     GenModule,
     SystemModule,
+    MonitorModule,
   ],
   controllers: [AppController],
   providers: [AppService],

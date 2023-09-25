@@ -46,8 +46,8 @@ export class LogService {
     loginLog.loginMessage = message
 
     const request = this.requestContext.getRequest()
-    loginLog.loginIp = IpUtils.requestIp(request)
     const region = IpUtils.ip2Region(IpUtils.requestIp(request))
+    loginLog.loginIp = IpUtils.requestIp(request)
     loginLog.loginLocation = `${region.country} ${region.province} ${region.city}`
     loginLog.userAgent = request.headers['user-agent']
 

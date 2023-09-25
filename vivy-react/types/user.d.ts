@@ -90,7 +90,7 @@ declare interface LoginUserInfo {
   /**
    * 登录IP地址
    */
-  ipaddr: string
+  loginIp: string
 
   /**
    * 权限列表

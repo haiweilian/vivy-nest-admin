@@ -13,7 +13,7 @@ import { JwtToken } from '../interfaces/jwt-token.interface'
 export class TokenService {
   constructor(
     @InjectRedis()
-    private redis: Redis,
+    public redis: Redis,
     private jwtService: JwtService,
     private securityContext: SecurityContext
   ) {}
@@ -53,7 +53,7 @@ export class TokenService {
     loginUser.userSk = userSk
     loginUser.userId = userId
     loginUser.userName = userName
-    loginUser.ipaddr = IpUtils.requestIp(this.securityContext.getRequest())
+    loginUser.loginIp = IpUtils.requestIp(this.securityContext.getRequest())
     await this.setLoginUser(loginUser)
 
     // Jwt存储信息
