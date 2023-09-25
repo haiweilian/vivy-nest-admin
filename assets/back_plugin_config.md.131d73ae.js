@@ -6,7 +6,7 @@ import{_ as s,o as a,c as n,Q as l}from"./chunks/framework.93aafbf2.js";const F=
 <span class="line"><span style="color:#E1E4E8;">@</span><span style="color:#B392F0;">Module</span><span style="color:#E1E4E8;">({</span></span>
 <span class="line"><span style="color:#E1E4E8;">  imports: [</span></span>
 <span class="line"><span style="color:#E1E4E8;">    ConfigModule.</span><span style="color:#B392F0;">forRoot</span><span style="color:#E1E4E8;">({</span></span>
-<span class="line"><span style="color:#E1E4E8;">      dir: path.</span><span style="color:#B392F0;">resolve</span><span style="color:#E1E4E8;">(__dirname, </span><span style="color:#9ECBFF;">&#39;../config&#39;</span><span style="color:#E1E4E8;">),</span></span>
+<span class="line"><span style="color:#E1E4E8;">      dir: path.</span><span style="color:#B392F0;">join</span><span style="color:#E1E4E8;">(__dirname, </span><span style="color:#9ECBFF;">&#39;../config&#39;</span><span style="color:#E1E4E8;">),</span></span>
 <span class="line"><span style="color:#E1E4E8;">    }),</span></span>
 <span class="line"><span style="color:#E1E4E8;">  ],</span></span>
 <span class="line"><span style="color:#E1E4E8;">})</span></span>
@@ -18,7 +18,7 @@ import{_ as s,o as a,c as n,Q as l}from"./chunks/framework.93aafbf2.js";const F=
 <span class="line"><span style="color:#24292E;">@</span><span style="color:#6F42C1;">Module</span><span style="color:#24292E;">({</span></span>
 <span class="line"><span style="color:#24292E;">  imports: [</span></span>
 <span class="line"><span style="color:#24292E;">    ConfigModule.</span><span style="color:#6F42C1;">forRoot</span><span style="color:#24292E;">({</span></span>
-<span class="line"><span style="color:#24292E;">      dir: path.</span><span style="color:#6F42C1;">resolve</span><span style="color:#24292E;">(__dirname, </span><span style="color:#032F62;">&#39;../config&#39;</span><span style="color:#24292E;">),</span></span>
+<span class="line"><span style="color:#24292E;">      dir: path.</span><span style="color:#6F42C1;">join</span><span style="color:#24292E;">(__dirname, </span><span style="color:#032F62;">&#39;../config&#39;</span><span style="color:#24292E;">),</span></span>
 <span class="line"><span style="color:#24292E;">    }),</span></span>
 <span class="line"><span style="color:#24292E;">  ],</span></span>
 <span class="line"><span style="color:#24292E;">})</span></span>
