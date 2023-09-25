@@ -18,6 +18,7 @@ import { AppService } from './app.service'
       dir: path.join(__dirname, 'config'),
     }),
     MybatisModule.forRoot({
+      dtsPath: path.join(__dirname, '../types/mapper.d.ts'),
       patterns: path.join(__dirname, '**/*.mapper.xml'),
     }),
     RedisModule.forRootAsync({
@@ -34,7 +35,7 @@ import { AppService } from './app.service'
           ...config.get<TypeOrmModuleOptions>('datasource.defalut'),
           logger: new TypeORMLogger({
             appName: config.get('app.name'),
-            logPath: path.resolve(__dirname, '../logs'),
+            logPath: path.join(__dirname, '../logs'),
           }),
         }
       },

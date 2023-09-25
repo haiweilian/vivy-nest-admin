@@ -8,16 +8,16 @@ export type MybatisParams = {
 
 export interface MybatisOptions {
   /**
-   * 是否生成声明
-   * @default true
-   */
-  dts?: boolean
-
-  /**
    * 是否监听文件变化
    * @default true
    */
   watch?: boolean
+
+  /**
+   * 声明文件生成路径
+   * @default
+   */
+  dtsPath?: string
 
   /**
    * 匹配的文件

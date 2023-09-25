@@ -22,6 +22,7 @@ import { SystemModule } from './modules/system/system.module'
       dir: path.join(__dirname, 'config'),
     }),
     MybatisModule.forRoot({
+      dtsPath: path.join(__dirname, '../types/mapper.d.ts'),
       patterns: path.join(__dirname, '**/*.mapper.xml'),
     }),
     RedisModule.forRootAsync({
@@ -38,7 +39,7 @@ import { SystemModule } from './modules/system/system.module'
           ...config.get<TypeOrmModuleOptions>('datasource.defalut'),
           logger: new TypeORMLogger({
             appName: config.get('app.name'),
-            logPath: path.resolve(__dirname, '../logs'),
+            logPath: path.join(__dirname, '../logs'),
           }),
         }
       },

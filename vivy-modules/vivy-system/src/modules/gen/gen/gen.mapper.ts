@@ -10,7 +10,7 @@ export class GenMapper {
   constructor(
     @InjectEntityManager()
     private entityManager: EntityManager,
-    private mybatisService: MybatisService
+    private mybatisService: MybatisService<MybatisMapper>
   ) {}
 
   /**
