@@ -14,6 +14,7 @@
     "@ant-design/charts": "^1.4.2",
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.0.1",
+    "@iconify-json/ant-design": "^1.1.10",
     "@iconify-json/ion": "^1.1.12",
     "@umijs/max": "^4.0.57",
     "ahooks": "^3.7.5",

@@ -180,10 +180,10 @@ CREATE TABLE `sys_menu` (
 -- ----------------------------
 BEGIN;
 -- 一级菜单
-INSERT INTO `sys_menu` VALUES (1, NULL, '系统管理', 'M', 1, '0', 'system',                                        NULL, NULL, NULL, 'SettingOutlined', '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (2, NULL, '系统监控', 'M', 2, '0', 'monitor',                                       NULL, NULL, NULL, 'FundOutlined',    '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (3, NULL, '系统工具', 'M', 3, '0', 'tool',                                          NULL, NULL, NULL, 'ToolOutlined',    '0', '0', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (4, NULL, '项目源码', 'M', 4, '0', 'https://github.com/haiweilian/vivy-nest-admin', NULL, NULL, NULL, 'LinkOutlined',    '0', '0', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1, NULL, '系统管理', 'M', 1, '0', 'system',                                        NULL, NULL, NULL, 'ant-design:setting-outlined', '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (2, NULL, '系统监控', 'M', 2, '0', 'monitor',                                       NULL, NULL, NULL, 'ant-design:fund-outlined',    '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (3, NULL, '系统工具', 'M', 3, '0', 'tool',                                          NULL, NULL, NULL, 'ant-design:tool-outlined',    '0', '0', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (4, NULL, '项目源码', 'M', 4, '0', 'https://github.com/haiweilian/vivy-nest-admin', NULL, NULL, NULL, 'ant-design:link-outlined',    '0', '0', '1', '1', 'admin', sysdate(), 'admin', sysdate());
 
 -- 二级菜单
 INSERT INTO `sys_menu` VALUES (100, 1, '用户管理', 'C', 1,  '0', 'user',       'system/user/index',          NULL, 'system:user:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());

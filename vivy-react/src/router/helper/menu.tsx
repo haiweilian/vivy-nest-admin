@@ -1,4 +1,4 @@
-import { getIcon } from '@/components/Icon'
+import { Icon } from '@umijs/max'
 import { AppRouteMenu } from '../types'
 
 /**
@@ -9,7 +9,7 @@ import { AppRouteMenu } from '../types'
 export const buildMenus = (rawMenus: AppRouteMenu[]) => {
   rawMenus.forEach((menu) => {
     if (menu.icon && typeof menu.icon === 'string') {
-      menu.icon = getIcon(menu.icon)
+      menu.icon = <Icon icon={menu.icon as any} />
     }
     menu.children && buildMenus(menu.children)
   })

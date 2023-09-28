@@ -13,7 +13,6 @@ const getColor = (color?: string) => {
   if (color === 'primary') return 'blue'
   if (color === 'warning') return 'orange'
   if (color === 'success') return 'green'
-  if (color === 'successx') return 'green'
   return color
 }
 

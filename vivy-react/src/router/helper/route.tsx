@@ -1,7 +1,9 @@
 import React from 'react'
 import { Exception } from '@/components/Exception'
 import { Redirect } from '@/components/Redirect'
-import { AppRouteMenu } from '../types'
+import { SimpleLayout } from '@/layouts/simple'
+import { localRoutes } from '../routes'
+import type { AppRouteMenu } from '../types'
 
 /**
  * 构建路由
@@ -12,39 +14,42 @@ import { AppRouteMenu } from '../types'
 export const buildRoutes = (rawRoutes: AppRouteMenu[], dynamicRoutes: AppRouteMenu[]) => {
   // 找到主布局路由，构建路径与组件的映射关系，并清空原始路由表
   const layout = rawRoutes.find((item) => item.isLayout)?.children || []
-  const routeMap = new Map<string, React.ReactNode>()
+  const routeComponents = new Map<string, React.ReactNode>()
   layout.forEach((child) => {
-    routeMap.set(child.id!, child.element)
+    routeComponents.set(child.id!, child.element)
   })
   while (layout.length) {
     layout.pop()
   }
 
-  // 转换路由，如果关闭全局布局添加到根路由下，反之添加到主布局路由下
-  const routes = transformRoute(routeMap, dynamicRoutes)
+  // 转换路由，使用全局布局添加到主布局路由下，反之添加根路由下并包裹简易布局
+  const routes = transformRoute([...localRoutes, ...dynamicRoutes], routeComponents)
   routes.forEach((route) => {
-    if (route.layout === false) {
-      rawRoutes.unshift(route)
-    } else {
+    if (route.layout !== false) {
       layout.push(route)
+    } else {
+      rawRoutes.unshift({
+        ...route,
+        element: <SimpleLayout>{route.element}</SimpleLayout>,
+      })
     }
   })
 
   // DEBUG: 调试路由信息
-  // console.log('调试路由信息', routeMap, routes)
+  // console.log('调试路由信息', routes, routeComponents)
 }
 
 /**
  * 转换路由
- * @param routeMap 路由映射
- * @param routeList 路由列表
+ * @param routes 路由列表
+ * @param routeComponents 路由对应的组件映射
  * @implements 通过组件路径找到组件元素
  */
-function transformRoute(routeMap: Map<string, React.ReactNode>, routeList: AppRouteMenu[]) {
-  routeList.forEach((route) => {
+function transformRoute(routes: AppRouteMenu[], routeComponents: Map<string, React.ReactNode>) {
+  routes.forEach((route) => {
     const component = route.component
     if (component) {
-      const element = routeMap.get(component)
+      const element = routeComponents.get(component)
       if (element) {
         route.element = element
       } else {
@@ -54,10 +59,11 @@ function transformRoute(routeMap: Map<string, React.ReactNode>, routeList: AppRo
     } else {
       if (route.redirect) {
         route.element = <Redirect path={route.redirect} />
+      } else {
+        // console.warn(`请正确配置路由 ${route.name} 的 component 属性！`)
       }
-      // console.warn(`请正确配置路由 ${route.name} 的 component 属性！`)
     }
-    route.children && transformRoute(routeMap, route.children)
+    route.children && transformRoute(route.children, routeComponents)
   })
-  return routeList
+  return routes
 }

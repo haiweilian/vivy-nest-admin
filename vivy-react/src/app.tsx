@@ -1,25 +1,23 @@
 import { GithubOutlined, ReadFilled } from '@ant-design/icons'
-import { SettingDrawer } from '@ant-design/pro-components'
-import type { Settings as LayoutSettings } from '@ant-design/pro-components'
+import type { Settings as LayoutSettings, ProLayoutProps } from '@ant-design/pro-components'
 import { history } from '@umijs/max'
 import type { RuntimeConfig, RunTimeLayoutConfig, RequestConfig } from '@umijs/max'
-import { message as Message, Modal } from 'antd'
+import { message as Message, Modal, Tooltip } from 'antd'
 import { getLoginUserInfo } from '@/apis/auth/login'
 import { getUserRouters } from '@/apis/system/menu'
-import { AvatarName, AvatarDropdown } from '@/components/Layout'
 import { PageEnum } from '@/enums/pageEnum'
+import { AvatarName, AvatarDropdown } from '@/layouts/default'
 import { getToken, removeToken } from '@/utils/auth'
-import defaultSettings from '../config/setting'
+import { getThemeSetting } from '@/utils/setting'
 import { buildMenus } from './router/helper/menu'
 import { buildRoutes } from './router/helper/route'
-import { localRoutes } from './router/routes/index'
 
 /**
  * @name InitialState 全局初始化数据配置用于 Layout 用户信息和权限初始化
  * @doc https://umijs.org/docs/api/runtime-config#getinitialstate
  */
 interface InitialState {
-  settings?: Partial<LayoutSettings>
+  settings?: Partial<LayoutSettings & { token: ProLayoutProps['token'] }>
   token?: string
   roles?: string[]
   permissions?: string[]
@@ -36,6 +34,7 @@ interface InitialState {
 export async function getInitialState(): Promise<InitialState> {
   const token = getToken()
   const location = history.location
+  const defaultSettings = getThemeSetting()
   const fetchUserInfo = async () => {
     try {
       const { roles, permissions, sysUser } = await getLoginUserInfo()
@@ -110,37 +109,24 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     },
     actionsRender: () => {
       return [
-        <ReadFilled
-          key="docs"
-          onClick={() => {
-            window.open('https://haiweilian.github.io/vivy-nest-admin')
-          }}
-        />,
-        <GithubOutlined
-          key="github"
-          onClick={() => {
-            window.open('https://github.com/haiweilian/vivy-nest-admin')
-          }}
-        />,
+        <Tooltip key="docs" title="项目文档">
+          <ReadFilled
+            onClick={() => {
+              window.open('https://haiweilian.github.io/vivy-nest-admin')
+            }}
+          />
+        </Tooltip>,
+        <Tooltip key="github" title="项目源码">
+          <GithubOutlined
+            onClick={() => {
+              window.open('https://github.com/haiweilian/vivy-nest-admin')
+            }}
+          />
+        </Tooltip>,
       ]
     },
     childrenRender: (children) => {
-      return (
-        <>
-          {children}
-          <SettingDrawer
-            disableUrlParams
-            enableDarkTheme
-            settings={initialState?.settings}
-            onSettingChange={(settings) => {
-              setInitialState((preInitialState) => ({
-                ...preInitialState,
-                settings,
-              }))
-            }}
-          />
-        </>
-      )
+      return children
     },
     ...initialState?.settings,
   }
@@ -226,8 +212,8 @@ let dynamicRoutes: any[] = []
  * @name patchClientRoutes 修改路由表
  * @doc https://umijs.org/docs/api/runtime-config#patchclientroutes-routes-
  */
-export const patchClientRoutes: RuntimeConfig['patchClientRoutes'] = ({ routes }) => {
-  buildRoutes(routes, [...localRoutes, ...dynamicRoutes])
+export const patchClientRoutes: RuntimeConfig['patchClientRoutes'] = async ({ routes }) => {
+  buildRoutes(routes, dynamicRoutes)
 }
 
 /**

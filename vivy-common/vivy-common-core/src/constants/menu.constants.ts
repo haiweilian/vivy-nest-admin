@@ -21,4 +21,9 @@ export class MenuConstants {
    * Layout 组件标识
    */
   static readonly LAYOUT = 'Layout'
+
+  /**
+   * IFRAME 组件标识
+   */
+  static readonly IFRAME = 'IFRAME'
 }

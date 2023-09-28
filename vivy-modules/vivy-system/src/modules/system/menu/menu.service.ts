@@ -174,7 +174,7 @@ export class MenuService {
     for (const menu of menus) {
       const router = new RouterTreeVo()
       router.name = menu.menuName
-      router.path = this.getRouterPath(menu)
+      router.path = menu.path
       router.icon = menu.icon
       router.component = menu.component
       router.locale = false
@@ -184,21 +184,5 @@ export class MenuService {
     }
 
     return routers
-  }
-
-  /**
-   * 获取路由路径
-   * @param menu 菜单信息
-   */
-  private getRouterPath(menu: MenuTreeVo): string {
-    if (
-      menu.parentId === null &&
-      menu.isLink === BaseStatusEnums.ABNORMAL &&
-      menu.isFrame === BaseStatusEnums.ABNORMAL
-    ) {
-      return `/${menu.path}`
-    } else {
-      return menu.path
-    }
   }
 }

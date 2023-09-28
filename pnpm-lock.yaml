@@ -214,6 +214,7 @@ importers:
       '@ant-design/charts': ^1.4.2
       '@ant-design/icons': ^4.7.0
       '@ant-design/pro-components': ^2.0.1
+      '@iconify-json/ant-design': ^1.1.10
       '@iconify-json/ion': ^1.1.12
       '@types/file-saver': ^2.0.5
       '@types/js-cookie': ^3.0.3
@@ -236,6 +237,7 @@ importers:
       '@ant-design/charts': 1.4.2_mu2b26grcu2ig7ijadyzvwyzn4
       '@ant-design/icons': 4.8.0_biqbaboplfbrettd7655fr4n2y
       '@ant-design/pro-components': 2.6.4_j7ybxfzrexqfs2qf6zzophtqgm
+      '@iconify-json/ant-design': 1.1.10
       '@iconify-json/ion': 1.1.12
       '@umijs/max': 4.0.72_6xtbvwwwgirl7tbbhqif24yawy
       ahooks: 3.7.8_react@18.2.0
@@ -4800,6 +4802,12 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+
+  /@iconify-json/ant-design/1.1.10:
+    resolution: {integrity: sha512-XgBEAl+3N0QIn3nDN9xFPw5WlU9IgnmJvis2Ev1au4Y6ITG4zReMglXi+I21xmfK3mnjFnfAteZ4EzLVKHm7Hw==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
 
   /@iconify-json/ion/1.1.12:
     resolution: {integrity: sha512-YvVxa9pVUJFEp7S5n97VIYZv1/qU/aX1RSehDBQRfI0YsZCZhBQY77SxYXGCb/Gc0fP4//b9wtx8UE4hfwr0eQ==}

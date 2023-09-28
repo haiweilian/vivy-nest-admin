@@ -1,25 +1,20 @@
+import { Icon } from '@umijs/max'
 import { Popover, Space, Button, Input } from 'antd'
 import React, { useState, useMemo } from 'react'
-import * as IconsOutlined from './data/icons.outlined'
-
-const IconsOutlinedNames = Object.keys(IconsOutlined)
+import names from '../../../config/icons/icon.ant'
 
 interface IconPickerProps {
   children: React.ReactNode
   onChange?: (value: string) => void
 }
 
-export const getIcon = (name: string) => {
-  return React.createElement((IconsOutlined as any)[name])
-}
-
 const IconPicker: React.FC<IconPickerProps> = ({ children, onChange }) => {
   const [search, setSearch] = useState('')
   const icons = useMemo(() => {
     if (search) {
-      return IconsOutlinedNames.filter((name) => name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+      return names.filter((name) => name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
     }
-    return IconsOutlinedNames
+    return names
   }, [search])
 
   return (
@@ -36,7 +31,7 @@ const IconPicker: React.FC<IconPickerProps> = ({ children, onChange }) => {
           >
             <Space wrap align="start">
               {icons.map((name) => (
-                <Button key={name} icon={getIcon(name)} onClick={() => onChange?.(name)} />
+                <Button key={name} icon={<Icon icon={name as any} />} onClick={() => onChange?.(name)} />
               ))}
             </Space>
           </div>

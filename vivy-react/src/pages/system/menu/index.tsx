@@ -1,14 +1,13 @@
 import { PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { ProTable } from '@ant-design/pro-components'
-import { useModel, Access, useAccess } from '@umijs/max'
+import { useModel, Access, useAccess, Icon } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { isEmpty } from 'lodash-es'
 import { useRef, useState } from 'react'
 import { treeMenu, deleteMenu } from '@/apis/system/menu'
 import type { MenuTreeResult } from '@/apis/system/menu'
 import { DictTag } from '@/components/Dict'
-import { getIcon } from '@/components/Icon'
 import { eachTree } from '@/utils/tree'
 import UpdateForm from './components/UpdateForm'
 
@@ -46,7 +45,7 @@ const Menu = () => {
       dataIndex: 'icon',
       render: (node, record) => {
         if (record.icon) {
-          return getIcon(record.icon)
+          return <Icon icon={record.icon as any} />
         } else {
           return node
         }

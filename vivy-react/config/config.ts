@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { defineConfig } from '@umijs/max'
+import icons from './icons'
 import proxy from './proxy'
 // import routes from './routes'
 import defaultSettings from './setting'
@@ -90,19 +91,6 @@ export default defineConfig({
    * @doc https://umijs.org/docs/api/config#icons
    */
   icons: {
-    include: [
-      'ion:logo-github',
-      'ion:logo-vue',
-      'ion:logo-html5',
-      'ion:logo-angular',
-      'ion:logo-react',
-      'ion:logo-javascript',
-      'ion:home-outline',
-      'ion:grid-outline',
-      'ion:layers-outline',
-      'ion:settings-outline',
-      'ion:key-outline',
-      'ion:bar-chart-outline',
-    ],
+    include: icons,
   },
 })
