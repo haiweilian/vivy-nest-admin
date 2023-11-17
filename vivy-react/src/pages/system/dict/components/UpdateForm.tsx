@@ -6,8 +6,8 @@ import {
   ProFormDigit,
   ProFormRadio,
 } from '@ant-design/pro-components'
-import { useModel } from '@umijs/max'
-import { useRef, useEffect } from 'react'
+import { useModel, useRequest } from '@umijs/max'
+import { useRef } from 'react'
 import { addDictType, updateDictType, infoDictType } from '@/apis/system/dict-type'
 import type { CreateDictTypeParams, DictTypeModel } from '@/apis/system/dict-type'
 
@@ -27,14 +27,16 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 获取初始化数据
    */
-  useEffect(() => {
+  const { run: runInfoDictType } = useRequest(infoDictType, {
+    manual: true,
+    onSuccess(data) {
+      formRef.current?.setFieldsValue(data)
+    },
+  })
+  const handleInitial = () => {
     formRef.current?.resetFields()
-    if (record) {
-      infoDictType(record.dictId).then((info) => {
-        formRef.current?.setFieldsValue(info)
-      })
-    }
-  }, [record])
+    record && runInfoDictType(record.dictId)
+  }
 
   /**
    * 提交表单
@@ -49,7 +51,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     } else {
       await addDictType(values)
     }
-    formRef.current?.resetFields()
   }
 
   return (
@@ -63,6 +64,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
+      }}
+      onOpenChange={(open) => {
+        open && handleInitial()
+        props.onOpenChange?.(open)
       }}
     >
       <ProFormText name="dictName" label="字典名称" rules={[{ required: true, max: 100 }]} />

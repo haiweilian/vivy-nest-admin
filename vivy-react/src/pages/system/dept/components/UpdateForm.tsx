@@ -7,8 +7,8 @@ import {
   ProFormTreeSelect,
   ProFormRadio,
 } from '@ant-design/pro-components'
-import { useModel } from '@umijs/max'
-import { useRef, useEffect } from 'react'
+import { useModel, useRequest } from '@umijs/max'
+import { useRef } from 'react'
 import { addDept, updateDept, infoDept, optionDeptTree } from '@/apis/system/dept'
 import type { CreateDeptParams, DeptTreeResult } from '@/apis/system/dept'
 
@@ -28,14 +28,16 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 获取初始化数据
    */
-  useEffect(() => {
+  const { run: runInfoDept } = useRequest(infoDept, {
+    manual: true,
+    onSuccess(data) {
+      formRef.current?.setFieldsValue(data)
+    },
+  })
+  const handleInitial = () => {
     formRef.current?.resetFields()
-    if (record) {
-      infoDept(record.deptId).then((info) => {
-        formRef.current?.setFieldsValue(info)
-      })
-    }
-  }, [record])
+    record && runInfoDept(record.deptId)
+  }
 
   /**
    * 提交表单
@@ -50,7 +52,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     } else {
       await addDept(values)
     }
-    formRef.current?.resetFields()
   }
 
   return (
@@ -64,6 +65,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
+      }}
+      onOpenChange={(open) => {
+        open && handleInitial()
+        props.onOpenChange?.(open)
       }}
     >
       <ProFormTreeSelect

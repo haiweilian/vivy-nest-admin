@@ -1,5 +1,5 @@
 import { Card } from 'antd'
-import SvgIllustration from '../../assets/svg/illustration.svg'
+import SvgIllustration from '@/assets/svg/illustration.svg'
 import Header from './components/Header'
 import PlotCharts from './components/PlotCharts'
 import ProjectCard from './components/ProjectCard'

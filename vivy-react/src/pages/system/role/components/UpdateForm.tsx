@@ -7,9 +7,9 @@ import {
   ProFormTreeSelect,
   ProFormRadio,
 } from '@ant-design/pro-components'
-import { useModel } from '@umijs/max'
+import { useModel, useRequest } from '@umijs/max'
 import { TreeSelect } from 'antd'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { optionMenuTree } from '@/apis/system/menu'
 import { addRole, updateRole, infoRole } from '@/apis/system/role'
 import type { CreateRoleParams, RoleModel } from '@/apis/system/role'
@@ -30,17 +30,19 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 获取初始化数据
    */
-  useEffect(() => {
-    formRef.current?.resetFields()
-    if (record) {
-      infoRole(record.roleId).then((info) => {
-        formRef.current?.setFieldsValue({
-          ...info,
-          menuIds: info.menuIds.map((value) => ({ value })),
-        })
+  const { run: runInfoRole } = useRequest(infoRole, {
+    manual: true,
+    onSuccess(data) {
+      formRef.current?.setFieldsValue({
+        ...data,
+        menuIds: data.menuIds.map((value) => ({ value })),
       })
-    }
-  }, [record])
+    },
+  })
+  const handleInitial = () => {
+    formRef.current?.resetFields()
+    record && runInfoRole(record.roleId)
+  }
 
   /**
    * 提交表单
@@ -59,7 +61,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         menuIds: values.menuIds?.map((item: any) => item.value),
       })
     }
-    formRef.current?.resetFields()
   }
 
   return (
@@ -73,6 +74,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
+      }}
+      onOpenChange={(open) => {
+        open && handleInitial()
+        props.onOpenChange?.(open)
       }}
     >
       <ProFormText name="roleName" label="角色名称" rules={[{ required: true, max: 50 }]} />

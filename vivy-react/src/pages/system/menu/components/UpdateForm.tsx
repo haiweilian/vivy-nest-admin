@@ -9,8 +9,8 @@ import {
   ProFormRadio,
   ProFormDependency,
 } from '@ant-design/pro-components'
-import { useModel } from '@umijs/max'
-import { useRef, useEffect } from 'react'
+import { useModel, useRequest } from '@umijs/max'
+import { useRef } from 'react'
 import { addMenu, updateMenu, infoMenu, optionMenuTree } from '@/apis/system/menu'
 import type { CreateMenuParams, MenuTreeResult } from '@/apis/system/menu'
 import { IconPicker } from '@/components/Icon'
@@ -39,17 +39,19 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 获取初始化数据
    */
-  useEffect(() => {
-    formRef.current?.resetFields()
-    if (record) {
-      infoMenu(record.menuId).then((info) => {
-        formRef.current?.setFieldsValue({
-          ...info,
-          parentId: info.parentId || undefined,
-        })
+  const { run: runInfoMenu } = useRequest(infoMenu, {
+    manual: true,
+    onSuccess(data) {
+      formRef.current?.setFieldsValue({
+        ...data,
+        parentId: data.parentId || undefined,
       })
-    }
-  }, [record])
+    },
+  })
+  const handleInitial = () => {
+    formRef.current?.resetFields()
+    record && runInfoMenu(record.menuId)
+  }
 
   /**
    * 提交表单
@@ -64,7 +66,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     } else {
       await addMenu(values)
     }
-    formRef.current?.resetFields()
   }
 
   return (
@@ -78,6 +79,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
+      }}
+      onOpenChange={(open) => {
+        open && handleInitial()
+        props.onOpenChange?.(open)
       }}
     >
       <ProFormTreeSelect

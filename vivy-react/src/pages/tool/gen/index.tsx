@@ -160,17 +160,27 @@ const Gen = () => {
           setImportOpen(false)
           actionRef.current?.reload()
         }}
-        onCancel={() => setImportOpen(false)}
+        onCancel={() => {
+          setImportOpen(false)
+        }}
       />
 
       <UpdateForm
         record={record!}
         open={updateOpen}
         onOpenChange={setUpdateOpen}
-        onFinish={async () => actionRef.current?.reload()}
+        onFinish={async () => {
+          actionRef.current?.reload()
+        }}
       />
 
-      <PreviewModal record={record!} open={previewOpen} onCancel={() => setPreviewOpen(false)} />
+      <PreviewModal
+        record={record!}
+        open={previewOpen}
+        onCancel={() => {
+          setPreviewOpen(false)
+        }}
+      />
     </>
   )
 }

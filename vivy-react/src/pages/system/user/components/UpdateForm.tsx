@@ -7,8 +7,8 @@ import {
   ProFormSelect,
   ProFormRadio,
 } from '@ant-design/pro-components'
-import { useModel } from '@umijs/max'
-import { useRef, useEffect } from 'react'
+import { useModel, useRequest } from '@umijs/max'
+import { useRef } from 'react'
 import { optionDeptTree } from '@/apis/system/dept'
 import { optionPost } from '@/apis/system/post'
 import { optionRole } from '@/apis/system/role'
@@ -32,14 +32,16 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 获取初始化数据
    */
-  useEffect(() => {
+  const { run: runInfoUser } = useRequest(infoUser, {
+    manual: true,
+    onSuccess(data) {
+      formRef.current?.setFieldsValue(data)
+    },
+  })
+  const handleInitial = () => {
     formRef.current?.resetFields()
-    if (record) {
-      infoUser(record.userId).then((info) => {
-        formRef.current?.setFieldsValue(info)
-      })
-    }
-  }, [record])
+    record && runInfoUser(record.userId)
+  }
 
   /**
    * 提交表单
@@ -55,7 +57,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     } else {
       await addUser(values)
     }
-    formRef.current?.resetFields()
   }
 
   return (
@@ -69,6 +70,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
+      }}
+      onOpenChange={(open) => {
+        open && handleInitial()
+        props.onOpenChange?.(open)
       }}
     >
       <ProFormText name="nickName" label="用户昵称" rules={[{ required: true, max: 50 }]} />

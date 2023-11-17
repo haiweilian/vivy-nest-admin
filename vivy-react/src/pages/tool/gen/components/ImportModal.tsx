@@ -60,6 +60,7 @@ const ImportModal: React.FC<ModalProps> = (props) => {
           selectedRowKeys,
           onChange: setSelectedRowKeys,
         }}
+        manualRequest
         request={async (params) => {
           const items = await listDbTable({
             tableName: params.tableName,

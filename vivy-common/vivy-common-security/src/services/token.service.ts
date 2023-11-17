@@ -96,12 +96,14 @@ export class TokenService {
   /**
    * 删除用户缓存信息
    */
-  async delLoginUser(token: string) {
-    if (!token) return
+  async delLoginUser(token: string): Promise<boolean> {
+    if (!token) return false
     try {
       const key = this.getLoginSk(token)
-      await this.redis.del(key)
-    } catch (error) {}
+      return !!(await this.redis.del(key))
+    } catch (error) {
+      return false
+    }
   }
 
   /**

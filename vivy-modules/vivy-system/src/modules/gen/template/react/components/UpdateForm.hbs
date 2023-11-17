@@ -9,7 +9,7 @@ import {
   ProFormRadio,
   ProFormCheckbox,
 } from '@ant-design/pro-components'
-{{#if dictColumn}}import { useModel } from '@umijs/max'{{/if}}
+import { {{~#if dictColumn}} useModel, {{~/if}} useRequest } from '@umijs/max'
 import { useRef, useEffect } from 'react'
 import { add{{businessNamePascalCase}}, update{{businessNamePascalCase}}, info{{businessNamePascalCase}} } from '@/apis/system/{{businessNameKebabCase}}'
 import type { Create{{businessNamePascalCase}}Params, {{businessNamePascalCase}}Model } from '@/apis/system/{{businessNameKebabCase}}'
@@ -36,14 +36,16 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 获取初始化数据
    */
-  useEffect(() => {
+  const { run: runInfo{{businessNamePascalCase}} } = useRequest(info{{businessNamePascalCase}}, {
+    manual: true,
+    onSuccess(data) {
+      formRef.current?.setFieldsValue(data)
+    },
+  })
+  const handleInitial = () => {
     formRef.current?.resetFields()
-    if (record) {
-      info{{businessNamePascalCase}}(record.{{pkColumn.fieldName}}).then((info) => {
-        formRef.current?.setFieldsValue(info)
-      })
-    }
-  }, [record])
+    record && runInfo{{businessNamePascalCase}}(record.{{pkColumn.fieldName}})
+  }
 
   /**
    * 提交表单
@@ -58,7 +60,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     } else {
       await add{{businessNamePascalCase}}(values)
     }
-    formRef.current?.resetFields()
   }
 
   return (
@@ -72,6 +73,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
+      }}
+      onOpenChange={(open) => {
+        open && handleInitial()
+        props.onOpenChange?.(open)
       }}
     >
     {{#each columns as |column|}}

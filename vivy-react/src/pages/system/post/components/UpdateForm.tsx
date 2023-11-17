@@ -6,8 +6,8 @@ import {
   ProFormDigit,
   ProFormRadio,
 } from '@ant-design/pro-components'
-import { useModel } from '@umijs/max'
-import { useRef, useEffect } from 'react'
+import { useModel, useRequest } from '@umijs/max'
+import { useRef } from 'react'
 import { addPost, updatePost, infoPost } from '@/apis/system/post'
 import type { CreatePostParams, PostModel } from '@/apis/system/post'
 
@@ -27,14 +27,16 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 获取初始化数据
    */
-  useEffect(() => {
+  const { run: runInfoPost } = useRequest(infoPost, {
+    manual: true,
+    onSuccess(data) {
+      formRef.current?.setFieldsValue(data)
+    },
+  })
+  const handleInitial = () => {
     formRef.current?.resetFields()
-    if (record) {
-      infoPost(record.postId).then((info) => {
-        formRef.current?.setFieldsValue(info)
-      })
-    }
-  }, [record])
+    record && runInfoPost(record.postId)
+  }
 
   /**
    * 提交表单
@@ -49,7 +51,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     } else {
       await addPost(values)
     }
-    formRef.current?.resetFields()
   }
 
   return (
@@ -63,6 +64,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
+      }}
+      onOpenChange={(open) => {
+        open && handleInitial()
+        props.onOpenChange?.(open)
       }}
     >
       <ProFormText name="postName" label="岗位名称" rules={[{ required: true, max: 50 }]} />

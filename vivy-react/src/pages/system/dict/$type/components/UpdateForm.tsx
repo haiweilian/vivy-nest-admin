@@ -7,9 +7,9 @@ import {
   ProFormRadio,
   ProFormSelect,
 } from '@ant-design/pro-components'
-import { useModel, useParams } from '@umijs/max'
+import { useModel, useParams, useRequest } from '@umijs/max'
 import type { DefaultOptionType } from 'antd/es/cascader'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { addDictData, updateDictData, infoDictData } from '@/apis/system/dict-data'
 import type { CreateDictDataParams, DictDataModel } from '@/apis/system/dict-data'
 
@@ -39,14 +39,16 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   /**
    * 获取初始化数据
    */
-  useEffect(() => {
+  const { run: runInfoDictData } = useRequest(infoDictData, {
+    manual: true,
+    onSuccess(data) {
+      formRef.current?.setFieldsValue(data)
+    },
+  })
+  const handleInitial = () => {
     formRef.current?.resetFields()
-    if (record) {
-      infoDictData(record.dictId).then((info) => {
-        formRef.current?.setFieldsValue(info)
-      })
-    }
-  }, [record])
+    record && runInfoDictData(record.dictId)
+  }
 
   /**
    * 提交表单
@@ -65,7 +67,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         dictType: type!,
       })
     }
-    formRef.current?.resetFields()
   }
 
   return (
@@ -79,6 +80,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
+      }}
+      onOpenChange={(open) => {
+        open && handleInitial()
+        props.onOpenChange?.(open)
       }}
     >
       <ProFormText name="dictLabel" label="数据标签" rules={[{ required: true, max: 100 }]} />
