@@ -20,6 +20,60 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 export class UserController {}
 ```
 
+## 响应装饰器
+
+装饰器继承自 `@ApiResponse` 装饰器，返回统一响应实体。
+
+```ts
+class AjaxResult {
+  /** 状态码 */
+  code: number
+
+  /** 响应数据 */
+  data?: T
+
+  /** 响应消息 */
+  message?: string
+}
+```
+
+### @ApiDataResponse()
+
+数据响应装饰器。
+
+```ts
+import { ApiDataResponse } from '@vivy-common/swagger'
+
+@Controller('user')
+export class UserController {
+  @Get('info/:userId')
+  // @ApiDataResponse(Number)
+  // @ApiDataResponse(String)
+  // @ApiDataResponse(Boolean)
+  @ApiDataResponse(SysUser)
+  // @ApiDataResponse(Array(Number))
+  // @ApiDataResponse(Array(String))
+  // @ApiDataResponse(Array(Boolean))
+  // @ApiDataResponse(Array(SysUser))
+  async info(@Param('userId') userId: number) {}
+}
+```
+
+### @ApiPaginatedResponse()
+
+分页响应装饰器。
+
+```ts
+import { ApiPaginatedResponse } from '@vivy-common/swagger'
+
+@Controller('user')
+export class UserController {
+  @Get('list')
+  @ApiPaginatedResponse(SysUser)
+  async list(@Query() user: ListUserDto) {}
+}
+```
+
 ## 相关源码
 
 - https://github.com/haiweilian/vivy-nest-admin/tree/main/vivy-common/vivy-common-swagger
