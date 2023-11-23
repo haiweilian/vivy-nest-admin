@@ -4,6 +4,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis'
 import { ConfigModule, ConfigService } from '@vivy-common/config'
 import { CoreModule, TokenConstants } from '@vivy-common/core'
+import { ExcelModule } from '@vivy-common/excel'
 import { LoggerModule, TypeORMLogger } from '@vivy-common/logger'
 import { MybatisModule } from '@vivy-common/mybatis'
 import { SecurityModule } from '@vivy-common/security'
@@ -49,6 +50,7 @@ import { SystemModule } from './modules/system/system.module'
 
     // common
     CoreModule.forRoot(),
+    ExcelModule.forRoot(),
     LoggerModule.forRootAsync({
       useFactory(config: ConfigService) {
         return {

@@ -36,6 +36,7 @@ vivy
 ├── vivy-react            // 前端项目
 ├── vivy-common           // 通用模块
 │       └── vivy-common-core                        // 核心模块
+│       └── vivy-common-excel                       // 表格模块
 │       └── vivy-common-logger                      // 日志模块
 │       └── vivy-common-security                    // 安全模块
 │       └── vivy-common-swagger                     // 系统接口

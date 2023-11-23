@@ -4,6 +4,7 @@
     { "path": "./vivy-plugin-config/tsconfig.build.json" },
     { "path": "./vivy-plugin-mybatis/tsconfig.build.json" },
     { "path": "./vivy-common-core/tsconfig.build.json" },
+    { "path": "./vivy-common-excel/tsconfig.build.json" },
     { "path": "./vivy-common-logger/tsconfig.build.json" },
     { "path": "./vivy-common-swagger/tsconfig.build.json" },
     { "path": "./vivy-common-security/tsconfig.build.json" }

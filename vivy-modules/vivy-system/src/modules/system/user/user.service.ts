@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
 import { ServiceException, PasswordUtils, IdentityUtils, SysLoginUser, UserConstants } from '@vivy-common/core'
+import { ExcelService } from '@vivy-common/excel'
 import { isNotEmpty } from 'class-validator'
 import { isEmpty, isArray, isObject } from 'lodash'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
@@ -33,7 +34,8 @@ export class UserService {
     private userPostRepository: Repository<SysUserPost>,
 
     private menuService: MenuService,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private excelService: ExcelService
   ) {}
 
   /**
@@ -292,5 +294,38 @@ export class UserService {
       const menus = await this.menuService.selectMenuByUserId(userId)
       return menus.map((menu) => menu.permission).filter(Boolean)
     }
+  }
+
+  /**
+   * 导出用户
+   */
+  async export() {
+    const data = await this.userRepository.find()
+    const buffer = await this.excelService.export(SysUser, data)
+    return buffer
+  }
+
+  /**
+   * 导出模板
+   */
+  async exportTemplate() {
+    const buffer = await this.excelService.exportTemplate(SysUser, {
+      exclude: ['sex', 'avatar'],
+    })
+    return buffer
+  }
+
+  /**
+   * 导入用户
+   * @param buffer 导入文件
+   */
+  async import(buffer: Buffer) {
+    const data = await this.excelService.import(SysUser, buffer)
+
+    // TODO: Data validation
+    for (const user of data) {
+      user.password = await PasswordUtils.create('Aa@123456')
+    }
+    await this.userRepository.insert(data)
   }
 }

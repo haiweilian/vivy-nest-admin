@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
-import { Like, Repository } from 'typeorm'
+import { In, Like, Repository } from 'typeorm'
 import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dict-data.dto'
 import { SysDictData } from './entities/sys-dict-data.entity'
 
@@ -122,5 +122,25 @@ export class DictDataService {
         dictType,
       },
     })
+  }
+
+  /**
+   * 根据字典类型查询字典对象集合
+   * @param dictType 字典类型
+   * @returns 字典数据选项对象
+   */
+  async findDictLabelValue(dictType: string[]) {
+    const data = await this.dictDataRepository.find({
+      where: {
+        dictType: In(dictType),
+      },
+    })
+
+    const map: Record<string, { label: string; value: string }[]> = {}
+    data.forEach((d) => {
+      map[d.dictType] ??= []
+      map[d.dictType].push({ label: d.dictLabel, value: d.dictValue })
+    })
+    return map
   }
 }

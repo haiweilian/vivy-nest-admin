@@ -89,7 +89,7 @@ export default defineConfig({
                 link: '/back/business/gen',
               },
               {
-                text: '导入导出🚧',
+                text: '导入导出',
                 link: '/back/business/excel',
               },
               {

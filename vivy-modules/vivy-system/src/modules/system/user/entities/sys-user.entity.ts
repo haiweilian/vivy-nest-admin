@@ -1,4 +1,5 @@
 import { BaseBusinessEntity, BaseStatusEnums } from '@vivy-common/core'
+import { ExcelColumn, ExcelSheet } from '@vivy-common/excel'
 import { IsEmail, IsEnum, IsIn, IsInt, IsMobilePhone, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
@@ -6,6 +7,16 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
  * 用户信息表
  */
 @Entity({ name: 'sys_user' })
+@ExcelSheet({
+  name: '用户信息',
+  rowHeight: 30,
+  colWidth: 30,
+  colStyle: { alignment: { vertical: 'middle' } },
+  headerStyle: {
+    font: { color: { argb: 'FFFFFFFF' } },
+    fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: '000000' }, bgColor: { argb: '000000' } },
+  },
+})
 export class SysUser extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'user_id',
@@ -33,6 +44,9 @@ export class SysUser extends BaseBusinessEntity {
     unique: true,
     comment: '用户账号',
   })
+  @ExcelColumn({
+    name: '用户账号',
+  })
   @MaxLength(50)
   @IsNotEmpty()
   userName: string
@@ -42,6 +56,9 @@ export class SysUser extends BaseBusinessEntity {
     type: 'varchar',
     length: 50,
     comment: '用户昵称',
+  })
+  @ExcelColumn({
+    name: '用户昵称',
   })
   @MaxLength(50)
   @IsNotEmpty()
@@ -76,6 +93,15 @@ export class SysUser extends BaseBusinessEntity {
     nullable: true,
     comment: '手机号码',
   })
+  @ExcelColumn({
+    name: '用户手机',
+    width: 30,
+    cellConfig({ cell }) {
+      if (typeof cell.value === 'string') {
+        cell.value = cell.value.replace(/^(\d{3})\d{4}(\d+)/, '$1****$2')
+      }
+    },
+  })
   @IsMobilePhone('zh-CN')
   @MaxLength(11)
   @IsOptional()
@@ -88,6 +114,15 @@ export class SysUser extends BaseBusinessEntity {
     default: '2',
     comment: '用户性别（0男 1女 2未知）',
   })
+  @ExcelColumn({
+    name: '用户性别',
+    dictType: 'sys_user_sex',
+    dictOptions: [
+      { label: '男', value: '0' },
+      { label: '女', value: '1' },
+      { label: '其他', value: '2' },
+    ],
+  })
   @IsIn(['0', '1', '2'])
   @IsOptional()
   sex: string
@@ -98,6 +133,15 @@ export class SysUser extends BaseBusinessEntity {
     length: 255,
     nullable: true,
     comment: '头像地址',
+  })
+  @ExcelColumn({
+    name: '用户头像',
+    type: 'image',
+    imageOptions: {
+      width: 30,
+      height: 30,
+      hyperlink: true,
+    },
   })
   @MaxLength(255)
   @IsOptional()

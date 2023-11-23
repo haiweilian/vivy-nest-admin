@@ -1,14 +1,15 @@
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons'
+import { PlusOutlined, DeleteOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import { ProTable } from '@ant-design/pro-components'
 import type { ProColumns, ActionType } from '@ant-design/pro-components'
 import { useRequest, useModel, Access, useAccess } from '@umijs/max'
 import type { TreeProps, TreeDataNode } from 'antd'
 import { Tree, Button, Popconfirm } from 'antd'
+import { saveAs } from 'file-saver'
 import { isEmpty } from 'lodash-es'
 import React, { useRef, useState } from 'react'
 import { optionDeptTree } from '@/apis/system/dept'
 import type { DeptTreeResult } from '@/apis/system/dept'
-import { listUser, deleteUser } from '@/apis/system/user'
+import { listUser, deleteUser, exportUserList } from '@/apis/system/user'
 import type { UserModel } from '@/apis/system/user'
 import { DictTag } from '@/components/Dict'
 import { eachTree } from '@/utils/tree'
@@ -59,6 +60,16 @@ const User = () => {
     setSelectedRowKeys([])
     actionRef.current?.reload()
   }
+
+  /**
+   * 导出用户列表
+   */
+  const { loading: loadingExport, run: runExportUserList } = useRequest(exportUserList, {
+    manual: true,
+    onSuccess({ data }) {
+      saveAs(data, `用户列表.xlsx`)
+    },
+  })
 
   /**
    * 表格列配置
@@ -184,26 +195,27 @@ const User = () => {
                   </Button>
                 </Popconfirm>
               </Access>,
-              // <Access key="import" accessible={hasPermission('system:user:import')}>
-              //   <Button
-              //     icon={<UploadOutlined />}
-              //     onClick={() => {
-              //       setImportOpen(true)
-              //     }}
-              //   >
-              //     导入
-              //   </Button>
-              // </Access>,
-              // <Access key="export" accessible={hasPermission('system:user:export')}>
-              //   <Button
-              //     icon={<DownloadOutlined />}
-              //     onClick={() => {
-              //       setImportOpen(true)
-              //     }}
-              //   >
-              //     导出
-              //   </Button>
-              // </Access>,
+              <Access key="import" accessible={hasPermission('system:user:import')}>
+                <Button
+                  icon={<UploadOutlined />}
+                  onClick={() => {
+                    setImportOpen(true)
+                  }}
+                >
+                  导入
+                </Button>
+              </Access>,
+              <Access key="export" accessible={hasPermission('system:user:export')}>
+                <Button
+                  icon={<DownloadOutlined />}
+                  loading={loadingExport}
+                  onClick={() => {
+                    runExportUserList()
+                  }}
+                >
+                  导出
+                </Button>
+              </Access>,
             ],
           }}
         />

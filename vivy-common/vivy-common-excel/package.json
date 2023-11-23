@@ -1,0 +1,12 @@
+{
+  "name": "@vivy-common/excel",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/haiweilian/vivy-nest-admin",
+  "main": "./lib/index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "exceljs": "^4.4.0"
+  }
+}

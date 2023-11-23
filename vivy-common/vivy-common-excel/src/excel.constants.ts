@@ -1,0 +1,4 @@
+export const EXCEL = Symbol('EXCEL')
+export const EXCEL_OPTIONS = Symbol('EXCEL_OPTIONS')
+export const EXCEL_SHEET_METADATA = 'EXCEL_SHEET_METADATA'
+export const EXCEL_COLUMN_METADATA = 'EXCEL_COLUMN_METADATA'

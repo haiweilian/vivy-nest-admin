@@ -1,4 +1,18 @@
-import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseArrayPipe,
+  Post,
+  Put,
+  Query,
+  StreamableFile,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
@@ -96,5 +110,38 @@ export class UserController {
   @RequirePermissions('system:user:query')
   async info(@Param('userId') userId: number): Promise<AjaxResult> {
     return AjaxResult.success(await this.userService.info(userId))
+  }
+
+  /**
+   * 导出用户
+   */
+  @Get('export')
+  @Log({ title: '用户管理', operType: OperType.EXPORT })
+  @RequirePermissions('system:user:export')
+  async export() {
+    const file = await this.userService.export()
+    return new StreamableFile(file)
+  }
+
+  /**
+   * 导出模板
+   */
+  @Get('export/template')
+  @Log({ title: '用户管理', operType: OperType.EXPORT })
+  @RequirePermissions('system:user:export')
+  async exportTemplate() {
+    const file = await this.userService.exportTemplate()
+    return new StreamableFile(file)
+  }
+
+  /**
+   * 导入用户
+   */
+  @Post('import')
+  @Log({ title: '用户管理', operType: OperType.IMPORT })
+  @RequirePermissions('system:user:import')
+  @UseInterceptors(FileInterceptor('file'))
+  async import(@UploadedFile() file: Express.Multer.File) {
+    return AjaxResult.success(await this.userService.import(file.buffer))
   }
 }

@@ -40,4 +40,4 @@ export class AppController {
 
 ## 相关源码
 
-https://github.com/haiweilian/vivy-nest-admin/tree/main/vivy-common/vivy-common-core/src/decorators
+- https://github.com/haiweilian/vivy-nest-admin/tree/main/vivy-common/vivy-common-core/src/decorators

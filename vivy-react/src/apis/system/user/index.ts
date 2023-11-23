@@ -1,5 +1,5 @@
 import { request } from '@umijs/max'
-import { RequestEnum } from '@/enums/httpEnum'
+import { ContentTypeEnum, RequestEnum } from '@/enums/httpEnum'
 import { UserInfoResult, UserModel, CreateUserParams, ListUserParams, UpdateUserParams } from './model'
 export * from './model'
 
@@ -48,5 +48,40 @@ export function deleteUser(userIds: React.Key) {
 export function infoUser(userId: React.Key) {
   return request<UserInfoResult>(`/user/info/${userId}`, {
     method: RequestEnum.GET,
+  })
+}
+
+/**
+ * 导出用户列表
+ */
+export function exportUserList() {
+  return request(`/user/export`, {
+    method: RequestEnum.GET,
+    responseType: 'blob',
+    getResponse: true,
+  })
+}
+
+/**
+ * 导出用户模板
+ */
+export function exportUserTemplate() {
+  return request(`/user/export/template`, {
+    method: RequestEnum.GET,
+    responseType: 'blob',
+    getResponse: true,
+  })
+}
+
+/**
+ * 导入用户列表
+ */
+export function importUserList(data: FormData) {
+  return request(`/user/import`, {
+    method: RequestEnum.POST,
+    data,
+    headers: {
+      'Content-Type': ContentTypeEnum.FORM_DATA,
+    },
   })
 }

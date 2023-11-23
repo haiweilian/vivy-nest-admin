@@ -1,15 +1,34 @@
 import { DownloadOutlined } from '@ant-design/icons'
-import {
-  type ModalFormProps,
-  type ProFormInstance,
-  ModalForm,
-  ProFormCheckbox,
-  ProFormUploadDragger,
-} from '@ant-design/pro-components'
+import { type ModalFormProps, type ProFormInstance, ModalForm, ProFormUploadDragger } from '@ant-design/pro-components'
+import { useRequest } from '@umijs/max'
+import { Button, UploadFile } from 'antd'
+import { saveAs } from 'file-saver'
 import { useRef } from 'react'
+import { exportUserTemplate, importUserList } from '@/apis/system/user'
 
 const ImportForm: React.FC<ModalFormProps> = (props) => {
   const formRef = useRef<ProFormInstance>()
+
+  /**
+   * 导出用户模板
+   */
+  const { loading: loadingExport, run: runExportUserTemplate } = useRequest(exportUserTemplate, {
+    manual: true,
+    onSuccess({ data }) {
+      saveAs(data, `用户导入模板.xlsx`)
+    },
+  })
+
+  /**
+   * 提交表单
+   * @param values 表单值
+   */
+  const handleSubmit = async (values: { files: UploadFile[] }) => {
+    const data = new FormData()
+    data.set('file', values.files[0].originFileObj!)
+    await importUserList(data)
+    formRef.current?.resetFields()
+  }
 
   return (
     <ModalForm
@@ -18,24 +37,30 @@ const ImportForm: React.FC<ModalFormProps> = (props) => {
       labelCol={{ flex: '100px' }}
       formRef={formRef}
       title="用户导入"
-      onFinish={async (formData) => {
-        props.onFinish?.(formData)
-        console.log(formData)
+      onFinish={async (values: any) => {
+        await handleSubmit(values)
+        props.onFinish?.(values)
         return true
       }}
     >
+      <Button
+        type="link"
+        danger
+        icon={<DownloadOutlined />}
+        loading={loadingExport}
+        onClick={() => {
+          runExportUserTemplate()
+        }}
+      >
+        下载模板
+      </Button>
       <ProFormUploadDragger
-        name="upload"
+        name="files"
         description="仅允许导入xls、xlsx格式文件"
-        fieldProps={{ multiple: false, maxCount: 1, accept: '.xlsx, .xls' }}
+        required
+        rules={[{ required: true, message: '请上传xls、xlsx格式文件' }]}
+        fieldProps={{ multiple: false, maxCount: 1, accept: '.xls, .xlsx' }}
       />
-      <ProFormCheckbox name="update">
-        是否更新已经存在的用户数据
-        <a className="pl-10">
-          <DownloadOutlined />
-          下载模板
-        </a>
-      </ProFormCheckbox>
     </ModalForm>
   )
 }
