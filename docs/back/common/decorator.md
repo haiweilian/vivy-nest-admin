@@ -38,6 +38,44 @@ export class AppController {
 }
 ```
 
+## 防重复提交
+
+在接口方法上添加 `@RepeatSubmit` 装饰器即可。**依赖 Redis 服务**
+
+### @RepeatSubmit()
+
+```ts
+import { RepeatSubmit } from '@vivy-common/core'
+
+export class UserController {
+  @Post('add')
+  @RepeatSubmit()
+  async add() {}
+
+  @Post('update')
+  @RepeatSubmit({ interval: 10, message: '请求频繁10秒后重试' })
+  async update() {}
+}
+```
+
+装饰器参数配置。
+
+```ts
+class RepeatSubmitOptions {
+  /**
+   * 间隔时间
+   * @default 5s
+   */
+  interval?: number = 5
+
+  /**
+   * 错误消息
+   * @default
+   */
+  message?: string = '请求过于频繁'
+}
+```
+
 ## 相关源码
 
 - https://github.com/haiweilian/vivy-nest-admin/tree/main/vivy-common/vivy-common-core/src/decorators

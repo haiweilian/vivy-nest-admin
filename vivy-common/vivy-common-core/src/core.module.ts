@@ -2,6 +2,7 @@ import { DynamicModule, Global, MiddlewareConsumer, Module, NestModule } from '@
 import { ClsModule } from 'nestjs-cls'
 import { NestGlobalContext } from './context/global'
 import { NestGlobalFilters } from './exceptions-filters/global'
+import { NestGlobalGuards } from './guards/global'
 import { NestGlobalMiddlewares } from './middlewares/global'
 import { NestGlobalPipes } from './pipes/global'
 
@@ -22,7 +23,7 @@ export class CoreModule implements NestModule {
           },
         }),
       ],
-      providers: [...NestGlobalPipes, ...NestGlobalFilters, ...NestGlobalContext],
+      providers: [...NestGlobalPipes, ...NestGlobalGuards, ...NestGlobalFilters, ...NestGlobalContext],
       exports: [...NestGlobalContext],
     }
   }

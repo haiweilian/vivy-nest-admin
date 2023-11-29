@@ -17,8 +17,8 @@ export class InnerAuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const ctx = context.switchToHttp()
     const request = ctx.getRequest<Express>()
-    const innerAuth = this.reflector.get<{ isUser: boolean }>(INNER_AUTH_METADATA, context.getHandler())
-    if (!innerAuth) return true
+    const meta = this.reflector.get<{ isUser: boolean }>(INNER_AUTH_METADATA, context.getHandler())
+    if (!meta) return true
 
     // 内部请求验证
     const source = request.get(SecurityConstants.FROM_SOURCE)
@@ -29,7 +29,7 @@ export class InnerAuthGuard implements CanActivate {
     // 用户信息验证
     const userId = request.get(SecurityConstants.USER_ID)
     const userName = request.get(SecurityConstants.USER_NAME)
-    if (innerAuth.isUser && (!userId || !userName)) {
+    if (meta.isUser && (!userId || !userName)) {
       throw new NotInnerException('没有设置用户信息，不允许访问')
     }
 

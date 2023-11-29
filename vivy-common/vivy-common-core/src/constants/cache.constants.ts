@@ -31,4 +31,9 @@ export class CacheConstants {
    * 字典管理 cache key
    */
   static readonly SYS_DICT_KEY = 'sys_dict:'
+
+  /**
+   * 重复提交 cache key
+   */
+  static readonly REPEAT_SUBMIT_KEY = 'repeat_submit:'
 }
