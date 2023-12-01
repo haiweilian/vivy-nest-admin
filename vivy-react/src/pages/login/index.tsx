@@ -1,9 +1,9 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { KeyOutlined, LockOutlined, UserOutlined } from '@ant-design/icons'
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
-import { useModel } from '@umijs/max'
-import { App } from 'antd'
+import { useModel, useRequest } from '@umijs/max'
+import { App, Space } from 'antd'
 import { flushSync } from 'react-dom'
-import { login } from '@/apis/auth/login'
+import { login, captchaImage } from '@/apis/auth/login'
 import type { LoginParams } from '@/apis/auth/login'
 import { PageEnum } from '@/enums/pageEnum'
 import { Footer } from '@/layouts/default'
@@ -12,6 +12,7 @@ import { setToken } from '@/utils/auth'
 const Login = () => {
   const { message } = App.useApp()
   const { initialState, setInitialState } = useModel('@@initialState')
+  const { data: captcha, run: runCaptchaImage } = useRequest(captchaImage)
 
   const fetchUserInfo = async (): Promise<void> => {
     const userInfo = await initialState?.fetchUserInfo?.()
@@ -27,7 +28,10 @@ const Login = () => {
 
   const handleLogin = async (values: LoginParams) => {
     try {
-      const token = await login(values)
+      const token = await login({
+        ...values,
+        uuid: captcha?.uuid,
+      })
       setToken(token.access_token)
       await fetchUserInfo()
       message.loading('登录中...')
@@ -71,6 +75,30 @@ const Login = () => {
               },
             ]}
           />
+          {captcha ? (
+            <Space>
+              <ProFormText
+                name="code"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <KeyOutlined className={'prefixIcon'} />,
+                  autoFocus: true,
+                }}
+                placeholder={'验证码'}
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入验证码!',
+                  },
+                ]}
+              />
+              <div
+                className="flex cursor-pointer mb-[24px]"
+                dangerouslySetInnerHTML={{ __html: captcha.img }}
+                onClick={runCaptchaImage}
+              />
+            </Space>
+          ) : null}
           <div className="mb-5">
             <ProFormCheckbox noStyle name="autoLogin">
               自动登录

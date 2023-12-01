@@ -13,6 +13,7 @@
     "camelcase": "^6.0.0",
     "decamelize": "^5.0.0",
     "handlebars": "^4.7.7",
+    "svg-captcha": "^1.4.0",
     "ua-parser-js": "^1.0.35"
   },
   "devDependencies": {

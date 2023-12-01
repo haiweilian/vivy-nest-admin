@@ -3,6 +3,16 @@
  */
 export interface LoginParams {
   /**
+   * 验证码 code
+   */
+  code?: string
+
+  /**
+   * 验证码 uuid
+   */
+  uuid?: string
+
+  /**
    * 用户名
    */
   username: string
@@ -26,4 +36,15 @@ export interface LoginResult {
    * 权限令牌
    */
   access_token: string
+}
+
+/**
+ * 图片验证码
+ */
+export interface ImageCaptchaResult {
+  /* 验证码 img */
+  img: string
+
+  /* 验证码 uuid */
+  uuid: string
 }

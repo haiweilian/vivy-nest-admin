@@ -129,7 +129,7 @@ export class DictDataService {
    * @param dictType 字典类型
    * @returns 字典数据选项对象
    */
-  async findDictLabelValue(dictType: string[]) {
+  async selectDictLabelValue(dictType: string[]) {
     const data = await this.dictDataRepository.find({
       where: {
         dictType: In(dictType),

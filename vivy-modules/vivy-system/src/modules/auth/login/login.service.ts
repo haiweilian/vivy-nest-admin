@@ -1,8 +1,13 @@
+import { randomUUID } from 'crypto'
 import { Injectable } from '@nestjs/common'
-import { SysLoginUser, ServiceException, PasswordUtils, UserStatusEnums } from '@vivy-common/core'
+import { InjectRedis, Redis } from '@nestjs-modules/ioredis'
+import { SysLoginUser, ServiceException, PasswordUtils, UserStatusEnums, CacheConstants } from '@vivy-common/core'
 import { isEmpty } from 'lodash'
+import * as svgCaptcha from 'svg-captcha'
+import { ConfigService } from '@/modules/system/config/config.service'
 import { UserService } from '@/modules/system/user/user.service'
 import { LoginDto } from './dto/login.dto'
+import { ImageCaptchaVo } from './vo/login.vo'
 
 /**
  * 登录管理
@@ -10,7 +15,12 @@ import { LoginDto } from './dto/login.dto'
  */
 @Injectable()
 export class LoginService {
-  constructor(private userService: UserService) {}
+  constructor(
+    @InjectRedis()
+    public redis: Redis,
+    private userService: UserService,
+    private configService: ConfigService
+  ) {}
 
   /**
    * 用户登录
@@ -42,5 +52,55 @@ export class LoginService {
     }
 
     return data
+  }
+
+  /**
+   * 创建图片验证码
+   */
+  async createImageCaptcha(): Promise<ImageCaptchaVo> {
+    const { data, text } = svgCaptcha.createMathExpr({
+      noise: 3,
+      width: 120,
+      height: 40,
+      color: true,
+    })
+
+    const result = {
+      img: data,
+      uuid: randomUUID(),
+    }
+
+    const key = `${CacheConstants.CAPTCHA_CODE_KEY}${result.uuid}`
+    await this.redis.set(key, text, 'EX', 60 * 5)
+
+    return result
+  }
+
+  /**
+   * 验证图片验证码
+   * @param form 登录账户信息
+   * @returns 验证失败抛出错误信息
+   */
+  async verifyImageCaptcha(form: LoginDto): Promise<void> {
+    const key = `${CacheConstants.CAPTCHA_CODE_KEY}${form.uuid}`
+    const code = await this.redis.get(key)
+    if (!code) {
+      throw new ServiceException('验证码已过期')
+    }
+    if (code !== form.code) {
+      throw new ServiceException('验证码输入错误')
+    }
+  }
+
+  /**
+   * 是否启用验证码功能
+   * @returns true 启用 / false 不启用
+   */
+  async isEnableImageCaptcha() {
+    const enableCaptcha = await this.configService.getConfigValueByKey('sys.account.enableCaptcha')
+    if (enableCaptcha && enableCaptcha === 'true') {
+      return true
+    }
+    return false
   }
 }

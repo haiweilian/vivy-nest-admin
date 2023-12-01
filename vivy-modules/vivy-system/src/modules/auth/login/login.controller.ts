@@ -29,8 +29,12 @@ export class LoginController {
   @Public()
   async login(@Body() form: LoginDto): Promise<AjaxResult> {
     try {
+      const isEnableCaptcha = await this.loginService.isEnableImageCaptcha()
+      isEnableCaptcha && (await this.loginService.verifyImageCaptcha(form))
+
       const user = await this.loginService.login(form)
       const token = await this.tokenService.createToken(user)
+
       this.logService.ok(LoginType.ACCOUNT_PASSWORD, form.username, '登录成功')
       return AjaxResult.success(token, '登录成功')
     } catch (error) {
@@ -64,6 +68,19 @@ export class LoginController {
       }
     }
     return AjaxResult.success(null, '刷新成功')
+  }
+
+  /**
+   * 获取图片验证码
+   */
+  @Get('captchaImage')
+  @Public()
+  async captchaImage(): Promise<AjaxResult> {
+    const isEnableCaptcha = await this.loginService.isEnableImageCaptcha()
+    if (isEnableCaptcha) {
+      return AjaxResult.success(await this.loginService.createImageCaptcha())
+    }
+    return AjaxResult.success()
   }
 
   /**

@@ -1,6 +1,6 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { LoginParams, LoginResult } from './model'
+import type { ImageCaptchaResult, LoginParams, LoginResult } from './model'
 export * from './model'
 
 /**
@@ -21,6 +21,15 @@ export function login(params: LoginParams) {
 export function logout() {
   return request('/auth/logout', {
     method: RequestEnum.POST,
+  })
+}
+
+/**
+ * 图片验证码
+ */
+export function captchaImage() {
+  return request<ImageCaptchaResult>('/auth/captchaImage', {
+    method: RequestEnum.GET,
   })
 }
 

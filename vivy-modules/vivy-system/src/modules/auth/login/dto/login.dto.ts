@@ -3,6 +3,18 @@ import { Allow } from 'class-validator'
 
 export class LoginDto {
   /**
+   * 验证码 code
+   */
+  @Allow()
+  code?: string
+
+  /**
+   * 验证码 uuid
+   */
+  @Allow()
+  uuid?: string
+
+  /**
    * 用户名
    */
   @Allow()
