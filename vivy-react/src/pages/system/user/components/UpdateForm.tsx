@@ -9,6 +9,7 @@ import {
 } from '@ant-design/pro-components'
 import { useModel, useRequest } from '@umijs/max'
 import { useRef } from 'react'
+import { getConfigValueByKey } from '@/apis/system/config'
 import { optionDeptTree } from '@/apis/system/dept'
 import { optionPost } from '@/apis/system/post'
 import { optionRole } from '@/apis/system/role'
@@ -38,9 +39,19 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       formRef.current?.setFieldsValue(data)
     },
   })
+  const { run: runInitPassword } = useRequest(() => getConfigValueByKey('sys.user.initPassword'), {
+    manual: true,
+    onSuccess(password) {
+      formRef.current?.setFieldsValue({ password })
+    },
+  })
   const handleInitial = () => {
     formRef.current?.resetFields()
-    record && runInfoUser(record.userId)
+    if (record) {
+      runInfoUser(record.userId)
+    } else {
+      runInitPassword()
+    }
   }
 
   /**
@@ -80,12 +91,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       {record ? null : (
         <>
           <ProFormText name="userName" label="用户名称" rules={[{ required: true, max: 50 }]} />
-          <ProFormText.Password
-            name="password"
-            label="用户密码"
-            initialValue={'Aa@123456'}
-            rules={[{ required: true, max: 36 }]}
-          />
+          <ProFormText.Password name="password" label="用户密码" rules={[{ required: true, max: 36 }]} />
         </>
       )}
       <ProFormTreeSelect

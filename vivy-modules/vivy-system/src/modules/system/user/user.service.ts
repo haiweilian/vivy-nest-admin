@@ -6,6 +6,7 @@ import { isNotEmpty } from 'class-validator'
 import { isEmpty, isArray, isObject } from 'lodash'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { EntityManager, In, Like, Repository } from 'typeorm'
+import { ConfigService } from '@/modules/system/config/config.service'
 import { MenuService } from '@/modules/system/menu/menu.service'
 import { RoleService } from '@/modules/system/role/role.service'
 import { ListUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto'
@@ -35,7 +36,8 @@ export class UserService {
 
     private menuService: MenuService,
     private roleService: RoleService,
-    private excelService: ExcelService
+    private excelService: ExcelService,
+    private configService: ConfigService
   ) {}
 
   /**
@@ -321,10 +323,11 @@ export class UserService {
    */
   async import(buffer: Buffer) {
     const data = await this.excelService.import(SysUser, buffer)
+    const password = await this.configService.getConfigValueByKey('sys.user.initPassword')
 
     // TODO: Data validation
     for (const user of data) {
-      user.password = await PasswordUtils.create('Aa@123456')
+      user.password = await PasswordUtils.create(password)
     }
     await this.userRepository.insert(data)
   }

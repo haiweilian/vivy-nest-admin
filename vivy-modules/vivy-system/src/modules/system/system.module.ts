@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 
+import { ConfigModule } from './config/config.module'
 import { DeptModule } from './dept/dept.module'
 import { DictDataModule } from './dict-data/dict-data.module'
 import { DictTypeModule } from './dict-type/dict-type.module'
@@ -13,16 +14,17 @@ import { UserModule } from './user/user.module'
 
 @Module({
   imports: [
+    UserModule,
     DeptModule,
+    PostModule,
+    RoleModule,
+    MenuModule,
     DictDataModule,
     DictTypeModule,
-    LoginLogModule,
-    MenuModule,
     OperLogModule,
-    PostModule,
+    LoginLogModule,
     ProfileModule,
-    RoleModule,
-    UserModule,
+    ConfigModule,
   ],
 })
 export class SystemModule {}

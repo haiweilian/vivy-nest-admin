@@ -520,6 +520,32 @@ INSERT INTO `sys_user_role` VALUES (2, 2, sysdate(), sysdate());
 COMMIT;
 
 -- ----------------------------
+-- Table structure for sys_config
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_config`;
+CREATE TABLE `sys_config` (
+  `config_id` bigint NOT NULL AUTO_INCREMENT COMMENT '参数ID',
+  `config_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '参数名称',
+  `config_key` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '参数键名',
+  `config_value` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '参数键值',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  `remark` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`config_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='参数配置表';
+
+-- ----------------------------
+-- Records of sys_config
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_config` VALUES (1, '用户管理-账号初始密码', 'sys.user.initPassword', 'Aa@123456', '0', NULL, sysdate(), NULL, sysdate(), '初始化密码（Aa@123456）');
+INSERT INTO `sys_config` VALUES (2, '账号管理-验证码开关', 'sys.account.enableCaptcha', 'true', '0', NULL, sysdate(), NULL, sysdate(), '是否开启验证码功能（true开启，false关闭）');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for gen_table
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_table`;
