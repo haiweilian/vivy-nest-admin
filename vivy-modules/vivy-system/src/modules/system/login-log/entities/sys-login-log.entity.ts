@@ -1,7 +1,7 @@
 import { BaseStatusEnums, BaseTimeEntity } from '@vivy-common/core'
-import { LoginType } from '@vivy-common/logger'
 import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { LoginType } from '@/common/enums/login-type.enum'
 
 /**
  * 登录日志表

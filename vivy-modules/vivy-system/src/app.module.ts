@@ -1,4 +1,4 @@
-import * as path from 'path'
+import { resolve } from 'path'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis'
@@ -21,11 +21,11 @@ import { SystemModule } from './modules/system/system.module'
   imports: [
     // plugin
     ConfigModule.forRoot({
-      dir: path.join(__dirname, 'config'),
+      dir: resolve(__dirname, 'config'),
     }),
     MybatisModule.forRoot({
-      dtsPath: path.join(__dirname, '../types/mapper.d.ts'),
-      patterns: path.join(__dirname, '**/*.mapper.xml'),
+      cwd: __dirname,
+      globs: ['**/*.mapper.xml'],
     }),
     RedisModule.forRootAsync({
       useFactory(config: ConfigService) {
@@ -41,7 +41,7 @@ import { SystemModule } from './modules/system/system.module'
           ...config.get<TypeOrmModuleOptions>('datasource.defalut'),
           logger: new TypeORMLogger({
             appName: config.get('app.name'),
-            logPath: path.join(__dirname, '../logs'),
+            logPath: resolve(__dirname, '../logs'),
           }),
         }
       },
@@ -55,7 +55,7 @@ import { SystemModule } from './modules/system/system.module'
       useFactory(config: ConfigService) {
         return {
           appName: config.get('app.name'),
-          logPath: path.join(__dirname, '../logs'),
+          logPath: resolve(__dirname, '../logs'),
         }
       },
       inject: [ConfigService],

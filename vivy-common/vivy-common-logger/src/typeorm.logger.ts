@@ -1,4 +1,4 @@
-import * as path from 'path'
+import { resolve } from 'path'
 import { Injectable, LoggerService } from '@nestjs/common'
 import { assign } from 'lodash'
 import { Logger } from 'typeorm'
@@ -8,7 +8,7 @@ import { WinstonTransportBuilder } from './winston.transport'
 
 const defaultOptions: LoggerOptions = {
   appName: 'vivy',
-  logPath: path.resolve(process.cwd(), 'logs'),
+  logPath: resolve(process.cwd(), 'logs'),
 }
 
 /**
@@ -26,7 +26,7 @@ export class TypeORMLogger implements Logger {
         TransportBuilder.buildConsoleTransportInstance(),
         TransportBuilder.buildDailyRotateFileTransportInstance({
           level: 'warn',
-          filename: path.resolve(options.logPath, `${options.appName}-sql-%DATE%.log`),
+          filename: resolve(options.logPath, `${options.appName}-sql-%DATE%.log`),
         }),
       ],
     })

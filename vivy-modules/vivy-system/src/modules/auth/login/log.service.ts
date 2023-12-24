@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { BaseStatusEnums, IpUtils, RequestContext } from '@vivy-common/core'
-import { LoginType } from '@vivy-common/logger'
+import { LoginType } from '@/common/enums/login-type.enum'
 import { CreateLoginLogDto } from '@/modules/system/login-log/dto/login-log.dto'
 import { LoginLogService } from '@/modules/system/login-log/login-log.service'
 

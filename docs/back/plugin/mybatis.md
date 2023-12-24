@@ -20,14 +20,14 @@ pnpm install --save @vivy-common/mybatis
 
 ```ts
 // app.module.ts
-import * as path from 'path'
 import { Module } from '@nestjs/common'
 import { MybatisModule } from '@vivy-common/mybatis'
 
 @Module({
   imports: [
     MybatisModule.forRoot({
-      patterns: path.join(__dirname, '**/*.mapper.xml'),
+      cwd: __dirname,
+      globs: ['**/*.mapper.xml'],
     }),
   ],
 })

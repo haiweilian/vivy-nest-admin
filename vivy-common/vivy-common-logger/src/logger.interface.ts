@@ -8,7 +8,7 @@ export interface LoggerOptions {
   appName?: string
   /**
    * 日志路径
-   * @default path.resolve(process.cwd(), 'logs')
+   * @default resolve(process.cwd(), 'logs')
    */
   logPath?: string
 }
