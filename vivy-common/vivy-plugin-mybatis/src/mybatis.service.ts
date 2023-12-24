@@ -99,7 +99,8 @@ declare module '@vivy-common/mybatis' {
   }
 }
 
-export {}`
+export {}
+`
 
     const file = typeof dts === 'string' ? dts : resolve(cwd, '../types/mapper.d.ts')
     const prev = fse.pathExistsSync(file) && fse.readFileSync(file, 'utf-8')
