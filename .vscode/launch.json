@@ -1,0 +1,40 @@
+{
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "vivy-react",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "sourceMapPathOverrides": {
+        "webpack://?:*/*": "${workspaceFolder}/vivy-react/*"
+      }
+    },
+    {
+      "name": "vivy-system",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/vivy-modules/vivy-system",
+      "runtimeArgs": ["run-script", "dev"],
+      "runtimeExecutable": "pnpm",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "vivy-template",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/vivy-modules/vivy-template",
+      "runtimeArgs": ["run-script", "dev"],
+      "runtimeExecutable": "pnpm",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "console": "integratedTerminal"
+    }
+  ]
+}
