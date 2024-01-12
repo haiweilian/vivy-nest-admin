@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import { BullModule } from '@nestjs/bull'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis'
@@ -47,6 +48,14 @@ import { SystemModule } from './modules/system/system.module'
       },
       inject: [ConfigService],
     }),
+    BullModule.forRootAsync({
+      useFactory(config: ConfigService) {
+        return {
+          redis: config.get<RedisModuleOptions['config']>('bull.redis'),
+        }
+      },
+      inject: [ConfigService],
+    }),
 
     // common
     CoreModule.forRoot(),
@@ -70,8 +79,8 @@ import { SystemModule } from './modules/system/system.module'
     CommonModule,
 
     // modules
-    AuthModule,
     GenModule,
+    AuthModule,
     SystemModule,
     MonitorModule,
   ],

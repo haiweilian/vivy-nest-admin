@@ -20,3 +20,12 @@ datasource:
     autoLoadEntities: true
     bigNumberStrings: false
     supportBigNumbers: true
+
+# Bull 配置
+bull:
+  redis:
+    port: 6379
+    host: localhost
+    username: default
+    password: Aa@123456
+    db: 1
