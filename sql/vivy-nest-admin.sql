@@ -94,6 +94,8 @@ INSERT INTO `sys_dict_data` VALUES (17, 'sys_oper_type', '导入', '7', 7, '0', 
 INSERT INTO `sys_dict_data` VALUES (18, 'sys_oper_type', '强退', '8', 8, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_data` VALUES (19, 'sys_oper_type', '生成代码', '9', 9, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_data` VALUES (20, 'sys_oper_type', '清空数据', '10', 10, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (21, 'sys_job_group', '默认', '0', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (22, 'sys_job_group', '系统', '1', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -122,6 +124,7 @@ INSERT INTO `sys_dict_type` VALUES (2, '系统是否', 'sys_yes_no', 2, '0', 'ad
 INSERT INTO `sys_dict_type` VALUES (3, '系统开关', 'sys_normal_disable', 3, '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_type` VALUES (4, '系统成败', 'sys_success_failure', 4, '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_type` VALUES (5, '操作类型', 'sys_oper_type', 5, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_type` VALUES (6, '任务分组', 'sys_job_group', 6, '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -198,8 +201,9 @@ INSERT INTO `sys_menu` VALUES (108, 1, '通知公告', 'C', 9,  '0', 'notice',  
 INSERT INTO `sys_menu` VALUES (109, 1, '日志管理', 'M', 10, '0', 'log',         NULL,                        NULL,  NULL,                 NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (110, 2, '在线用户', 'C', 1,  '0', 'online',     'monitor/online/index',       NULL, 'monitor:online:list', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (111, 2, '定时任务', 'C', 2,  '0', 'job',        'monitor/job/index',          NULL, 'monitor:job:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (112, 3, '代码生成', 'C', 1,  '0', 'gen',        'tool/gen/index',             NULL, 'tool:gen:list',       NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (113, 3, '系统接口', 'C', 2,  '0', 'swagger',    'tool/swagger/index',         NULL, 'tool:swagger:list',   NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (112, 2, '任务日志', 'C', 3,  '0', 'job/log',    'monitor/job/log/index',      NULL, 'monitor:job:list',    NULL, '1', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (113, 3, '代码生成', 'C', 1,  '0', 'gen',        'tool/gen/index',             NULL, 'tool:gen:list',       NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (114, 3, '系统接口', 'C', 2,  '0', 'swagger',    'tool/swagger/index',         NULL, 'tool:swagger:list',   NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
 
 -- 三级菜单
 INSERT INTO `sys_menu` VALUES (500, 109, '登录日志', 'C', 1, '0', 'login',     'system/log/login/index',     NULL, 'system:loginlog:list', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
@@ -609,6 +613,63 @@ CREATE TABLE `gen_table_column` (
 
 -- ----------------------------
 -- Records of gen_table
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for job
+-- ----------------------------
+DROP TABLE IF EXISTS `job`;
+CREATE TABLE `job` (
+  `job_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务ID',
+  `job_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务名称',
+  `job_group` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务组名',
+  `invoke_target` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '调用目标',
+  `invoke_params` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '调用参数',
+  `cron_expression` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Cron表达式',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  `remark` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`job_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='定时任务表';
+
+-- ----------------------------
+-- Records of job
+-- ----------------------------
+BEGIN;
+INSERT INTO `job` VALUES (1, '无参数', '0', 'CallTask.noParams', NULL, '0 0 * * * ?', '0', NULL, sysdate(), NULL, sysdate(), NULL);
+INSERT INTO `job` VALUES (2, '数字参数', '0', 'CallTask.numberParams', '1', '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
+INSERT INTO `job` VALUES (3, '字符串参数', '0', 'CallTask.stringParams', '\'1\'', '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
+INSERT INTO `job` VALUES (4, '布尔参数', '0', 'CallTask.booleanParams', 'true', '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
+INSERT INTO `job` VALUES (5, '对象参数', '0', 'CallTask.objectParams', '{\"a\":1,\"b\":2}', '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
+INSERT INTO `job` VALUES (6, '测试错误', '0', 'CallTask.errorParams', NULL, '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for job_log
+-- ----------------------------
+DROP TABLE IF EXISTS `job_log`;
+CREATE TABLE `job_log` (
+  `job_log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
+  `job_id` bigint NOT NULL COMMENT '任务ID',
+  `job_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务名称',
+  `job_group` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务组名',
+  `invoke_target` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '调用目标',
+  `invoke_params` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '调用参数',
+  `invoke_message` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '调用信息',
+  `exception_message` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '异常信息',
+  `status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '状态（0成功 1失败）',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  PRIMARY KEY (`job_log_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='定时任务日志表';
+
+-- ----------------------------
+-- Records of job_log
 -- ----------------------------
 BEGIN;
 COMMIT;

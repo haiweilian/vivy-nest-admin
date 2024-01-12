@@ -97,8 +97,8 @@ export default defineConfig({
                 link: '/back/business/upload',
               },
               {
-                text: '定时任务🚧',
-                link: '/back/business/task',
+                text: '定时任务',
+                link: '/back/business/job',
               },
               {
                 text: '新建子模块',
