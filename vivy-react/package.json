@@ -12,11 +12,9 @@
     "dev": "max dev",
     "postinstall": "max setup && electron-builder install-app-deps",
     "electron:dev": "electron-vite dev -w",
-    "electron:start": "electron-vite preview",
-    "electron:build": "electron-vite build && pnpm build",
-    "electron:build:win": "pnpm electron:build && electron-builder --win --config",
-    "electron:build:mac": "pnpm electron:build && electron-builder --mac --config",
-    "electron:build:linux": "pnpm electron:build && electron-builder --linux --config"
+    "electron:build:win": "max build && electron-vite build && electron-builder --win --config",
+    "electron:build:mac": "max build && electron-vite build && electron-builder --mac --config",
+    "electron:build:linux": "max build && electron-vite build && electron-builder --linux --config"
   },
   "dependencies": {
     "@ant-design/charts": "^1.4.2",

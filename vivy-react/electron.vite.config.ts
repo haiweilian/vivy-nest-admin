@@ -9,12 +9,8 @@ export default defineConfig({
     plugins: [
       externalizeDepsPlugin(),
       copy({
-        targets: [
-          {
-            src: 'electron/resources/**',
-            dest: 'dist/resources',
-          },
-        ],
+        flatten: false,
+        targets: [{ src: 'electron/resources/**', dest: 'dist' }],
       }),
     ],
     build: {
