@@ -35,7 +35,7 @@ const Login = () => {
       setToken(token.access_token)
       await fetchUserInfo()
       message.loading('登录中...')
-      window.location.href = PageEnum.BASE_HOME
+      window.location.href = `/#${PageEnum.BASE_HOME}`
     } catch (error: any) {
       message.error(error.message || '登录失败，请重试！')
     }

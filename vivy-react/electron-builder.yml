@@ -1,0 +1,52 @@
+# https://www.electron.build/configuration/configuration
+appId: com.vivy-react.app
+productName: Vivy React
+directories:
+  output: dist-electron
+  buildResources: electron/build
+files:
+  - '**/*'
+  - '!src/*'
+  - '!types/*'
+  - '!config/*'
+  - '!electron/*'
+  - '!**/node_modules/**'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslint*,.prettier*,.tailwind*,.gitignore}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml,dev-app-update.yml}'
+  # 手动添加依赖的包，避免打包无用的依赖
+  - 'node_modules/@electron-toolkit/**'
+asar: true
+asarUnpack:
+  - dist/resources/**
+win:
+  executableName: Vivy React
+nsis:
+  artifactName: ${name}-${version}-setup.${ext}
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+mac:
+  entitlementsInherit: electron/build/entitlements.mac.plist
+  extendInfo:
+    - NSCameraUsageDescription: Application requests access to the device's camera.
+    - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
+    - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
+    - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
+  notarize: false
+dmg:
+  artifactName: ${name}-${version}.${ext}
+linux:
+  target:
+    - AppImage
+    - snap
+    - deb
+  maintainer: example.org
+  category: Utility
+appImage:
+  artifactName: ${name}-${version}.${ext}
+npmRebuild: false
+publish:
+  provider: generic
+  url: https://example.com/auto-updates

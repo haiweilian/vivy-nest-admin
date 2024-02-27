@@ -1,5 +1,7 @@
 {
   "name": "vivy-react",
+  "productName": "Vivy React",
+  "main": "./dist/main/index.js",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
@@ -8,12 +10,20 @@
   "scripts": {
     "build": "max build",
     "dev": "max dev",
-    "postinstall": "max setup"
+    "postinstall": "max setup && electron-builder install-app-deps",
+    "electron:dev": "electron-vite dev -w",
+    "electron:start": "electron-vite preview",
+    "electron:build": "electron-vite build && pnpm build",
+    "electron:build:win": "pnpm electron:build && electron-builder --win --config",
+    "electron:build:mac": "pnpm electron:build && electron-builder --mac --config",
+    "electron:build:linux": "pnpm electron:build && electron-builder --linux --config"
   },
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.0.1",
+    "@electron-toolkit/preload": "^3.0.0",
+    "@electron-toolkit/utils": "^3.0.0",
     "@iconify-json/ant-design": "^1.1.10",
     "@iconify-json/ion": "^1.1.12",
     "@umijs/max": "^4.0.57",
@@ -33,6 +43,10 @@
     "@types/lodash-es": "^4.17.7",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "electron": "^28.1.4",
+    "electron-builder": "^24.9.1",
+    "electron-vite": "^2.0.0",
+    "rollup-plugin-copy": "^3.5.0",
     "tailwindcss": "^3",
     "typescript": "^5.0.0"
   }

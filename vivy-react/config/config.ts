@@ -8,6 +8,12 @@ import defaultSettings from './setting'
 export default defineConfig({
   npmClient: 'pnpm',
   /**
+   * @name Electron集成兼容配置
+   */
+  history: { type: 'hash' },
+  outputPath: 'dist/renderer',
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+  /**
    * @name 开发插件
    * @doc https://umijs.org/docs/guides/plugins
    */

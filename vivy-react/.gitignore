@@ -9,6 +9,7 @@
 /.umi-production
 /.umi-test
 /dist
+/dist-electron
 /.mfsu
 .swc
 .DS_Store

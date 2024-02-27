@@ -10,7 +10,7 @@
     "dev": "vitepress dev",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "deploy": "pnpm build && gh-pages -d .vitepress/dist"
+    "deploy": "gh-pages -d .vitepress/dist"
   },
   "devDependencies": {
     "gh-pages": "^6.0.0",
