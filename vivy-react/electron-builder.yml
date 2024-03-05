@@ -5,18 +5,14 @@ directories:
   output: dist-electron
   buildResources: electron/build
 files:
-  - '**/*'
   - '!src/*'
   - '!types/*'
   - '!config/*'
   - '!electron/*'
-  - '!**/node_modules/**'
   - '!electron.vite.config.{js,ts,mjs,cjs}'
   - '!{.eslint*,.prettier*,.tailwind*,.gitignore}'
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml,dev-app-update.yml}'
-  # 手动添加依赖的包，避免打包无用的依赖
-  - 'node_modules/@electron-toolkit/**'
 asar: true
 asarUnpack:
   - dist/resources/**
