@@ -96,6 +96,8 @@ INSERT INTO `sys_dict_data` VALUES (19, 'sys_oper_type', '生成代码', '9', 9,
 INSERT INTO `sys_dict_data` VALUES (20, 'sys_oper_type', '清空数据', '10', 10, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_data` VALUES (21, 'sys_job_group', '默认', '0', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_data` VALUES (22, 'sys_job_group', '系统', '1', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (23, 'sys_notice_type', '通知', '1', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (24, 'sys_notice_type', '公告', '2', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -125,6 +127,7 @@ INSERT INTO `sys_dict_type` VALUES (3, '系统开关', 'sys_normal_disable', 3, 
 INSERT INTO `sys_dict_type` VALUES (4, '系统成败', 'sys_success_failure', 4, '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_type` VALUES (5, '操作类型', 'sys_oper_type', 5, '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_dict_type` VALUES (6, '任务分组', 'sys_job_group', 6, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_type` VALUES (7, '公告类型', 'sys_notice_type', 7, '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -547,6 +550,29 @@ CREATE TABLE `sys_config` (
 BEGIN;
 INSERT INTO `sys_config` VALUES (1, '用户管理-账号初始密码', 'sys.user.initPassword', 'Aa@123456', '0', NULL, sysdate(), NULL, sysdate(), '初始化密码（Aa@123456）');
 INSERT INTO `sys_config` VALUES (2, '账号管理-验证码开关', 'sys.account.enableCaptcha', 'true', '0', NULL, sysdate(), NULL, sysdate(), '是否开启验证码功能（true开启，false关闭）');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_notice`;
+CREATE TABLE `sys_notice` (
+  `notice_id` bigint NOT NULL AUTO_INCREMENT COMMENT '公告ID',
+  `notice_title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公告标题',
+  `notice_type` char(2) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
+  `notice_content` longblob NOT NULL COMMENT '公告内容',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公告状态（0正常 1关闭）',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  PRIMARY KEY (`notice_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='通知公告表';
+
+-- ----------------------------
+-- Records of sys_notice
+-- ----------------------------
+BEGIN;
 COMMIT;
 
 -- ----------------------------

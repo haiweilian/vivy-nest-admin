@@ -2,13 +2,14 @@ import {
   type DrawerFormProps,
   type ProFormInstance,
   DrawerForm,
-  ProFormText,
-  ProFormTextArea,
-  ProFormDigit,
-  ProFormSelect,
-  ProFormRadio,
-  ProFormCheckbox,
+  {{~#if (isIn htmlTypeList 'input')}}ProFormText,{{/if}}
+  {{~#if (isIn htmlTypeList 'textarea')}}ProFormTextArea,{{/if}}
+  {{~#if (isIn htmlTypeList 'number')}}ProFormDigit,{{/if}}
+  {{~#if (isIn htmlTypeList 'select')}}ProFormSelect,{{/if}}
+  {{~#if (isIn htmlTypeList 'radio')}}ProFormRadio,{{/if}}
+  {{~#if (isIn htmlTypeList 'checkbox')}}ProFormCheckbox,{{/if}}
 } from '@ant-design/pro-components'
+{{#if (isIn htmlTypeList 'editor')}}import { ProFormWangEditor } from '@/components/WangEditor'{{/if}}
 import { {{~#if dictColumn}} useModel, {{~/if}} useRequest } from '@umijs/max'
 import { useRef } from 'react'
 import { add{{businessNamePascalCase}}, update{{businessNamePascalCase}}, info{{businessNamePascalCase}} } from '@/apis/system/{{businessNameKebabCase}}'
@@ -162,9 +163,17 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       {{/if}}
     />
     {{/if}}
+    {{#if (isEqual column.htmlType 'editor')}}
+    <ProFormWangEditor
+      name="{{column.fieldName}}"
+      label="{{column.fieldLabel}}"
+      {{#if (isRequire column.isRequired)}}
+      rules={[{ required: true }]}
+      {{/if}}
+    />
+    {{/if}}
     {{!-- {{#if (isEqual column.htmlType 'datetime')}}{{/if}} --}}
     {{!-- {{#if (isEqual column.htmlType 'upload')}}{{/if}} --}}
-    {{!-- {{#if (isEqual column.htmlType 'editor')}}{{/if}} --}}
     {{/if}}
     {{/each}}
     </DrawerForm>

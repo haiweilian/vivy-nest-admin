@@ -9,3 +9,4 @@ declare type DictType =
   | 'sys_success_failure'
   | 'sys_oper_type'
   | 'sys_job_group'
+  | 'sys_notice_type'

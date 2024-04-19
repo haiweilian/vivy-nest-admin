@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private securityContext: SecurityContext) {}
 
   /**
-   * 检验用户是否已经登录，如未登录，则抛出异常: NotLoginException
+   * 检验用户是否已经登录，如果未登录，则抛出异常: NotLoginException
    */
   checkLogin() {
     this.getLoginUser()

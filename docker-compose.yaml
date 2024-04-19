@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   vivy-admin-mysql:
     container_name: vivy-admin-mysql
