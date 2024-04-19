@@ -1,4 +1,4 @@
-import { utilities as nestWinstonModuleUtilities } from 'nest-winston'
+import { utilities } from 'nest-winston'
 import * as winston from 'winston'
 import * as DailyRotateFile from 'winston-daily-rotate-file'
 import { LoggerOptions } from './logger.interface'
@@ -15,7 +15,7 @@ export class WinstonTransportBuilder {
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.ms(),
-        nestWinstonModuleUtilities.format.nestLike(this.options.appName, {
+        utilities.format.nestLike(this.options.appName, {
           colors: true,
           prettyPrint: true,
         })
@@ -30,7 +30,7 @@ export class WinstonTransportBuilder {
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.ms(),
-        nestWinstonModuleUtilities.format.nestLike(this.options.appName, {
+        utilities.format.nestLike(this.options.appName, {
           colors: false,
           prettyPrint: true,
         })
@@ -45,7 +45,7 @@ export class WinstonTransportBuilder {
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.ms(),
-        nestWinstonModuleUtilities.format.nestLike(this.options.appName, {
+        utilities.format.nestLike(this.options.appName, {
           colors: false,
           prettyPrint: true,
         })

@@ -8,9 +8,9 @@ import { RequestContext } from './request.context'
 /**
  * 安全上下文
  *
- * 注意：必须提前设置请求头，否则这里无法获取。
+ * 注意：必须提前添加到请求对象中，否则这里无法获取。
  *  - 在 vivy-gateway(AuthFilter)中通过设置请求头的方法传入。
- *  - 在 vivy-common-security(AuthGuard)中通过设置请求头的方法传入。
+ *  - 在 vivy-common-security(AuthGuard)中通过添加到请求对象中的方法传入。
  */
 @Injectable()
 export class SecurityContext {

@@ -17,6 +17,8 @@
     "@iconify-json/ant-design": "^1.1.10",
     "@iconify-json/ion": "^1.1.12",
     "@umijs/max": "^4.0.57",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-react": "^1.0.6",
     "ahooks": "^3.7.5",
     "antd": "^5.0.0",
     "clipboard": "^2.0.11",
