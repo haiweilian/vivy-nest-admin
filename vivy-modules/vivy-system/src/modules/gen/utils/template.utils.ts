@@ -54,6 +54,11 @@ interface CompileContext extends GenTable {
    * 字典列
    */
   dictColumn: ColumnContext[]
+
+  /**
+   * 标签类型
+   */
+  htmlTypeList: string[]
 }
 
 /**
@@ -157,12 +162,17 @@ export class TemplateUtils {
      * 列处理
      */
     table.columns.forEach((column: ColumnContext) => {
+      // 根据列备注提取标签名
       if (column.columnComment) {
         column.fieldLabel = column.columnComment.replace(/\(.+\)/, '').replace(/（.+）/, '')
       }
+
+      // 根据字典类型获取变量名
       if (column.dictType) {
         column.dictTypeCamelcase = camelcase(column.dictType)
       }
+
+      // 根据列字段类型获取字段长度
       if (column.columnType) {
         const dataType = GenUtils.getColumnType(column.columnType)
         if (GenConstants.COLUMNTYPE_NUMBER.includes(dataType)) {
@@ -196,6 +206,16 @@ export class TemplateUtils {
     table.columns.forEach((column: ColumnContext) => {
       if (column.dictType) {
         context.dictColumn.push(column)
+      }
+    })
+
+    /**
+     * 标签类型
+     */
+    context.htmlTypeList = []
+    table.columns.forEach((column: ColumnContext) => {
+      if (column.htmlType) {
+        context.htmlTypeList.push(column.htmlType)
       }
     })
 
