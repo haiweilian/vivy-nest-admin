@@ -52,7 +52,7 @@ const Online = () => {
       key: 'option',
       hideInTable: !hasPermission('monitor:online:logout'),
       render: (_, record) => [
-        <Popconfirm title="是否确认强退？" onConfirm={() => handleLogout(record.userSk)}>
+        <Popconfirm key="logout" title="是否确认强退？" onConfirm={() => handleLogout(record.userSk)}>
           <Button type="link" danger>
             强退
           </Button>

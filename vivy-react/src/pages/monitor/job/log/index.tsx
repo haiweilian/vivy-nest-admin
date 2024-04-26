@@ -94,7 +94,7 @@ const JobLog = () => {
         }}
         toolbar={{
           actions: [
-            <Popconfirm title="是否确认清空？" onConfirm={() => clearJobLog()}>
+            <Popconfirm key="clear" title="是否确认清空？" onConfirm={() => clearJobLog()}>
               <Button icon={<DeleteOutlined />} type="primary" danger>
                 清空
               </Button>

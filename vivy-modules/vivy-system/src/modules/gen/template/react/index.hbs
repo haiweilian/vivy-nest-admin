@@ -1,7 +1,7 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { ProTable } from '@ant-design/pro-components'
-{{#if dictColumn}}import { useModel } from '@umijs/max'{{/if}}
+import { {{~#if dictColumn}} useModel,{{/if}} Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
 import { list{{businessNamePascalCase}}, delete{{businessNamePascalCase}} } from '@/apis/system/{{businessNameKebabCase}}'
@@ -10,6 +10,7 @@ import type { {{businessNamePascalCase}}Model } from '@/apis/system/{{businessNa
 import UpdateForm from './components/UpdateForm'
 
 const {{businessNamePascalCase}} = () => {
+  const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
   const [record, setRecord] = useState<{{businessNamePascalCase}}Model>()
   const [updateOpen, setUpdateOpen] = useState(false)
@@ -64,20 +65,24 @@ const {{businessNamePascalCase}} = () => {
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
-        <Button
-          type="link"
-          onClick={() => {
-            setRecord(record)
-            setUpdateOpen(true)
-          }}
-        >
-          编辑
-        </Button>,
-        <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.{{pkColumn.fieldName}})}>
-          <Button type="link" danger>
-            删除
+        <Access key="update" accessible={hasPermission('{{moduleName}}:{{businessNameCamelcase}}:update')}>
+          <Button
+            type="link"
+            onClick={() => {
+              setRecord(record)
+              setUpdateOpen(true)
+            }}
+          >
+            编辑
           </Button>
-        </Popconfirm>,
+        </Access>,
+        <Access key="delete" accessible={hasPermission('{{moduleName}}:{{businessNameCamelcase}}:delete')}>
+          <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.{{pkColumn.fieldName}})}>
+            <Button type="link" danger>
+              删除
+            </Button>
+          </Popconfirm>
+        </Access>,
       ],
     },
   ]
@@ -107,25 +112,29 @@ const {{businessNamePascalCase}} = () => {
         }}
         toolbar=\{{
           actions: [
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={() => {
-                setRecord(undefined)
-                setUpdateOpen(true)
-              }}
-            >
-              新增
-            </Button>,
-            <Popconfirm
-              title="是否确认删除？"
-              disabled={!selectedRowKeys.length}
-              onConfirm={() => handleDelete(selectedRowKeys.join(','))}
-            >
-              <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
-                删除
+            <Access key="add" accessible={hasPermission('{{moduleName}}:{{businessNameCamelcase}}:add')}>
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={() => {
+                  setRecord(undefined)
+                  setUpdateOpen(true)
+                }}
+              >
+                新增
               </Button>
-            </Popconfirm>,
+            </Access>,
+            <Access key="delete" accessible={hasPermission('{{moduleName}}:{{businessNameCamelcase}}:delete')}>
+              <Popconfirm
+                title="是否确认删除？"
+                disabled={!selectedRowKeys.length}
+                onConfirm={() => handleDelete(selectedRowKeys.join(','))}
+              >
+                <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
+                  删除
+                </Button>
+              </Popconfirm>
+            </Access>,
           ],
         }}
       />

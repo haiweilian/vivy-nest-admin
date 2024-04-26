@@ -1,7 +1,7 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { ProTable } from '@ant-design/pro-components'
-import { useModel } from '@umijs/max'
+import { useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
 import { listConfig, deleteConfig } from '@/apis/system/config'
@@ -10,6 +10,7 @@ import { DictTag } from '@/components/Dict'
 import UpdateForm from './components/UpdateForm'
 
 const Config = () => {
+  const { hasPermission } = useAccess()
   const actionRef = useRef<ActionType>()
   const [record, setRecord] = useState<ConfigModel>()
   const [updateOpen, setUpdateOpen] = useState(false)
@@ -76,20 +77,24 @@ const Config = () => {
       valueType: 'option',
       key: 'option',
       render: (_, record) => [
-        <Button
-          type="link"
-          onClick={() => {
-            setRecord(record)
-            setUpdateOpen(true)
-          }}
-        >
-          编辑
-        </Button>,
-        <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.configId)}>
-          <Button type="link" danger>
-            删除
+        <Access key="update" accessible={hasPermission('system:config:update')}>
+          <Button
+            type="link"
+            onClick={() => {
+              setRecord(record)
+              setUpdateOpen(true)
+            }}
+          >
+            编辑
           </Button>
-        </Popconfirm>,
+        </Access>,
+        <Access key="delete" accessible={hasPermission('system:config:delete')}>
+          <Popconfirm title="是否确认删除？" onConfirm={() => handleDelete(record.configId)}>
+            <Button type="link" danger>
+              删除
+            </Button>
+          </Popconfirm>
+        </Access>,
       ],
     },
   ]
@@ -119,25 +124,29 @@ const Config = () => {
         }}
         toolbar={{
           actions: [
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={() => {
-                setRecord(undefined)
-                setUpdateOpen(true)
-              }}
-            >
-              新增
-            </Button>,
-            <Popconfirm
-              title="是否确认删除？"
-              disabled={!selectedRowKeys.length}
-              onConfirm={() => handleDelete(selectedRowKeys.join(','))}
-            >
-              <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
-                删除
+            <Access key="add" accessible={hasPermission('system:config:add')}>
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={() => {
+                  setRecord(undefined)
+                  setUpdateOpen(true)
+                }}
+              >
+                新增
               </Button>
-            </Popconfirm>,
+            </Access>,
+            <Access key="delete" accessible={hasPermission('system:config:delete')}>
+              <Popconfirm
+                title="是否确认删除？"
+                disabled={!selectedRowKeys.length}
+                onConfirm={() => handleDelete(selectedRowKeys.join(','))}
+              >
+                <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
+                  删除
+                </Button>
+              </Popconfirm>
+            </Access>,
           ],
         }}
       />

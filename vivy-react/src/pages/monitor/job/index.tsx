@@ -102,7 +102,9 @@ const Job = () => {
             <Button type="link">执行一次</Button>
           </Popconfirm>
         </Access>,
-        <Link to={`/monitor/job/log?jobId=${record.jobId}`}>调度日志</Link>,
+        <Link key="log" to={`/monitor/job/log?jobId=${record.jobId}`}>
+          调度日志
+        </Link>,
       ],
     },
   ]
@@ -155,7 +157,7 @@ const Job = () => {
                 </Button>
               </Popconfirm>
             </Access>,
-            <Link to={`/monitor/job/log`}>
+            <Link key="log" to={`/monitor/job/log`}>
               <Button icon={<HistoryOutlined />}>调度日志</Button>
             </Link>,
           ],
