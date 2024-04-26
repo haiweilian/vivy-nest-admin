@@ -80,6 +80,8 @@ export class TemplateUtils {
           'nest/[name].service.hbs',
           'nest/dto/[name].dto.hbs',
           'nest/entities/[name].entity.hbs',
+          'nest/[name].mapper.hbs',
+          'nest/[name].mapper.xml.hbs',
         ],
       },
       {
@@ -103,6 +105,8 @@ export class TemplateUtils {
     if (template.startsWith('nest')) {
       if (template.startsWith('nest/entities')) {
         name = template.replace('.hbs', '.ts').replace('[name]', context.classNameKebabCase)
+      } else if (template.endsWith('mapper.xml.hbs')) {
+        name = template.replace('.hbs', '').replace('[name]', context.businessNameKebabCase)
       } else {
         name = template.replace('.hbs', '.ts').replace('[name]', context.businessNameKebabCase)
       }

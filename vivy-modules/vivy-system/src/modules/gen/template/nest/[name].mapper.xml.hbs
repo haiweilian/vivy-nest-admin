@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="{{moduleName}}.{{businessNameCamelcase}}.mapper">
+  <sql id="select{{businessNamePascalCase}}Vo">
+    SELECT
+    {{#each columns as | column |}}
+      {{column.columnName}} AS {{column.fieldName}}{{#unless @last}},{{/unless}}
+    {{/each}}
+    FROM
+      {{tableName}}
+  </sql>
+
+  <select id="select{{businessNamePascalCase}}ById">
+    <include refid="select{{businessNamePascalCase}}Vo"/>
+      WHERE {{pkColumn.columnName}} = #{ {{~pkColumn.fieldName~}} }
+  </select>
+
+  <select id="select{{businessNamePascalCase}}List">
+    <include refid="select{{businessNamePascalCase}}Vo"/>
+    <where>
+      {{#each columns as | column |}}
+      {{#if (isRequire column.isQuery)}}
+      {{#if (isEqual column.queryType 'EQ')}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}} and {{column.fieldName}} != ''{{/if}}">
+        AND {{column.columnName}} = #{ {{~column.fieldName~}} }
+      </if>
+      {{/if}}
+      {{#if (isEqual column.queryType 'NE')}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}} and {{column.fieldName}} != ''{{/if}}">
+        AND {{column.columnName}} != #{ {{~column.fieldName~}} }
+      </if>
+      {{/if}}
+      {{#if (isEqual column.queryType 'GT')}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}} and {{column.fieldName}} != ''{{/if}}">
+        AND {{column.columnName}} &gt; #{ {{~column.fieldName~}} }
+      </if>
+      {{/if}}
+      {{#if (isEqual column.queryType 'GE')}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}} and {{column.fieldName}} != ''{{/if}}">
+        AND {{column.columnName}} &gt;= #{ {{~column.fieldName~}} }
+      </if>
+      {{/if}}
+      {{#if (isEqual column.queryType 'LT')}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}} and {{column.fieldName}} != ''{{/if}}">
+        AND {{column.columnName}} &lt; #{ {{~column.fieldName~}} }
+      </if>
+      {{/if}}
+      {{#if (isEqual column.queryType 'LE')}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}} and {{column.fieldName}} != ''{{/if}}">
+        AND {{column.columnName}} &lt;= #{ {{~column.fieldName~}} }
+      </if>
+      {{/if}}
+      {{#if (isEqual column.queryType 'LIKE')}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}} and {{column.fieldName}} != ''{{/if}}">
+        AND {{column.columnName}} LIKE CONCAT('%', #{ {{~column.fieldName~}} }, '%')
+      </if>
+      {{/if}}
+      {{#if (isEqual column.queryType 'BETWEEN')}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}} and {{column.fieldName}} != ''{{/if}}">
+        AND {{column.columnName}} BETWEEN #{ {{~column.fieldName~}} } AND #{ {{~column.fieldName~}} }
+      </if>
+      {{/if}}
+      {{/if}}
+      {{/each}}
+    </where>
+  </select>
+
+  <insert id="insert{{businessNamePascalCase}}">
+    INSERT INTO {{tableName}}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+    {{#each columns as | column |}}
+    {{#if (notRequire column.isPk)}}
+    {{#if (notRequire column.isIncrement)}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}}{{#if (isRequire column.isRequired)}} and {{column.fieldName}} != ''{{/if}}{{/if}}">{{column.columnName}}{{#unless @last}},{{/unless}}</if>
+    {{/if}}
+    {{/if}}
+    {{/each}}
+    </trim>
+    VALUES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+    {{#each columns as | column |}}
+    {{#if (notRequire column.isPk)}}
+    {{#if (notRequire column.isIncrement)}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}}{{#if (isRequire column.isRequired)}} and {{column.fieldName}} != ''{{/if}}{{/if}}">#{ {{~column.fieldName~}} }{{#unless @last}},{{/unless}}</if>
+    {{/if}}
+    {{/if}}
+    {{/each}}
+    </trim>
+  </insert>
+
+  <update id="update{{businessNamePascalCase}}">
+    UPDATE {{tableName}}
+    <set>
+      {{#each columns as | column |}}
+      {{#if (notRequire column.isPk)}}
+      {{#if (notRequire column.isIncrement)}}
+      <if test="{{column.fieldName}} != null{{#if (isEqual column.tslangType 'string')}}{{#if (isRequire column.isRequired)}} and {{column.fieldName}} != ''{{/if}}{{/if}}">{{column.columnName}} = #{ {{~column.fieldName~}} },</if>
+      {{/if}}
+      {{/if}}
+      {{/each}}
+    </set>
+    WHERE {{pkColumn.columnName}} = #{ {{~pkColumn.fieldName~}} }
+  </update>
+
+  <delete id="delete{{businessNamePascalCase}}ById">
+    DELETE FROM {{tableName}} WHERE {{pkColumn.columnName}} = #{ {{~pkColumn.fieldName~}} }
+  </delete>
+
+  <delete id="delete{{businessNamePascalCase}}ByIds">
+    DELETE FROM {{tableName}} WHERE {{pkColumn.columnName}} IN
+    <foreach item="{{pkColumn.fieldName}}" collection="{{pkColumn.fieldName}}s" open="(" separator="," close=")">
+      #{ {{~pkColumn.fieldName~}} }
+    </foreach>
+  </delete>
+</mapper>

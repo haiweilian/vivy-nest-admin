@@ -90,12 +90,12 @@ export class MybatisService<M = MybatisMapper> implements OnModuleInit {
 /* prettier-ignore */
 declare module '@vivy-common/mybatis' {
   interface MybatisMapper {
-  ${Object.keys(mapper)
-    .map((key) => {
-      const value = Object.keys(mapper[key])
-      return `  '${key}': ${value.length ? value.map((v) => `'${v}'`).join(' | ') : 'string'}`
-    })
-    .join('\n')}
+${Object.keys(mapper)
+  .map((key) => {
+    const value = Object.keys(mapper[key])
+    return `    '${key}': ${value.length ? value.map((v) => `'${v}'`).join(' | ') : 'string'}`
+  })
+  .join('\n')}
   }
 }
 

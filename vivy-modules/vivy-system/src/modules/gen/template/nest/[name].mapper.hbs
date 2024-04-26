@@ -1,0 +1,87 @@
+import { Injectable } from '@nestjs/common'
+import { InjectEntityManager } from '@nestjs/typeorm'
+import { MybatisService } from '@vivy-common/mybatis'
+import { EntityManager } from 'typeorm'
+import { List{{businessNamePascalCase}}Dto, Create{{businessNamePascalCase}}Dto, Update{{businessNamePascalCase}}Dto } from './dto/{{businessNameKebabCase}}.dto'
+import { {{classNamePascalCase}} } from './entities/{{classNameKebabCase}}.entity'
+
+/**
+ * {{functionName}}
+ * @author {{functionAuthor}}
+ */
+@Injectable()
+export class {{businessNamePascalCase}}Mapper {
+  constructor(
+    @InjectEntityManager()
+    private entityManager: EntityManager,
+    private mybatisService: MybatisService
+  ) {}
+
+  /**
+   * {{functionName}}详情
+   * @param {{pkColumn.fieldName}} {{functionName}}ID
+   * @returns {{functionName}}详情
+   */
+  async select{{businessNamePascalCase}}ById({{pkColumn.fieldName}}: {{pkColumn.tslangType}}): Promise<{{classNamePascalCase}}> {
+    const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'select{{businessNamePascalCase}}ById', {
+      {{pkColumn.fieldName}},
+    })
+    return this.entityManager.query(sql).then((res) => res?.[0])
+  }
+
+  /**
+   * {{functionName}}列表
+   * @param {{businessNameCamelcase}} {{functionName}}信息
+   * @returns {{functionName}}列表
+   */
+  async select{{businessNamePascalCase}}List({{businessNameCamelcase}}: List{{businessNamePascalCase}}Dto): Promise<{{classNamePascalCase}}[]> {
+    const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'select{{businessNamePascalCase}}List', {
+      ...{{businessNameCamelcase}},
+    })
+    return this.entityManager.query(sql)
+  }
+
+  /**
+   * 添加{{functionName}}
+   * @param {{businessNameCamelcase}} {{functionName}}信息
+   */
+  async insert{{businessNamePascalCase}}({{businessNameCamelcase}}: Create{{businessNamePascalCase}}Dto): Promise<void> {
+    const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'insert{{businessNamePascalCase}}', {
+      ...{{businessNameCamelcase}},
+    })
+    return this.entityManager.query(sql)
+  }
+
+  /**
+   * 更新{{functionName}}
+   * @param {{businessNameCamelcase}} {{functionName}}信息
+   */
+  async update{{businessNamePascalCase}}({{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<void> {
+    const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'update{{businessNamePascalCase}}', {
+      ...{{businessNameCamelcase}},
+    })
+    return this.entityManager.query(sql)
+  }
+
+  /**
+   * 删除{{functionName}}
+   * @param {{pkColumn.fieldName}} {{functionName}}ID
+   */
+  async delete{{businessNamePascalCase}}ById({{pkColumn.fieldName}}: {{pkColumn.tslangType}}): Promise<void> {
+    const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'delete{{businessNamePascalCase}}ById', {
+      {{pkColumn.fieldName}},
+    })
+    return this.entityManager.query(sql)
+  }
+
+  /**
+   * 批量删除{{functionName}}
+   * @param {{pkColumn.fieldName}}s {{functionName}}ID
+   */
+  async delete{{businessNamePascalCase}}ByIds({{pkColumn.fieldName}}s: {{pkColumn.tslangType}}[]): Promise<void> {
+    const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'delete{{businessNamePascalCase}}ByIds', {
+      {{pkColumn.fieldName}}s,
+    })
+    return this.entityManager.query(sql)
+  }
+}
