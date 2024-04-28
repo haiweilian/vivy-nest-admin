@@ -20,6 +20,7 @@ const WangEditor: React.FC<{
 
   const toolbarConfig: Partial<IToolbarConfig> = {}
   const editorConfig: Partial<IEditorConfig> = {
+    autoFocus: false,
     placeholder: '请输入',
   }
 
