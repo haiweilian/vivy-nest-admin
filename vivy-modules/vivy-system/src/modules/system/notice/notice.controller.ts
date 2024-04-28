@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { ListNoticeDto, CreateNoticeDto, UpdateNoticeDto } from './dto/notice.dto'
@@ -14,7 +14,10 @@ import { NoticeService } from './notice.service'
 @ApiBearerAuth()
 @Controller('notice')
 export class NoticeController {
-  constructor(private noticeService: NoticeService) {}
+  constructor(
+    private noticeService: NoticeService,
+    private securityContext: SecurityContext
+  ) {}
 
   /**
    * 通知公告列表
@@ -35,6 +38,7 @@ export class NoticeController {
   @Log({ title: '通知公告', operType: OperType.INSERT })
   @RequirePermissions('system:notice:add')
   async add(@Body() notice: CreateNoticeDto): Promise<AjaxResult> {
+    notice.createBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.noticeService.add(notice))
   }
 
@@ -46,6 +50,7 @@ export class NoticeController {
   @Log({ title: '通知公告', operType: OperType.UPDATE })
   @RequirePermissions('system:notice:update')
   async update(@Body() notice: UpdateNoticeDto): Promise<AjaxResult> {
+    notice.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.noticeService.update(notice))
   }
 

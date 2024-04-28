@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { ListUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto'
@@ -28,7 +28,10 @@ import { UserService } from './user.service'
 @ApiBearerAuth()
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private securityContext: SecurityContext
+  ) {}
 
   /**
    * 用户列表
@@ -61,6 +64,7 @@ export class UserController {
       return AjaxResult.error(`新增用户${user.userName}失败，手机号码已存在`)
     }
 
+    user.createBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.userService.add(user))
   }
 
@@ -86,6 +90,7 @@ export class UserController {
       return AjaxResult.error(`修改用户${user.userName}失败，手机号码已存在`)
     }
 
+    user.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.userService.update(user))
   }
 

@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { ListRoleDto, CreateRoleDto, UpdateRoleDto } from './dto/role.dto'
@@ -14,7 +14,10 @@ import { RoleService } from './role.service'
 @ApiBearerAuth()
 @Controller('role')
 export class RoleController {
-  constructor(private roleService: RoleService) {}
+  constructor(
+    private roleService: RoleService,
+    private securityContext: SecurityContext
+  ) {}
 
   /**
    * 角色列表
@@ -43,6 +46,7 @@ export class RoleController {
       return AjaxResult.error(`新增角色${role.roleName}失败，角色权限已存在`)
     }
 
+    role.createBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.roleService.add(role))
   }
 
@@ -64,6 +68,7 @@ export class RoleController {
       return AjaxResult.error(`修改角色${role.roleName}失败，角色权限已存在`)
     }
 
+    role.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.roleService.update(role))
   }
 

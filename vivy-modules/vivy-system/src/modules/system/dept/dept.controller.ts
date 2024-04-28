@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { DeptService } from './dept.service'
@@ -14,7 +14,10 @@ import { CreateDeptDto, UpdateDeptDto } from './dto/dept.dto'
 @ApiBearerAuth()
 @Controller('dept')
 export class DeptController {
-  constructor(private deptService: DeptService) {}
+  constructor(
+    private deptService: DeptService,
+    private securityContext: SecurityContext
+  ) {}
 
   /**
    * 查询部门树结构
@@ -33,6 +36,7 @@ export class DeptController {
   @Log({ title: '部门管理', operType: OperType.INSERT })
   @RequirePermissions('system:dept:add')
   async add(@Body() dept: CreateDeptDto): Promise<AjaxResult> {
+    dept.createBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.deptService.add(dept))
   }
 
@@ -48,6 +52,7 @@ export class DeptController {
       return AjaxResult.error(`修改部门${dept.deptName}失败，上级部门不能是自己`)
     }
 
+    dept.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.deptService.update(dept))
   }
 

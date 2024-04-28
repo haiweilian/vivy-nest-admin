@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { ListPostDto, CreatePostDto, UpdatePostDto } from './dto/post.dto'
@@ -14,7 +14,10 @@ import { PostService } from './post.service'
 @ApiBearerAuth()
 @Controller('post')
 export class PostController {
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private securityContext: SecurityContext
+  ) {}
 
   /**
    * 岗位列表
@@ -43,6 +46,7 @@ export class PostController {
       return AjaxResult.error(`新增岗位${post.postName}失败，岗位编码已存在`)
     }
 
+    post.createBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.postService.add(post))
   }
 
@@ -62,6 +66,7 @@ export class PostController {
       return AjaxResult.error(`修改岗位${post.postName}失败，岗位编码已存在`)
     }
 
+    post.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.postService.update(post))
   }
 

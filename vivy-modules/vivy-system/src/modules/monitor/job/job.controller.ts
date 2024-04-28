@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { ListJobLogDto } from './dto/job-log.dto'
@@ -15,7 +15,10 @@ import { JobService } from './job.service'
 @ApiBearerAuth()
 @Controller('job')
 export class JobController {
-  constructor(private jobService: JobService) {}
+  constructor(
+    private jobService: JobService,
+    private securityContext: SecurityContext
+  ) {}
 
   /**
    * 定时任务列表
@@ -37,6 +40,8 @@ export class JobController {
   @RequirePermissions('monitor:job:add')
   async add(@Body() job: CreateJobDto): Promise<AjaxResult> {
     await this.jobService.checkInvokeTargetAllowed(job.invokeTarget)
+
+    job.createBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.jobService.add(job))
   }
 
@@ -49,6 +54,8 @@ export class JobController {
   @RequirePermissions('monitor:job:update')
   async update(@Body() job: UpdateJobDto): Promise<AjaxResult> {
     await this.jobService.checkInvokeTargetAllowed(job.invokeTarget)
+
+    job.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.jobService.update(job))
   }
 

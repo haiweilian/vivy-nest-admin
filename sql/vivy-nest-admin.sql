@@ -548,8 +548,8 @@ CREATE TABLE `sys_config` (
 -- Records of sys_config
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_config` VALUES (1, '用户管理-账号初始密码', 'sys.user.initPassword', 'Aa@123456', '0', NULL, sysdate(), NULL, sysdate(), '初始化密码（Aa@123456）');
-INSERT INTO `sys_config` VALUES (2, '账号管理-验证码开关', 'sys.account.enableCaptcha', 'true', '0', NULL, sysdate(), NULL, sysdate(), '是否开启验证码功能（true开启，false关闭）');
+INSERT INTO `sys_config` VALUES (1, '用户管理-账号初始密码', 'sys.user.initPassword', 'Aa@123456', '0', 'admin', sysdate(), 'admin', sysdate(), '初始化密码（Aa@123456）');
+INSERT INTO `sys_config` VALUES (2, '账号管理-验证码开关', 'sys.account.enableCaptcha', 'true', '0', 'admin', sysdate(), 'admin', sysdate(), '是否开启验证码功能（true开启，false关闭）');
 COMMIT;
 
 -- ----------------------------
@@ -667,12 +667,12 @@ CREATE TABLE `job` (
 -- Records of job
 -- ----------------------------
 BEGIN;
-INSERT INTO `job` VALUES (1, '无参数', '0', 'CallTask.noParams', NULL, '0 0 * * * ?', '0', NULL, sysdate(), NULL, sysdate(), NULL);
-INSERT INTO `job` VALUES (2, '数字参数', '0', 'CallTask.numberParams', '1', '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
-INSERT INTO `job` VALUES (3, '字符串参数', '0', 'CallTask.stringParams', '\'1\'', '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
-INSERT INTO `job` VALUES (4, '布尔参数', '0', 'CallTask.booleanParams', 'true', '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
-INSERT INTO `job` VALUES (5, '对象参数', '0', 'CallTask.objectParams', '{\"a\":1,\"b\":2}', '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
-INSERT INTO `job` VALUES (6, '测试错误', '0', 'CallTask.errorParams', NULL, '0 0 * * * ?', '1', NULL, sysdate(), NULL, sysdate(), NULL);
+INSERT INTO `job` VALUES (1, '无参数', '0', 'CallTask.noParams', NULL, '0 0 * * * ?', '0', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `job` VALUES (2, '数字参数', '0', 'CallTask.numberParams', '1', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `job` VALUES (3, '字符串参数', '0', 'CallTask.stringParams', '\'1\'', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `job` VALUES (4, '布尔参数', '0', 'CallTask.booleanParams', 'true', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `job` VALUES (5, '对象参数', '0', 'CallTask.objectParams', '{\"a\":1,\"b\":2}', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `job` VALUES (6, '测试错误', '0', 'CallTask.errorParams', NULL, '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
 COMMIT;
 
 -- ----------------------------

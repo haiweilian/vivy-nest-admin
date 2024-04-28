@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult, UserId } from '@vivy-common/core'
+import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto'
@@ -14,7 +14,10 @@ import { MenuService } from './menu.service'
 @ApiBearerAuth()
 @Controller('menu')
 export class MenuController {
-  constructor(private menuService: MenuService) {}
+  constructor(
+    private menuService: MenuService,
+    private securityContext: SecurityContext
+  ) {}
 
   /**
    * 查询菜单树结构
@@ -33,6 +36,7 @@ export class MenuController {
   @Log({ title: '菜单管理', operType: OperType.INSERT })
   @RequirePermissions('system:menu:add')
   async add(@Body() menu: CreateMenuDto): Promise<AjaxResult> {
+    menu.createBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.menuService.add(menu))
   }
 
@@ -48,6 +52,7 @@ export class MenuController {
       return AjaxResult.error(`修改菜单${menu.menuName}失败，上级菜单不能是自己`)
     }
 
+    menu.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.menuService.update(menu))
   }
 
@@ -95,8 +100,8 @@ export class MenuController {
    * @returns 用户路由信息
    */
   @Get('getUserRouters')
-  async getUserRouters(@UserId() userId: number): Promise<AjaxResult> {
-    const menus = await this.menuService.selectUserMenuTree(userId)
+  async getUserRouters(): Promise<AjaxResult> {
+    const menus = await this.menuService.selectUserMenuTree(this.securityContext.getUserId())
     return AjaxResult.success(this.menuService.buildUmiMaxRouters(menus))
   }
 }

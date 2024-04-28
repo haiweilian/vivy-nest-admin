@@ -2,7 +2,7 @@ import * as fs from 'fs/promises'
 import * as path from 'path'
 import { Injectable, StreamableFile } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { ServiceException } from '@vivy-common/core'
+import { ServiceException, SecurityContext } from '@vivy-common/core'
 import * as archiver from 'archiver'
 import { isEmpty, isNotEmpty } from 'class-validator'
 import { Pagination, paginate } from 'nestjs-typeorm-paginate'
@@ -28,7 +28,8 @@ export class GenService {
     @InjectRepository(GenTableColumn)
     private tableColumnRepository: Repository<GenTableColumn>,
 
-    private genMapper: GenMapper
+    private genMapper: GenMapper,
+    private securityContext: SecurityContext
   ) {}
 
   /**
@@ -57,6 +58,7 @@ export class GenService {
    * @param gen 更新信息
    */
   async update(gen: UpdateGenDto): Promise<void> {
+    gen.updateBy = this.securityContext.getUserName()
     await this.tableRepository.save(gen)
   }
 
@@ -100,6 +102,7 @@ export class GenService {
   async import(tableNames: string[]): Promise<void> {
     const tables = await this.genMapper.selectDbTableListByNames(tableNames)
     for (const table of tables) {
+      table.createBy = this.securityContext.getUserName()
       GenUtils.initTable(table)
       const columns = await this.genMapper.selectDbTableColumnsByName(table.tableName)
       for (const column of columns) {

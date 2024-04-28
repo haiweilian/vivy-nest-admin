@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { DictDataService } from './dict-data.service'
@@ -14,7 +14,10 @@ import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dic
 @ApiBearerAuth()
 @Controller('dict/data')
 export class DictDataController {
-  constructor(private dictDataService: DictDataService) {}
+  constructor(
+    private dictDataService: DictDataService,
+    private securityContext: SecurityContext
+  ) {}
 
   /**
    * 查询字典数据列表
@@ -44,6 +47,7 @@ export class DictDataController {
       return AjaxResult.error(`新增字典${dictData.dictLabel}失败，字典键值已存在`)
     }
 
+    dictData.createBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.dictDataService.add(dictData))
   }
 
@@ -63,6 +67,7 @@ export class DictDataController {
       return AjaxResult.error(`修改字典${dictData.dictLabel}失败，字典键值已存在`)
     }
 
+    dictData.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.dictDataService.update(dictData))
   }
 

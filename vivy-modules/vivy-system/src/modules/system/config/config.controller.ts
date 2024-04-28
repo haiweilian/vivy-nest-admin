@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { ConfigService } from './config.service'
@@ -14,7 +14,10 @@ import { ListConfigDto, CreateConfigDto, UpdateConfigDto } from './dto/config.dt
 @ApiBearerAuth()
 @Controller('config')
 export class ConfigController {
-  constructor(private configService: ConfigService) {}
+  constructor(
+    private configService: ConfigService,
+    private securityContext: SecurityContext
+  ) {}
 
   /**
    * 参数配置列表
@@ -39,6 +42,7 @@ export class ConfigController {
       return AjaxResult.error(`新增参数配置${config.configName}失败，参数键名已存在`)
     }
 
+    config.createBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.configService.add(config))
   }
 
@@ -54,6 +58,7 @@ export class ConfigController {
       return AjaxResult.error(`修改参数配置${config.configName}失败，参数键名已存在`)
     }
 
+    config.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.configService.update(config))
   }
 
