@@ -26,6 +26,7 @@
 - 前端使用 `React`、`Umi Max`、`Ant Design` 等技术。
 - 演示地址：<http://43.140.221.180:8000>
 - 文档地址：<https://haiweilian.github.io/vivy-nest-admin>
+- 掘金专栏：<https://juejin.cn/column/7316725867087003687>
 
 ## 系统模块
 
