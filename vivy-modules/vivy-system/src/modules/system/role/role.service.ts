@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
-import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
 import { ServiceException, BaseStatusEnums, UserConstants, IdentityUtils } from '@vivy-common/core'
 import { isNotEmpty, isEmpty, isArray, isObject } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
-import { EntityManager, In, Like, Not, Repository } from 'typeorm'
+import { DataSource, In, Like, Not, Repository } from 'typeorm'
 import { SysUserRole } from '@/modules/system/user/entities/sys-user-role.entity'
 import { ListRoleDto, CreateRoleDto, UpdateRoleDto } from './dto/role.dto'
 import { SysRoleDept } from './entities/sys-role-dept.entity'
@@ -18,8 +18,8 @@ import { RoleInfoVo } from './vo/role.vo'
 @Injectable()
 export class RoleService {
   constructor(
-    @InjectEntityManager()
-    private entityManager: EntityManager,
+    @InjectDataSource()
+    private dataSource: DataSource,
 
     @InjectRepository(SysRole)
     private roleRepository: Repository<SysRole>,
@@ -66,7 +66,7 @@ export class RoleService {
   async add(role: CreateRoleDto): Promise<void> {
     const { menuIds, deptIds, ...roleInfo } = role
 
-    await this.entityManager.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       // 新增角色信息
       const result = await manager.insert(SysRole, roleInfo)
       const roleId = result.identifiers[0].roleId
@@ -96,7 +96,7 @@ export class RoleService {
   async update(role: UpdateRoleDto): Promise<void> {
     const { menuIds, deptIds, roleId, ...roleInfo } = role
 
-    await this.entityManager.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       // 修改角色信息
       await manager.update(SysRole, roleId, roleInfo)
 
@@ -133,7 +133,7 @@ export class RoleService {
       }
     }
 
-    await this.entityManager.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       await manager.delete(SysRole, roleIds)
       await manager.delete(SysRoleMenu, { roleId: In(roleIds) })
       await manager.delete(SysRoleDept, { roleId: In(roleIds) })

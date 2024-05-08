@@ -72,15 +72,15 @@ export class AppModule {}
 
 ```ts
 import { Injectable } from '@nestjs/common'
-import { InjectEntityManager } from '@nestjs/typeorm'
+import { InjectDataSource } from '@nestjs/typeorm'
 import { MybatisService } from '@vivy-common/mybatis'
-import { EntityManager } from 'typeorm'
+import { DataSource } from 'typeorm'
 
 @Injectable()
 export class GenMapper {
   constructor(
-    @InjectEntityManager()
-    private entityManager: EntityManager,
+    @InjectDataSource()
+    private dataSource: DataSource,
     private mybatisService: MybatisService
   ) {}
 
@@ -88,7 +88,7 @@ export class GenMapper {
     const sql = this.mybatisService.getSql('fruit', 'basic', {
       category,
     })
-    const result = this.entityManager.query(sql)
+    const result = this.dataSource.query(sql)
     return result
   }
 }

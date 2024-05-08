@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import { InjectEntityManager } from '@nestjs/typeorm'
+import { InjectDataSource } from '@nestjs/typeorm'
 import { MybatisService } from '@vivy-common/mybatis'
-import { EntityManager } from 'typeorm'
+import { DataSource } from 'typeorm'
 import { List{{businessNamePascalCase}}Dto, Create{{businessNamePascalCase}}Dto, Update{{businessNamePascalCase}}Dto } from './dto/{{businessNameKebabCase}}.dto'
 import { {{classNamePascalCase}} } from './entities/{{classNameKebabCase}}.entity'
 
@@ -12,8 +12,8 @@ import { {{classNamePascalCase}} } from './entities/{{classNameKebabCase}}.entit
 @Injectable()
 export class {{businessNamePascalCase}}Mapper {
   constructor(
-    @InjectEntityManager()
-    private entityManager: EntityManager,
+    @InjectDataSource()
+    private dataSource: DataSource,
     private mybatisService: MybatisService
   ) {}
 
@@ -26,7 +26,7 @@ export class {{businessNamePascalCase}}Mapper {
     const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'select{{businessNamePascalCase}}ById', {
       {{pkColumn.fieldName}},
     })
-    return this.entityManager.query(sql).then((res) => res?.[0])
+    return this.dataSource.query(sql).then((res) => res?.[0])
   }
 
   /**
@@ -38,7 +38,7 @@ export class {{businessNamePascalCase}}Mapper {
     const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'select{{businessNamePascalCase}}List', {
       ...{{businessNameCamelcase}},
     })
-    return this.entityManager.query(sql)
+    return this.dataSource.query(sql)
   }
 
   /**
@@ -49,7 +49,7 @@ export class {{businessNamePascalCase}}Mapper {
     const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'insert{{businessNamePascalCase}}', {
       ...{{businessNameCamelcase}},
     })
-    return this.entityManager.query(sql)
+    return this.dataSource.query(sql)
   }
 
   /**
@@ -60,7 +60,7 @@ export class {{businessNamePascalCase}}Mapper {
     const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'update{{businessNamePascalCase}}', {
       ...{{businessNameCamelcase}},
     })
-    return this.entityManager.query(sql)
+    return this.dataSource.query(sql)
   }
 
   /**
@@ -71,7 +71,7 @@ export class {{businessNamePascalCase}}Mapper {
     const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'delete{{businessNamePascalCase}}ById', {
       {{pkColumn.fieldName}},
     })
-    return this.entityManager.query(sql)
+    return this.dataSource.query(sql)
   }
 
   /**
@@ -82,6 +82,6 @@ export class {{businessNamePascalCase}}Mapper {
     const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'delete{{businessNamePascalCase}}ByIds', {
       {{pkColumn.fieldName}}s,
     })
-    return this.entityManager.query(sql)
+    return this.dataSource.query(sql)
   }
 }

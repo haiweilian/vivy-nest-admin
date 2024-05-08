@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
-import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
 import { BaseStatusEnums, ServiceException } from '@vivy-common/core'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
-import { EntityManager, Like, Repository } from 'typeorm'
+import { DataSource, Like, Repository } from 'typeorm'
 import { SysDictData } from '@/modules/system/dict-data/entities/sys-dict-data.entity'
 import { ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from './dto/dict-type.dto'
 import { SysDictType } from './entities/sys-dict-type.entity'
@@ -15,8 +15,8 @@ import { SysDictType } from './entities/sys-dict-type.entity'
 @Injectable()
 export class DictTypeService {
   constructor(
-    @InjectEntityManager()
-    private entityManager: EntityManager,
+    @InjectDataSource()
+    private dataSource: DataSource,
 
     @InjectRepository(SysDictType)
     private dictTypeRepository: Repository<SysDictType>,
@@ -63,7 +63,7 @@ export class DictTypeService {
    * @param dictType 字典类型信息
    */
   async update(dictType: UpdateDictTypeDto): Promise<void> {
-    await this.entityManager.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       const oldDict = await manager.findOneBy(SysDictType, { dictId: dictType.dictId })
       await manager.update(SysDictType, dictType.dictId, dictType)
       if (oldDict.dictType !== dictType.dictType) {

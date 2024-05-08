@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common'
-import { InjectEntityManager } from '@nestjs/typeorm'
+import { InjectDataSource } from '@nestjs/typeorm'
 import { MybatisService } from '@vivy-common/mybatis'
-import { EntityManager } from 'typeorm'
+import { DataSource } from 'typeorm'
 import { GenTableColumn } from './entities/gen-table-column.entity'
 import { GenTable } from './entities/gen-table.entity'
 
 @Injectable()
 export class GenMapper {
   constructor(
-    @InjectEntityManager()
-    private entityManager: EntityManager,
+    @InjectDataSource()
+    private dataSource: DataSource,
     private mybatisService: MybatisService
   ) {}
 
@@ -23,7 +23,7 @@ export class GenMapper {
       name: name || '',
       comment: comment || '',
     })
-    return this.entityManager.query(sql)
+    return this.dataSource.query(sql)
   }
 
   /**
@@ -34,7 +34,7 @@ export class GenMapper {
     const sql = this.mybatisService.getSql('gen.gen.mapper', 'selectDbTableListByNames', {
       names,
     })
-    return this.entityManager.query(sql)
+    return this.dataSource.query(sql)
   }
 
   /**
@@ -45,6 +45,6 @@ export class GenMapper {
     const sql = this.mybatisService.getSql('gen.gen.mapper', 'selectDbTableColumnsByName', {
       name,
     })
-    return this.entityManager.query(sql)
+    return this.dataSource.query(sql)
   }
 }

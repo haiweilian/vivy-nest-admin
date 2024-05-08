@@ -35,9 +35,9 @@ export interface ExcelSheetOption extends Partial<AddWorksheetOptions> {
    */
   rowHeight?: number
   /**
-   * 行基础样式，与具体行样式合并
+   * 行基础样式
    */
-  // rowStyle?: Partial<Style>
+  rowStyle?: Partial<Style>
   /**
    * 列默认宽
    */

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
 import { ServiceException, PasswordUtils, IdentityUtils, SysLoginUser, UserConstants } from '@vivy-common/core'
 import { ExcelService } from '@vivy-common/excel'
 import { isNotEmpty, isEmpty, isArray, isObject } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
-import { EntityManager, In, Like, Repository } from 'typeorm'
+import { DataSource, In, Like, Repository } from 'typeorm'
 import { ConfigService } from '@/modules/system/config/config.service'
 import { MenuService } from '@/modules/system/menu/menu.service'
 import { RoleService } from '@/modules/system/role/role.service'
@@ -21,8 +21,8 @@ import { UserInfoVo } from './vo/user.vo'
 @Injectable()
 export class UserService {
   constructor(
-    @InjectEntityManager()
-    private entityManager: EntityManager,
+    @InjectDataSource()
+    private dataSource: DataSource,
 
     @InjectRepository(SysUser)
     private userRepository: Repository<SysUser>,
@@ -69,7 +69,7 @@ export class UserService {
   async add(user: CreateUserDto): Promise<void> {
     const { roleIds, postIds, ...userInfo } = user
 
-    await this.entityManager.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       // 新增用户信息
       userInfo.password = await PasswordUtils.create(user.password)
       const result = await manager.insert(SysUser, userInfo)
@@ -100,7 +100,7 @@ export class UserService {
   async update(user: UpdateUserDto): Promise<void> {
     const { roleIds, postIds, userId, ...userInfo } = user
 
-    await this.entityManager.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       // 修改用户信息
       await manager.update(SysUser, userId, userInfo)
 
@@ -129,7 +129,7 @@ export class UserService {
    * @param userIds 用户ID
    */
   async delete(userIds: number[]): Promise<void> {
-    await this.entityManager.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       await manager.delete(SysUser, userIds)
       await manager.delete(SysUserRole, { userId: In(userIds) })
       await manager.delete(SysUserPost, { userId: In(userIds) })

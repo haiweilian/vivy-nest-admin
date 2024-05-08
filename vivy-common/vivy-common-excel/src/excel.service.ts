@@ -41,6 +41,7 @@ export class ExcelService {
     worksheet.addRows(rawRows)
     worksheet.eachRow((row, rowIndex) => {
       row.height = row.height || sheet.rowHeight
+      this.mergeStyle(row, sheet.rowStyle)
 
       row.eachCell((cell, cellIndex) => {
         const rawRow = rawRows[rowIndex - 1]
