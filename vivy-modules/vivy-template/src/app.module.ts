@@ -24,7 +24,8 @@ import { AppService } from './app.service'
     RedisModule.forRootAsync({
       useFactory(config: ConfigService) {
         return {
-          config: config.get<RedisModuleOptions['config']>('redis.defalut'),
+          type: 'single',
+          options: config.get<RedisModuleOptions['options']>('redis.defalut'),
         }
       },
       inject: [ConfigService],

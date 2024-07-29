@@ -1,4 +1,4 @@
-﻿import { IConfigFromPlugins } from '@@/core/pluginConfig'
+import { IConfigFromPlugins } from '@@/core/pluginConfig'
 
 /**
  * @name umi 的路由配置

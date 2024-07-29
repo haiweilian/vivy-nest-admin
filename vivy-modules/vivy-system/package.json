@@ -9,16 +9,16 @@
     "debug": "nest start --debug --watch"
   },
   "dependencies": {
-    "archiver": "^5.3.1",
+    "archiver": "^7.0.1",
     "camelcase": "^6.0.0",
     "cron-parser": "^4.9.0",
     "decamelize": "^5.0.0",
-    "handlebars": "^4.7.7",
+    "handlebars": "^4.7.8",
     "svg-captcha": "^1.4.0",
-    "ua-parser-js": "^1.0.35"
+    "ua-parser-js": "^1.0.38"
   },
   "devDependencies": {
-    "@types/archiver": "^5.3.2",
-    "@types/ua-parser-js": "^0.7.36"
+    "@types/archiver": "^6.0.2",
+    "@types/ua-parser-js": "^0.7.39"
   }
 }

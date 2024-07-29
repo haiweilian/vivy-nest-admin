@@ -1,9 +1,10 @@
 import { randomUUID } from 'crypto'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { Redis, InjectRedis } from '@nestjs-modules/ioredis'
+import { InjectRedis } from '@nestjs-modules/ioredis'
 import { IpUtils, CacheConstants, SecurityConstants, SecurityContext, type SysLoginUser } from '@vivy-common/core'
 import { Request } from 'express'
+import Redis from 'ioredis'
 import { JwtToken } from '../interfaces/jwt-token.interface'
 
 /**

@@ -60,6 +60,10 @@ export default defineConfig({
                 link: '/back/common/swagger',
               },
               {
+                text: '导入导出',
+                link: '/back/common/excel',
+              },
+              {
                 text: '数据权限🚧',
                 link: '/back/common/datascope',
               },
@@ -87,10 +91,6 @@ export default defineConfig({
               {
                 text: '代码生成',
                 link: '/back/business/gen',
-              },
-              {
-                text: '导入导出',
-                link: '/back/business/excel',
               },
               {
                 text: '上传下载🚧',

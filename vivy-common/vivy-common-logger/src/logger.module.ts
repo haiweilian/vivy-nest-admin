@@ -1,7 +1,7 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
 import { LOGGER_OPTIONS } from './logger.constants'
 import { LoggerOptions, LoggerAsyncOptions } from './logger.interface'
-import { NestLogger, LoggerService } from './nest.logger'
+import { NestLogger } from './nest.logger'
 import { TypeORMLogger } from './typeorm.logger'
 
 @Global()
@@ -24,18 +24,10 @@ export class LoggerModule {
       inject: options.inject,
     }
 
-    const LoggerServiceProvider: Provider = {
-      provide: LoggerService,
-      useFactory: (options: LoggerOptions) => {
-        return NestLogger(options)
-      },
-      inject: [LOGGER_OPTIONS],
-    }
-
     return {
       module: LoggerModule,
-      providers: [OptionsProvider, LoggerServiceProvider],
-      exports: [LoggerServiceProvider],
+      providers: [OptionsProvider, NestLogger],
+      exports: [NestLogger],
     }
   }
 

@@ -93,7 +93,7 @@ export interface ExcelColumnOption extends Partial<Column> {
    */
   defaultValue?: CellValue
   /**
-   * 自定义配置，当前列的每个单元格都会调用一次
+   * 列配置，当前列的每个单元格都会调用一次
    */
   cellConfig?(info: {
     row: Row

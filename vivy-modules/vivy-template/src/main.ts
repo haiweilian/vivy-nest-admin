@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { ConfigService } from '@vivy-common/config'
-import { LoggerService } from '@vivy-common/logger'
+import { NestLogger } from '@vivy-common/logger'
 import { SwaggerService } from '@vivy-common/swagger'
 import { AppModule } from './app.module'
 
@@ -14,7 +14,7 @@ async function bootstrap() {
   const name = config.get<string>('app.name')
   const port = config.get<number>('app.port')
 
-  app.useLogger(app.get(LoggerService))
+  app.useLogger(app.get(NestLogger))
 
   const swagger = new SwaggerService(app, config.get('swagger'))
   swagger.setup()

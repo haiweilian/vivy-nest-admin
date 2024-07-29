@@ -31,7 +31,8 @@ import { SystemModule } from './modules/system/system.module'
     RedisModule.forRootAsync({
       useFactory(config: ConfigService) {
         return {
-          config: config.get<RedisModuleOptions['config']>('redis.defalut'),
+          type: 'single',
+          options: config.get<RedisModuleOptions['options']>('redis.defalut'),
         }
       },
       inject: [ConfigService],
@@ -51,7 +52,7 @@ import { SystemModule } from './modules/system/system.module'
     BullModule.forRootAsync({
       useFactory(config: ConfigService) {
         return {
-          redis: config.get<RedisModuleOptions['config']>('bull.redis'),
+          redis: config.get<RedisModuleOptions['options']>('bull.redis'),
         }
       },
       inject: [ConfigService],

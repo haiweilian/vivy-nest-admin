@@ -10,7 +10,7 @@ import { RpcLogService } from '../services/rpc-log.service'
 
 /**
  * 自定义操作日志记录拦截器
- * 备注：如果在分布式架构中需要整合操作日志需要全局注入此拦截器并实现服务调用
+ * 注意：使用此拦截器可在具体的项目中继承此拦截器并实现服务调用(RpcLogService)
  */
 @Injectable()
 export class LogInterceptor implements NestInterceptor {

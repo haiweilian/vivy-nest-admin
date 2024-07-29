@@ -12,12 +12,12 @@ const Center = () => {
   return (
     <Row>
       <Col span={8}>
-        <Card title="基本信息" bodyStyle={{ paddingTop: '0px' }} loading={loading}>
+        <Card title="基本信息" styles={{ body: { paddingTop: '0px' } }} loading={loading}>
           <UserInfo profile={data} />
         </Card>
       </Col>
       <Col span={15} className="ml-4">
-        <Card title="基本资料" bodyStyle={{ paddingTop: '0px' }} loading={loading}>
+        <Card title="基本资料" styles={{ body: { paddingTop: '0px' } }} loading={loading}>
           <Tabs
             defaultActiveKey="info"
             items={[
