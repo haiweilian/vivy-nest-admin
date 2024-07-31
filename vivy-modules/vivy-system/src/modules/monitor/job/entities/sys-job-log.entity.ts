@@ -5,8 +5,8 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 /**
  * 定时任务日志表
  */
-@Entity({ name: 'job_log' })
-export class JobLog extends BaseTimeEntity {
+@Entity({ name: 'sys_job_log' })
+export class SysJobLog extends BaseTimeEntity {
   @PrimaryGeneratedColumn({
     name: 'job_log_id',
     type: 'bigint',

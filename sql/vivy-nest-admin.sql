@@ -576,6 +576,63 @@ BEGIN;
 COMMIT;
 
 -- ----------------------------
+-- Table structure for sys_job
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_job`;
+CREATE TABLE `sys_job` (
+  `job_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务ID',
+  `job_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务名称',
+  `job_group` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务组名',
+  `invoke_target` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '调用目标',
+  `invoke_params` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '调用参数',
+  `cron_expression` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Cron表达式',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  `remark` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`job_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='定时任务表';
+
+-- ----------------------------
+-- Records of sys_job
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_job` VALUES (1, '无参数', '0', 'CallTask.noParams', NULL, '0 0 * * * ?', '0', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (2, '数字参数', '0', 'CallTask.numberParams', '1', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (3, '字符串参数', '0', 'CallTask.stringParams', '\'1\'', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (4, '布尔参数', '0', 'CallTask.booleanParams', 'true', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (5, '对象参数', '0', 'CallTask.objectParams', '{\"a\":1,\"b\":2}', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (6, '测试错误', '0', 'CallTask.errorParams', NULL, '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_job_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_job_log`;
+CREATE TABLE `sys_job_log` (
+  `job_log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
+  `job_id` bigint NOT NULL COMMENT '任务ID',
+  `job_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务名称',
+  `job_group` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务组名',
+  `invoke_target` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '调用目标',
+  `invoke_params` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '调用参数',
+  `invoke_message` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '调用信息',
+  `exception_message` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '异常信息',
+  `status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '状态（0成功 1失败）',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  PRIMARY KEY (`job_log_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='定时任务日志表';
+
+-- ----------------------------
+-- Records of job_log
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for gen_table
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_table`;
@@ -639,63 +696,6 @@ CREATE TABLE `gen_table_column` (
 
 -- ----------------------------
 -- Records of gen_table
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
--- Table structure for job
--- ----------------------------
-DROP TABLE IF EXISTS `job`;
-CREATE TABLE `job` (
-  `job_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务ID',
-  `job_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务名称',
-  `job_group` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务组名',
-  `invoke_target` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '调用目标',
-  `invoke_params` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '调用参数',
-  `cron_expression` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Cron表达式',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
-  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`job_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='定时任务表';
-
--- ----------------------------
--- Records of job
--- ----------------------------
-BEGIN;
-INSERT INTO `job` VALUES (1, '无参数', '0', 'CallTask.noParams', NULL, '0 0 * * * ?', '0', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `job` VALUES (2, '数字参数', '0', 'CallTask.numberParams', '1', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `job` VALUES (3, '字符串参数', '0', 'CallTask.stringParams', '\'1\'', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `job` VALUES (4, '布尔参数', '0', 'CallTask.booleanParams', 'true', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `job` VALUES (5, '对象参数', '0', 'CallTask.objectParams', '{\"a\":1,\"b\":2}', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `job` VALUES (6, '测试错误', '0', 'CallTask.errorParams', NULL, '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
-COMMIT;
-
--- ----------------------------
--- Table structure for job_log
--- ----------------------------
-DROP TABLE IF EXISTS `job_log`;
-CREATE TABLE `job_log` (
-  `job_log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
-  `job_id` bigint NOT NULL COMMENT '任务ID',
-  `job_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务名称',
-  `job_group` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务组名',
-  `invoke_target` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '调用目标',
-  `invoke_params` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '调用参数',
-  `invoke_message` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '调用信息',
-  `exception_message` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '异常信息',
-  `status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '状态（0成功 1失败）',
-  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
-  PRIMARY KEY (`job_log_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='定时任务日志表';
-
--- ----------------------------
--- Records of job_log
 -- ----------------------------
 BEGIN;
 COMMIT;

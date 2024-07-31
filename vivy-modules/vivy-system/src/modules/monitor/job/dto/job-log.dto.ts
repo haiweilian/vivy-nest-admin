@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow } from 'class-validator'
-import { JobLog } from '../entities/job-log.entity'
+import { SysJobLog } from '../entities/sys-job-log.entity'
 
 /**
  * 查询任务日志
@@ -31,9 +31,9 @@ export class ListJobLogDto extends PaginateDto {
 /**
  * 添加任务日志
  */
-export class CreateJobLogDto extends OmitType(JobLog, ['jobLogId'] as const) {}
+export class CreateJobLogDto extends OmitType(SysJobLog, ['jobLogId'] as const) {}
 
 /**
  * 更新任务日志
  */
-export class UpdateJobLogDto extends OmitType(JobLog, [] as const) {}
+export class UpdateJobLogDto extends OmitType(SysJobLog, [] as const) {}

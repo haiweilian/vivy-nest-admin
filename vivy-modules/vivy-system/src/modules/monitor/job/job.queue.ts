@@ -5,7 +5,7 @@ import { BaseStatusEnums } from '@vivy-common/core'
 import { Queue } from 'bull'
 import { Repository } from 'typeorm'
 import { JOB_BULL_NAME } from '@/common/constants/bull.constants'
-import { Job } from './entities/job.entity'
+import { SysJob } from './entities/sys-job.entity'
 
 /**
  * 定时任务队列
@@ -17,8 +17,8 @@ export class JobQueue implements OnModuleInit {
     @InjectQueue(JOB_BULL_NAME)
     private queue: Queue,
 
-    @InjectRepository(Job)
-    private jobRepository: Repository<Job>
+    @InjectRepository(SysJob)
+    private jobRepository: Repository<SysJob>
   ) {}
 
   async onModuleInit() {
@@ -42,7 +42,7 @@ export class JobQueue implements OnModuleInit {
    * 执行一次
    * @param job
    */
-  async once(job: Job): Promise<void> {
+  async once(job: SysJob): Promise<void> {
     await this.queue.add(job, {
       jobId: job.jobId,
       removeOnComplete: true,
@@ -54,7 +54,7 @@ export class JobQueue implements OnModuleInit {
    * 启动定时任务
    * @param job
    */
-  async start(job: Job): Promise<void> {
+  async start(job: SysJob): Promise<void> {
     await this.queue.add(job, {
       jobId: job.jobId,
       removeOnComplete: true,
@@ -67,7 +67,7 @@ export class JobQueue implements OnModuleInit {
    * 停止定时任务
    * @param job
    */
-  async stop(job: Job): Promise<void> {
+  async stop(job: SysJob): Promise<void> {
     const jobs = await this.queue.getRepeatableJobs()
     const hasJob = jobs.find((item) => item.id === job.jobId.toString())
     if (hasJob) {

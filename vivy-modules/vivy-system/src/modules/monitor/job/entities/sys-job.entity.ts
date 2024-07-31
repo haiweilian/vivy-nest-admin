@@ -35,8 +35,8 @@ export class IsCronExpression implements ValidatorConstraintInterface {
 /**
  * 定时任务表
  */
-@Entity({ name: 'job' })
-export class Job extends BaseBusinessEntity {
+@Entity({ name: 'sys_job' })
+export class SysJob extends BaseBusinessEntity {
   @PrimaryGeneratedColumn({
     name: 'job_id',
     type: 'bigint',
