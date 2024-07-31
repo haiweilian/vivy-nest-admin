@@ -27,7 +27,7 @@ import { ConfigModule } from '@vivy-common/config'
 @Module({
   imports: [
     ConfigModule.forRoot({
-      dir: path.join(__dirname, '../config'),
+      cwd: path.join(__dirname, 'config'),
     }),
   ],
 })

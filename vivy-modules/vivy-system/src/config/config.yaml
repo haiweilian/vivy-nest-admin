@@ -3,6 +3,22 @@ app:
   port: 9200
   name: vivy-system
 
+# Logger 配置
+logger:
+  appName: ${{ app.name }}
+  logPath: ${{ PWD }}/logs
+
+# Upload 配置
+upload:
+  file:
+    path: ${{ PWD }}/uploads
+    prefix: /uploads
+
+# Security 配置
+security:
+  jwt:
+    secret: abcdefghijklmnopqrstuvwxyz
+
 # Swagger 配置
 swagger:
   enabled: true

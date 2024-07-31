@@ -69,7 +69,7 @@ export class ConfigLoader {
   private getFilesPath(): string[] {
     const filenames: string[] = []
     const env = this.options.env || process.env.NODE_ENV || 'development'
-    const dir = this.options.dir || process.cwd()
+    const dir = this.options.cwd || process.cwd()
     const extension = this.options.extension || 'yaml'
 
     filenames.push(path.join(dir, `config.${extension}`))

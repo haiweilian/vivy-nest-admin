@@ -3,10 +3,10 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis'
 import { ConfigModule, ConfigService } from '@vivy-common/config'
-import { CoreModule, TokenConstants } from '@vivy-common/core'
-import { LoggerModule, TypeORMLogger } from '@vivy-common/logger'
+import { CoreModule } from '@vivy-common/core'
+import { LoggerModule, LoggerOptions, TypeORMLogger } from '@vivy-common/logger'
 import { MybatisModule } from '@vivy-common/mybatis'
-import { SecurityModule } from '@vivy-common/security'
+import { SecurityModule, SecurityOptions } from '@vivy-common/security'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -15,7 +15,7 @@ import { AppService } from './app.service'
   imports: [
     // plugin
     ConfigModule.forRoot({
-      dir: resolve(__dirname, 'config'),
+      cwd: resolve(__dirname, 'config'),
     }),
     MybatisModule.forRoot({
       cwd: __dirname,
@@ -34,10 +34,7 @@ import { AppService } from './app.service'
       useFactory(config: ConfigService) {
         return {
           ...config.get<TypeOrmModuleOptions>('datasource.defalut'),
-          logger: new TypeORMLogger({
-            appName: config.get('app.name'),
-            logPath: resolve(__dirname, '../logs'),
-          }),
+          logger: new TypeORMLogger(config.get<LoggerOptions>('logger')),
         }
       },
       inject: [ConfigService],
@@ -47,19 +44,15 @@ import { AppService } from './app.service'
     CoreModule.forRoot(),
     LoggerModule.forRootAsync({
       useFactory(config: ConfigService) {
-        return {
-          appName: config.get('app.name'),
-          logPath: resolve(__dirname, '../logs'),
-        }
+        return config.get<LoggerOptions>('logger')
       },
       inject: [ConfigService],
     }),
     SecurityModule.forRootAsync({
-      useFactory() {
-        return {
-          secret: TokenConstants.SECRET,
-        }
+      useFactory(config: ConfigService) {
+        return config.get<SecurityOptions>('security')
       },
+      inject: [ConfigService],
     }),
   ],
   controllers: [AppController],

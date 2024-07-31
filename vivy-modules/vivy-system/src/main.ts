@@ -15,6 +15,7 @@ async function bootstrap() {
   const port = config.get<number>('app.port')
 
   app.useLogger(app.get(NestLogger))
+  app.useStaticAssets(config.get('upload.file.path'), { prefix: config.get('upload.file.prefix') })
 
   const swagger = new SwaggerService(app, config.get('swagger'))
   swagger.setup()

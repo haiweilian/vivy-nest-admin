@@ -9,7 +9,7 @@ export type MybatisParams = {
 export interface MybatisOptions {
   /**
    * 基础工作目录
-   * @default
+   * @default process.cwd()
    */
   cwd?: string
   /**

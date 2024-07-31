@@ -8,4 +8,8 @@ export default {
     changeOrigin: true,
     pathRewrite: { '^/api': '' },
   },
+  '/uploads/': {
+    target: 'http://localhost:9200',
+    changeOrigin: true,
+  },
 }

@@ -3,6 +3,16 @@ app:
   port: 9300
   name: vivy-template
 
+# Logger 配置
+logger:
+  appName: ${{ app.name }}
+  logPath: ${{ PWD }}/logs
+
+# Security 配置
+security:
+  jwt:
+    secret: abcdefghijklmnopqrstuvwxyz
+
 # Swagger 配置
 swagger:
   enabled: true

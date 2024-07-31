@@ -24,8 +24,7 @@ export class NestLogger extends WinstonLogger {
         transports: [
           TransportBuilder.buildConsoleTransportInstance(),
           TransportBuilder.buildDailyRotateFileTransportInstance({
-            level: 'warn',
-            filename: resolve(options.logPath, `${options.appName}-sql-%DATE%.log`),
+            filename: resolve(options.logPath, `${options.appName}-%DATE%.log`),
           }),
         ],
       })

@@ -37,7 +37,7 @@ export class SecurityModule {
             const options: SecurityOptions = await OptionsProvider.useFactory(...args)
             return {
               global: true,
-              secret: options.secret,
+              ...options.jwt,
             }
           },
           inject: OptionsProvider.inject,

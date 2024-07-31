@@ -1,7 +1,8 @@
 import { FactoryProvider } from '@nestjs/common'
+import { JwtModuleOptions } from '@nestjs/jwt'
 
 export interface SecurityOptions {
-  secret?: string
+  jwt?: JwtModuleOptions
 }
 
 export interface SecurityAsyncOptions {
