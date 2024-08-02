@@ -9,7 +9,7 @@ import {
 } from '@ant-design/pro-components'
 import { useModel, useRequest } from '@umijs/max'
 import { useRef } from 'react'
-import { addDept, updateDept, infoDept, optionDeptTree } from '@/apis/system/dept'
+import { addDept, updateDept, infoDept, deptTreeOptions } from '@/apis/system/dept'
 import type { CreateDeptParams, DeptTreeResult } from '@/apis/system/dept'
 
 interface UpdateFormProps extends DrawerFormProps {
@@ -74,7 +74,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       <ProFormTreeSelect
         name="parentId"
         label="上级部门"
-        request={optionDeptTree}
+        request={deptTreeOptions}
         fieldProps={{
           fieldNames: { label: 'deptName', value: 'deptId' },
         }}

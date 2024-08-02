@@ -216,7 +216,7 @@ export class RoleService {
    * 角色选项列表
    * @returns 角色选项列表
    */
-  async optionList(): Promise<SysRole[]> {
+  async options(): Promise<SysRole[]> {
     return this.roleRepository.find({
       select: ['roleId', 'roleName', 'roleCode'],
       order: {

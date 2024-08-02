@@ -53,8 +53,8 @@ export function infoMenu(menuId: React.Key) {
 /**
  * 查询菜单选项树
  */
-export function optionMenuTree() {
-  return request<MenuTreeResult[]>('/menu/option/tree', {
+export function menuTreeOptions() {
+  return request<MenuTreeResult[]>('/menu/tree/options', {
     method: RequestEnum.GET,
   })
 }

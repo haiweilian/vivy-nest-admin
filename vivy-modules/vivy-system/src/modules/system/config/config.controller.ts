@@ -85,13 +85,13 @@ export class ConfigController {
   }
 
   /**
-   * 参数配置详情
+   * 获取参数配置值
    * @param configKey 参数配置键名
    * @returns 参数配置键值
    */
   @Get('value/:configKey')
   @RequirePermissions('system:config:query')
-  async getConfigValueByKey(@Param('configKey') configKey: string): Promise<AjaxResult> {
-    return AjaxResult.success(await this.configService.getConfigValueByKey(configKey))
+  async value(@Param('configKey') configKey: string): Promise<AjaxResult> {
+    return AjaxResult.success(await this.configService.value(configKey))
   }
 }

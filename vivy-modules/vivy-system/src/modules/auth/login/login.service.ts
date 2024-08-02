@@ -98,7 +98,7 @@ export class LoginService {
    * @returns true 启用 / false 不启用
    */
   async isEnableImageCaptcha() {
-    const enableCaptcha = await this.configService.getConfigValueByKey('sys.account.enableCaptcha')
+    const enableCaptcha = await this.configService.value('sys.account.enableCaptcha')
     if (enableCaptcha && enableCaptcha === 'true') {
       return true
     }

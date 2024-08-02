@@ -1,7 +1,7 @@
 import { useMap } from 'ahooks'
 import { isArray } from 'lodash-es'
 import { useCallback } from 'react'
-import { optionDictData } from '@/apis/system/dict-data'
+import { dictDataOptions } from '@/apis/system/dict-data'
 import type { DictDataModel } from '@/apis/system/dict-data'
 import { isNullOrUndef } from '@/utils/is'
 
@@ -23,7 +23,7 @@ export const convertKeys = (keys?: DictKeys) => {
 }
 
 export const getDictData = async (type: DictType) => {
-  return optionDictData(type).then((data) => {
+  return dictDataOptions(type).then((data) => {
     return (data as DictData[]).map((item) => {
       item.label = item.dictLabel
       item.value = item.dictValue

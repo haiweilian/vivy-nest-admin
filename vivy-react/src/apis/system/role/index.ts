@@ -54,8 +54,8 @@ export function infoRole(roleId: React.Key) {
 /**
  * 查询角色选项列表
  */
-export function optionRole() {
-  return request<RoleModel[]>('/role/option/list', {
+export function roleOptions() {
+  return request<RoleModel[]>('/role/options', {
     method: RequestEnum.GET,
   })
 }

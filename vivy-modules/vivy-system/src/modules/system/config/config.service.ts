@@ -74,11 +74,11 @@ export class ConfigService {
   }
 
   /**
-   * 参数配置详情
+   * 获取参数配置值
    * @param configKey 参数配置键名
    * @returns 参数配置键值
    */
-  async getConfigValueByKey(configKey: string): Promise<string> {
+  async value(configKey: string): Promise<string> {
     const info = await this.configRepository.findOneBy({
       configKey,
       status: BaseStatusEnums.NORMAL,

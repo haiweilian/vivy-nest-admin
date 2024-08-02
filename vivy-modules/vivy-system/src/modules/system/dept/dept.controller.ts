@@ -90,8 +90,8 @@ export class DeptController {
    * 查询部门选项树
    * @returns 部门选项树
    */
-  @Get('option/tree')
-  async optionTree(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.deptService.optionTree())
+  @Get('tree/options')
+  async treeOptions(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.deptService.treeOptions())
   }
 }

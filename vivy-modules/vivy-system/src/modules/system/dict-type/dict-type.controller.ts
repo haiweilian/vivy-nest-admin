@@ -96,8 +96,8 @@ export class DictTypeController {
    * 字典类型选项列表
    * @returns 字典类型选项列表
    */
-  @Get('option/list')
-  async optionList(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.dictTypeService.optionList())
+  @Get('options')
+  async options(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.dictTypeService.options())
   }
 }

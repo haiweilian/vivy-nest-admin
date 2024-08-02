@@ -99,8 +99,8 @@ export class RoleController {
    * 角色选项列表
    * @returns 角色选项列表
    */
-  @Get('option/list')
-  async optionList(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.roleService.optionList())
+  @Get('options')
+  async options(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.roleService.options())
   }
 }

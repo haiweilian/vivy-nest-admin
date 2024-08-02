@@ -54,8 +54,8 @@ export function infoDictType(postId: React.Key) {
 /**
  * 查询字典类型选项列表
  */
-export function optionDictType() {
-  return request<DictTypeModel[]>('/dict/type/option/list', {
+export function dictTypeOptions() {
+  return request<DictTypeModel[]>('/dict/type/options', {
     method: RequestEnum.GET,
   })
 }

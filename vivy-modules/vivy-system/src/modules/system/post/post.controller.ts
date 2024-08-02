@@ -96,8 +96,8 @@ export class PostController {
    * 岗位选项列表
    * @returns 岗位选项列表
    */
-  @Get('option/list')
-  async optionList(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.postService.optionList())
+  @Get('options')
+  async options(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.postService.options())
   }
 }

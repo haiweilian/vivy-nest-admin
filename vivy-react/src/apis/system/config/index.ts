@@ -54,7 +54,7 @@ export function infoConfig(configId: React.Key) {
 /**
  * 查询参数配置键值
  */
-export function getConfigValueByKey(configKey: React.Key) {
+export function configValue(configKey: React.Key) {
   return request<string>(`/config/value/${configKey}`, {
     method: RequestEnum.GET,
   })

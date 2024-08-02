@@ -322,7 +322,7 @@ export class UserService {
    */
   async import(buffer: Buffer) {
     const data = await this.excelService.import(SysUser, buffer)
-    const password = await this.configService.getConfigValueByKey('sys.user.initPassword')
+    const password = await this.configService.value('sys.user.initPassword')
 
     // TODO: Data validation
     for (const user of data) {
