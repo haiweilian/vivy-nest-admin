@@ -206,7 +206,8 @@ INSERT INTO `sys_menu` VALUES (110, 2, '在线用户', 'C', 1,  '0', 'online',  
 INSERT INTO `sys_menu` VALUES (111, 2, '定时任务', 'C', 2,  '0', 'job',        'monitor/job/index',          NULL, 'monitor:job:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (112, 2, '任务日志', 'C', 3,  '0', 'job/log',    'monitor/job/log/index',      NULL, 'monitor:job:list',    NULL, '1', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (113, 3, '代码生成', 'C', 1,  '0', 'gen',        'tool/gen/index',             NULL, 'tool:gen:list',       NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (114, 3, '系统接口', 'C', 2,  '0', 'swagger',    'tool/swagger/index',         NULL, 'tool:swagger:list',   NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (114, 3, '文件上传', 'C', 2,  '0', 'file',       'tool/file/index',            NULL, 'tool:file:list',      NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (115, 3, '系统接口', 'C', 3,  '0', 'swagger',    'tool/swagger/index',         NULL, 'tool:swagger:list',   NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
 
 -- 三级菜单
 INSERT INTO `sys_menu` VALUES (500, 109, '登录日志', 'C', 1, '0', 'login',     'system/log/login/index',     NULL, 'system:loginlog:list', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
@@ -630,6 +631,33 @@ CREATE TABLE `sys_job_log` (
 -- Records of job_log
 -- ----------------------------
 BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_file
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_file`;
+CREATE TABLE `sys_file` (
+  `file_id` bigint NOT NULL AUTO_INCREMENT COMMENT '文件ID',
+  `file_use` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件用途',
+  `file_url` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件路径',
+  `file_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件名称',
+  `file_original_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件原始名称',
+  `file_size` bigint NOT NULL COMMENT '文件大小',
+  `file_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件类型',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  PRIMARY KEY (`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文件表';
+
+-- ----------------------------
+-- Records of sys_file
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_file` VALUES (1, '系统', '/uploads/avatar/admin.png', 'admin.png', 'admin.png',  30379, 'image/png', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_file` VALUES (2, '系统', '/uploads/avatar/test.png',  'admin.png', 'admin.png',  30379, 'image/png', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------

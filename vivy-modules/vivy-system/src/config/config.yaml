@@ -13,6 +13,7 @@ upload:
   file:
     path: ${{ PWD }}/uploads
     prefix: /uploads
+    # domain: http://localhost:${{ app.port }}
 
 # Security 配置
 security:

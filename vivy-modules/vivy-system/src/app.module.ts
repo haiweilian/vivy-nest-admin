@@ -14,6 +14,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { CommonModule } from './common/common.module'
 import { AuthModule } from './modules/auth/auth.module'
+import { FileModule } from './modules/file/file.module'
 import { GenModule } from './modules/gen/gen.module'
 import { MonitorModule } from './modules/monitor/monitor.module'
 import { SystemModule } from './modules/system/system.module'
@@ -72,6 +73,7 @@ import { SystemModule } from './modules/system/system.module'
 
     // modules
     GenModule,
+    FileModule,
     AuthModule,
     SystemModule,
     MonitorModule,

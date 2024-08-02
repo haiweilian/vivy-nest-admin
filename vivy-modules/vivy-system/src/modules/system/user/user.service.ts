@@ -328,6 +328,7 @@ export class UserService {
     for (const user of data) {
       user.password = await PasswordUtils.create(password)
     }
+
     await this.userRepository.insert(data)
   }
 }
