@@ -40,8 +40,6 @@ export class ProfileService {
     const token = this.tokenService.getToken()
     const loginUser = await this.tokenService.getLoginUser(token)
     const user = loginUser.sysUser
-    user.email = profile.email
-    user.phonenumber = profile.phonenumber
 
     if (!(await this.userService.checkUserEmailUnique(user))) {
       throw new ServiceException(`修改用户${user.userName}失败，邮箱账号已存在`)
@@ -86,6 +84,24 @@ export class ProfileService {
 
     // 更新缓存用户信息
     Object.assign(loginUser.sysUser, { password: newPassword })
+    await this.tokenService.setLoginUser(loginUser)
+  }
+
+  /**
+   * 修改个人头像
+   * @param avatar 头像地址
+   */
+  async updateAvatar(avatar: string): Promise<void> {
+    const token = this.tokenService.getToken()
+    const loginUser = await this.tokenService.getLoginUser(token)
+
+    await this.userService.updateBasicInfo({
+      avatar,
+      userId: loginUser.userId,
+    })
+
+    // 更新缓存用户信息
+    Object.assign(loginUser.sysUser, { avatar })
     await this.tokenService.setLoginUser(loginUser)
   }
 }

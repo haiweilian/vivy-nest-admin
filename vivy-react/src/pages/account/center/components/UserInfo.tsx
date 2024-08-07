@@ -1,11 +1,12 @@
-import { List, Avatar } from 'antd'
+import { List } from 'antd'
 import type { ProfileInfoResult } from '@/apis/system/profile/model'
+import UpdateAvatar from './UpdateAvatar'
 
 const UserInfo: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => {
   return (
     <List>
       <List.Item className="!justify-center">
-        <Avatar size={100} src={profile.avatar} />
+        <UpdateAvatar profile={profile} />
       </List.Item>
       <List.Item>
         <span>用户名称</span>

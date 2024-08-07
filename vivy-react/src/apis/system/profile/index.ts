@@ -31,3 +31,13 @@ export function updatePassword(params: UpdatePasswordParams) {
     data: params,
   })
 }
+
+/**
+ * 修改个人头像
+ */
+export function updateAvatar(params: FormData) {
+  return request<string>('/profile/updateAvatar', {
+    method: RequestEnum.PUT,
+    data: params,
+  })
+}

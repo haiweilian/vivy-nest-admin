@@ -1,2 +1,3 @@
 uploads/*
-!uploads/avatar
+!uploads/avatar/test.png
+!uploads/avatar/admin.png
