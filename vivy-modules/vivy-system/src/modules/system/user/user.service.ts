@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
-import { ServiceException, PasswordUtils, IdentityUtils, SysLoginUser, UserConstants } from '@vivy-common/core'
+import { ServiceException, PasswordUtils, IdentityUtils, UserConstants } from '@vivy-common/core'
 import { ExcelService } from '@vivy-common/excel'
 import { isNotEmpty, isEmpty, isArray, isObject } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
@@ -95,10 +95,11 @@ export class UserService {
 
   /**
    * 更新用户
+   * @param userId 用户ID
    * @param user 用户信息
    */
-  async update(user: UpdateUserDto): Promise<void> {
-    const { roleIds, postIds, userId, ...userInfo } = user
+  async update(userId: number, user: UpdateUserDto): Promise<void> {
+    const { roleIds, postIds, ...userInfo } = user
 
     await this.dataSource.transaction(async (manager) => {
       // 修改用户信息
@@ -155,10 +156,11 @@ export class UserService {
 
   /**
    * 更新用户基本信息
+   * @param userId 用户ID
    * @param user 用户信息
    */
-  async updateBasicInfo(user: Partial<SysUser>): Promise<void> {
-    await this.userRepository.update(user.userId, user)
+  async updateBasicInfo(userId: number, user: Partial<SysUser>): Promise<void> {
+    await this.userRepository.update(userId, user)
   }
 
   /**
@@ -187,12 +189,11 @@ export class UserService {
 
   /**
    * 校验用户名称是否唯一
-   * @param user 用户信息
+   * @param userName 用户名称
+   * @param userId 用户ID
    * @returns true 唯一 / false 不唯一
    */
-  async checkUserNameUnique(user: Partial<SysUser>): Promise<boolean> {
-    const { userId, userName } = user
-
+  async checkUserNameUnique(userName: string, userId?: number): Promise<boolean> {
     const info = await this.userRepository.findOneBy({ userName })
     if (info && info.userId !== userId) {
       return false
@@ -203,11 +204,11 @@ export class UserService {
 
   /**
    * 校验用户邮箱是否唯一
-   * @param user 用户信息
+   * @param email 用户邮箱
+   * @param userId 用户ID
    * @returns true 唯一 / false 不唯一
    */
-  async checkUserEmailUnique(user: Partial<SysUser>): Promise<boolean> {
-    const { userId, email } = user
+  async checkUserEmailUnique(email: string, userId?: number): Promise<boolean> {
     if (!email) return true
 
     const info = await this.userRepository.findOneBy({ email })
@@ -220,11 +221,11 @@ export class UserService {
 
   /**
    * 校验用户手机号是否唯一
-   * @param user 用户信息
+   * @param phonenumber 用户手机号
+   * @param userId 用户ID
    * @returns true 唯一 / false 不唯一
    */
-  async checkUserPhoneUnique(user: Partial<SysUser>): Promise<boolean> {
-    const { userId, phonenumber } = user
+  async checkUserPhoneUnique(phonenumber: string, userId?: number): Promise<boolean> {
     if (!phonenumber) return true
 
     const info = await this.userRepository.findOneBy({ phonenumber })
@@ -248,25 +249,6 @@ export class UserService {
         userName,
       })
       .getOne()
-  }
-
-  /**
-   * 根据用户名查询登录信息
-   * @param userName 用户名称
-   * @returns 登录信息
-   */
-  async selectLoginByUserName(userName: string): Promise<SysLoginUser> {
-    const sysUser = await this.selectUserByUserName(userName)
-    if (isEmpty(sysUser)) {
-      return null
-    }
-
-    const loginUser = new SysLoginUser()
-    loginUser.sysUser = sysUser
-    loginUser.roles = await this.getRolePermission(sysUser.userId)
-    loginUser.permissions = await this.getMenuPermission(sysUser.userId)
-
-    return loginUser
   }
 
   /**

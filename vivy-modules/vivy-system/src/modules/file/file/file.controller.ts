@@ -20,12 +20,12 @@ import { ListFileDto, CreateFileDto, UpdateFileDto, UploadConfigDto, UploadsConf
 import { FileService } from './file.service'
 
 /**
- * 文件
+ * 文件管理
  * @author vivy
  */
-@ApiTags('文件')
+@ApiTags('文件管理')
 @ApiBearerAuth()
-@Controller('file')
+@Controller('files')
 export class FileController {
   constructor(private fileService: FileService) {}
 
@@ -34,7 +34,7 @@ export class FileController {
    * @param file 文件信息
    * @returns 文件列表
    */
-  @Get('list')
+  @Get()
   async list(@Query() file: ListFileDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.fileService.list(file))
   }
@@ -43,30 +43,40 @@ export class FileController {
    * 添加文件
    * @param file 文件信息
    */
-  @Post('add')
-  @Log({ title: '文件', operType: OperType.INSERT })
+  @Post()
+  @Log({ title: '文件管理', operType: OperType.INSERT })
   async add(@Body() file: CreateFileDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.fileService.add(file))
   }
 
   /**
    * 更新文件
+   * @param fileId 文件ID
    * @param file 文件信息
    */
-  @Put('update')
-  @Log({ title: '文件', operType: OperType.UPDATE })
-  async update(@Body() file: UpdateFileDto): Promise<AjaxResult> {
-    return AjaxResult.success(await this.fileService.update(file))
+  @Put(':fileId')
+  @Log({ title: '文件管理', operType: OperType.UPDATE })
+  async update(@Param('fileId') fileId: number, @Body() file: UpdateFileDto): Promise<AjaxResult> {
+    return AjaxResult.success(await this.fileService.update(fileId, file))
   }
 
   /**
    * 删除文件
    * @param fileIds 文件ID
    */
-  @Delete('delete/:fileIds')
-  @Log({ title: '文件', operType: OperType.DELETE })
-  async delete(@Param('fileIds', ParseArrayPipe) fileIds: number[]): Promise<AjaxResult> {
+  @Delete(':fileIds')
+  @Log({ title: '文件管理', operType: OperType.DELETE })
+  async delete(@Param('fileIds', new ParseArrayPipe({ items: Number })) fileIds: number[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.fileService.delete(fileIds))
+  }
+
+  /**
+   * 文件用途选项
+   * @returns 文件用途选项列表
+   */
+  @Get('useOptions')
+  async useOptions(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.fileService.useOptions())
   }
 
   /**
@@ -74,18 +84,9 @@ export class FileController {
    * @param fileId 文件ID
    * @returns 文件详情
    */
-  @Get('info/:fileId')
+  @Get(':fileId')
   async info(@Param('fileId') fileId: number): Promise<AjaxResult> {
     return AjaxResult.success(await this.fileService.info(fileId))
-  }
-
-  /**
-   * 文件用途选项
-   * @returns 文件用途选项列表
-   */
-  @Get('use/options')
-  async useOptions(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.fileService.useOptions())
   }
 
   /**

@@ -7,7 +7,7 @@ export * from './model'
  * 查询个人信息
  */
 export function getProfile() {
-  return request<ProfileInfoResult>('/profile', {
+  return request<ProfileInfoResult>(`/profile`, {
     method: RequestEnum.GET,
   })
 }
@@ -16,7 +16,7 @@ export function getProfile() {
  * 修改个人信息
  */
 export function updateProfile(params: UpdateProfileParams) {
-  return request('/profile/updateProfile', {
+  return request(`/profile`, {
     method: RequestEnum.PUT,
     data: params,
   })
@@ -26,7 +26,7 @@ export function updateProfile(params: UpdateProfileParams) {
  * 修改个人密码
  */
 export function updatePassword(params: UpdatePasswordParams) {
-  return request('/profile/updatePassword', {
+  return request(`/profile/password`, {
     method: RequestEnum.PUT,
     data: params,
   })
@@ -36,8 +36,8 @@ export function updatePassword(params: UpdatePasswordParams) {
  * 修改个人头像
  */
 export function updateAvatar(params: FormData) {
-  return request<string>('/profile/updateAvatar', {
-    method: RequestEnum.PUT,
+  return request<string>(`/profile/avatar`, {
+    method: RequestEnum.POST,
     data: params,
   })
 }

@@ -3,8 +3,7 @@ import type { Settings as LayoutSettings, ProLayoutProps } from '@ant-design/pro
 import { history } from '@umijs/max'
 import type { RuntimeConfig, RunTimeLayoutConfig, RequestConfig } from '@umijs/max'
 import { message as Message, Modal, Tooltip } from 'antd'
-import { getLoginUserInfo } from '@/apis/auth/login'
-import { getUserRouters } from '@/apis/system/menu'
+import { getUserInfo, getUserRouters } from '@/apis/auth/login'
 import { PageEnum } from '@/enums/pageEnum'
 import { AvatarName, AvatarDropdown } from '@/layouts/default'
 import { getToken, removeToken } from '@/utils/auth'
@@ -37,7 +36,7 @@ export async function getInitialState(): Promise<InitialState> {
   const defaultSettings = getThemeSetting()
   const fetchUserInfo = async () => {
     try {
-      const { roles, permissions, sysUser } = await getLoginUserInfo()
+      const { roles, permissions, sysUser } = await getUserInfo()
       return {
         roles,
         permissions,

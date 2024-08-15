@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult } from '@vivy-common/core'
+import { AjaxResult, UserId } from '@vivy-common/core'
 import { Public, TokenService } from '@vivy-common/security'
 import { LoginType } from '@/common/enums/login-type.enum'
 import { LoginDto } from './dto/login.dto'
@@ -84,13 +84,22 @@ export class LoginController {
   }
 
   /**
-   * 根据 Token 获取缓存的用户信息
+   * 查询用户缓存信息
    */
-  @Get('getLoginUserInfo')
-  async getLoginUserInfo(): Promise<AjaxResult> {
+  @Get('userInfo')
+  async getUserInfo(): Promise<AjaxResult> {
     const token = this.tokenService.getToken()
     const loginUser = await this.tokenService.getLoginUser(token)
-    delete loginUser?.sysUser?.password
     return AjaxResult.success(loginUser)
+  }
+
+  /**
+   * 查询用户路由信息
+   * @returns 用户路由信息
+   */
+  @Get('userRouters')
+  async getUserRouters(@UserId() userId: number): Promise<AjaxResult> {
+    const routers = await this.loginService.getUserRouters(userId)
+    return AjaxResult.success(routers)
   }
 }

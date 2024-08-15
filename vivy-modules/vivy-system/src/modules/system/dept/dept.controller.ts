@@ -12,7 +12,7 @@ import { CreateDeptDto, UpdateDeptDto } from './dto/dept.dto'
  */
 @ApiTags('部门管理')
 @ApiBearerAuth()
-@Controller('dept')
+@Controller('depts')
 export class DeptController {
   constructor(
     private deptService: DeptService,
@@ -32,7 +32,7 @@ export class DeptController {
    * 添加部门
    * @param dept 部门信息
    */
-  @Post('add')
+  @Post()
   @Log({ title: '部门管理', operType: OperType.INSERT })
   @RequirePermissions('system:dept:add')
   async add(@Body() dept: CreateDeptDto): Promise<AjaxResult> {
@@ -42,25 +42,26 @@ export class DeptController {
 
   /**
    * 更新部门
+   * @param deptId 部门ID
    * @param dept 部门信息
    */
   @Put('update')
   @Log({ title: '部门管理', operType: OperType.UPDATE })
   @RequirePermissions('system:dept:update')
-  async update(@Body() dept: UpdateDeptDto): Promise<AjaxResult> {
-    if (dept.deptId === dept.parentId) {
+  async update(@Param('deptId') deptId: number, @Body() dept: UpdateDeptDto): Promise<AjaxResult> {
+    if (deptId === dept.parentId) {
       return AjaxResult.error(`修改部门${dept.deptName}失败，上级部门不能是自己`)
     }
 
     dept.updateBy = this.securityContext.getUserName()
-    return AjaxResult.success(await this.deptService.update(dept))
+    return AjaxResult.success(await this.deptService.update(deptId, dept))
   }
 
   /**
    * 删除部门
    * @param deptId 部门ID
    */
-  @Delete('delete/:deptId')
+  @Delete(':deptId')
   @Log({ title: '部门管理', operType: OperType.DELETE })
   @RequirePermissions('system:dept:delete')
   async delete(@Param('deptId') deptId: number): Promise<AjaxResult> {
@@ -76,22 +77,22 @@ export class DeptController {
   }
 
   /**
+   * 查询部门选项树
+   * @returns 部门选项树
+   */
+  @Get('treeOptions')
+  async treeOptions(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.deptService.treeOptions())
+  }
+
+  /**
    * 部门详情
    * @param deptId 部门ID
    * @returns 部门详情
    */
-  @Get('info/:deptId')
+  @Get(':deptId')
   @RequirePermissions('system:dept:query')
   async info(@Param('deptId') deptId: number): Promise<AjaxResult> {
     return AjaxResult.success(await this.deptService.info(deptId))
-  }
-
-  /**
-   * 查询部门选项树
-   * @returns 部门选项树
-   */
-  @Get('tree/options')
-  async treeOptions(): Promise<AjaxResult> {
-    return AjaxResult.success(await this.deptService.treeOptions())
   }
 }

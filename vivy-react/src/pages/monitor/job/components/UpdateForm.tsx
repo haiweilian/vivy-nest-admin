@@ -46,10 +46,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateJobParams) => {
     if (record) {
-      await updateJob({
-        ...values,
-        jobId: record.jobId,
-      })
+      await updateJob(record.jobId, values)
     } else {
       await addJob(values)
     }

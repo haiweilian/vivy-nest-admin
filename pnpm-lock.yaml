@@ -292,6 +292,9 @@ importers:
       handlebars:
         specifier: ^4.7.8
         version: 4.7.8
+      pluralize:
+        specifier: ^8.0.0
+        version: 8.0.0
       svg-captcha:
         specifier: ^1.4.0
         version: 1.4.0
@@ -15230,7 +15233,6 @@ packages:
   /pluralize@8.0.0:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
-    dev: true
 
   /point-in-polygon@1.1.0:
     resolution: {integrity: sha512-3ojrFwjnnw8Q9242TzgXuTD+eKiutbzyslcq1ydfu82Db2y+Ogbmyrkpv0Hgj31qwT3lbS9+QAAO/pIQM35XRw==}

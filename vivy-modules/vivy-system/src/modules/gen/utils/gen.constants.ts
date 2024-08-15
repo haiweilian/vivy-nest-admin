@@ -105,5 +105,5 @@ export class GenConstants {
   static QUERY_EQ = 'EQ'
 
   /** 需要 */
-  static REQUIRE = '0'
+  static REQUIRE = '1'
 }

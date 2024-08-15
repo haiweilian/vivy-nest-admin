@@ -26,7 +26,7 @@ const Config = () => {
    * 删除参数配置
    * @param configIds 参数配置ID
    */
-  const handleDelete = async (configIds: React.Key) => {
+  const handleDelete = async (configIds: number | string) => {
     await deleteConfig(configIds)
     setSelectedRowKeys([])
     actionRef.current?.reload()

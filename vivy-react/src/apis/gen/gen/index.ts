@@ -27,7 +27,7 @@ export function updateGenTable(params: UpdateGenParams) {
  * 删除代码生成表
  */
 export function deleteGenTable(tableIds: React.Key) {
-  return request(`/gen/delete/${tableIds}`, {
+  return request(`/gen/${tableIds}`, {
     method: RequestEnum.DELETE,
   })
 }
@@ -36,7 +36,7 @@ export function deleteGenTable(tableIds: React.Key) {
  * 查询代码生成表详情
  */
 export function infoGenTable(tableId: React.Key) {
-  return request<GenTableModel>(`/gen/info/${tableId}`, {
+  return request<GenTableModel>(`/gen/${tableId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -45,7 +45,7 @@ export function infoGenTable(tableId: React.Key) {
  * 查询数据库表列表
  */
 export function listDbTable(params: ListGenParams) {
-  return request<GenTableModel[]>('/gen/dblist', {
+  return request<GenTableModel[]>('/gen/db/list', {
     method: RequestEnum.GET,
     params,
   })

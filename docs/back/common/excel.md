@@ -145,9 +145,9 @@ export class SysUser {
     name: '用户性别',
     dictType: 'sys_user_sex',
     dictOptions: [
-      { label: '男', value: '0' },
-      { label: '女', value: '1' },
-      { label: '其他', value: '2' },
+      { label: '男', value: '1' },
+      { label: '女', value: '2' },
+      { label: '保密', value: '3' },
     ],
   })
   sex: string

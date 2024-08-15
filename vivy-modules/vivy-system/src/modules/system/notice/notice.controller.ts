@@ -12,7 +12,7 @@ import { NoticeService } from './notice.service'
  */
 @ApiTags('通知公告')
 @ApiBearerAuth()
-@Controller('notice')
+@Controller('notices')
 export class NoticeController {
   constructor(
     private noticeService: NoticeService,
@@ -24,7 +24,7 @@ export class NoticeController {
    * @param notice 通知公告信息
    * @returns 通知公告列表
    */
-  @Get('list')
+  @Get()
   @RequirePermissions('system:notice:list')
   async list(@Query() notice: ListNoticeDto): Promise<AjaxResult> {
     return AjaxResult.success(await this.noticeService.list(notice))
@@ -34,7 +34,7 @@ export class NoticeController {
    * 添加通知公告
    * @param notice 通知公告信息
    */
-  @Post('add')
+  @Post()
   @Log({ title: '通知公告', operType: OperType.INSERT })
   @RequirePermissions('system:notice:add')
   async add(@Body() notice: CreateNoticeDto): Promise<AjaxResult> {
@@ -44,24 +44,25 @@ export class NoticeController {
 
   /**
    * 更新通知公告
+   * @param noticeId 通知公告ID
    * @param notice 通知公告信息
    */
-  @Put('update')
+  @Put(':noticeId')
   @Log({ title: '通知公告', operType: OperType.UPDATE })
   @RequirePermissions('system:notice:update')
-  async update(@Body() notice: UpdateNoticeDto): Promise<AjaxResult> {
+  async update(@Param('noticeId') noticeId: number, @Body() notice: UpdateNoticeDto): Promise<AjaxResult> {
     notice.updateBy = this.securityContext.getUserName()
-    return AjaxResult.success(await this.noticeService.update(notice))
+    return AjaxResult.success(await this.noticeService.update(noticeId, notice))
   }
 
   /**
    * 删除通知公告
    * @param noticeIds 通知公告ID
    */
-  @Delete('delete/:noticeIds')
+  @Delete(':noticeIds')
   @Log({ title: '通知公告', operType: OperType.DELETE })
   @RequirePermissions('system:notice:delete')
-  async delete(@Param('noticeIds', ParseArrayPipe) noticeIds: number[]): Promise<AjaxResult> {
+  async delete(@Param('noticeIds', new ParseArrayPipe({ items: Number })) noticeIds: number[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.noticeService.delete(noticeIds))
   }
 
@@ -70,7 +71,7 @@ export class NoticeController {
    * @param noticeId 通知公告ID
    * @returns 通知公告详情
    */
-  @Get('info/:noticeId')
+  @Get(':noticeId')
   @RequirePermissions('system:notice:query')
   async info(@Param('noticeId') noticeId: number): Promise<AjaxResult> {
     return AjaxResult.success(await this.noticeService.info(noticeId))

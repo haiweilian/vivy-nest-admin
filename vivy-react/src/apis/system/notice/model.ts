@@ -37,4 +37,4 @@ export type CreateNoticeParams = Omit<NoticeModel, 'noticeId'>
 /**
  * 更新通知公告
  */
-export type UpdateNoticeParams = NoticeModel
+export type UpdateNoticeParams = Omit<NoticeModel, 'noticeId'>

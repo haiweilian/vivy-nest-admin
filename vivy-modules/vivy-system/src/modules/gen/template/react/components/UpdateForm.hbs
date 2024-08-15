@@ -54,10 +54,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: Create{{businessNamePascalCase}}Params) => {
     if (record) {
-      await update{{businessNamePascalCase}}({
-        ...values,
-        {{pkColumn.fieldName}}: record.{{pkColumn.fieldName}},
-      })
+      await update{{businessNamePascalCase}}(record.{{pkColumn.fieldName}}, values)
     } else {
       await add{{businessNamePascalCase}}(values)
     }

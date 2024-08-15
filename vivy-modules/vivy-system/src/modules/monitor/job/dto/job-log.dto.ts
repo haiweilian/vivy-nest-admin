@@ -36,4 +36,4 @@ export class CreateJobLogDto extends OmitType(SysJobLog, ['jobLogId'] as const) 
 /**
  * 更新任务日志
  */
-export class UpdateJobLogDto extends OmitType(SysJobLog, [] as const) {}
+export class UpdateJobLogDto extends OmitType(SysJobLog, ['jobLogId'] as const) {}

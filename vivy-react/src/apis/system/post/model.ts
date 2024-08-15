@@ -40,4 +40,4 @@ export type CreatePostParams = Omit<PostModel, 'postId'>
 /**
  * 更新岗位
  */
-export type UpdatePostParams = PostModel
+export type UpdatePostParams = Omit<PostModel, 'postId'>

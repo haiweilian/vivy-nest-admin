@@ -5,13 +5,15 @@ import { Job as BullJob } from 'bull'
 import { JOB_BULL_NAME } from '@/common/constants/bull.constants'
 import { SysJobLog } from './entities/sys-job-log.entity'
 import { SysJob } from './entities/sys-job.entity'
+import { JobLogService } from './job-log.service'
 import { JobService } from './job.service'
 
 @Processor(JOB_BULL_NAME)
 export class JobProcessor {
   constructor(
     private moduleRef: ModuleRef,
-    private jobService: JobService
+    private jobService: JobService,
+    private jobLogService: JobLogService
   ) {}
 
   @Process()
@@ -37,7 +39,7 @@ export class JobProcessor {
     jobLog.invokeParams = data.invokeParams
     jobLog.invokeMessage = '执行成功'
     jobLog.status = '0'
-    await this.jobService.addJobLog(jobLog)
+    await this.jobLogService.add(jobLog)
   }
 
   @OnQueueFailed()
@@ -52,7 +54,7 @@ export class JobProcessor {
     jobLog.invokeMessage = '执行失败'
     jobLog.exceptionMessage = err instanceof HttpException ? JSON.stringify(err.getResponse()) : err.message
     jobLog.status = '1'
-    await this.jobService.addJobLog(jobLog)
+    await this.jobLogService.add(jobLog)
   }
 
   private safeParse(params: string): unknown | string {

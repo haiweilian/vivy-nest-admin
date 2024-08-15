@@ -27,7 +27,7 @@ const Job = () => {
    * 删除定时任务
    * @param jobIds 定时任务ID
    */
-  const handleDelete = async (jobIds: React.Key) => {
+  const handleDelete = async (jobIds: number | string) => {
     await deleteJob(jobIds)
     setSelectedRowKeys([])
     actionRef.current?.reload()

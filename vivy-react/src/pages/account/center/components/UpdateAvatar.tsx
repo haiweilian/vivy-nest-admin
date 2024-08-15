@@ -30,7 +30,6 @@ const UpdateAvatar: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => 
       setImage(reader.result as string)
     }
     reader.readAsDataURL(info.file.originFileObj!)
-    console.log(info.file)
   }
   const handleRotateLeft = () => {
     cropperRef.current?.cropper.rotate(-90)

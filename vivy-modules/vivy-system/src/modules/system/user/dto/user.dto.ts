@@ -19,7 +19,7 @@ export class ListUserDto extends PaginateDto {
   @Allow()
   nickName?: string
 
-  /** 用户状态（0正常 1停用） */
+  /** 用户状态（0正常 1停用 2删除） */
   @Allow()
   status?: string
 }
@@ -42,7 +42,7 @@ export class CreateUserDto extends OmitType(SysUser, ['userId'] as const) {
 /**
  * 更新用户
  */
-export class UpdateUserDto extends OmitType(SysUser, ['password']) {
+export class UpdateUserDto extends OmitType(SysUser, ['userId', 'password']) {
   /** 用户角色 */
   @IsArray()
   @IsOptional()

@@ -4,7 +4,7 @@ import { useRequest } from '@umijs/max'
 import { DefaultOptionType } from 'antd/es/select'
 import React from 'react'
 import type { GenTableColumnModel } from '@/apis/gen/gen'
-import { dictTypeOptions } from '@/apis/system/dict-type'
+import { dictTypeOptions } from '@/apis/system/dict'
 
 const tslangTypeOptions: DefaultOptionType[] = [
   { label: 'number', value: 'number' },
@@ -46,7 +46,7 @@ const htmlTypeOptions: DefaultOptionType[] = [
   { label: '富文本控件', value: 'editor' },
 ]
 
-const checkboxOptions: DefaultOptionType[] = [{ label: '', value: '0' }]
+const checkboxOptions: DefaultOptionType[] = [{ label: '', value: '1' }]
 
 interface UpdateFormColumnProps {
   value: GenTableColumnModel[]
@@ -191,7 +191,7 @@ const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) 
             list.forEach((item: any) => {
               Object.keys(item).forEach((key) => {
                 if (Array.isArray(item[key])) {
-                  item[key] = item[key][0] || '1'
+                  item[key] = item[key][0] || '0'
                 }
               })
             })

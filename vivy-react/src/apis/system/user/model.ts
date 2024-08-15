@@ -32,7 +32,7 @@ export interface UserModel {
   /** 密码 */
   password: string
 
-  /** 用户状态（0正常 1停用） */
+  /** 用户状态（0正常 1停用 2删除） */
   status: string
 }
 
@@ -60,7 +60,7 @@ export interface ListUserParams extends PaginateParams {
   /** 用户昵称 */
   nickName?: string
 
-  /** 用户状态（0正常 1停用） */
+  /** 用户状态（0正常 1停用 2删除） */
   status?: string
 }
 
@@ -72,4 +72,4 @@ export type CreateUserParams = Omit<UserModel, 'userId'>
 /**
  * 更新
  */
-export type UpdateUserParams = UserModel
+export type UpdateUserParams = Omit<UserModel, 'userId'>

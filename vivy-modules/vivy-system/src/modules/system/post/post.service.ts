@@ -57,10 +57,11 @@ export class PostService {
 
   /**
    * 更新岗位
+   * @param postId 岗位ID
    * @param post 岗位信息
    */
-  async update(post: UpdatePostDto): Promise<void> {
-    await this.postRepository.update(post.postId, post)
+  async update(postId: number, post: UpdatePostDto): Promise<void> {
+    await this.postRepository.update(postId, post)
   }
 
   /**
@@ -90,12 +91,11 @@ export class PostService {
 
   /**
    * 校验岗位名称是否唯一
-   * @param post 岗位信息
+   * @param postName 岗位名称
+   * @param postId 岗位ID
    * @returns true 唯一 / false 不唯一
    */
-  async checkPostNameUnique(post: Partial<SysPost>): Promise<boolean> {
-    const { postId, postName } = post
-
+  async checkPostNameUnique(postName: string, postId?: number): Promise<boolean> {
     const info = await this.postRepository.findOneBy({ postName })
     if (info && info.postId !== postId) {
       return false
@@ -106,12 +106,11 @@ export class PostService {
 
   /**
    * 校验岗位编码是否唯一
-   * @param post 岗位信息
+   * @param postCode 岗位编码
+   * @param postId 岗位ID
    * @returns true 唯一 / false 不唯一
    */
-  async checkPostCodeUnique(post: Partial<SysPost>): Promise<boolean> {
-    const { postId, postCode } = post
-
+  async checkPostCodeUnique(postCode: string, postId?: number): Promise<boolean> {
     const info = await this.postRepository.findOneBy({ postCode })
     if (info && info.postId !== postId) {
       return false

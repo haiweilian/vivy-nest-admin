@@ -48,10 +48,11 @@ export class NoticeService {
 
   /**
    * 更新通知公告
+   * @param noticeId 通知公告ID
    * @param notice 通知公告信息
    */
-  async update(notice: UpdateNoticeDto): Promise<void> {
-    await this.noticeRepository.update(notice.noticeId, notice)
+  async update(noticeId: number, notice: UpdateNoticeDto): Promise<void> {
+    await this.noticeRepository.update(noticeId, notice)
   }
 
   /**

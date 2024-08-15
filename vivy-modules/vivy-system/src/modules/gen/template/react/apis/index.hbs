@@ -7,7 +7,7 @@ export * from './model'
  * 查询{{functionName}}列表
  */
 export function list{{businessNamePascalCase}}(params: List{{businessNamePascalCase}}Params) {
-  return request<Pagination<{{businessNamePascalCase}}Model>>('/{{businessNameCamelcase}}/list', {
+  return request<Pagination<{{businessNamePascalCase}}Model>>(`/{{controllerName}}`, {
     method: RequestEnum.GET,
     params,
   })
@@ -17,7 +17,7 @@ export function list{{businessNamePascalCase}}(params: List{{businessNamePascalC
  * 添加{{functionName}}
  */
 export function add{{businessNamePascalCase}}(params: Create{{businessNamePascalCase}}Params) {
-  return request('/{{businessNameCamelcase}}/add', {
+  return request(`/{{controllerName}}`, {
     method: RequestEnum.POST,
     data: params,
   })
@@ -26,8 +26,8 @@ export function add{{businessNamePascalCase}}(params: Create{{businessNamePascal
 /**
  * 更新{{functionName}}
  */
-export function update{{businessNamePascalCase}}(params: Update{{businessNamePascalCase}}Params) {
-  return request('/{{businessNameCamelcase}}/update', {
+export function update{{businessNamePascalCase}}({{pkColumn.fieldName}}: number, params: Update{{businessNamePascalCase}}Params) {
+  return request(`/{{controllerName}}/${ {{~pkColumn.fieldName~}} }`, {
     method: RequestEnum.PUT,
     data: params,
   })
@@ -36,8 +36,8 @@ export function update{{businessNamePascalCase}}(params: Update{{businessNamePas
 /**
  * 删除{{functionName}}
  */
-export function delete{{businessNamePascalCase}}({{pkColumn.fieldName}}s: React.Key) {
-  return request(`/{{businessNameCamelcase}}/delete/${ {{~pkColumn.fieldName~}} s}`, {
+export function delete{{businessNamePascalCase}}({{pkColumn.fieldName}}s: number | string) {
+  return request(`/{{controllerName}}/${ {{~pkColumn.fieldName~}} s}`, {
     method: RequestEnum.DELETE,
   })
 }
@@ -45,8 +45,8 @@ export function delete{{businessNamePascalCase}}({{pkColumn.fieldName}}s: React.
 /**
  * 查询{{functionName}}详情
  */
-export function info{{businessNamePascalCase}}({{pkColumn.fieldName}}: React.Key) {
-  return request<{{businessNamePascalCase}}Model>(`/{{businessNameCamelcase}}/info/${ {{~pkColumn.fieldName~}} }`, {
+export function info{{businessNamePascalCase}}({{pkColumn.fieldName}}: number) {
+  return request<{{businessNamePascalCase}}Model>(`/{{controllerName}}/${ {{~pkColumn.fieldName~}} }`, {
     method: RequestEnum.GET,
   })
 }

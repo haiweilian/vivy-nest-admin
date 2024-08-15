@@ -15,6 +15,5 @@ export enum UserStatusEnums {
   /**
    * 删除
    */
-  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
-  DELETED = '1',
+  DELETED = '2',
 }

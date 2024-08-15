@@ -4,8 +4,8 @@ import { ProTable } from '@ant-design/pro-components'
 import { Link, useModel, Access, useAccess } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
-import { listDictType, deleteDictType } from '@/apis/system/dict-type'
-import type { DictTypeModel } from '@/apis/system/dict-type'
+import { listDictType, deleteDictType } from '@/apis/system/dict'
+import type { DictTypeModel } from '@/apis/system/dict'
 import { DictTag } from '@/components/Dict'
 import UpdateForm from './components/UpdateForm'
 
@@ -26,7 +26,7 @@ const DictType = () => {
    * 删除字典类型
    * @param dictIds 字典类型ID
    */
-  const handleDelete = async (dictIds: React.Key) => {
+  const handleDelete = async (dictIds: number | string) => {
     await deleteDictType(dictIds)
     setSelectedRowKeys([])
     actionRef.current?.reload()

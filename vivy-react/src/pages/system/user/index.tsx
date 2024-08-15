@@ -55,7 +55,7 @@ const User = () => {
    * 删除用户
    * @param userIds 用户ID
    */
-  const handleDelete = async (userIds: React.Key) => {
+  const handleDelete = async (userIds: number | string) => {
     await deleteUser(userIds)
     setSelectedRowKeys([])
     actionRef.current?.reload()

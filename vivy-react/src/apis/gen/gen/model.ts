@@ -58,25 +58,25 @@ export interface GenTableColumnModel {
   /** 列描述 */
   columnComment: string
 
-  /** 是否主键（0是 1否） */
+  /** 是否主键（0否 1是） */
   isPk?: string
 
-  /** 是否自增（0是 1否） */
+  /** 是否自增（0否 1是） */
   isIncrement?: string
 
-  /** 是否必填（0是 1否） */
+  /** 是否必填（0否 1是） */
   isRequired?: string
 
-  /** 是否为插入字段（0是 1否） */
+  /** 是否为插入字段（0否 1是） */
   isInsert?: string
 
-  /** 是否编辑字段（0是 1否） */
+  /** 是否编辑字段（0否 1是） */
   isEdit?: string
 
-  /** 是否列表字段（0是 1否） */
+  /** 是否列表字段（0否 1是） */
   isList?: string
 
-  /** 是否查询字段（0是 1否） */
+  /** 是否查询字段（0否 1是） */
   isQuery?: string
 
   /** 属性名称 */

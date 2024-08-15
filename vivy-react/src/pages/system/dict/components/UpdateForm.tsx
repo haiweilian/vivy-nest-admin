@@ -8,8 +8,8 @@ import {
 } from '@ant-design/pro-components'
 import { useModel, useRequest } from '@umijs/max'
 import { useRef } from 'react'
-import { addDictType, updateDictType, infoDictType } from '@/apis/system/dict-type'
-import type { CreateDictTypeParams, DictTypeModel } from '@/apis/system/dict-type'
+import { addDictType, updateDictType, infoDictType } from '@/apis/system/dict'
+import type { CreateDictTypeParams, DictTypeModel } from '@/apis/system/dict'
 
 interface UpdateFormProps extends DrawerFormProps {
   record?: DictTypeModel
@@ -44,10 +44,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateDictTypeParams) => {
     if (record) {
-      await updateDictType({
-        ...values,
-        dictId: record.dictId,
-      })
+      await updateDictType(record.dictId, values)
     } else {
       await addDictType(values)
     }

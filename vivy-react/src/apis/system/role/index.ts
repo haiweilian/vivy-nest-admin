@@ -7,7 +7,7 @@ export * from './model'
  * 查询角色列表
  */
 export function listRole(params: ListRoleParams) {
-  return request<Pagination<RoleModel>>('/role/list', {
+  return request<Pagination<RoleModel>>(`/roles`, {
     method: RequestEnum.GET,
     params,
   })
@@ -17,7 +17,7 @@ export function listRole(params: ListRoleParams) {
  * 添加角色
  */
 export function addRole(params: CreateRoleParams) {
-  return request('/role/add', {
+  return request(`/roles`, {
     method: RequestEnum.POST,
     data: params,
   })
@@ -26,8 +26,8 @@ export function addRole(params: CreateRoleParams) {
 /**
  * 更新角色
  */
-export function updateRole(params: UpdateRoleParams) {
-  return request('/role/update', {
+export function updateRole(roleId: number, params: UpdateRoleParams) {
+  return request(`/roles/${roleId}`, {
     method: RequestEnum.PUT,
     data: params,
   })
@@ -36,8 +36,8 @@ export function updateRole(params: UpdateRoleParams) {
 /**
  * 删除角色
  */
-export function deleteRole(roleIds: React.Key) {
-  return request(`/role/delete/${roleIds}`, {
+export function deleteRole(roleIds: number | string) {
+  return request(`/roles/${roleIds}`, {
     method: RequestEnum.DELETE,
   })
 }
@@ -45,8 +45,8 @@ export function deleteRole(roleIds: React.Key) {
 /**
  * 查询角色详情
  */
-export function infoRole(roleId: React.Key) {
-  return request<RoleInfoResult>(`/role/info/${roleId}`, {
+export function infoRole(roleId: number) {
+  return request<RoleInfoResult>(`/roles/${roleId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -55,7 +55,7 @@ export function infoRole(roleId: React.Key) {
  * 查询角色选项列表
  */
 export function roleOptions() {
-  return request<RoleModel[]>('/role/options', {
+  return request<RoleModel[]>(`/roles/options`, {
     method: RequestEnum.GET,
   })
 }

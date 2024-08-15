@@ -1,4 +1,4 @@
-import { BaseBusinessEntity, BaseStatusEnums } from '@vivy-common/core'
+import { BaseBusinessEntity, BaseIsEnums, BaseStatusEnums } from '@vivy-common/core'
 import { IsEnum, IsIn, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
@@ -126,10 +126,10 @@ export class SysMenu extends BaseBusinessEntity {
     name: 'is_visible',
     type: 'char',
     length: 1,
-    default: '0',
-    comment: '是否显示（0是 1否）',
+    default: '1',
+    comment: '是否显示（0否 1是）',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseIsEnums)
   @IsOptional()
   isVisible: string
 
@@ -137,10 +137,10 @@ export class SysMenu extends BaseBusinessEntity {
     name: 'is_link',
     type: 'char',
     length: 1,
-    default: '1',
-    comment: '是否为外链（0是 1否）',
+    default: '0',
+    comment: '是否为外链（0否 1是）',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseIsEnums)
   @IsOptional()
   isLink: string
 
@@ -148,10 +148,10 @@ export class SysMenu extends BaseBusinessEntity {
     name: 'is_frame',
     type: 'char',
     length: 1,
-    default: '1',
-    comment: '是否为内嵌（0是 1否）',
+    default: '0',
+    comment: '是否为内嵌（0否 1是）',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseIsEnums)
   @IsOptional()
   isFrame: string
 
@@ -159,10 +159,10 @@ export class SysMenu extends BaseBusinessEntity {
     name: 'is_cache',
     type: 'char',
     length: 1,
-    default: '1',
-    comment: '是否缓存（0是 1否）',
+    default: '0',
+    comment: '是否缓存（0否 1是）',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseIsEnums)
   @IsOptional()
   isCache: string
 }
