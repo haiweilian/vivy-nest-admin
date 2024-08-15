@@ -60,11 +60,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateUserParams) => {
     if (record) {
-      await updateUser({
-        ...values,
-        userId: record.userId,
-        userName: record.userName,
-      })
+      await updateUser(record.userId, values)
     } else {
       await addUser(values)
     }
@@ -88,12 +84,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       }}
     >
       <ProFormText name="nickName" label="用户昵称" rules={[{ required: true, max: 50 }]} />
-      {record ? null : (
-        <>
-          <ProFormText name="userName" label="用户名称" rules={[{ required: true, max: 50 }]} />
-          <ProFormText.Password name="password" label="用户密码" rules={[{ required: true, max: 36 }]} />
-        </>
-      )}
+      <ProFormText name="userName" label="用户名称" rules={[{ required: true, max: 50 }]} />
+      {record ? null : <ProFormText.Password name="password" label="用户密码" rules={[{ required: true, max: 36 }]} />}
       <ProFormTreeSelect
         name="deptId"
         label="归属部门"

@@ -59,10 +59,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateMenuParams) => {
     if (record) {
-      await updateMenu({
-        ...values,
-        menuId: record.menuId,
-      })
+      await updateMenu(record.menuId, values)
     } else {
       await addMenu(values)
     }
@@ -168,7 +165,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 name="isVisible"
                 label="是否显示"
                 tooltip="选择隐藏则路由将不会出现在侧边栏，但仍然可以访问"
-                initialValue={'0'}
+                initialValue={'1'}
                 fieldProps={{ options: toSelect(sysYesNo) }}
               />
             ) : null}
@@ -178,7 +175,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 name="isLink"
                 label="是否外链"
                 tooltip="选择是外链则路由地址需要以`http(s)://`开头"
-                initialValue={'1'}
+                initialValue={'0'}
                 fieldProps={{ options: toSelect(sysYesNo) }}
               />
             ) : null}
@@ -188,7 +185,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 name="isFrame"
                 label="是否内嵌"
                 tooltip="选择是内嵌则路由地址需要以`http(s)://`开头"
-                initialValue={'1'}
+                initialValue={'0'}
                 fieldProps={{ options: toSelect(sysYesNo) }}
               />
             ) : null}
@@ -198,7 +195,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
                 name="isCache"
                 label="是否缓存"
                 tooltip="选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致"
-                initialValue={'1'}
+                initialValue={'0'}
                 fieldProps={{ options: toSelect(sysYesNo) }}
               />
             ) : null}

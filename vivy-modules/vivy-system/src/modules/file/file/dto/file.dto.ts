@@ -24,7 +24,7 @@ export class CreateFileDto extends OmitType(SysFile, ['fileId'] as const) {}
 /**
  * 更新文件
  */
-export class UpdateFileDto extends OmitType(SysFile, [] as const) {}
+export class UpdateFileDto extends OmitType(SysFile, ['fileId'] as const) {}
 
 /**
  * 单个上传配置

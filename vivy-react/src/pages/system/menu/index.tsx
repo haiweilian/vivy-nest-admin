@@ -27,7 +27,7 @@ const Menu = () => {
    * 删除部门
    * @param deptId 部门ID
    */
-  const handleDelete = async (deptId: React.Key) => {
+  const handleDelete = async (deptId: number) => {
     await deleteMenu(deptId)
     actionRef.current?.reload()
   }

@@ -7,7 +7,7 @@ export * from './model'
  * 查询参数配置列表
  */
 export function listConfig(params: ListConfigParams) {
-  return request<Pagination<ConfigModel>>('/config/list', {
+  return request<Pagination<ConfigModel>>(`/configs`, {
     method: RequestEnum.GET,
     params,
   })
@@ -17,7 +17,7 @@ export function listConfig(params: ListConfigParams) {
  * 添加参数配置
  */
 export function addConfig(params: CreateConfigParams) {
-  return request('/config/add', {
+  return request(`/configs`, {
     method: RequestEnum.POST,
     data: params,
   })
@@ -26,8 +26,8 @@ export function addConfig(params: CreateConfigParams) {
 /**
  * 更新参数配置
  */
-export function updateConfig(params: UpdateConfigParams) {
-  return request('/config/update', {
+export function updateConfig(configId: number, params: UpdateConfigParams) {
+  return request(`/configs/${configId}`, {
     method: RequestEnum.PUT,
     data: params,
   })
@@ -36,8 +36,8 @@ export function updateConfig(params: UpdateConfigParams) {
 /**
  * 删除参数配置
  */
-export function deleteConfig(configIds: React.Key) {
-  return request(`/config/delete/${configIds}`, {
+export function deleteConfig(configIds: number | string) {
+  return request(`/configs/${configIds}`, {
     method: RequestEnum.DELETE,
   })
 }
@@ -45,8 +45,8 @@ export function deleteConfig(configIds: React.Key) {
 /**
  * 查询参数配置详情
  */
-export function infoConfig(configId: React.Key) {
-  return request<ConfigModel>(`/config/info/${configId}`, {
+export function infoConfig(configId: number) {
+  return request<ConfigModel>(`/configs/${configId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -54,8 +54,8 @@ export function infoConfig(configId: React.Key) {
 /**
  * 查询参数配置键值
  */
-export function configValue(configKey: React.Key) {
-  return request<string>(`/config/value/${configKey}`, {
+export function configValue(configKey: string) {
+  return request<string>(`/configs/${configKey}/value`, {
     method: RequestEnum.GET,
   })
 }

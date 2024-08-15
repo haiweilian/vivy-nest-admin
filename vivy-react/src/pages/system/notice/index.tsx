@@ -27,7 +27,7 @@ const Notice = () => {
    * 删除通知公告
    * @param noticeIds 通知公告ID
    */
-  const handleDelete = async (noticeIds: React.Key) => {
+  const handleDelete = async (noticeIds: number | string) => {
     await deleteNotice(noticeIds)
     setSelectedRowKeys([])
     actionRef.current?.reload()

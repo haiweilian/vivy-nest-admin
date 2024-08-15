@@ -32,4 +32,4 @@ export type Create{{businessNamePascalCase}}Params = Omit<{{businessNamePascalCa
 /**
  * 更新{{functionName}}
  */
-export type Update{{businessNamePascalCase}}Params = {{businessNamePascalCase}}Model
+export type Update{{businessNamePascalCase}}Params = Omit<{{businessNamePascalCase}}Model, '{{pkColumn.fieldName}}'>

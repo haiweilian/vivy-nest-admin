@@ -28,4 +28,4 @@ export class CreateConfigDto extends OmitType(SysConfig, ['configId'] as const) 
 /**
  * 更新参数配置
  */
-export class UpdateConfigDto extends OmitType(SysConfig, [] as const) {}
+export class UpdateConfigDto extends OmitType(SysConfig, ['configId'] as const) {}

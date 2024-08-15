@@ -54,10 +54,12 @@ export class {{businessNamePascalCase}}Mapper {
 
   /**
    * 更新{{functionName}}
+   * @param {{pkColumn.fieldName}} {{functionName}}ID
    * @param {{businessNameCamelcase}} {{functionName}}信息
    */
-  async update{{businessNamePascalCase}}({{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<void> {
+  async update{{businessNamePascalCase}}({{pkColumn.fieldName}}: {{pkColumn.tslangType}}, {{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<void> {
     const sql = this.mybatisService.getSql('{{moduleName}}.{{businessNameCamelcase}}.mapper', 'update{{businessNamePascalCase}}', {
+      {{pkColumn.fieldName}},
       ...{{businessNameCamelcase}},
     })
     return this.dataSource.query(sql)

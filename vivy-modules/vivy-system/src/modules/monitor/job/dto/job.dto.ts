@@ -32,4 +32,4 @@ export class CreateJobDto extends OmitType(SysJob, ['jobId'] as const) {}
 /**
  * 更新定时任务
  */
-export class UpdateJobDto extends OmitType(SysJob, [] as const) {}
+export class UpdateJobDto extends OmitType(SysJob, ['jobId'] as const) {}

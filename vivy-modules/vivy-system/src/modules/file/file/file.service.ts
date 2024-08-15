@@ -59,10 +59,11 @@ export class FileService {
 
   /**
    * 更新文件
+   * @param fileId 文件ID
    * @param file 文件信息
    */
-  async update(file: UpdateFileDto): Promise<void> {
-    await this.fileRepository.update(file.fileId, file)
+  async update(fileId: number, file: UpdateFileDto): Promise<void> {
+    await this.fileRepository.update(fileId, file)
   }
 
   /**

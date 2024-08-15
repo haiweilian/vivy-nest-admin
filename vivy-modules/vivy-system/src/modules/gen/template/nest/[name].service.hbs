@@ -75,10 +75,11 @@ export class {{businessNamePascalCase}}Service {
 
   /**
    * 更新{{functionName}}
+   * @param {{pkColumn.fieldName}} {{functionName}}ID
    * @param {{businessNameCamelcase}} {{functionName}}信息
    */
-  async update({{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<void> {
-    await this.{{businessNameCamelcase}}Repository.update({{businessNameCamelcase}}.{{pkColumn.fieldName}}, {{businessNameCamelcase}})
+  async update({{pkColumn.fieldName}}: {{pkColumn.tslangType}}, {{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<void> {
+    await this.{{businessNameCamelcase}}Repository.update({{pkColumn.fieldName}}, {{businessNameCamelcase}})
   }
 
   /**

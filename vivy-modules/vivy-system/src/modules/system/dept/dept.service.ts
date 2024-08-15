@@ -47,9 +47,10 @@ export class DeptService {
   /**
    * 更新部门
    * @param dept 部门信息
+   * @param deptId 部门ID
    */
-  async update(dept: UpdateDeptDto): Promise<void> {
-    await this.deptRepository.update(dept.deptId, dept)
+  async update(deptId: number, dept: UpdateDeptDto): Promise<void> {
+    await this.deptRepository.update(deptId, dept)
   }
 
   /**

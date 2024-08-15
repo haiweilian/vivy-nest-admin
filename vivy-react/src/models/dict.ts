@@ -1,8 +1,8 @@
 import { useMap } from 'ahooks'
 import { isArray } from 'lodash-es'
 import { useCallback } from 'react'
-import { dictDataOptions } from '@/apis/system/dict-data'
-import type { DictDataModel } from '@/apis/system/dict-data'
+import { dictDataOptions } from '@/apis/system/dict'
+import type { DictDataModel } from '@/apis/system/dict'
 import { isNullOrUndef } from '@/utils/is'
 
 export type DictKeys = number | number[] | string | string[]

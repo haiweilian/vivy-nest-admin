@@ -44,10 +44,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateConfigParams) => {
     if (record) {
-      await updateConfig({
-        ...values,
-        configId: record.configId,
-      })
+      await updateConfig(record.configId, values)
     } else {
       await addConfig(values)
     }

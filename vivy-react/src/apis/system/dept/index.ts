@@ -7,7 +7,7 @@ export * from './model'
  * 查询部门树
  */
 export function treeDept() {
-  return request<DeptTreeResult[]>('/dept/tree', {
+  return request<DeptTreeResult[]>(`/depts/tree`, {
     method: RequestEnum.GET,
   })
 }
@@ -16,7 +16,7 @@ export function treeDept() {
  * 添加部门
  */
 export function addDept(params: CreateDeptParams) {
-  return request('/dept/add', {
+  return request(`/depts`, {
     method: RequestEnum.POST,
     data: params,
   })
@@ -25,8 +25,8 @@ export function addDept(params: CreateDeptParams) {
 /**
  * 更新部门
  */
-export function updateDept(params: UpdateDeptParams) {
-  return request('/dept/update', {
+export function updateDept(deptId: number, params: UpdateDeptParams) {
+  return request(`/depts/${deptId}`, {
     method: RequestEnum.PUT,
     data: params,
   })
@@ -35,8 +35,8 @@ export function updateDept(params: UpdateDeptParams) {
 /**
  * 删除部门
  */
-export function deleteDept(deptId: React.Key) {
-  return request(`/dept/delete/${deptId}`, {
+export function deleteDept(deptId: number) {
+  return request(`/depts/${deptId}`, {
     method: RequestEnum.DELETE,
   })
 }
@@ -44,8 +44,8 @@ export function deleteDept(deptId: React.Key) {
 /**
  * 查询部门详情
  */
-export function infoDept(deptId: React.Key) {
-  return request<DeptModel>(`/dept/info/${deptId}`, {
+export function infoDept(deptId: number) {
+  return request<DeptModel>(`/depts/${deptId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -54,7 +54,7 @@ export function infoDept(deptId: React.Key) {
  * 查询部门选项树
  */
 export function deptTreeOptions() {
-  return request<DeptTreeResult[]>('/dept/tree/options', {
+  return request<DeptTreeResult[]>(`/depts/treeOptions`, {
     method: RequestEnum.GET,
   })
 }

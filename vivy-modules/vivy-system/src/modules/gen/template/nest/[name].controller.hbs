@@ -12,7 +12,7 @@ import { {{businessNamePascalCase}}Service } from './{{businessNameKebabCase}}.s
  */
 @ApiTags('{{functionName}}')
 @ApiBearerAuth()
-@Controller('{{businessNameCamelcase}}')
+@Controller('{{controllerName}}')
 export class {{businessNamePascalCase}}Controller {
   constructor(private {{businessNameCamelcase}}Service: {{businessNamePascalCase}}Service) {}
 
@@ -21,7 +21,7 @@ export class {{businessNamePascalCase}}Controller {
    * @param {{businessNameCamelcase}} {{functionName}}信息
    * @returns {{functionName}}列表
    */
-  @Get('list')
+  @Get()
   @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:list')
   async list(@Query() {{businessNameCamelcase}}: List{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
     return AjaxResult.success(await this.{{businessNameCamelcase}}Service.list({{businessNameCamelcase}}))
@@ -31,7 +31,7 @@ export class {{businessNamePascalCase}}Controller {
    * 添加{{functionName}}
    * @param {{businessNameCamelcase}} {{functionName}}信息
    */
-  @Post('add')
+  @Post()
   @Log({ title: '{{functionName}}', operType: OperType.INSERT })
   @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:add')
   async add(@Body() {{businessNameCamelcase}}: Create{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
@@ -40,23 +40,24 @@ export class {{businessNamePascalCase}}Controller {
 
   /**
    * 更新{{functionName}}
+   * @param {{pkColumn.fieldName}} {{functionName}}ID
    * @param {{businessNameCamelcase}} {{functionName}}信息
    */
-  @Put('update')
+  @Put(':{{pkColumn.fieldName}}')
   @Log({ title: '{{functionName}}', operType: OperType.UPDATE })
   @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:update')
-  async update(@Body() {{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
-    return AjaxResult.success(await this.{{businessNameCamelcase}}Service.update({{businessNameCamelcase}}))
+  async update(@Param('{{pkColumn.fieldName}}') {{pkColumn.fieldName}}: {{pkColumn.tslangType}}, @Body() {{businessNameCamelcase}}: Update{{businessNamePascalCase}}Dto): Promise<AjaxResult> {
+    return AjaxResult.success(await this.{{businessNameCamelcase}}Service.update({{pkColumn.fieldName}}, {{businessNameCamelcase}}))
   }
 
   /**
    * 删除{{functionName}}
    * @param {{pkColumn.fieldName}}s {{functionName}}ID
    */
-  @Delete('delete/:{{pkColumn.fieldName}}s')
+  @Delete(':{{pkColumn.fieldName}}s')
   @Log({ title: '{{functionName}}', operType: OperType.DELETE })
   @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:delete')
-  async delete(@Param('{{pkColumn.fieldName}}s', ParseArrayPipe) {{pkColumn.fieldName}}s: {{pkColumn.tslangType}}[]): Promise<AjaxResult> {
+  async delete(@Param('{{pkColumn.fieldName}}s', new ParseArrayPipe({ items: Number })) {{pkColumn.fieldName}}s: {{pkColumn.tslangType}}[]): Promise<AjaxResult> {
     return AjaxResult.success(await this.{{businessNameCamelcase}}Service.delete({{pkColumn.fieldName}}s))
   }
 
@@ -65,7 +66,7 @@ export class {{businessNamePascalCase}}Controller {
    * @param {{pkColumn.fieldName}} {{functionName}}ID
    * @returns {{functionName}}详情
    */
-  @Get('info/:{{pkColumn.fieldName}}')
+  @Get(':{{pkColumn.fieldName}}')
   @RequirePermissions('{{moduleName}}:{{businessNameCamelcase}}:query')
   async info(@Param('{{pkColumn.fieldName}}') {{pkColumn.fieldName}}: {{pkColumn.tslangType}}): Promise<AjaxResult> {
     return AjaxResult.success(await this.{{businessNameCamelcase}}Service.info({{pkColumn.fieldName}}))

@@ -38,7 +38,7 @@ export class CreateRoleDto extends OmitType(SysRole, ['roleId'] as const) {
 /**
  * 更新角色
  */
-export class UpdateRoleDto extends OmitType(SysRole, [] as const) {
+export class UpdateRoleDto extends OmitType(SysRole, ['roleId'] as const) {
   /** 菜单权限 */
   @IsArray()
   @IsOptional()

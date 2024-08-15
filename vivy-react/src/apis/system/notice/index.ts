@@ -7,7 +7,7 @@ export * from './model'
  * 查询通知公告列表
  */
 export function listNotice(params: ListNoticeParams) {
-  return request<Pagination<NoticeModel>>('/notice/list', {
+  return request<Pagination<NoticeModel>>(`/notices`, {
     method: RequestEnum.GET,
     params,
   })
@@ -17,7 +17,7 @@ export function listNotice(params: ListNoticeParams) {
  * 添加通知公告
  */
 export function addNotice(params: CreateNoticeParams) {
-  return request('/notice/add', {
+  return request(`/notices`, {
     method: RequestEnum.POST,
     data: params,
   })
@@ -26,8 +26,8 @@ export function addNotice(params: CreateNoticeParams) {
 /**
  * 更新通知公告
  */
-export function updateNotice(params: UpdateNoticeParams) {
-  return request('/notice/update', {
+export function updateNotice(noticeId: number, params: UpdateNoticeParams) {
+  return request(`/notices/${noticeId}`, {
     method: RequestEnum.PUT,
     data: params,
   })
@@ -36,8 +36,8 @@ export function updateNotice(params: UpdateNoticeParams) {
 /**
  * 删除通知公告
  */
-export function deleteNotice(noticeIds: React.Key) {
-  return request(`/notice/delete/${noticeIds}`, {
+export function deleteNotice(noticeIds: number | string) {
+  return request(`/notices/${noticeIds}`, {
     method: RequestEnum.DELETE,
   })
 }
@@ -45,8 +45,8 @@ export function deleteNotice(noticeIds: React.Key) {
 /**
  * 查询通知公告详情
  */
-export function infoNotice(noticeId: React.Key) {
-  return request<NoticeModel>(`/notice/info/${noticeId}`, {
+export function infoNotice(noticeId: number) {
+  return request<NoticeModel>(`/notices/${noticeId}`, {
     method: RequestEnum.GET,
   })
 }

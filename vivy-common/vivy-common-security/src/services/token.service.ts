@@ -14,7 +14,7 @@ import { JwtToken } from '../interfaces/jwt-token.interface'
 export class TokenService {
   constructor(
     @InjectRedis()
-    public redis: Redis,
+    private redis: Redis,
     private jwtService: JwtService,
     private securityContext: SecurityContext
   ) {}
@@ -24,6 +24,13 @@ export class TokenService {
   private MILLIS_MINUTE = 60 * this.MILLIS_SECOND
 
   private MILLIS_MINUTE_REFRESH = CacheConstants.REFRESH_TIME * this.MILLIS_MINUTE
+
+  /**
+   * 获取存储 Token 使用的 Redis
+   */
+  getRedis(): Redis {
+    return this.redis
+  }
 
   /**
    * 获取令牌

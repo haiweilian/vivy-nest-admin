@@ -50,10 +50,11 @@ export class ConfigService {
 
   /**
    * 更新参数配置
+   * @param configId 参数配置ID
    * @param config 参数配置信息
    */
-  async update(config: UpdateConfigDto): Promise<void> {
-    await this.configRepository.update(config.configId, config)
+  async update(configId: number, config: UpdateConfigDto): Promise<void> {
+    await this.configRepository.update(configId, config)
   }
 
   /**
@@ -88,12 +89,11 @@ export class ConfigService {
 
   /**
    * 校验参数键名是否唯一
-   * @param config 参数配置信息
+   * @param configKey 参数配置键名
+   * @param configId 参数配置ID
    * @returns true 唯一 / false 不唯一
    */
-  async checkConfigKeyUnique(config: Partial<SysConfig>): Promise<boolean> {
-    const { configId, configKey } = config
-
+  async checkConfigKeyUnique(configKey: string, configId?: number): Promise<boolean> {
     const info = await this.configRepository.findOneBy({ configKey })
     if (info && info.configId !== configId) {
       return false

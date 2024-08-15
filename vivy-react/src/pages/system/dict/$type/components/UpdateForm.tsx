@@ -10,8 +10,8 @@ import {
 import { useModel, useParams, useRequest } from '@umijs/max'
 import type { DefaultOptionType } from 'antd/es/cascader'
 import { useRef } from 'react'
-import { addDictData, updateDictData, infoDictData } from '@/apis/system/dict-data'
-import type { CreateDictDataParams, DictDataModel } from '@/apis/system/dict-data'
+import { addDictData, updateDictData, infoDictData } from '@/apis/system/dict'
+import type { CreateDictDataParams, DictDataModel } from '@/apis/system/dict'
 
 const listClassOptions: DefaultOptionType[] = [
   { label: '默认', value: 'default' },
@@ -56,9 +56,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateDictDataParams) => {
     if (record) {
-      await updateDictData({
+      await updateDictData(record.dictId, {
         ...values,
-        dictId: record.dictId,
         dictType: type!,
       })
     } else {

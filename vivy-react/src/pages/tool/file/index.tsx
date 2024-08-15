@@ -26,7 +26,7 @@ const File = () => {
    * 删除文件
    * @param fileIds 文件ID
    */
-  const handleDelete = async (fileIds: React.Key) => {
+  const handleDelete = async (fileIds: number | string) => {
     await deleteFile(fileIds)
     setSelectedRowKeys([])
     actionRef.current?.reload()

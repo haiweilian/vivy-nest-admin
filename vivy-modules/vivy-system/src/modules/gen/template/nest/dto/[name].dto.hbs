@@ -25,4 +25,4 @@ export class Create{{businessNamePascalCase}}Dto extends OmitType({{classNamePas
 /**
  * 更新{{functionName}}
  */
-export class Update{{businessNamePascalCase}}Dto extends OmitType({{classNamePascalCase}}, [] as const) {}
+export class Update{{businessNamePascalCase}}Dto extends OmitType({{classNamePascalCase}}, ['{{pkColumn.fieldName}}'] as const) {}

@@ -57,7 +57,7 @@ export interface CreateRoleParams extends Omit<RoleModel, 'roleId'> {
 /**
  * 更新角色
  */
-export interface UpdateRoleParams extends RoleModel {
+export interface UpdateRoleParams extends Omit<RoleModel, 'roleId'> {
   /** 菜单权限 */
   menuIds: number[]
 

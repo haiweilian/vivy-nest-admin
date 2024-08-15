@@ -1,14 +1,23 @@
 import { randomUUID } from 'crypto'
 import { Injectable } from '@nestjs/common'
 import { InjectRedis } from '@nestjs-modules/ioredis'
-import { SysLoginUser, ServiceException, PasswordUtils, UserStatusEnums, CacheConstants } from '@vivy-common/core'
+import {
+  SysLoginUser,
+  ServiceException,
+  PasswordUtils,
+  BaseIsEnums,
+  UserStatusEnums,
+  CacheConstants,
+} from '@vivy-common/core'
 import { isEmpty } from 'class-validator'
 import Redis from 'ioredis'
 import * as svgCaptcha from 'svg-captcha'
 import { ConfigService } from '@/modules/system/config/config.service'
+import { MenuService } from '@/modules/system/menu/menu.service'
+import { MenuTreeVo } from '@/modules/system/menu/vo/menu.vo'
 import { UserService } from '@/modules/system/user/user.service'
 import { LoginDto } from './dto/login.dto'
-import { ImageCaptchaVo } from './vo/login.vo'
+import { ImageCaptchaVo, RouterTreeVo } from './vo/login.vo'
 
 /**
  * 登录管理
@@ -20,6 +29,7 @@ export class LoginService {
     @InjectRedis()
     public redis: Redis,
     private userService: UserService,
+    private menuService: MenuService,
     private configService: ConfigService
   ) {}
 
@@ -33,17 +43,16 @@ export class LoginService {
       throw new ServiceException('用户/密码必须填写')
     }
 
-    const data = await this.userService.selectLoginByUserName(username)
-    const user = data?.sysUser
-    if (isEmpty(data)) {
+    const user = await this.userService.selectUserByUserName(username)
+    if (isEmpty(user)) {
       throw new ServiceException('登录用户不存在')
     }
 
-    if (UserStatusEnums.DISABLE === user.status) {
+    if (user.status === UserStatusEnums.DISABLE) {
       throw new ServiceException('您的账号已停用')
     }
 
-    if (UserStatusEnums.DELETED === user.delFlag) {
+    if (user.status === UserStatusEnums.DELETED) {
       throw new ServiceException('您的账号已删除')
     }
 
@@ -52,7 +61,11 @@ export class LoginService {
       throw new ServiceException('密码输入错误')
     }
 
-    return data
+    const loginUser = new SysLoginUser()
+    loginUser.sysUser = user
+    loginUser.roles = await this.userService.getRolePermission(user.userId)
+    loginUser.permissions = await this.userService.getMenuPermission(user.userId)
+    return loginUser
   }
 
   /**
@@ -103,5 +116,38 @@ export class LoginService {
       return true
     }
     return false
+  }
+
+  /**
+   * 查询用户路由信息
+   * @param userId 用户ID
+   * @returns 用户路由信息
+   */
+  async getUserRouters(userId: number) {
+    const menus = await this.menuService.selectUserMenuTree(userId)
+    return this.buildUmiMaxRouters(menus)
+  }
+
+  /**
+   * 构建前端 UmiMax 所需要的路由
+   * @param 菜单列表
+   * @returns 路由列表
+   */
+  private buildUmiMaxRouters(menus: MenuTreeVo[]): RouterTreeVo[] {
+    const routers: RouterTreeVo[] = []
+
+    for (const menu of menus) {
+      const router = new RouterTreeVo()
+      router.name = menu.menuName
+      router.path = menu.path
+      router.icon = menu.icon
+      router.component = menu.component
+      router.locale = false
+      router.hideInMenu = menu.isVisible === BaseIsEnums.NO
+      router.children = menu.children && this.buildUmiMaxRouters(menu.children)
+      routers.push(router)
+    }
+
+    return routers
   }
 }

@@ -55,7 +55,7 @@ export type CreateFileParams = Omit<FileModel, 'fileId'>
 /**
  * 更新文件
  */
-export type UpdateFileParams = FileModel
+export type UpdateFileParams = Omit<FileModel, 'fileId'>
 
 /**
  * 上传文件信息

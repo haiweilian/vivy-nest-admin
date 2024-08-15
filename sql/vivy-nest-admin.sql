@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 08/08/2023 16:07:51
+ Date: 08/08/2024 16:07:51
 */
 
 SET NAMES utf8mb4;
@@ -51,110 +51,6 @@ INSERT INTO `sys_dept` VALUES (109, 102, '财务部门', 2, '0', 'admin', sysdat
 COMMIT;
 
 -- ----------------------------
--- Table structure for sys_dict_data
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dict_data`;
-CREATE TABLE `sys_dict_data` (
-  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典ID',
-  `dict_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典类型',
-  `dict_label` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典标签',
-  `dict_value` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典键值',
-  `dict_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
-  `status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '字典状态（0正常 1停用）',
-  `css_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '样式属性（其他样式扩展）',
-  `list_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '表格回显样式',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
-  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
-  PRIMARY KEY (`dict_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='字典数据表';
-
--- ----------------------------
--- Records of sys_dict_data
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_dict_data` VALUES (1, 'sys_user_sex', '男', '0', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (2, 'sys_user_sex', '女', '1', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (3, 'sys_user_sex', '其他', '2', 3, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (4, 'sys_yes_no', '是', '0', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (5, 'sys_yes_no', '否', '1', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (6, 'sys_normal_disable', '正常', '0', 1, '0', NULL, 'success', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (7, 'sys_normal_disable', '停用', '1', 2, '0', NULL, 'danger', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (8, 'sys_success_failure', '成功', '0', 1, '0', NULL, 'success', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (9, 'sys_success_failure', '失败', '1', 2, '0', NULL, 'danger', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (10, 'sys_oper_type', '其它', '0', 99, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (11, 'sys_oper_type', '查询', '1', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (12, 'sys_oper_type', '新增', '2', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (13, 'sys_oper_type', '修改', '3', 3, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (14, 'sys_oper_type', '删除', '4', 4, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (15, 'sys_oper_type', '授权', '5', 5, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (16, 'sys_oper_type', '导出', '6', 6, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (17, 'sys_oper_type', '导入', '7', 7, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (18, 'sys_oper_type', '强退', '8', 8, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (19, 'sys_oper_type', '生成代码', '9', 9, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (20, 'sys_oper_type', '清空数据', '10', 10, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (21, 'sys_job_group', '默认', '0', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (22, 'sys_job_group', '系统', '1', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (23, 'sys_notice_type', '通知', '1', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_data` VALUES (24, 'sys_notice_type', '公告', '2', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
-COMMIT;
-
--- ----------------------------
--- Table structure for sys_dict_type
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dict_type`;
-CREATE TABLE `sys_dict_type` (
-  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典ID',
-  `dict_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典名称',
-  `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典类型',
-  `dict_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '字典状态（0正常 1停用）',
-  `create_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
-  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
-  PRIMARY KEY (`dict_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='字典类型表';
-
--- ----------------------------
--- Records of sys_dict_type
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_dict_type` VALUES (1, '用户性别', 'sys_user_sex', 1, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_type` VALUES (2, '系统是否', 'sys_yes_no', 2, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_type` VALUES (3, '系统开关', 'sys_normal_disable', 3, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_type` VALUES (4, '系统成败', 'sys_success_failure', 4, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_type` VALUES (5, '操作类型', 'sys_oper_type', 5, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_type` VALUES (6, '任务分组', 'sys_job_group', 6, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dict_type` VALUES (7, '公告类型', 'sys_notice_type', 7, '0', 'admin', sysdate(), 'admin', sysdate());
-COMMIT;
-
--- ----------------------------
--- Table structure for sys_login_log
--- ----------------------------
-DROP TABLE IF EXISTS `sys_login_log`;
-CREATE TABLE `sys_login_log` (
-  `login_id` bigint NOT NULL AUTO_INCREMENT COMMENT '登录ID',
-  `login_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户账号',
-  `login_type` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '登录类型',
-  `login_status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '登录状态',
-  `login_ip` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '主机地址',
-  `login_location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '登录地点',
-  `login_message` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '登录信息',
-  `user_agent` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '用户代理',
-  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
-  PRIMARY KEY (`login_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='登录日志表';
-
--- ----------------------------
--- Records of sys_login_log
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -170,10 +66,10 @@ CREATE TABLE `sys_menu` (
   `query` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '路由参数',
   `permission` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '权限标识',
   `icon` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '菜单图标',
-  `is_visible` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '是否显示（0是 1否）',
-  `is_link` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1' COMMENT '是否为外链（0是 1否）',
-  `is_frame` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1' COMMENT '是否为内嵌（0是 1否）',
-  `is_cache` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1' COMMENT '是否缓存（0是 1否）',
+  `is_visible` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1' COMMENT '是否显示（0否 1是）',
+  `is_link` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '是否为外链（0否 1是）',
+  `is_frame` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '是否为内嵌（0否 1是）',
+  `is_cache` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '是否缓存（0否 1是）',
   `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
   `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
@@ -186,129 +82,97 @@ CREATE TABLE `sys_menu` (
 -- ----------------------------
 BEGIN;
 -- 一级菜单
-INSERT INTO `sys_menu` VALUES (1, NULL, '系统管理', 'M', 1, '0', 'system',                                        NULL, NULL, NULL, 'ant-design:setting-outlined', '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (2, NULL, '系统监控', 'M', 2, '0', 'monitor',                                       NULL, NULL, NULL, 'ant-design:fund-outlined',    '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (3, NULL, '系统工具', 'M', 3, '0', 'tool',                                          NULL, NULL, NULL, 'ant-design:tool-outlined',    '0', '0', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (4, NULL, '项目源码', 'M', 4, '0', 'https://github.com/haiweilian/vivy-nest-admin', NULL, NULL, NULL, 'ant-design:link-outlined',    '0', '0', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1, NULL, '系统管理', 'M', 1, '0', 'system',                                        NULL, NULL, NULL, 'ant-design:setting-outlined', '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (2, NULL, '系统监控', 'M', 2, '0', 'monitor',                                       NULL, NULL, NULL, 'ant-design:fund-outlined',    '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (3, NULL, '系统工具', 'M', 3, '0', 'tool',                                          NULL, NULL, NULL, 'ant-design:tool-outlined',    '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (4, NULL, '项目源码', 'M', 4, '0', 'https://github.com/haiweilian/vivy-nest-admin', NULL, NULL, NULL, 'ant-design:link-outlined',    '1', '1', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 二级菜单
-INSERT INTO `sys_menu` VALUES (100, 1, '用户管理', 'C', 1,  '0', 'user',       'system/user/index',          NULL, 'system:user:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (101, 1, '角色管理', 'C', 2,  '0', 'role',       'system/role/index',          NULL, 'system:role:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (102, 1, '菜单管理', 'C', 3,  '0', 'menu',       'system/menu/index',          NULL, 'system:menu:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (103, 1, '部门管理', 'C', 4,  '0', 'dept',       'system/dept/index',          NULL, 'system:dept:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (104, 1, '岗位管理', 'C', 5,  '0', 'post',       'system/post/index',          NULL, 'system:post:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (105, 1, '字典管理', 'C', 6,  '0', 'dict',       'system/dict/index',          NULL, 'system:dict:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (106, 1, '字典数据', 'C', 7,  '0', 'dict/:type', 'system/dict/$type/index',    NULL, 'system:dict:list',    NULL, '1', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (107, 1, '参数设置', 'C', 8,  '0', 'config',     'system/config/index',        NULL, 'system:config:list',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (108, 1, '通知公告', 'C', 9,  '0', 'notice',     'system/notice/index',        NULL, 'system:notice:list',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (109, 1, '日志管理', 'M', 10, '0', 'log',         NULL,                        NULL,  NULL,                 NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (110, 2, '在线用户', 'C', 1,  '0', 'online',     'monitor/online/index',       NULL, 'monitor:online:list', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (111, 2, '定时任务', 'C', 2,  '0', 'job',        'monitor/job/index',          NULL, 'monitor:job:list',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (112, 2, '任务日志', 'C', 3,  '0', 'job/log',    'monitor/job/log/index',      NULL, 'monitor:job:list',    NULL, '1', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (113, 3, '代码生成', 'C', 1,  '0', 'gen',        'tool/gen/index',             NULL, 'tool:gen:list',       NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (114, 3, '文件上传', 'C', 2,  '0', 'file',       'tool/file/index',            NULL, 'tool:file:list',      NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (115, 3, '系统接口', 'C', 3,  '0', 'swagger',    'tool/swagger/index',         NULL, 'tool:swagger:list',   NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-
--- 三级菜单
-INSERT INTO `sys_menu` VALUES (500, 109, '登录日志', 'C', 1, '0', 'login',     'system/log/login/index',     NULL, 'system:loginlog:list', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (501, 109, '操作日志', 'C', 2, '0', 'operation', 'system/log/operation/index', NULL, 'system:operlog:list',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (100, 1, '用户管理', 'C', 1, '0', 'user',        'system/user/index',         NULL, 'system:user:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (101, 1, '角色管理', 'C', 2, '0', 'role',        'system/role/index',         NULL, 'system:role:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (102, 1, '菜单管理', 'C', 3, '0', 'menu',        'system/menu/index',         NULL, 'system:menu:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (103, 1, '部门管理', 'C', 4, '0', 'dept',        'system/dept/index',         NULL, 'system:dept:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (104, 1, '岗位管理', 'C', 5, '0', 'post',        'system/post/index',         NULL, 'system:post:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (105, 1, '字典管理', 'C', 6, '0', 'dict',        'system/dict/index',         NULL, 'system:dict:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (106, 1, '字典数据', 'C', 7, '0', 'dict/:type',  'system/dict/$type/index',   NULL, 'system:dict:list',      NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (107, 1, '参数设置', 'C', 8, '0', 'config',      'system/config/index',       NULL, 'system:config:list',    NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (108, 1, '通知公告', 'C', 9, '0', 'notice',      'system/notice/index',       NULL, 'system:notice:list',    NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (109, 2, '操作日志', 'C', 1, '0', 'oper-log',    'monitor/oper-log/index',    NULL, 'monitor:operlog:list',  NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (110, 2, '登录日志', 'C', 2, '0', 'login-log',   'monitor/login-log/index',   NULL, 'monitor:loginlog:list', NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (111, 2, '在线用户', 'C', 3, '0', 'online-user', 'monitor/online-user/index', NULL, 'monitor:online:list',   NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (112, 2, '定时任务', 'C', 4, '0', 'job',         'monitor/job/index',         NULL, 'monitor:job:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (113, 2, '任务日志', 'C', 5, '0', 'job/log',     'monitor/job/log/index',     NULL, 'monitor:job:list',      NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (114, 3, '代码生成', 'C', 1, '0', 'gen',         'tool/gen/index',            NULL, 'tool:gen:list',         NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (115, 3, '文件上传', 'C', 2, '0', 'file',        'tool/file/index',           NULL, 'tool:file:list',        NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (116, 3, '系统接口', 'C', 3, '0', 'swagger',     'tool/swagger/index',        NULL, 'tool:swagger:list',     NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 用户管理按钮
-INSERT INTO `sys_menu` VALUES (1000, 100, '用户查询', 'F', 1, '0', NULL, NULL, NULL, 'system:user:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1001, 100, '用户新增', 'F', 2, '0', NULL, NULL, NULL, 'system:user:add',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1002, 100, '用户修改', 'F', 3, '0', NULL, NULL, NULL, 'system:user:update', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1003, 100, '用户删除', 'F', 4, '0', NULL, NULL, NULL, 'system:user:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1004, 100, '用户导出', 'F', 5, '0', NULL, NULL, NULL, 'system:user:export', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1005, 100, '用户导入', 'F', 6, '0', NULL, NULL, NULL, 'system:user:import', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1000, 100, '用户查询', 'F', 1, '0', NULL, NULL, NULL, 'system:user:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1001, 100, '用户新增', 'F', 2, '0', NULL, NULL, NULL, 'system:user:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1002, 100, '用户修改', 'F', 3, '0', NULL, NULL, NULL, 'system:user:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1003, 100, '用户删除', 'F', 4, '0', NULL, NULL, NULL, 'system:user:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1004, 100, '用户导出', 'F', 5, '0', NULL, NULL, NULL, 'system:user:export', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1005, 100, '用户导入', 'F', 6, '0', NULL, NULL, NULL, 'system:user:import', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 角色管理按钮
-INSERT INTO `sys_menu` VALUES (1006, 101, '角色查询', 'F', 1, '0', NULL, NULL, NULL, 'system:role:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1007, 101, '角色新增', 'F', 2, '0', NULL, NULL, NULL, 'system:role:add',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1008, 101, '角色修改', 'F', 3, '0', NULL, NULL, NULL, 'system:role:update', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1009, 101, '角色删除', 'F', 4, '0', NULL, NULL, NULL, 'system:role:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1006, 101, '角色查询', 'F', 1, '0', NULL, NULL, NULL, 'system:role:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1007, 101, '角色新增', 'F', 2, '0', NULL, NULL, NULL, 'system:role:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1008, 101, '角色修改', 'F', 3, '0', NULL, NULL, NULL, 'system:role:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1009, 101, '角色删除', 'F', 4, '0', NULL, NULL, NULL, 'system:role:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 菜单管理按钮
-INSERT INTO `sys_menu` VALUES (1010, 102, '菜单查询', 'F', 1, '0', NULL, NULL, NULL, 'system:menu:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1011, 102, '菜单新增', 'F', 2, '0', NULL, NULL, NULL, 'system:menu:add',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1012, 102, '菜单修改', 'F', 3, '0', NULL, NULL, NULL, 'system:menu:update', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1013, 102, '菜单删除', 'F', 4, '0', NULL, NULL, NULL, 'system:menu:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1010, 102, '菜单查询', 'F', 1, '0', NULL, NULL, NULL, 'system:menu:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1011, 102, '菜单新增', 'F', 2, '0', NULL, NULL, NULL, 'system:menu:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1012, 102, '菜单修改', 'F', 3, '0', NULL, NULL, NULL, 'system:menu:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1013, 102, '菜单删除', 'F', 4, '0', NULL, NULL, NULL, 'system:menu:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 部门管理按钮
-INSERT INTO `sys_menu` VALUES (1014, 103, '部门查询', 'F', 1, '0', NULL, NULL, NULL, 'system:dept:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1015, 103, '部门新增', 'F', 2, '0', NULL, NULL, NULL, 'system:dept:add',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1016, 103, '部门修改', 'F', 3, '0', NULL, NULL, NULL, 'system:dept:update', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1017, 103, '部门删除', 'F', 4, '0', NULL, NULL, NULL, 'system:dept:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1014, 103, '部门查询', 'F', 1, '0', NULL, NULL, NULL, 'system:dept:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1015, 103, '部门新增', 'F', 2, '0', NULL, NULL, NULL, 'system:dept:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1016, 103, '部门修改', 'F', 3, '0', NULL, NULL, NULL, 'system:dept:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1017, 103, '部门删除', 'F', 4, '0', NULL, NULL, NULL, 'system:dept:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 岗位管理按钮
-INSERT INTO `sys_menu` VALUES (1018, 104, '岗位查询', 'F', 1, '0', NULL, NULL, NULL, 'system:post:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1019, 104, '岗位新增', 'F', 2, '0', NULL, NULL, NULL, 'system:post:add',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1020, 104, '岗位修改', 'F', 3, '0', NULL, NULL, NULL, 'system:post:update', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1021, 104, '岗位删除', 'F', 4, '0', NULL, NULL, NULL, 'system:post:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1018, 104, '岗位查询', 'F', 1, '0', NULL, NULL, NULL, 'system:post:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1019, 104, '岗位新增', 'F', 2, '0', NULL, NULL, NULL, 'system:post:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1020, 104, '岗位修改', 'F', 3, '0', NULL, NULL, NULL, 'system:post:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1021, 104, '岗位删除', 'F', 4, '0', NULL, NULL, NULL, 'system:post:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 字典管理按钮
-INSERT INTO `sys_menu` VALUES (1022, 105, '字典查询', 'F', 1, '0', NULL, NULL, NULL, 'system:dict:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1023, 105, '字典新增', 'F', 2, '0', NULL, NULL, NULL, 'system:dict:add',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1024, 105, '字典修改', 'F', 3, '0', NULL, NULL, NULL, 'system:dict:update', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1025, 105, '字典删除', 'F', 4, '0', NULL, NULL, NULL, 'system:dict:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1022, 105, '字典查询', 'F', 1, '0', NULL, NULL, NULL, 'system:dict:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1023, 105, '字典新增', 'F', 2, '0', NULL, NULL, NULL, 'system:dict:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1024, 105, '字典修改', 'F', 3, '0', NULL, NULL, NULL, 'system:dict:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1025, 105, '字典删除', 'F', 4, '0', NULL, NULL, NULL, 'system:dict:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 参数设置按钮
-INSERT INTO `sys_menu` VALUES (1026, 107, '参数查询', 'F', 1, '0', NULL, NULL, NULL, 'system:config:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1027, 107, '参数新增', 'F', 2, '0', NULL, NULL, NULL, 'system:config:add',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1028, 107, '参数修改', 'F', 3, '0', NULL, NULL, NULL, 'system:config:update', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1029, 107, '参数删除', 'F', 4, '0', NULL, NULL, NULL, 'system:config:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1026, 107, '参数查询', 'F', 1, '0', NULL, NULL, NULL, 'system:config:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1027, 107, '参数新增', 'F', 2, '0', NULL, NULL, NULL, 'system:config:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1028, 107, '参数修改', 'F', 3, '0', NULL, NULL, NULL, 'system:config:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1029, 107, '参数删除', 'F', 4, '0', NULL, NULL, NULL, 'system:config:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 通知公告按钮
-INSERT INTO `sys_menu` VALUES (1030, 108, '公告查询', 'F', 1, '0', NULL, NULL, NULL, 'system:notice:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1031, 108, '公告新增', 'F', 2, '0', NULL, NULL, NULL, 'system:notice:add',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1032, 108, '公告修改', 'F', 3, '0', NULL, NULL, NULL, 'system:notice:update', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1033, 108, '公告删除', 'F', 4, '0', NULL, NULL, NULL, 'system:notice:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1030, 108, '公告查询', 'F', 1, '0', NULL, NULL, NULL, 'system:notice:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1031, 108, '公告新增', 'F', 2, '0', NULL, NULL, NULL, 'system:notice:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1032, 108, '公告修改', 'F', 3, '0', NULL, NULL, NULL, 'system:notice:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1033, 108, '公告删除', 'F', 4, '0', NULL, NULL, NULL, 'system:notice:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 操作日志按钮
-INSERT INTO `sys_menu` VALUES (1034, 500, '操作日志查询', 'F', 1, '0', NULL, NULL, NULL, 'system:operlog:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1035, 500, '操作日志删除', 'F', 2, '0', NULL, NULL, NULL, 'system:operlog:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1034, 109, '操作日志查询', 'F', 1, '0', NULL, NULL, NULL, 'system:operLog:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1035, 109, '操作日志删除', 'F', 2, '0', NULL, NULL, NULL, 'system:operLog:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 登录日志按钮
-INSERT INTO `sys_menu` VALUES (1036, 501, '登录日志查询', 'F', 1, '0', NULL, NULL, NULL, 'system:loginlog:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1037, 501, '登录日志删除', 'F', 2, '0', NULL, NULL, NULL, 'system:loginlog:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1036, 110, '登录日志查询', 'F', 1, '0', NULL, NULL, NULL, 'system:loginLog:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1037, 110, '登录日志删除', 'F', 2, '0', NULL, NULL, NULL, 'system:loginLog:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 在线用户按钮
-INSERT INTO `sys_menu` VALUES (1038, 110, '在线查询', 'F', 1, '0', NULL, NULL, NULL, 'monitor:online:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1039, 110, '在线强退', 'F', 2, '0', NULL, NULL, NULL, 'monitor:online:logout', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1038, 111, '在线查询', 'F', 1, '0', NULL, NULL, NULL, 'monitor:onlineUser:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1039, 111, '在线强退', 'F', 2, '0', NULL, NULL, NULL, 'monitor:onlineUser:logout', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 定时任务按钮
-INSERT INTO `sys_menu` VALUES (1040, 111, '任务查询', 'F', 1, '0', NULL, NULL, NULL, 'monitor:job:query',  NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1041, 111, '任务新增', 'F', 2, '0', NULL, NULL, NULL, 'monitor:job:add',    NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1042, 111, '任务修改', 'F', 3, '0', NULL, NULL, NULL, 'monitor:job:update', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (1043, 111, '任务删除', 'F', 4, '0', NULL, NULL, NULL, 'monitor:job:delete', NULL, '0', '1', '1', '1', 'admin', sysdate(), 'admin', sysdate());
-COMMIT;
-
--- ----------------------------
--- Table structure for sys_oper_log
--- ----------------------------
-DROP TABLE IF EXISTS `sys_oper_log`;
-CREATE TABLE `sys_oper_log` (
-  `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '操作ID',
-  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模块标题',
-  `oper_type` char(2) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作类型',
-  `oper_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作人员',
-  `oper_method` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '方法名称',
-  `oper_ip` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '主机地址',
-  `oper_location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '操作地点',
-  `oper_status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作状态',
-  `request_url` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求URL',
-  `request_method` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求方式',
-  `request_param` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '请求参数',
-  `request_result` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '请求返回结果',
-  `request_errmsg` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '请求错误消息',
-  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
-  PRIMARY KEY (`oper_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='操作日志表';
-
--- ----------------------------
--- Records of sys_oper_log
--- ----------------------------
-BEGIN;
+INSERT INTO `sys_menu` VALUES (1040, 112, '任务查询', 'F', 1, '0', NULL, NULL, NULL, 'monitor:job:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1041, 112, '任务新增', 'F', 2, '0', NULL, NULL, NULL, 'monitor:job:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1042, 112, '任务修改', 'F', 3, '0', NULL, NULL, NULL, 'monitor:job:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1043, 112, '任务删除', 'F', 4, '0', NULL, NULL, NULL, 'monitor:job:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -411,9 +275,6 @@ INSERT INTO `sys_role_menu` VALUES (2, 105, sysdate(), sysdate());
 INSERT INTO `sys_role_menu` VALUES (2, 106, sysdate(), sysdate());
 INSERT INTO `sys_role_menu` VALUES (2, 107, sysdate(), sysdate());
 INSERT INTO `sys_role_menu` VALUES (2, 108, sysdate(), sysdate());
-INSERT INTO `sys_role_menu` VALUES (2, 109, sysdate(), sysdate());
-INSERT INTO `sys_role_menu` VALUES (2, 500, sysdate(), sysdate());
-INSERT INTO `sys_role_menu` VALUES (2, 501, sysdate(), sysdate());
 INSERT INTO `sys_role_menu` VALUES (2, 1000, sysdate(), sysdate());
 INSERT INTO `sys_role_menu` VALUES (2, 1001, sysdate(), sysdate());
 INSERT INTO `sys_role_menu` VALUES (2, 1002, sysdate(), sysdate());
@@ -448,10 +309,6 @@ INSERT INTO `sys_role_menu` VALUES (2, 1030, sysdate(), sysdate());
 INSERT INTO `sys_role_menu` VALUES (2, 1031, sysdate(), sysdate());
 INSERT INTO `sys_role_menu` VALUES (2, 1032, sysdate(), sysdate());
 INSERT INTO `sys_role_menu` VALUES (2, 1033, sysdate(), sysdate());
-INSERT INTO `sys_role_menu` VALUES (2, 1034, sysdate(), sysdate());
-INSERT INTO `sys_role_menu` VALUES (2, 1035, sysdate(), sysdate());
-INSERT INTO `sys_role_menu` VALUES (2, 1036, sysdate(), sysdate());
-INSERT INTO `sys_role_menu` VALUES (2, 1037, sysdate(), sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -469,8 +326,7 @@ CREATE TABLE `sys_user` (
   `sex` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '2' COMMENT '用户性别（0男 1女 2未知）',
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '头像地址',
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密码',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '用户状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '删除标志（0存在 1删除）',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '用户状态（0正常 1停用 2删除）',
   `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
   `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
@@ -483,8 +339,8 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1, NULL, 'admin', '管理员', '00', 'admin@vivy.com', '18688888888', '0', '/uploads/avatar/admin.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_user` VALUES (2, 105, 'test', '测试员', '00', 'test@vivy.com', '18666666666', '0', '/uploads/avatar/test.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_user` VALUES (1, NULL, 'admin', '管理员', '00', 'admin@vivy.com', '18688888888', '0', '/uploads/avatar/admin.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_user` VALUES (2, 105, 'test', '测试员', '00', 'test@vivy.com', '18666666666', '0', '/uploads/avatar/test.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -525,6 +381,86 @@ CREATE TABLE `sys_user_role` (
 BEGIN;
 INSERT INTO `sys_user_role` VALUES (1, 1, sysdate(), sysdate());
 INSERT INTO `sys_user_role` VALUES (2, 2, sysdate(), sysdate());
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_dict_type
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict_type`;
+CREATE TABLE `sys_dict_type` (
+  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典ID',
+  `dict_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典名称',
+  `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典类型',
+  `dict_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '字典状态（0正常 1停用）',
+  `create_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  PRIMARY KEY (`dict_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='字典类型表';
+
+-- ----------------------------
+-- Records of sys_dict_type
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_dict_type` VALUES (1, '用户性别', 'sys_user_sex', 1, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_type` VALUES (2, '系统是否', 'sys_yes_no', 2, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_type` VALUES (3, '系统开关', 'sys_normal_disable', 3, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_type` VALUES (4, '系统成败', 'sys_success_failure', 4, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_type` VALUES (5, '操作类型', 'sys_oper_type', 5, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_type` VALUES (6, '任务分组', 'sys_job_group', 6, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_type` VALUES (7, '公告类型', 'sys_notice_type', 7, '0', 'admin', sysdate(), 'admin', sysdate());
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_dict_data
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict_data`;
+CREATE TABLE `sys_dict_data` (
+  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典ID',
+  `dict_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典类型',
+  `dict_label` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典标签',
+  `dict_value` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典键值',
+  `dict_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
+  `status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '字典状态（0正常 1停用）',
+  `css_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '样式属性（其他样式扩展）',
+  `list_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '表格回显样式',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  PRIMARY KEY (`dict_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='字典数据表';
+
+-- ----------------------------
+-- Records of sys_dict_data
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_dict_data` VALUES (1, 'sys_user_sex', '男', '1', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (2, 'sys_user_sex', '女', '2', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (3, 'sys_user_sex', '保密', '3', 3, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (4, 'sys_yes_no', '是', '1', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (5, 'sys_yes_no', '否', '0', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (6, 'sys_normal_disable', '正常', '0', 1, '0', NULL, 'success', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (7, 'sys_normal_disable', '停用', '1', 2, '0', NULL, 'danger', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (8, 'sys_success_failure', '成功', '0', 1, '0', NULL, 'success', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (9, 'sys_success_failure', '失败', '1', 2, '0', NULL, 'danger', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (10, 'sys_oper_type', '其它', '0', 99, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (11, 'sys_oper_type', '查询', '1', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (12, 'sys_oper_type', '新增', '2', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (13, 'sys_oper_type', '修改', '3', 3, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (14, 'sys_oper_type', '删除', '4', 4, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (15, 'sys_oper_type', '授权', '5', 5, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (16, 'sys_oper_type', '导出', '6', 6, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (17, 'sys_oper_type', '导入', '7', 7, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (18, 'sys_oper_type', '强退', '8', 8, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (19, 'sys_oper_type', '生成代码', '9', 9, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (20, 'sys_oper_type', '清空数据', '10', 10, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (21, 'sys_job_group', '默认', '0', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (22, 'sys_job_group', '系统', '1', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (23, 'sys_notice_type', '通知', '1', 1, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dict_data` VALUES (24, 'sys_notice_type', '公告', '2', 2, '0', NULL, NULL, 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -572,6 +508,59 @@ CREATE TABLE `sys_notice` (
 
 -- ----------------------------
 -- Records of sys_notice
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_login_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_login_log`;
+CREATE TABLE `sys_login_log` (
+  `login_id` bigint NOT NULL AUTO_INCREMENT COMMENT '登录ID',
+  `login_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户账号',
+  `login_type` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '登录类型',
+  `login_status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '登录状态',
+  `login_ip` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '主机地址',
+  `login_location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '登录地点',
+  `login_message` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '登录信息',
+  `user_agent` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '用户代理',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  PRIMARY KEY (`login_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='登录日志表';
+
+-- ----------------------------
+-- Records of sys_login_log
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_oper_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_oper_log`;
+CREATE TABLE `sys_oper_log` (
+  `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '操作ID',
+  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模块标题',
+  `oper_type` char(2) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作类型',
+  `oper_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作人员',
+  `oper_method` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '方法名称',
+  `oper_ip` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '主机地址',
+  `oper_location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '操作地点',
+  `oper_status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作状态',
+  `request_url` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求URL',
+  `request_method` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求方式',
+  `request_param` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '请求参数',
+  `request_result` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '请求返回结果',
+  `request_errmsg` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '请求错误消息',
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  PRIMARY KEY (`oper_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='操作日志表';
+
+-- ----------------------------
+-- Records of sys_oper_log
 -- ----------------------------
 BEGIN;
 COMMIT;
@@ -700,13 +689,13 @@ CREATE TABLE `gen_table_column` (
   `column_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '列类型',
   `column_sort` int NOT NULL DEFAULT '0' COMMENT '列顺序',
   `column_comment` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '列描述',
-  `is_pk` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否主键（0是 1否）',
-  `is_increment` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否自增（0是 1否）',
-  `is_required` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否必填（0是 1否）',
-  `is_insert` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否为插入字段（0是 1否）',
-  `is_edit` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否编辑字段（0是 1否）',
-  `is_list` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否列表字段（0是 1否）',
-  `is_query` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否查询字段（0是 1否）',
+  `is_pk` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否主键（0否 1是）',
+  `is_increment` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否自增（0否 1是）',
+  `is_required` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否必填（0否 1是）',
+  `is_insert` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否为插入字段（0否 1是）',
+  `is_edit` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否编辑字段（0否 1是）',
+  `is_list` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否列表字段（0否 1是）',
+  `is_query` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '是否查询字段（0否 1是）',
   `field_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '属性名称',
   `tslang_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'TS类型',
   `javalang_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'JAVA类型',

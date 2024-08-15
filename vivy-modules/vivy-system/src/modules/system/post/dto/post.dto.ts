@@ -28,4 +28,4 @@ export class CreatePostDto extends OmitType(SysPost, ['postId'] as const) {}
 /**
  * 更新岗位
  */
-export class UpdatePostDto extends OmitType(SysPost, [] as const) {}
+export class UpdatePostDto extends OmitType(SysPost, ['postId'] as const) {}

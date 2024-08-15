@@ -26,7 +26,7 @@ const Role = () => {
    * 删除角色
    * @param roleIds 角色ID
    */
-  const handleDelete = async (roleIds: React.Key) => {
+  const handleDelete = async (roleIds: number | string) => {
     await deleteRole(roleIds)
     setSelectedRowKeys([])
     actionRef.current?.reload()

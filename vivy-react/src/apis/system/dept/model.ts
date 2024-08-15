@@ -34,4 +34,4 @@ export type CreateDeptParams = Omit<DeptModel, 'deptId'>
 /**
  * 更新部门
  */
-export type UpdateDeptParams = DeptModel
+export type UpdateDeptParams = Omit<DeptModel, 'deptId'>

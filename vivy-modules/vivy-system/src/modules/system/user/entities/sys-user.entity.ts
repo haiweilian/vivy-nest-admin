@@ -112,18 +112,18 @@ export class SysUser extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '2',
-    comment: '用户性别（0男 1女 2未知）',
+    comment: '用户性别（1男 2女 3保密）',
   })
   @ExcelColumn({
     name: '用户性别',
     dictType: 'sys_user_sex',
     dictOptions: [
-      { label: '男', value: '0' },
-      { label: '女', value: '1' },
-      { label: '其他', value: '2' },
+      { label: '男', value: '1' },
+      { label: '女', value: '2' },
+      { label: '保密', value: '3' },
     ],
   })
-  @IsIn(['0', '1', '2'])
+  @IsIn(['1', '2', '3'])
   @IsOptional()
   sex: string
 
@@ -163,19 +163,9 @@ export class SysUser extends BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
-    comment: '用户状态（0正常 1停用）',
+    comment: '用户状态（0正常 1停用 2删除）',
   })
   @IsEnum(BaseStatusEnums)
   @IsOptional()
   status: string
-
-  @Column({
-    name: 'del_flag',
-    type: 'char',
-    length: 1,
-    default: '0',
-    select: false,
-    comment: '删除标志（0存在 1删除）',
-  })
-  delFlag: string
 }

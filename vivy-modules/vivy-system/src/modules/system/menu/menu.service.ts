@@ -5,7 +5,7 @@ import { Repository } from 'typeorm'
 import { SysRoleMenu } from '@/modules/system/role/entities/sys-role-menu.entity'
 import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto'
 import { SysMenu } from './entities/sys-menu.entity'
-import { MenuTreeVo, RouterTreeVo } from './vo/menu.vo'
+import { MenuTreeVo } from './vo/menu.vo'
 
 /**
  * 菜单管理
@@ -46,10 +46,11 @@ export class MenuService {
 
   /**
    * 更新菜单
+   * @param menuId 菜单ID
    * @param menu 菜单信息
    */
-  async update(menu: UpdateMenuDto): Promise<void> {
-    await this.menuRepository.update(menu.menuId, menu)
+  async update(menuId: number, menu: UpdateMenuDto): Promise<void> {
+    await this.menuRepository.update(menuId, menu)
   }
 
   /**
@@ -161,28 +162,5 @@ export class MenuService {
       id: 'menuId',
       pid: 'parentId',
     })
-  }
-
-  /**
-   * 构建前端 UmiMax 所需要的路由
-   * @param 菜单列表
-   * @returns 路由列表
-   */
-  buildUmiMaxRouters(menus: MenuTreeVo[]): RouterTreeVo[] {
-    const routers: RouterTreeVo[] = []
-
-    for (const menu of menus) {
-      const router = new RouterTreeVo()
-      router.name = menu.menuName
-      router.path = menu.path
-      router.icon = menu.icon
-      router.component = menu.component
-      router.locale = false
-      router.hideInMenu = menu.isVisible === BaseStatusEnums.ABNORMAL
-      router.children = menu.children && this.buildUmiMaxRouters(menu.children)
-      routers.push(router)
-    }
-
-    return routers
   }
 }

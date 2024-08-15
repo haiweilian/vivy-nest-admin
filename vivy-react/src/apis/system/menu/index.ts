@@ -1,13 +1,13 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { MenuModel, MenuTreeResult, CreateMenuParams, UpdateMenuParams, RouterTreeResult } from './model'
+import type { MenuModel, MenuTreeResult, CreateMenuParams, UpdateMenuParams } from './model'
 export * from './model'
 
 /**
  * 查询菜单树
  */
 export function treeMenu() {
-  return request<MenuTreeResult[]>('/menu/tree', {
+  return request<MenuTreeResult[]>(`/menus/tree`, {
     method: RequestEnum.GET,
   })
 }
@@ -16,7 +16,7 @@ export function treeMenu() {
  * 添加菜单
  */
 export function addMenu(params: CreateMenuParams) {
-  return request('/menu/add', {
+  return request(`/menus`, {
     method: RequestEnum.POST,
     data: params,
   })
@@ -25,8 +25,8 @@ export function addMenu(params: CreateMenuParams) {
 /**
  * 更新菜单
  */
-export function updateMenu(params: UpdateMenuParams) {
-  return request('/menu/update', {
+export function updateMenu(menuId: number, params: UpdateMenuParams) {
+  return request(`/menus/${menuId}`, {
     method: RequestEnum.PUT,
     data: params,
   })
@@ -35,8 +35,8 @@ export function updateMenu(params: UpdateMenuParams) {
 /**
  * 删除菜单
  */
-export function deleteMenu(menuId: React.Key) {
-  return request(`/menu/delete/${menuId}`, {
+export function deleteMenu(menuId: number) {
+  return request(`/menus/${menuId}`, {
     method: RequestEnum.DELETE,
   })
 }
@@ -44,8 +44,8 @@ export function deleteMenu(menuId: React.Key) {
 /**
  * 查询菜单详情
  */
-export function infoMenu(menuId: React.Key) {
-  return request<MenuModel>(`/menu/info/${menuId}`, {
+export function infoMenu(menuId: number) {
+  return request<MenuModel>(`/menus/${menuId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -54,17 +54,7 @@ export function infoMenu(menuId: React.Key) {
  * 查询菜单选项树
  */
 export function menuTreeOptions() {
-  return request<MenuTreeResult[]>('/menu/tree/options', {
+  return request<MenuTreeResult[]>(`/menus/treeOptions`, {
     method: RequestEnum.GET,
-  })
-}
-
-/**
- * 查询用户路由&菜单
- */
-export function getUserRouters() {
-  return request<RouterTreeResult[]>('/menu/getUserRouters', {
-    method: RequestEnum.GET,
-    skipErrorHandler: true,
   })
 }

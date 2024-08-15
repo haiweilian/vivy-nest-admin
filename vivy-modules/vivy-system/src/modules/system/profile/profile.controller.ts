@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Put, UploadedFile, UseInterceptors } from '@nestjs/common'
+import { Body, Controller, Get, Put, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AjaxResult, UserName } from '@vivy-common/core'
+import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { FileService } from '@/modules/file/file/file.service'
 import { UpdatePasswordDto, UpdateProfileDto } from './dto/profile.dto'
@@ -24,37 +24,37 @@ export class ProfileController {
    * 查询个人信息
    */
   @Get()
-  async profile(@UserName() userName: string): Promise<AjaxResult> {
-    return AjaxResult.success(await this.profileService.profile(userName))
+  async info(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.profileService.info())
   }
 
   /**
    * 修改个人信息
    */
-  @Put('updateProfile')
+  @Put()
   @Log({ title: '个人信息', operType: OperType.UPDATE })
-  async updateProfile(@Body() profile: UpdateProfileDto): Promise<AjaxResult> {
-    return AjaxResult.success(await this.profileService.updateProfile(profile))
+  async update(@Body() profile: UpdateProfileDto): Promise<AjaxResult> {
+    return AjaxResult.success(await this.profileService.update(profile))
   }
 
   /**
    * 修改个人密码
    */
-  @Put('updatePassword')
+  @Put('password')
   @Log({ title: '个人信息', operType: OperType.UPDATE })
-  async updatePassword(@Body() password: UpdatePasswordDto): Promise<AjaxResult> {
-    return AjaxResult.success(await this.profileService.updatePassword(password))
+  async password(@Body() password: UpdatePasswordDto): Promise<AjaxResult> {
+    return AjaxResult.success(await this.profileService.password(password))
   }
 
   /**
    * 修改个人头像
    */
-  @Put('updateAvatar')
+  @Post('avatar')
   @Log({ title: '个人信息', operType: OperType.UPDATE })
   @UseInterceptors(FileInterceptor('file'))
-  async updateAvatar(@UploadedFile() file: Express.Multer.File): Promise<AjaxResult> {
+  async avatar(@UploadedFile() file: Express.Multer.File): Promise<AjaxResult> {
     const { fileUrl } = await this.fileService.upload(file, { path: 'avatar' })
-    await this.profileService.updateAvatar(fileUrl)
+    await this.profileService.avatar(fileUrl)
     return AjaxResult.success(fileUrl)
   }
 }

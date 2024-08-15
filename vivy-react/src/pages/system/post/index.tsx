@@ -26,7 +26,7 @@ const Post = () => {
    * 删除岗位
    * @param postIds 岗位ID
    */
-  const handleDelete = async (postIds: React.Key) => {
+  const handleDelete = async (postIds: number | string) => {
     await deletePost(postIds)
     setSelectedRowKeys([])
     actionRef.current?.reload()

@@ -43,4 +43,4 @@ export type CreateConfigParams = Omit<ConfigModel, 'configId'>
 /**
  * 更新参数配置
  */
-export type UpdateConfigParams = ConfigModel
+export type UpdateConfigParams = Omit<ConfigModel, 'configId'>

@@ -32,7 +32,7 @@ const {{businessNamePascalCase}} = () => {
    * 删除{{functionName}}
    * @param {{pkColumn.fieldName}}s {{functionName}}ID
    */
-  const handleDelete = async ({{pkColumn.fieldName}}s: React.Key) => {
+  const handleDelete = async ({{pkColumn.fieldName}}s: number | string) => {
     await delete{{businessNamePascalCase}}({{pkColumn.fieldName}}s)
     setSelectedRowKeys([])
     actionRef.current?.reload()

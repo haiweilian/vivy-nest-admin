@@ -22,13 +22,13 @@ export class ProfileService {
 
   /**
    * 个人信息
-   * @param userName 用户名称
    */
-  async profile(userName: string): Promise<ProfileInfoVo> {
-    const userInfo: ProfileInfoVo = await this.userService.selectUserByUserName(userName)
+  async info(): Promise<ProfileInfoVo> {
+    const token = this.tokenService.getToken()
+    const loginUser = await this.tokenService.getLoginUser(token)
+    const userInfo: ProfileInfoVo = loginUser.sysUser
     userInfo.dept = userInfo.deptId && (await this.deptService.info(userInfo.deptId))
     userInfo.roles = await this.roleService.selectRoleByUserId(userInfo.userId)
-    userInfo.password = null
     return userInfo
   }
 
@@ -36,23 +36,19 @@ export class ProfileService {
    * 修改个人信息
    * @param profile 个人信息
    */
-  async updateProfile(profile: UpdateProfileDto): Promise<void> {
+  async update(profile: UpdateProfileDto): Promise<void> {
     const token = this.tokenService.getToken()
     const loginUser = await this.tokenService.getLoginUser(token)
-    const user = loginUser.sysUser
 
-    if (!(await this.userService.checkUserEmailUnique(user))) {
-      throw new ServiceException(`修改用户${user.userName}失败，邮箱账号已存在`)
+    if (!(await this.userService.checkUserEmailUnique(profile.email, loginUser.userId))) {
+      throw new ServiceException(`修改用户${loginUser.userName}失败，邮箱账号已存在`)
     }
 
-    if (!(await this.userService.checkUserPhoneUnique(user))) {
-      throw new ServiceException(`修改用户${user.userName}失败，手机号码已存在`)
+    if (!(await this.userService.checkUserPhoneUnique(profile.phonenumber, loginUser.userId))) {
+      throw new ServiceException(`修改用户${loginUser.userName}失败，手机号码已存在`)
     }
 
-    await this.userService.updateBasicInfo({
-      ...profile,
-      userId: user.userId,
-    })
+    await this.userService.updateBasicInfo(loginUser.userId, profile)
 
     // 更新缓存用户信息
     Object.assign(loginUser.sysUser, profile)
@@ -63,27 +59,27 @@ export class ProfileService {
    * 修改个人密码
    * @param password 密码信息
    */
-  async updatePassword(password: UpdatePasswordDto): Promise<void> {
+  async password(password: UpdatePasswordDto): Promise<void> {
     const token = this.tokenService.getToken()
     const loginUser = await this.tokenService.getLoginUser(token)
     const curPassword = loginUser.sysUser.password
+    const { oldPassword, newPassword } = password
 
-    if (!(await PasswordUtils.compare(password.oldPassword, curPassword))) {
+    if (!(await PasswordUtils.compare(oldPassword, curPassword))) {
       throw new ServiceException(`修改密码失败，旧密码错误`)
     }
 
-    if (await PasswordUtils.compare(password.newPassword, curPassword)) {
+    if (await PasswordUtils.compare(newPassword, curPassword)) {
       throw new ServiceException(`新密码不能与旧密码相同`)
     }
 
-    const newPassword = await PasswordUtils.create(password.newPassword)
-    await this.userService.updateBasicInfo({
-      password: newPassword,
-      userId: loginUser.userId,
+    const hashPassword = await PasswordUtils.create(newPassword)
+    await this.userService.updateBasicInfo(loginUser.userId, {
+      password: hashPassword,
     })
 
     // 更新缓存用户信息
-    Object.assign(loginUser.sysUser, { password: newPassword })
+    Object.assign(loginUser.sysUser, { password: hashPassword })
     await this.tokenService.setLoginUser(loginUser)
   }
 
@@ -91,13 +87,12 @@ export class ProfileService {
    * 修改个人头像
    * @param avatar 头像地址
    */
-  async updateAvatar(avatar: string): Promise<void> {
+  async avatar(avatar: string): Promise<void> {
     const token = this.tokenService.getToken()
     const loginUser = await this.tokenService.getLoginUser(token)
 
-    await this.userService.updateBasicInfo({
+    await this.userService.updateBasicInfo(loginUser.userId, {
       avatar,
-      userId: loginUser.userId,
     })
 
     // 更新缓存用户信息

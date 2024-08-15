@@ -46,10 +46,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateNoticeParams) => {
     if (record) {
-      await updateNotice({
-        ...values,
-        noticeId: record.noticeId,
-      })
+      await updateNotice(record.noticeId, values)
     } else {
       await addNotice(values)
     }

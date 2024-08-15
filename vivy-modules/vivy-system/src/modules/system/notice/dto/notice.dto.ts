@@ -24,4 +24,4 @@ export class CreateNoticeDto extends OmitType(SysNotice, ['noticeId'] as const) 
 /**
  * 更新通知公告
  */
-export class UpdateNoticeDto extends OmitType(SysNotice, [] as const) {}
+export class UpdateNoticeDto extends OmitType(SysNotice, ['noticeId'] as const) {}

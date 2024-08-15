@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common'
 import { APP_INTERCEPTOR } from '@nestjs/core'
-import { OperLogModule } from '@/modules/system/oper-log/oper-log.module'
+import { OperLogModule } from '@/modules/monitor/oper-log/oper-log.module'
 import { SysLogInterceptor } from './interceptors/log.interceptor'
 
 @Global()

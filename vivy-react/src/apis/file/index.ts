@@ -7,7 +7,7 @@ export * from './model'
  * 查询文件列表
  */
 export function listFile(params: ListFileParams) {
-  return request<Pagination<FileModel>>('/file/list', {
+  return request<Pagination<FileModel>>(`/files`, {
     method: RequestEnum.GET,
     params,
   })
@@ -17,7 +17,7 @@ export function listFile(params: ListFileParams) {
  * 添加文件
  */
 export function addFile(params: CreateFileParams) {
-  return request('/file/add', {
+  return request(`/files`, {
     method: RequestEnum.POST,
     data: params,
   })
@@ -26,8 +26,8 @@ export function addFile(params: CreateFileParams) {
 /**
  * 更新文件
  */
-export function updateFile(params: UpdateFileParams) {
-  return request('/file/update', {
+export function updateFile(fileId: number, params: UpdateFileParams) {
+  return request(`/files/${fileId}`, {
     method: RequestEnum.PUT,
     data: params,
   })
@@ -36,8 +36,8 @@ export function updateFile(params: UpdateFileParams) {
 /**
  * 删除文件
  */
-export function deleteFile(fileIds: React.Key) {
-  return request(`/file/delete/${fileIds}`, {
+export function deleteFile(fileIds: number | string) {
+  return request(`/files/${fileIds}`, {
     method: RequestEnum.DELETE,
   })
 }
@@ -45,8 +45,8 @@ export function deleteFile(fileIds: React.Key) {
 /**
  * 查询文件详情
  */
-export function infoFile(fileId: React.Key) {
-  return request<FileModel>(`/file/info/${fileId}`, {
+export function infoFile(fileId: number) {
+  return request<FileModel>(`/files/${fileId}`, {
     method: RequestEnum.GET,
   })
 }
@@ -55,7 +55,7 @@ export function infoFile(fileId: React.Key) {
  * 文件用途选项
  */
 export function fileUseOptions() {
-  return request<string[]>(`/file/use/options`, {
+  return request<string[]>(`/files/useOptions`, {
     method: RequestEnum.GET,
   })
 }
@@ -64,7 +64,7 @@ export function fileUseOptions() {
  * 单个文件上传
  */
 export function uploadFile(data: FormData) {
-  return request<UploadFileResult>(`/file/upload`, {
+  return request<UploadFileResult>(`/files/upload`, {
     method: RequestEnum.POST,
     data,
     headers: {
@@ -77,7 +77,7 @@ export function uploadFile(data: FormData) {
  * 多个文件上传
  */
 export function uploadsFile(data: FormData) {
-  return request<UploadFileResult[]>(`/file/uploads`, {
+  return request<UploadFileResult[]>(`/files/uploads`, {
     method: RequestEnum.POST,
     data,
     headers: {

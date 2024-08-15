@@ -50,9 +50,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateRoleParams) => {
     if (record) {
-      await updateRole({
+      await updateRole(record.roleId, {
         ...values,
-        roleId: record.roleId,
         menuIds: values.menuIds?.map((item: any) => item.value),
       })
     } else {

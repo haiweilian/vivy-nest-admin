@@ -5,9 +5,7 @@ import { BaseStatusEnums, ServiceException } from '@vivy-common/core'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, In, Like, Repository } from 'typeorm'
-import { ListJobLogDto, CreateJobLogDto } from './dto/job-log.dto'
 import { ListJobDto, CreateJobDto, UpdateJobDto } from './dto/job.dto'
-import { SysJobLog } from './entities/sys-job-log.entity'
 import { SysJob } from './entities/sys-job.entity'
 import { JobQueue } from './job.queue'
 import { TASKABLE_METADATA } from './utils/job.constants'
@@ -27,10 +25,7 @@ export class JobService {
     private dataSource: DataSource,
 
     @InjectRepository(SysJob)
-    private jobRepository: Repository<SysJob>,
-
-    @InjectRepository(SysJobLog)
-    private jobLogRepository: Repository<SysJobLog>
+    private jobRepository: Repository<SysJob>
   ) {}
 
   /**
@@ -69,10 +64,12 @@ export class JobService {
 
   /**
    * 更新定时任务
+   * @param jobId 定时任务ID
    * @param job 定时任务信息
    */
-  async update(job: UpdateJobDto): Promise<void> {
-    const res = await this.jobRepository.save(job)
+  async update(jobId: number, job: UpdateJobDto): Promise<void> {
+    await this.jobRepository.update(jobId, job)
+    const res = await this.jobRepository.findOneBy({ jobId })
     if (res.status === BaseStatusEnums.NORMAL) {
       await this.jobQueue.stop(res)
       await this.jobQueue.start(res)
@@ -107,47 +104,8 @@ export class JobService {
    * @param jobId 定时任务ID
    */
   async once(jobId: number): Promise<void> {
-    const job = await this.info(jobId)
+    const job = await this.jobRepository.findOneBy({ jobId })
     await this.jobQueue.once(job)
-  }
-
-  /**
-   * 添加任务日志
-   * @param jobLog 任务日志详情
-   */
-  async addJobLog(jobLog: CreateJobLogDto) {
-    await this.jobLogRepository.insert(jobLog)
-  }
-
-  /**
-   * 查询任务日志列表
-   * @param jobLog 任务日志信息
-   * @returns 任务日志列表
-   */
-  async listJobLog(jobLog: ListJobLogDto): Promise<Pagination<SysJobLog>> {
-    return paginate<SysJobLog>(
-      this.jobLogRepository,
-      {
-        page: jobLog.page,
-        limit: jobLog.limit,
-      },
-      {
-        where: {
-          jobId: jobLog.jobId,
-          jobName: isNotEmpty(jobLog.jobName) ? Like(`%${jobLog.jobName}%`) : undefined,
-          jobGroup: jobLog.jobGroup,
-          invokeTarget: jobLog.invokeTarget,
-          status: jobLog.status,
-        },
-      }
-    )
-  }
-
-  /**
-   * 清空任务日志列表
-   */
-  async clearJobLog(): Promise<void> {
-    await this.jobLogRepository.clear()
   }
 
   /**

@@ -45,10 +45,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateDeptParams) => {
     if (record) {
-      await updateDept({
-        ...values,
-        deptId: record.deptId,
-      })
+      await updateDept(record.deptId, values)
     } else {
       await addDept(values)
     }

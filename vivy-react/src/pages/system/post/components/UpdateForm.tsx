@@ -44,10 +44,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreatePostParams) => {
     if (record) {
-      await updatePost({
-        ...values,
-        postId: record.postId,
-      })
+      await updatePost(record.postId, values)
     } else {
       await addPost(values)
     }
