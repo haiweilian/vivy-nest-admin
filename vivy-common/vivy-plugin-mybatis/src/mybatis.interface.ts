@@ -1,3 +1,4 @@
+import { FactoryProvider } from '@nestjs/common'
 import { FormatOptionsWithLanguage } from 'sql-formatter'
 
 export type MybatisFormat = FormatOptionsWithLanguage
@@ -33,4 +34,10 @@ export interface MybatisOptions {
    * @example https://www.npmjs.com/package/sql-formatter
    */
   format?: MybatisFormat
+}
+
+export interface MybatisAsyncOptions {
+  name?: string
+  useFactory: (...args: any[]) => Promise<MybatisOptions> | MybatisOptions
+  inject?: FactoryProvider['inject']
 }

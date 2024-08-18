@@ -1,3 +1,5 @@
+import { FactoryProvider } from '@nestjs/common'
+
 export interface ConfigOptions {
   /**
    * 配置文件环境
@@ -14,4 +16,10 @@ export interface ConfigOptions {
    * @default yaml
    */
   extension?: 'yaml' | 'json'
+}
+
+export interface ConfigAsyncOptions {
+  name?: string
+  useFactory: (...args: any[]) => Promise<ConfigOptions> | ConfigOptions
+  inject?: FactoryProvider['inject']
 }

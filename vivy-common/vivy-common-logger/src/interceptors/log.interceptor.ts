@@ -68,7 +68,7 @@ export class LogInterceptor implements NestInterceptor {
       operLog.operStatus = BaseStatusEnums.NORMAL
       operLog.requestErrmsg = undefined
     } else {
-      operLog.operStatus = BaseStatusEnums.ABNORMAL
+      operLog.operStatus = BaseStatusEnums.DISABLE
       operLog.requestErrmsg = result.message
     }
 

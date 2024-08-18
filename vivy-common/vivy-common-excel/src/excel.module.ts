@@ -1,19 +1,26 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
 import { EXCEL_OPTIONS } from './excel.constants'
-import { ExcelOptions } from './excel.interface'
+import { ExcelOptions, ExcelAsyncOptions } from './excel.interface'
 import { ExcelService } from './excel.service'
 
 @Global()
 @Module({})
 export class ExcelModule {
   static forRoot(options?: ExcelOptions): DynamicModule {
-    return this.register(options || {})
+    return this.register({
+      useFactory: () => options || {},
+    })
   }
 
-  private static register(options: ExcelOptions): DynamicModule {
+  static forRootAsync(options: ExcelAsyncOptions): DynamicModule {
+    return this.register(options)
+  }
+
+  private static register(options: ExcelAsyncOptions): DynamicModule {
     const OptionsProvider: Provider = {
       provide: EXCEL_OPTIONS,
-      useValue: options,
+      useFactory: options.useFactory,
+      inject: options.inject,
     }
 
     return {

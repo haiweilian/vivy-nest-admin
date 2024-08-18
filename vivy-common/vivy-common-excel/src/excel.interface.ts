@@ -1,7 +1,14 @@
+import { FactoryProvider } from '@nestjs/common'
 import { AddWorksheetOptions, Style, Column, CellValue, Row, Cell } from 'exceljs'
 
 export interface ExcelOptions {
   _?: unknown
+}
+
+export interface ExcelAsyncOptions {
+  name?: string
+  useFactory: (...args: any[]) => Promise<ExcelOptions> | ExcelOptions
+  inject?: FactoryProvider['inject']
 }
 
 export interface DictOption {
