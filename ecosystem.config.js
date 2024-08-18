@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path')
+
 const env = {
   env: {
     NODE_ENV: 'production',
@@ -14,12 +17,14 @@ module.exports = {
   apps: [
     {
       name: 'vivy-system',
-      script: 'vivy-modules/vivy-system/dist/main.js',
+      cwd: path.resolve(__dirname, 'vivy-modules/vivy-system'),
+      script: 'dist/main.js',
       ...env,
     },
     // {
     //   name: 'vivy-template',
-    //   script: 'vivy-modules/vivy-template/dist/main.js',
+    //   cwd: path.resolve(__dirname, 'vivy-modules/vivy-template'),
+    //   script: 'dist/main.js',
     //   ...env,
     // },
   ],
