@@ -47,16 +47,6 @@ export class SysFile extends BaseBusinessEntity {
   fileName: string
 
   @Column({
-    name: 'file_original_name',
-    type: 'varchar',
-    length: 500,
-    comment: '文件原始名称',
-  })
-  @MaxLength(500)
-  @IsNotEmpty()
-  fileOriginalName: string
-
-  @Column({
     name: 'file_size',
     type: 'bigint',
     comment: '文件大小',

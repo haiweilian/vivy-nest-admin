@@ -1,6 +1,6 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import { ProfileInfoResult, UpdateProfileParams, UpdatePasswordParams } from './model'
+import { ProfileInfoResult, UpdateProfileParams, UpdatePasswordParams, UpdateAvatarParams } from './model'
 export * from './model'
 
 /**
@@ -35,7 +35,7 @@ export function updatePassword(params: UpdatePasswordParams) {
 /**
  * 修改个人头像
  */
-export function updateAvatar(params: FormData) {
+export function updateAvatar(params: UpdateAvatarParams) {
   return request<string>(`/profile/avatar`, {
     method: RequestEnum.POST,
     data: params,

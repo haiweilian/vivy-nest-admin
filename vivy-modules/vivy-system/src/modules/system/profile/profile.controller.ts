@@ -1,10 +1,9 @@
-import { Body, Controller, Get, Put, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
-import { FileInterceptor } from '@nestjs/platform-express'
+import { Body, Controller, Get, Put, Post } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { FileService } from '@/modules/file/file/file.service'
-import { UpdatePasswordDto, UpdateProfileDto } from './dto/profile.dto'
+import { UpdatePasswordDto, UpdateProfileDto, UpdateAvatarDto } from './dto/profile.dto'
 import { ProfileService } from './profile.service'
 
 /**
@@ -51,10 +50,7 @@ export class ProfileController {
    */
   @Post('avatar')
   @Log({ title: '个人信息', operType: OperType.UPDATE })
-  @UseInterceptors(FileInterceptor('file'))
-  async avatar(@UploadedFile() file: Express.Multer.File): Promise<AjaxResult> {
-    const { fileUrl } = await this.fileService.upload(file, { path: 'avatar' })
-    await this.profileService.avatar(fileUrl)
-    return AjaxResult.success(fileUrl)
+  async avatar(@Body() avatar: UpdateAvatarDto): Promise<AjaxResult> {
+    return AjaxResult.success(await this.profileService.avatar(avatar))
   }
 }

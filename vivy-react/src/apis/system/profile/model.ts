@@ -28,3 +28,11 @@ export interface UpdatePasswordParams {
   /** 新密码 */
   newPassword: string
 }
+
+/**
+ * 更新个人头像
+ */
+export interface UpdateAvatarParams {
+  /** 用户头像 */
+  avatar: string
+}

@@ -631,7 +631,6 @@ CREATE TABLE `sys_file` (
   `file_use` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件用途',
   `file_url` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件路径',
   `file_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件名称',
-  `file_original_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件原始名称',
   `file_size` bigint NOT NULL COMMENT '文件大小',
   `file_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件类型',
   `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
@@ -645,8 +644,8 @@ CREATE TABLE `sys_file` (
 -- Records of sys_file
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_file` VALUES (1, '系统', '/uploads/avatar/admin.png', 'admin.png', 'admin.png',  30379, 'image/png', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_file` VALUES (2, '系统', '/uploads/avatar/test.png',  'admin.png', 'admin.png',  30379, 'image/png', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_file` VALUES (1, '系统', '/uploads/avatar/admin.png', 'admin.png', 30379, 'image/png', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_file` VALUES (2, '系统', '/uploads/avatar/test.png',  'admin.png', 30379, 'image/png', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------

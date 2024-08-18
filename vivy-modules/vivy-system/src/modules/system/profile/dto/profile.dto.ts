@@ -39,3 +39,12 @@ export class UpdatePasswordDto {
   @MaxLength(36)
   newPassword: string
 }
+
+/**
+ * 更新个人头像
+ */
+export class UpdateAvatarDto {
+  /** 用户头像 */
+  @MaxLength(255)
+  avatar: string
+}

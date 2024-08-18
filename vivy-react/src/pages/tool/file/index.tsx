@@ -1,12 +1,12 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { ProTable } from '@ant-design/pro-components'
 import { useRequest } from '@umijs/max'
-import { Button, message, Popconfirm } from 'antd'
+import { Button, message } from 'antd'
 import Clipboard from 'clipboard'
 import prettyBytes from 'pretty-bytes'
 import { useEffect, useRef, useState } from 'react'
-import { listFile, deleteFile, fileUseOptions } from '@/apis/file'
+import { listFile, fileUseOptions } from '@/apis/file'
 import type { FileModel } from '@/apis/file'
 import UploadForm from './components/UploadForm'
 import UploadsForm from './components/UploadsForm'
@@ -21,16 +21,6 @@ const File = () => {
    * 文件用途选项
    */
   const { data: fileUseData } = useRequest(fileUseOptions)
-
-  /**
-   * 删除文件
-   * @param fileIds 文件ID
-   */
-  const handleDelete = async (fileIds: number | string) => {
-    await deleteFile(fileIds)
-    setSelectedRowKeys([])
-    actionRef.current?.reload()
-  }
 
   /**
    * 表格列配置
@@ -74,11 +64,6 @@ const File = () => {
         <Button key="copy" type="link" className="copy" data-clipboard-text={record.fileUrl}>
           复制地址
         </Button>,
-        <Popconfirm key="delete" title="是否确认删除？" onConfirm={() => handleDelete(record.fileId)}>
-          <Button type="link" danger>
-            删除
-          </Button>
-        </Popconfirm>,
       ],
     },
   ]
@@ -141,16 +126,6 @@ const File = () => {
             >
               多个上传
             </Button>,
-            <Popconfirm
-              key="delete"
-              title="是否确认删除？"
-              disabled={!selectedRowKeys.length}
-              onConfirm={() => handleDelete(selectedRowKeys.join(','))}
-            >
-              <Button icon={<DeleteOutlined />} type="primary" danger disabled={!selectedRowKeys.length}>
-                删除
-              </Button>
-            </Popconfirm>,
           ],
         }}
       />

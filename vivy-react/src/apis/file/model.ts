@@ -14,9 +14,6 @@ export interface FileModel {
   /** 文件名称 */
   fileName: string
 
-  /** 文件原始名称 */
-  fileOriginalName: string
-
   /** 文件大小 */
   fileSize: number
 
@@ -56,23 +53,3 @@ export type CreateFileParams = Omit<FileModel, 'fileId'>
  * 更新文件
  */
 export type UpdateFileParams = Omit<FileModel, 'fileId'>
-
-/**
- * 上传文件信息
- */
-export interface UploadFileResult {
-  /** 文件路径 */
-  fileUrl: string
-
-  /** 文件名称 */
-  fileName: string
-
-  /** 文件原始名称 */
-  fileOriginalName: string
-
-  /** 文件大小 */
-  fileSize: number
-
-  /** 文件类型 */
-  fileType: string
-}

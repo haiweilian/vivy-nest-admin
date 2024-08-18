@@ -25,29 +25,3 @@ export class CreateFileDto extends OmitType(SysFile, ['fileId'] as const) {}
  * 更新文件
  */
 export class UpdateFileDto extends OmitType(SysFile, ['fileId'] as const) {}
-
-/**
- * 单个上传配置
- */
-export class UploadConfigDto {
-  /** 文件路径，默认为空 */
-  @Allow()
-  path?: string
-
-  /** 文件名称，默认为随机名称 */
-  @Allow()
-  name?: string
-}
-
-/**
- * 多个上传配置
- */
-export class UploadsConfigDto {
-  /** 文件路径，默认为空 */
-  @Allow()
-  path?: string[]
-
-  /** 文件名称，默认为随机名称 */
-  @Allow()
-  name?: string[]
-}

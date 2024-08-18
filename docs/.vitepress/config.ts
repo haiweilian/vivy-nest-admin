@@ -93,7 +93,7 @@ export default defineConfig({
                 link: '/back/business/gen',
               },
               {
-                text: '上传下载🚧',
+                text: '文件上传',
                 link: '/back/business/upload',
               },
               {

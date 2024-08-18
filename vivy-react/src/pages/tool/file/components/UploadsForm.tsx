@@ -2,7 +2,7 @@ import { type DrawerFormProps, type ProFormInstance, DrawerForm, ProFormUploadBu
 import { useRequest } from '@umijs/max'
 import { UploadFile } from 'antd'
 import { useRef, useState } from 'react'
-import { addFile, fileUseOptions, uploadsFile } from '@/apis/file'
+import { addFile, fileUseOptions, uploadFiles } from '@/apis/file'
 import UseSelect from './UseSelect'
 
 const UploadsForm: React.FC<DrawerFormProps> = (props) => {
@@ -24,18 +24,23 @@ const UploadsForm: React.FC<DrawerFormProps> = (props) => {
    */
   const handleSubmit = async (values: { fileUse: string; files: UploadFile[] }) => {
     const data = new FormData()
+    data.append('path', 'base')
     for (const file of values.files) {
-      // data.append('path', 'base')
-      // data.append('name', file.name)
       data.append('files', file.originFileObj!)
     }
-    const infos = await uploadsFile(data)
-    for (const info of infos) {
-      await addFile({
-        ...info,
-        fileUse: values.fileUse,
+    const urls = await uploadFiles(data)
+    await addFile(
+      values.files.map((file, index) => {
+        const originFile = file.originFileObj!
+        return {
+          fileUrl: urls[index],
+          fileUse: values.fileUse,
+          fileSize: originFile.size,
+          fileType: originFile.type,
+          fileName: originFile.name,
+        }
       })
-    }
+    )
   }
 
   return (

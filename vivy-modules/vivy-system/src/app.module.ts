@@ -55,6 +55,7 @@ import { SystemModule } from './modules/system/system.module'
     }),
 
     // common
+    CommonModule,
     CoreModule.forRoot(),
     ExcelModule.forRoot(),
     LoggerModule.forRootAsync({
@@ -69,7 +70,6 @@ import { SystemModule } from './modules/system/system.module'
       },
       inject: [ConfigService],
     }),
-    CommonModule,
 
     // modules
     GenModule,

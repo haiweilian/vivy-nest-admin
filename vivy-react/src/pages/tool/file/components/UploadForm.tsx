@@ -25,13 +25,16 @@ const UploadForm: React.FC<DrawerFormProps> = (props) => {
   const handleSubmit = async (values: { fileUse: string; files: UploadFile[] }) => {
     const data = new FormData()
     const file = values.files[0]
-    // data.append('path', 'base')
-    // data.append('name', file.name)
+    data.append('path', 'base')
     data.append('file', file.originFileObj!)
-    const info = await uploadFile(data)
+    const url = await uploadFile(data)
+    const originFile = file.originFileObj!
     await addFile({
-      ...info,
+      fileUrl: url,
       fileUse: values.fileUse,
+      fileSize: originFile.size,
+      fileType: originFile.type,
+      fileName: originFile.name,
     })
   }
 
