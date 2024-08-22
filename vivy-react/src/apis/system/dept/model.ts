@@ -8,6 +8,9 @@ export interface DeptModel {
   /** 父部门ID */
   parentId?: number
 
+  /** 祖级列表 */
+  ancestors?: string
+
   /** 部门名称 */
   deptName: string
 

@@ -19,12 +19,23 @@ export class SysDept extends BaseBusinessEntity {
   @Column({
     name: 'parent_id',
     type: 'bigint',
-    nullable: true,
+    default: 0,
     comment: '父部门ID',
   })
   @IsInt()
   @IsOptional()
-  parentId?: number
+  parentId: number
+
+  @Column({
+    name: 'ancestors',
+    type: 'varchar',
+    length: 200,
+    default: '0',
+    comment: '祖级列表',
+  })
+  @MaxLength(200)
+  @IsOptional()
+  ancestors: string
 
   @Column({
     name: 'dept_name',

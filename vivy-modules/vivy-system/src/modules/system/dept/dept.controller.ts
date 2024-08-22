@@ -45,7 +45,7 @@ export class DeptController {
    * @param deptId 部门ID
    * @param dept 部门信息
    */
-  @Put('update')
+  @Put(':deptId')
   @Log({ title: '部门管理', operType: OperType.UPDATE })
   @RequirePermissions('system:dept:update')
   async update(@Param('deptId') deptId: number, @Body() dept: UpdateDeptDto): Promise<AjaxResult> {

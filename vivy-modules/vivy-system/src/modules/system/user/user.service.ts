@@ -6,6 +6,7 @@ import { isNotEmpty, isEmpty, isArray, isObject } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, In, Like, Repository } from 'typeorm'
 import { ConfigService } from '@/modules/system/config/config.service'
+import { DeptService } from '@/modules/system/dept/dept.service'
 import { MenuService } from '@/modules/system/menu/menu.service'
 import { RoleService } from '@/modules/system/role/role.service'
 import { ListUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto'
@@ -33,6 +34,7 @@ export class UserService {
     @InjectRepository(SysUserPost)
     private userPostRepository: Repository<SysUserPost>,
 
+    private deptService: DeptService,
     private menuService: MenuService,
     private roleService: RoleService,
     private excelService: ExcelService,
@@ -45,6 +47,8 @@ export class UserService {
    * @returns 用户列表
    */
   async list(user: ListUserDto): Promise<Pagination<SysUser>> {
+    const childIds = await this.deptService.selectChildIds(user.deptId)
+
     return paginate<SysUser>(
       this.userRepository,
       {
@@ -54,7 +58,7 @@ export class UserService {
       {
         where: {
           status: user.status,
-          deptId: user.deptId,
+          deptId: isNotEmpty(user.deptId) ? In([user.deptId, ...childIds]) : undefined,
           userName: isNotEmpty(user.userName) ? Like(`%${user.userName}%`) : undefined,
           nickName: isNotEmpty(user.nickName) ? Like(`%${user.nickName}%`) : undefined,
         },

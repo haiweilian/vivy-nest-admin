@@ -41,6 +41,12 @@ export class DeptService {
    * @param dept 部门信息
    */
   async add(dept: CreateDeptDto): Promise<void> {
+    dept.ancestors = `0`
+    if (dept.parentId) {
+      const parent = await this.deptRepository.findOneBy({ deptId: dept.parentId })
+      dept.ancestors = `${parent.ancestors},${parent.deptId}`
+    }
+
     await this.deptRepository.insert(dept)
   }
 
@@ -50,6 +56,12 @@ export class DeptService {
    * @param deptId 部门ID
    */
   async update(deptId: number, dept: UpdateDeptDto): Promise<void> {
+    dept.ancestors = `0`
+    if (dept.parentId) {
+      const parent = await this.deptRepository.findOneBy({ deptId: dept.parentId })
+      dept.ancestors = `${parent.ancestors},${parent.deptId}`
+    }
+
     await this.deptRepository.update(deptId, dept)
   }
 
@@ -108,5 +120,18 @@ export class DeptService {
       id: 'deptId',
       pid: 'parentId',
     })
+  }
+
+  /**
+   * 根据部门ID查询所有子部门ID
+   */
+  async selectChildIds(deptId: number): Promise<number[]> {
+    const list = await this.deptRepository
+      .createQueryBuilder('dept')
+      .select(['dept.deptId'])
+      .where(`FIND_IN_SET(:deptId, dept.ancestors)`, { deptId })
+      .getMany()
+
+    return list.map((item) => item.deptId)
   }
 }

@@ -31,7 +31,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   const { run: runInfoDept } = useRequest(infoDept, {
     manual: true,
     onSuccess(data) {
-      formRef.current?.setFieldsValue(data)
+      formRef.current?.setFieldsValue({
+        ...data,
+        parentId: data.parentId || undefined,
+      })
     },
   })
   const handleInitial = () => {

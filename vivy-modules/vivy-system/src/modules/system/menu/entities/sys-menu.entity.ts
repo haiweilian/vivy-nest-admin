@@ -19,12 +19,12 @@ export class SysMenu extends BaseBusinessEntity {
   @Column({
     name: 'parent_id',
     type: 'bigint',
-    nullable: true,
+    default: 0,
     comment: '父菜单ID',
   })
   @IsInt()
   @IsOptional()
-  parentId?: number
+  parentId: number
 
   @Column({
     name: 'menu_name',

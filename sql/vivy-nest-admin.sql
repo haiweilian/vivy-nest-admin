@@ -23,7 +23,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
   `dept_id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门ID',
-  `parent_id` bigint DEFAULT NULL COMMENT '父部门ID',
+  `parent_id` bigint NOT NULL DEFAULT '0' COMMENT '父部门ID',
+  `ancestors` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '祖级列表',
   `dept_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '部门名称',
   `dept_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
@@ -38,16 +39,16 @@ CREATE TABLE `sys_dept` (
 -- Records of sys_dept
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_dept` VALUES (100, NULL, '总公司', 0, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dept` VALUES (101, 100, '深圳分公司', 1, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dept` VALUES (102, 100, '长沙分公司', 2, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dept` VALUES (103, 101, '研发部门', 1, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dept` VALUES (104, 101, '市场部门', 2, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dept` VALUES (105, 101, '测试部门', 3, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dept` VALUES (106, 101, '财务部门', 4, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dept` VALUES (107, 101, '运维部门', 5, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dept` VALUES (108, 102, '市场部门', 1, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_dept` VALUES (109, 102, '财务部门', 2, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (100, 0,   '0',         '总公司',  1, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (101, 100, '0,100',     '深圳公司', 1, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (102, 100, '0,100',     '长沙公司', 2, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (103, 101, '0,100,101', '研发部门', 1, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (104, 101, '0,100,101', '市场部门', 2, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (105, 101, '0,100,101', '测试部门', 3, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (106, 101, '0,100,101', '财务部门', 4, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (107, 101, '0,100,101', '运维部门', 5, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (108, 102, '0,100,102', '市场部门', 1, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_dept` VALUES (109, 102, '0,100,102', '财务部门', 2, '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -56,7 +57,7 @@ COMMIT;
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
   `menu_id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
-  `parent_id` bigint DEFAULT NULL COMMENT '父菜单ID',
+  `parent_id` bigint NOT NULL DEFAULT '0' COMMENT '父菜单ID',
   `menu_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜单名称',
   `menu_type` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜单类型（M目录 C菜单 F按钮）',
   `menu_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
@@ -82,10 +83,10 @@ CREATE TABLE `sys_menu` (
 -- ----------------------------
 BEGIN;
 -- 一级菜单
-INSERT INTO `sys_menu` VALUES (1, NULL, '系统管理', 'M', 1, '0', 'system',                                        NULL, NULL, NULL, 'ant-design:setting-outlined', '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (2, NULL, '系统监控', 'M', 2, '0', 'monitor',                                       NULL, NULL, NULL, 'ant-design:fund-outlined',    '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (3, NULL, '系统工具', 'M', 3, '0', 'tool',                                          NULL, NULL, NULL, 'ant-design:tool-outlined',    '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (4, NULL, '项目源码', 'M', 4, '0', 'https://github.com/haiweilian/vivy-nest-admin', NULL, NULL, NULL, 'ant-design:link-outlined',    '1', '1', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1, 0, '系统管理', 'M', 1, '0', 'system',                                        NULL, NULL, NULL, 'ant-design:setting-outlined', '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (2, 0, '系统监控', 'M', 2, '0', 'monitor',                                       NULL, NULL, NULL, 'ant-design:fund-outlined',    '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (3, 0, '系统工具', 'M', 3, '0', 'tool',                                          NULL, NULL, NULL, 'ant-design:tool-outlined',    '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (4, 0, '项目源码', 'M', 4, '0', 'https://github.com/haiweilian/vivy-nest-admin', NULL, NULL, NULL, 'ant-design:link-outlined',    '1', '1', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 二级菜单
 INSERT INTO `sys_menu` VALUES (100, 1, '用户管理', 'C', 1, '0', 'user',        'system/user/index',         NULL, 'system:user:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
@@ -339,7 +340,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1, NULL, 'admin', '管理员', '00', 'admin@vivy.com', '18688888888', '0', '/uploads/avatar/admin.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_user` VALUES (1, 100, 'admin', '管理员', '00', 'admin@vivy.com', '18688888888', '0', '/uploads/avatar/admin.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_user` VALUES (2, 105, 'test', '测试员', '00', 'test@vivy.com', '18666666666', '0', '/uploads/avatar/test.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
