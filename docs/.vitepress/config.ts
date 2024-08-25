@@ -72,6 +72,10 @@ export default defineConfig({
                 link: '/back/common/validator',
               },
               {
+                text: '数据脱敏',
+                link: '/back/common/sensitive',
+              },
+              {
                 text: '异常处理',
                 link: '/back/common/exception',
               },
