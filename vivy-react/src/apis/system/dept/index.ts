@@ -54,7 +54,7 @@ export function infoDept(deptId: number) {
  * 查询部门选项树
  */
 export function deptTreeOptions() {
-  return request<DeptTreeResult[]>(`/depts/treeOptions`, {
+  return request<DeptTreeResult[]>(`/depts/tree-options`, {
     method: RequestEnum.GET,
   })
 }

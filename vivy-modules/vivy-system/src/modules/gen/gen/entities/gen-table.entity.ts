@@ -1,8 +1,7 @@
 import { BaseBusinessEntity } from '@vivy-common/core'
 import { Type } from 'class-transformer'
-import { ArrayNotEmpty, IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength, ValidateNested } from 'class-validator'
+import { ArrayNotEmpty, IsInt, IsNotEmpty, IsOptional, MaxLength, ValidateNested } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { TemplateCategoryEnums } from '../../utils/gen.enums'
 import { GenTableColumn } from './gen-table-column.entity'
 
 /**
@@ -78,7 +77,6 @@ export class GenTable extends BaseBusinessEntity {
     default: '1',
     comment: '生成模板分类',
   })
-  @IsEnum(TemplateCategoryEnums)
   @IsOptional()
   templateCategory: string
 

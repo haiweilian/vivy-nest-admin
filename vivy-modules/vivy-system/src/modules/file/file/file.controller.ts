@@ -41,7 +41,7 @@ export class FileController {
    * 文件用途选项
    * @returns 文件用途选项列表
    */
-  @Get('useOptions')
+  @Get('use-options')
   async useOptions(): Promise<AjaxResult> {
     return AjaxResult.success(await this.fileService.useOptions())
   }

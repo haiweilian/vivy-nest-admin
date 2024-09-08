@@ -1,7 +1,7 @@
 /**
  * 用户状态
  */
-export enum UserStatusEnums {
+export enum UserStatusEnum {
   /**
    * 正常
    */

@@ -1,6 +1,6 @@
 import { request } from '@umijs/max'
 import { RequestEnum } from '@/enums/httpEnum'
-import type { ImageCaptchaResult, LoginParams, LoginResult, RouterTreeResult } from './model'
+import type { CaptchaResult, LoginParams, LoginResult, RouterTreeResult } from './model'
 export * from './model'
 
 /**
@@ -25,10 +25,10 @@ export function logout() {
 }
 
 /**
- * 图片验证码
+ * 验证码
  */
-export function captchaImage() {
-  return request<ImageCaptchaResult>('/auth/captchaImage', {
+export function captcha() {
+  return request<CaptchaResult>('/auth/captcha', {
     method: RequestEnum.GET,
   })
 }
@@ -37,7 +37,7 @@ export function captchaImage() {
  * 用户登录信息
  */
 export function getUserInfo() {
-  return request<LoginUserInfo>('/auth/userInfo', {
+  return request<LoginUserInfo>('/auth/user/info', {
     method: RequestEnum.GET,
     skipErrorHandler: true,
   })
@@ -47,7 +47,7 @@ export function getUserInfo() {
  * 查询用户路由&菜单
  */
 export function getUserRouters() {
-  return request<RouterTreeResult[]>('/auth/userRouters', {
+  return request<RouterTreeResult[]>('/auth/user/routers', {
     method: RequestEnum.GET,
     skipErrorHandler: true,
   })

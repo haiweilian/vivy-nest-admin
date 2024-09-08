@@ -2,7 +2,7 @@
  * 业务状态
  * @description 表示目前有两个状态的通用枚举(状态是可扩展的)
  */
-export enum BaseStatusEnums {
+export enum BaseStatusEnum {
   /**
    * 正常/成功
    */

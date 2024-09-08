@@ -1,7 +1,7 @@
 /**
  * 验证码
  */
-export class ImageCaptchaVo {
+export class CaptchaVo {
   /* 验证码 img */
   img: string
 

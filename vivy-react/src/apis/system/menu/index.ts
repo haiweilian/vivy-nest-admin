@@ -54,7 +54,7 @@ export function infoMenu(menuId: number) {
  * 查询菜单选项树
  */
 export function menuTreeOptions() {
-  return request<MenuTreeResult[]>(`/menus/treeOptions`, {
+  return request<MenuTreeResult[]>(`/menus/tree-options`, {
     method: RequestEnum.GET,
   })
 }

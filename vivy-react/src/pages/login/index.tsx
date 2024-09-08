@@ -3,7 +3,7 @@ import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-compone
 import { useModel, useRequest } from '@umijs/max'
 import { App, Space } from 'antd'
 import { flushSync } from 'react-dom'
-import { login, captchaImage } from '@/apis/auth/login'
+import { login, captcha } from '@/apis/auth/login'
 import type { LoginParams } from '@/apis/auth/login'
 import { PageEnum } from '@/enums/pageEnum'
 import { Footer } from '@/layouts/default'
@@ -12,7 +12,7 @@ import { setToken } from '@/utils/auth'
 const Login = () => {
   const { message } = App.useApp()
   const { initialState, setInitialState } = useModel('@@initialState')
-  const { data: captcha, run: runCaptchaImage } = useRequest(captchaImage)
+  const { data: captchaImage, run: runCaptchaImage } = useRequest(captcha)
 
   const fetchUserInfo = async (): Promise<void> => {
     const userInfo = await initialState?.fetchUserInfo?.()
@@ -30,7 +30,7 @@ const Login = () => {
     try {
       const token = await login({
         ...values,
-        uuid: captcha?.uuid,
+        uuid: captchaImage?.uuid,
       })
       setToken(token.access_token)
       await fetchUserInfo()
@@ -75,7 +75,7 @@ const Login = () => {
               },
             ]}
           />
-          {captcha ? (
+          {captchaImage ? (
             <Space>
               <ProFormText
                 name="code"
@@ -94,7 +94,7 @@ const Login = () => {
               />
               <div
                 className="flex cursor-pointer mb-[24px]"
-                dangerouslySetInnerHTML={{ __html: captcha.img }}
+                dangerouslySetInnerHTML={{ __html: captchaImage.img }}
                 onClick={runCaptchaImage}
               />
             </Space>

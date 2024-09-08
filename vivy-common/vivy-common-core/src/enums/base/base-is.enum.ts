@@ -1,7 +1,7 @@
 /**
  * 是否状态
  */
-export enum BaseIsEnums {
+export enum BaseIsEnum {
   /**
    * 否
    */

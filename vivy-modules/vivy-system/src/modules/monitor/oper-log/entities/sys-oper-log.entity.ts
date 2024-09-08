@@ -1,4 +1,4 @@
-import { BaseStatusEnums, BaseTimeEntity } from '@vivy-common/core'
+import { BaseStatusEnum, BaseTimeEntity } from '@vivy-common/core'
 import { OperType } from '@vivy-common/logger'
 import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
@@ -85,7 +85,7 @@ export class SysOperLog extends BaseTimeEntity {
     length: 1,
     comment: '操作状态',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseStatusEnum)
   @IsNotEmpty()
   operStatus: string
 

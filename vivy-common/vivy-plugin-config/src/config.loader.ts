@@ -11,9 +11,9 @@ import { ConfigOptions } from './config.interface'
  */
 @Injectable()
 export class ConfigLoader {
-  private readonly files: string[]
+  private files: string[]
 
-  constructor(@Inject(CONFIG_OPTIONS) private readonly options: ConfigOptions) {
+  constructor(@Inject(CONFIG_OPTIONS) private options: ConfigOptions) {
     this.files = this.getFilesPath()
   }
 

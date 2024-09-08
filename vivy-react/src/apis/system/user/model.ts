@@ -23,7 +23,7 @@ export interface UserModel {
   /** 手机号码 */
   phonenumber?: string
 
-  /** 用户性别（0男 1女 2未知） */
+  /** 用户性别（1男 2女 3保密） */
   sex: string
 
   /** 头像地址 */

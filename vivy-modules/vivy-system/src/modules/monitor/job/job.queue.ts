@@ -1,7 +1,7 @@
 import { InjectQueue } from '@nestjs/bull'
 import { Injectable, OnModuleInit } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { BaseStatusEnums } from '@vivy-common/core'
+import { BaseStatusEnum } from '@vivy-common/core'
 import { Queue } from 'bull'
 import { Repository } from 'typeorm'
 import { JOB_BULL_NAME } from '@/common/constants/bull.constants'
@@ -34,7 +34,7 @@ export class JobQueue implements OnModuleInit {
     await Promise.all(oldJobs.map((job) => this.queue.removeRepeatableByKey(job.key)))
 
     // 需要执行的任务
-    const newJobs = await this.jobRepository.findBy({ status: BaseStatusEnums.NORMAL })
+    const newJobs = await this.jobRepository.findBy({ status: BaseStatusEnum.NORMAL })
     await Promise.all(newJobs.map((job) => this.start(job)))
   }
 

@@ -7,7 +7,7 @@ import {
   NotRoleException,
   SecurityContext,
 } from '@vivy-common/core'
-import { Logical } from '../enums/logical.enums'
+import { Logical } from '../enums/logical.enum'
 import { RequireMetadata } from '../interfaces/require-metadata.interface'
 
 /**

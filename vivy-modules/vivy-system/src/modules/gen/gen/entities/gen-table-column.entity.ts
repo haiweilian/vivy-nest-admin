@@ -1,4 +1,4 @@
-import { BaseBusinessEntity, BaseIsEnums } from '@vivy-common/core'
+import { BaseBusinessEntity, BaseIsEnum } from '@vivy-common/core'
 import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
 import { GenTable } from './gen-table.entity'
@@ -73,7 +73,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否主键（0否 1是）',
   })
-  @IsEnum(BaseIsEnums)
+  @IsEnum(BaseIsEnum)
   @IsOptional()
   isPk?: string
 
@@ -84,7 +84,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否自增（0否 1是）',
   })
-  @IsEnum(BaseIsEnums)
+  @IsEnum(BaseIsEnum)
   @IsOptional()
   isIncrement?: string
 
@@ -95,7 +95,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否必填（0否 1是）',
   })
-  @IsEnum(BaseIsEnums)
+  @IsEnum(BaseIsEnum)
   @IsOptional()
   isRequired?: string
 
@@ -106,7 +106,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否为插入字段（0否 1是）',
   })
-  @IsEnum(BaseIsEnums)
+  @IsEnum(BaseIsEnum)
   @IsOptional()
   isInsert?: string
 
@@ -117,7 +117,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否编辑字段（0否 1是）',
   })
-  @IsEnum(BaseIsEnums)
+  @IsEnum(BaseIsEnum)
   @IsOptional()
   isEdit?: string
 
@@ -128,7 +128,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否列表字段（0否 1是）',
   })
-  @IsEnum(BaseIsEnums)
+  @IsEnum(BaseIsEnum)
   @IsOptional()
   isList?: string
 
@@ -139,7 +139,7 @@ export class GenTableColumn extends BaseBusinessEntity {
     nullable: true,
     comment: '是否查询字段（0否 1是）',
   })
-  @IsEnum(BaseIsEnums)
+  @IsEnum(BaseIsEnum)
   @IsOptional()
   isQuery?: string
 

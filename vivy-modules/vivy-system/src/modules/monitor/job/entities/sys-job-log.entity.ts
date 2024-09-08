@@ -1,4 +1,4 @@
-import { BaseTimeEntity, BaseStatusEnums } from '@vivy-common/core'
+import { BaseTimeEntity, BaseStatusEnum } from '@vivy-common/core'
 import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
@@ -95,7 +95,7 @@ export class SysJobLog extends BaseTimeEntity {
     default: '0',
     comment: '状态（0成功 1失败）',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseStatusEnum)
   @IsOptional()
   status: string
 }

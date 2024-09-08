@@ -1,4 +1,4 @@
-import { BaseStatusEnums, BaseBusinessEntity } from '@vivy-common/core'
+import { BaseStatusEnum, BaseBusinessEntity } from '@vivy-common/core'
 import { IsEnum, IsIn, IsInt, IsNotEmpty, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
@@ -58,7 +58,7 @@ export class SysNotice extends BaseBusinessEntity {
     length: 1,
     comment: '公告状态（0正常 1关闭）',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseStatusEnum)
   @IsNotEmpty()
   status: string
 }

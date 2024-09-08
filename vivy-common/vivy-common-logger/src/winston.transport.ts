@@ -7,7 +7,7 @@ import { LoggerOptions } from './logger.interface'
  * 构建 Winston 日志输出
  */
 export class WinstonTransportBuilder {
-  constructor(private readonly options: LoggerOptions) {}
+  constructor(private options: LoggerOptions) {}
 
   buildConsoleTransportInstance(config: winston.transports.ConsoleTransportOptions = {}) {
     return new winston.transports.Console({

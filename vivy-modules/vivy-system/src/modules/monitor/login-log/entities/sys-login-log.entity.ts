@@ -1,4 +1,4 @@
-import { BaseStatusEnums, BaseTimeEntity } from '@vivy-common/core'
+import { BaseStatusEnum, BaseTimeEntity } from '@vivy-common/core'
 import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 import { LoginType } from '@/common/enums/login-type.enum'
@@ -43,7 +43,7 @@ export class SysLoginLog extends BaseTimeEntity {
     length: 1,
     comment: '登录状态',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseStatusEnum)
   @IsNotEmpty()
   loginStatus: string
 

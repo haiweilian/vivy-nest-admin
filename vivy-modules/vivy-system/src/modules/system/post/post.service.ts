@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { ServiceException, BaseStatusEnums } from '@vivy-common/core'
+import { ServiceException, BaseStatusEnum } from '@vivy-common/core'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
@@ -130,7 +130,7 @@ export class PostService {
         postSort: 'ASC',
       },
       where: {
-        status: BaseStatusEnums.NORMAL,
+        status: BaseStatusEnum.NORMAL,
       },
     })
   }

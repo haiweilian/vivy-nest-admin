@@ -22,7 +22,7 @@ export class UpdateProfileDto {
   phonenumber: string
 
   /** 用户性别 */
-  @IsIn(['0', '1', '2'])
+  @IsIn(['1', '2', '3'])
   @IsNotEmpty()
   sex: string
 }

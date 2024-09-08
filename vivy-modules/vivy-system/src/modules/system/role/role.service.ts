@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
-import { ServiceException, BaseStatusEnums, UserConstants, IdentityUtils } from '@vivy-common/core'
+import { ServiceException, BaseStatusEnum, UserConstants, IdentityUtils } from '@vivy-common/core'
 import { isNotEmpty, isEmpty, isArray, isObject } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, In, Like, Not, Repository } from 'typeorm'
@@ -223,7 +223,7 @@ export class RoleService {
       },
       where: {
         roleId: Not(UserConstants.SUPER_ROLE),
-        status: BaseStatusEnums.NORMAL,
+        status: BaseStatusEnum.NORMAL,
       },
     })
   }
@@ -238,7 +238,7 @@ export class RoleService {
       .createQueryBuilder('r')
       .leftJoin('sys_user_role', 'ur', 'r.role_id = ur.role_id')
       .where('ur.user_id = :userId', { userId })
-      .andWhere('r.status = :status', { status: BaseStatusEnums.NORMAL })
+      .andWhere('r.status = :status', { status: BaseStatusEnum.NORMAL })
       .getMany()
   }
 }

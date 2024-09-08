@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { BaseStatusEnums, IpUtils, RequestContext } from '@vivy-common/core'
+import { BaseStatusEnum, IpUtils, RequestContext } from '@vivy-common/core'
 import { LoginType } from '@/common/enums/login-type.enum'
 import { CreateLoginLogDto } from '@/modules/monitor/login-log/dto/login-log.dto'
 import { LoginLogService } from '@/modules/monitor/login-log/login-log.service'
@@ -18,7 +18,7 @@ export class LogService {
    * @param message 登录消息
    */
   ok(type: LoginType, name: string, message: string) {
-    this.saveLoginLog(type, name, BaseStatusEnums.NORMAL, message)
+    this.saveLoginLog(type, name, BaseStatusEnum.NORMAL, message)
   }
 
   /**
@@ -28,7 +28,7 @@ export class LogService {
    * @param message 登录消息
    */
   fail(type: LoginType, name: string, message: string) {
-    this.saveLoginLog(type, name, BaseStatusEnums.DISABLE, message)
+    this.saveLoginLog(type, name, BaseStatusEnum.DISABLE, message)
   }
 
   /**
@@ -38,7 +38,7 @@ export class LogService {
    * @param status 登录状态
    * @param message 登录消息
    */
-  private saveLoginLog(type: LoginType, name: string, status: BaseStatusEnums, message: string) {
+  private saveLoginLog(type: LoginType, name: string, status: BaseStatusEnum, message: string) {
     const loginLog = new CreateLoginLogDto()
     loginLog.loginName = name
     loginLog.loginType = type

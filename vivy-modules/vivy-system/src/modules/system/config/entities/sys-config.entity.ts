@@ -1,4 +1,4 @@
-import { BaseBusinessEntity, BaseStatusEnums } from '@vivy-common/core'
+import { BaseBusinessEntity, BaseStatusEnum } from '@vivy-common/core'
 import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
@@ -53,7 +53,7 @@ export class SysConfig extends BaseBusinessEntity {
     default: '0',
     comment: '状态（0正常 1停用）',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseStatusEnum)
   @IsOptional()
   status: string
 

@@ -79,7 +79,7 @@ export class MenuController {
    * 查询菜单选项树
    * @returns 菜单选项树
    */
-  @Get('treeOptions')
+  @Get('tree-options')
   async treeOptions(): Promise<AjaxResult> {
     return AjaxResult.success(await this.menuService.treeOptions())
   }

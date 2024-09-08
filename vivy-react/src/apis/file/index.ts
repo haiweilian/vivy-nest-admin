@@ -27,7 +27,7 @@ export function addFile(params: CreateFileParams | CreateFileParams[]) {
  * 文件用途选项
  */
 export function fileUseOptions() {
-  return request<string[]>(`/files/useOptions`, {
+  return request<string[]>(`/files/use-options`, {
     method: RequestEnum.GET,
   })
 }

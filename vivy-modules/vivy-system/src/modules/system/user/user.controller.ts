@@ -132,7 +132,7 @@ export class UserController {
   /**
    * 导出模板
    */
-  @Post('exportTemplate')
+  @Post('export-template')
   @Log({ title: '用户管理', operType: OperType.EXPORT })
   @RequirePermissions('system:user:export')
   async exportTemplate() {

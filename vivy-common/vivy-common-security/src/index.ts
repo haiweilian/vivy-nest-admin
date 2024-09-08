@@ -1,5 +1,5 @@
 export * from './security.module'
-export * from './enums/logical.enums'
+export * from './enums/logical.enum'
 export * from './services/auth.service'
 export * from './services/token.service'
 export * from './interfaces/security-options.interface'

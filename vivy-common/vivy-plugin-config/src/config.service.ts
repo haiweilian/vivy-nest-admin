@@ -6,7 +6,7 @@ import { ConfigStore } from './config.store'
 export class ConfigService {
   constructor(
     readonly store: ConfigStore,
-    private readonly loader: ConfigLoader
+    private loader: ConfigLoader
   ) {
     this.store.data = this.loader.load()
   }

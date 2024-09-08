@@ -1,4 +1,4 @@
-import { BaseBusinessEntity, BaseStatusEnums } from '@vivy-common/core'
+import { BaseBusinessEntity, BaseStatusEnum } from '@vivy-common/core'
 import { ExcelSheet, ExcelColumn } from '@vivy-common/excel'
 import { IsEmail, IsEnum, IsIn, IsInt, IsMobilePhone, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
@@ -165,7 +165,7 @@ export class SysUser extends BaseBusinessEntity {
     default: '0',
     comment: '用户状态（0正常 1停用 2删除）',
   })
-  @IsEnum(BaseStatusEnums)
+  @IsEnum(BaseStatusEnum)
   @IsOptional()
   status: string
 }

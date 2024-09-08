@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ModuleRef, Reflector } from '@nestjs/core'
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
-import { BaseStatusEnums, ServiceException } from '@vivy-common/core'
+import { BaseStatusEnum, ServiceException } from '@vivy-common/core'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, In, Like, Repository } from 'typeorm'
@@ -57,7 +57,7 @@ export class JobService {
    */
   async add(job: CreateJobDto): Promise<void> {
     const res = await this.jobRepository.save(job)
-    if (res.status === BaseStatusEnums.NORMAL) {
+    if (res.status === BaseStatusEnum.NORMAL) {
       await this.jobQueue.start(res)
     }
   }
@@ -70,7 +70,7 @@ export class JobService {
   async update(jobId: number, job: UpdateJobDto): Promise<void> {
     await this.jobRepository.update(jobId, job)
     const res = await this.jobRepository.findOneBy({ jobId })
-    if (res.status === BaseStatusEnums.NORMAL) {
+    if (res.status === BaseStatusEnum.NORMAL) {
       await this.jobQueue.stop(res)
       await this.jobQueue.start(res)
     } else {

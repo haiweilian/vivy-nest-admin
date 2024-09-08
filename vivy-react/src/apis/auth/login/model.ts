@@ -39,9 +39,9 @@ export interface LoginResult {
 }
 
 /**
- * 图片验证码
+ * 验证码
  */
-export interface ImageCaptchaResult {
+export interface CaptchaResult {
   /* 验证码 img */
   img: string
 

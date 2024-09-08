@@ -66,7 +66,7 @@ export function exportUserList() {
  * 导出用户模板
  */
 export function exportUserTemplate() {
-  return request(`/users/exportTemplate`, {
+  return request(`/users/export-template`, {
     method: RequestEnum.POST,
     responseType: 'blob',
     getResponse: true,

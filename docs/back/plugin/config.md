@@ -78,7 +78,7 @@ import { ConfigService } from '@vivy-common/config'
 
 @Injectable()
 export class AppService implements OnModuleInit {
-  constructor(private readonly config: ConfigService) {}
+  constructor(private config: ConfigService) {}
 
   onModuleInit() {
     this.config.get()

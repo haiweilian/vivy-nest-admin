@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
-import { BaseStatusEnums, ServiceException } from '@vivy-common/core'
+import { BaseStatusEnum, ServiceException } from '@vivy-common/core'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, Like, Repository } from 'typeorm'
@@ -139,7 +139,7 @@ export class DictTypeService {
         dictSort: 'ASC',
       },
       where: {
-        status: BaseStatusEnums.NORMAL,
+        status: BaseStatusEnum.NORMAL,
       },
     })
   }

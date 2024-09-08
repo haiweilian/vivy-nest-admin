@@ -1,6 +1,6 @@
 import { SetMetadata } from '@nestjs/common'
 import { isArray } from 'lodash'
-import { Logical } from '../enums/logical.enums'
+import { Logical } from '../enums/logical.enum'
 import { REQUIRE_ROLES_METADATA } from '../security.constants'
 
 /**

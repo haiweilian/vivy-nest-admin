@@ -5,8 +5,8 @@ import {
   SysLoginUser,
   ServiceException,
   PasswordUtils,
-  BaseIsEnums,
-  UserStatusEnums,
+  BaseIsEnum,
+  UserStatusEnum,
   CacheConstants,
 } from '@vivy-common/core'
 import { isEmpty } from 'class-validator'
@@ -17,7 +17,7 @@ import { MenuService } from '@/modules/system/menu/menu.service'
 import { MenuTreeVo } from '@/modules/system/menu/vo/menu.vo'
 import { UserService } from '@/modules/system/user/user.service'
 import { LoginDto } from './dto/login.dto'
-import { ImageCaptchaVo, RouterTreeVo } from './vo/login.vo'
+import { CaptchaVo, RouterTreeVo } from './vo/login.vo'
 
 /**
  * 登录管理
@@ -48,11 +48,11 @@ export class LoginService {
       throw new ServiceException('登录用户不存在')
     }
 
-    if (user.status === UserStatusEnums.DISABLE) {
+    if (user.status === UserStatusEnum.DISABLE) {
       throw new ServiceException('您的账号已停用')
     }
 
-    if (user.status === UserStatusEnums.DELETED) {
+    if (user.status === UserStatusEnum.DELETED) {
       throw new ServiceException('您的账号已删除')
     }
 
@@ -69,9 +69,9 @@ export class LoginService {
   }
 
   /**
-   * 创建图片验证码
+   * 创建验证码
    */
-  async createImageCaptcha(): Promise<ImageCaptchaVo> {
+  async createCaptcha(): Promise<CaptchaVo> {
     const { data, text } = svgCaptcha.createMathExpr({
       noise: 3,
       width: 120,
@@ -91,11 +91,11 @@ export class LoginService {
   }
 
   /**
-   * 验证图片验证码
+   * 验证验证码
    * @param form 登录账户信息
    * @returns 验证失败抛出错误信息
    */
-  async verifyImageCaptcha(form: LoginDto): Promise<void> {
+  async verifyCaptcha(form: LoginDto): Promise<void> {
     const key = `${CacheConstants.CAPTCHA_CODE_KEY}${form.uuid}`
     const code = await this.redis.get(key)
     if (!code) {
@@ -110,7 +110,7 @@ export class LoginService {
    * 是否启用验证码功能
    * @returns true 启用 / false 不启用
    */
-  async isEnableImageCaptcha() {
+  async isEnableCaptcha() {
     const enableCaptcha = await this.configService.value('sys.account.enableCaptcha')
     if (enableCaptcha && enableCaptcha === 'true') {
       return true
@@ -143,7 +143,7 @@ export class LoginService {
       router.icon = menu.icon
       router.component = menu.component
       router.locale = false
-      router.hideInMenu = menu.isVisible === BaseIsEnums.NO
+      router.hideInMenu = menu.isVisible === BaseIsEnum.NO
       router.children = menu.children && this.buildUmiMaxRouters(menu.children)
       routers.push(router)
     }
