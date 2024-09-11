@@ -1,6 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
-import { Allow, IsArray, IsOptional } from 'class-validator'
+import { DataScopeType } from '@vivy-common/datascope'
+import { Allow, IsArray, IsEnum, IsOptional } from 'class-validator'
 import { SysRole } from '../entities/sys-role.entity'
 
 /**
@@ -30,9 +31,9 @@ export class CreateRoleDto extends OmitType(SysRole, ['roleId'] as const) {
   menuIds?: number[]
 
   /** 部门权限 */
-  @IsArray()
-  @IsOptional()
-  deptIds?: number[]
+  // @IsArray()
+  // @IsOptional()
+  // deptIds?: number[]
 }
 
 /**
@@ -43,6 +44,20 @@ export class UpdateRoleDto extends OmitType(SysRole, ['roleId'] as const) {
   @IsArray()
   @IsOptional()
   menuIds?: number[]
+
+  /** 部门权限 */
+  // @IsArray()
+  // @IsOptional()
+  // deptIds?: number[]
+}
+
+/**
+ * 更新数据权限
+ */
+export class UpdateDataScopeDto {
+  /** 数据范围 */
+  @IsEnum(DataScopeType)
+  dataScope: string
 
   /** 部门权限 */
   @IsArray()

@@ -89,6 +89,6 @@ export class UserController {
 
 ## 相关源码
 
-https://github.com/haiweilian/vivy-nest-admin/tree/main/vivy-common/vivy-common-core/src/decorators/sensitive.decorator.ts
+- https://github.com/haiweilian/vivy-nest-admin/tree/main/vivy-common/vivy-common-core/src/decorators/sensitive.decorator.ts
 
-https://github.com/haiweilian/vivy-nest-admin/tree/main/vivy-common/vivy-common-core/src/utils/sensitive/desensitized.utils.ts
+- https://github.com/haiweilian/vivy-nest-admin/tree/main/vivy-common/vivy-common-core/src/utils/sensitive/desensitized.utils.ts

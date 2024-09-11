@@ -1,0 +1,8 @@
+{
+  "name": "@vivy-common/datascope",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/haiweilian/vivy-nest-admin",
+  "main": "./lib/index.js"
+}

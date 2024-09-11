@@ -1,5 +1,17 @@
 import { SysUser } from './sys-user'
 
+class DataScope {
+  /**
+   * 角色Id
+   */
+  roleId: number
+
+  /**
+   * 数据范围
+   */
+  dataScope: string
+}
+
 /**
  * 登录信息
  */
@@ -43,6 +55,11 @@ export class SysLoginUser {
    * 角色列表
    */
   roles: string[]
+
+  /**
+   * 数据范围
+   */
+  scopes: DataScope[]
 
   /**
    * 用户信息

@@ -5,7 +5,7 @@ import { UserConstants } from '../../constants'
  */
 export class IdentityUtils {
   /**
-   * 是否是管理员
+   * 是否是超级管理员
    * @param userId 用户Id
    * @returns true 是 / false 否
    */
@@ -14,7 +14,7 @@ export class IdentityUtils {
   }
 
   /**
-   * 是否是管理员用户
+   * 是否是超级管理员用户
    * @param userId 用户Id
    * @returns true 是 / false 否
    */
@@ -23,7 +23,7 @@ export class IdentityUtils {
   }
 
   /**
-   * 是否是管理员角色
+   * 是否是超级管理员角色
    * @param roleId 角色Id
    * @returns true 是 / false 否
    */

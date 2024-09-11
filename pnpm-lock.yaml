@@ -38,6 +38,9 @@ importers:
       '@vivy-common/core':
         specifier: workspace:*
         version: link:vivy-common/vivy-common-core
+      '@vivy-common/datascope':
+        specifier: workspace:^
+        version: link:vivy-common/vivy-common-datascope
       '@vivy-common/excel':
         specifier: workspace:*
         version: link:vivy-common/vivy-common-excel
@@ -202,6 +205,8 @@ importers:
       '@types/serve-favicon':
         specifier: ^2.5.7
         version: 2.5.7
+
+  vivy-common/vivy-common-datascope: {}
 
   vivy-common/vivy-common-excel:
     dependencies:

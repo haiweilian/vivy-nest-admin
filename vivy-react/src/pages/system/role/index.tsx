@@ -7,6 +7,7 @@ import { useRef, useState } from 'react'
 import { listRole, deleteRole } from '@/apis/system/role'
 import type { RoleModel } from '@/apis/system/role'
 import { DictTag } from '@/components/Dict'
+import DataScopeForm from './components/DataScopeForm'
 import UpdateForm from './components/UpdateForm'
 
 const Role = () => {
@@ -14,6 +15,7 @@ const Role = () => {
   const actionRef = useRef<ActionType>()
   const [record, setRecord] = useState<RoleModel>()
   const [updateOpen, setUpdateOpen] = useState(false)
+  const [dataScopeOpen, setDataScopeOpen] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**
@@ -83,6 +85,17 @@ const Role = () => {
               }}
             >
               编辑
+            </Button>
+          </Access>
+          <Access key="dataScope" accessible={hasPermission('system:role:update')}>
+            <Button
+              type="link"
+              onClick={() => {
+                setRecord(record)
+                setDataScopeOpen(true)
+              }}
+            >
+              数据权限
             </Button>
           </Access>
           <Access key="delete" accessible={hasPermission('system:role:delete')}>
@@ -158,6 +171,13 @@ const Role = () => {
         record={record}
         open={updateOpen}
         onOpenChange={setUpdateOpen}
+        onFinish={async () => actionRef.current?.reload()}
+      />
+
+      <DataScopeForm
+        record={record!}
+        open={dataScopeOpen}
+        onOpenChange={setDataScopeOpen}
         onFinish={async () => actionRef.current?.reload()}
       />
     </>

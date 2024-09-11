@@ -212,6 +212,7 @@ CREATE TABLE `sys_role` (
   `role_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色名称',
   `role_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色编码',
   `role_sort` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
+  `data_scope` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1' COMMENT '数据范围（1全部数据权限 2自定数据权限 3本部门数据权限 4本部门及以下数据权限 5仅本人数据权限）',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '角色状态（0正常 1停用）',
   `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建者',
   `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
@@ -224,8 +225,8 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_role` VALUES (2, '普通角色', 'common', 2, '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_role` VALUES (2, '普通角色', 'common', 2, '2', '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
@@ -244,8 +245,6 @@ CREATE TABLE `sys_role_dept` (
 -- Records of sys_role_dept
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role_dept` VALUES (2, 100, sysdate(), sysdate());
-INSERT INTO `sys_role_dept` VALUES (2, 101, sysdate(), sysdate());
 INSERT INTO `sys_role_dept` VALUES (2, 105, sysdate(), sysdate());
 COMMIT;
 

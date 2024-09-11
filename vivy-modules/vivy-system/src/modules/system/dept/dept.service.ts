@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { TreeUtils, BaseStatusEnum } from '@vivy-common/core'
+import { TreeUtils, BaseStatusEnum, SecurityContext, IdentityUtils, ServiceException } from '@vivy-common/core'
+import { DataScope, DataScopeService } from '@vivy-common/datascope'
+import { isEmpty } from 'class-validator'
 import { Repository } from 'typeorm'
 import { SysUser } from '@/modules/system/user/entities/sys-user.entity'
 import { CreateDeptDto, UpdateDeptDto } from './dto/dept.dto'
@@ -18,18 +20,26 @@ export class DeptService {
     private deptRepository: Repository<SysDept>,
 
     @InjectRepository(SysUser)
-    private userRepository: Repository<SysUser>
+    private userRepository: Repository<SysUser>,
+
+    private securityContext: SecurityContext,
+    private dataScopeService: DataScopeService
   ) {}
+
+  /**
+   * 数据范围部门列表查询构造
+   */
+  @DataScope({ deptAlias: 'd' })
+  private dsDeptQueryBuilder() {
+    const dsSql = this.dataScopeService.sql(this.dsDeptQueryBuilder)
+    return this.deptRepository.createQueryBuilder('d').andWhere(dsSql).orderBy('d.deptSort', 'ASC')
+  }
 
   /**
    * 查询部门树结构
    */
   async tree(): Promise<DeptTreeVo[]> {
-    const list = await this.deptRepository.find({
-      order: {
-        deptSort: 'ASC',
-      },
-    })
+    const list = await this.dsDeptQueryBuilder().getMany()
     return TreeUtils.listToTree<DeptTreeVo>(list, {
       id: 'deptId',
       pid: 'parentId',
@@ -83,6 +93,18 @@ export class DeptService {
   }
 
   /**
+   * 校验是否有部门数据权限，检验失败抛出错误
+   * @param deptId 部门ID
+   */
+  async checkDeptDataScope(deptId: number) {
+    if (isEmpty(deptId)) return
+    if (IdentityUtils.isAdmin(this.securityContext.getUserId())) return
+
+    const count = await this.dsDeptQueryBuilder().andWhere({ deptId }).getCount()
+    if (count <= 0) throw new ServiceException('没有权限访问部门数据')
+  }
+
+  /**
    * 是否存在子节点
    * @param deptId 部门ID
    * @return true 存在 / false 不存在
@@ -107,31 +129,14 @@ export class DeptService {
    * @returns 部门选项树
    */
   async treeOptions(): Promise<DeptTreeVo[]> {
-    const list = await this.deptRepository.find({
-      select: ['deptId', 'deptName', 'parentId'],
-      order: {
-        deptSort: 'ASC',
-      },
-      where: {
+    const list = await this.dsDeptQueryBuilder()
+      .andWhere({
         status: BaseStatusEnum.NORMAL,
-      },
-    })
+      })
+      .getMany()
     return TreeUtils.listToTree<DeptTreeVo>(list, {
       id: 'deptId',
       pid: 'parentId',
     })
-  }
-
-  /**
-   * 根据部门ID查询所有子部门ID
-   */
-  async selectChildIds(deptId: number): Promise<number[]> {
-    const list = await this.deptRepository
-      .createQueryBuilder('dept')
-      .select(['dept.deptId'])
-      .where(`FIND_IN_SET(:deptId, dept.ancestors)`, { deptId })
-      .getMany()
-
-    return list.map((item) => item.deptId)
   }
 }

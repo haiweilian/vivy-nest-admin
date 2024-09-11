@@ -10,5 +10,6 @@ import { PostService } from './post.service'
   imports: [TypeOrmModule.forFeature([SysPost, SysUserPost])],
   controllers: [PostController],
   providers: [PostService],
+  exports: [PostService],
 })
 export class PostModule {}

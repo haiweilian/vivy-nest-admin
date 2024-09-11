@@ -33,10 +33,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   const { run: runInfoRole } = useRequest(infoRole, {
     manual: true,
     onSuccess(data) {
-      formRef.current?.setFieldsValue({
-        ...data,
-        menuIds: data.menuIds.map((value) => ({ value })),
-      })
+      formRef.current?.setFieldsValue(data)
     },
   })
   const handleInitial = () => {
@@ -50,15 +47,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
    */
   const handleSubmit = async (values: CreateRoleParams) => {
     if (record) {
-      await updateRole(record.roleId, {
-        ...values,
-        menuIds: values.menuIds?.map((item: any) => item.value),
-      })
+      await updateRole(record.roleId, values)
     } else {
-      await addRole({
-        ...values,
-        menuIds: values.menuIds?.map((item: any) => item.value),
-      })
+      await addRole(values)
     }
   }
 

@@ -49,6 +49,8 @@ export class DeptController {
   @Log({ title: '部门管理', operType: OperType.UPDATE })
   @RequirePermissions('system:dept:update')
   async update(@Param('deptId') deptId: number, @Body() dept: UpdateDeptDto): Promise<AjaxResult> {
+    await this.deptService.checkDeptDataScope(deptId)
+
     if (deptId === dept.parentId) {
       return AjaxResult.error(`修改部门${dept.deptName}失败，上级部门不能是自己`)
     }
@@ -65,6 +67,8 @@ export class DeptController {
   @Log({ title: '部门管理', operType: OperType.DELETE })
   @RequirePermissions('system:dept:delete')
   async delete(@Param('deptId') deptId: number): Promise<AjaxResult> {
+    await this.deptService.checkDeptDataScope(deptId)
+
     if (await this.deptService.checkDeptExistChild(deptId)) {
       return AjaxResult.error('存在下级部门,不允许删除')
     }
@@ -93,6 +97,7 @@ export class DeptController {
   @Get(':deptId')
   @RequirePermissions('system:dept:query')
   async info(@Param('deptId') deptId: number): Promise<AjaxResult> {
+    await this.deptService.checkDeptDataScope(deptId)
     return AjaxResult.success(await this.deptService.info(deptId))
   }
 }

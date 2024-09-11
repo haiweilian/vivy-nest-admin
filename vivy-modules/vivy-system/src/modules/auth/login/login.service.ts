@@ -64,6 +64,7 @@ export class LoginService {
     const loginUser = new SysLoginUser()
     loginUser.sysUser = user
     loginUser.roles = await this.userService.getRolePermission(user.userId)
+    loginUser.scopes = await this.userService.getRoleDataScope(user.userId)
     loginUser.permissions = await this.userService.getMenuPermission(user.userId)
     return loginUser
   }

@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common'
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
-import { ServiceException, BaseStatusEnum, UserConstants, IdentityUtils } from '@vivy-common/core'
-import { isNotEmpty, isEmpty, isArray, isObject } from 'class-validator'
+import {
+  ServiceException,
+  BaseStatusEnum,
+  UserConstants,
+  IdentityUtils,
+  ObjectUtils,
+  SecurityContext,
+} from '@vivy-common/core'
+import { DataScope, DataScopeService } from '@vivy-common/datascope'
+import { isNotEmpty, isEmpty, isArray } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, In, Like, Not, Repository } from 'typeorm'
 import { SysUserRole } from '@/modules/system/user/entities/sys-user-role.entity'
-import { ListRoleDto, CreateRoleDto, UpdateRoleDto } from './dto/role.dto'
+import { ListRoleDto, CreateRoleDto, UpdateRoleDto, UpdateDataScopeDto } from './dto/role.dto'
 import { SysRoleDept } from './entities/sys-role-dept.entity'
 import { SysRoleMenu } from './entities/sys-role-menu.entity'
 import { SysRole } from './entities/sys-role.entity'
@@ -31,8 +39,27 @@ export class RoleService {
     private roleDeptRepository: Repository<SysRoleDept>,
 
     @InjectRepository(SysUserRole)
-    private userRoleRepository: Repository<SysUserRole>
+    private userRoleRepository: Repository<SysUserRole>,
+
+    private securityContext: SecurityContext,
+    private dataScopeService: DataScopeService
   ) {}
+
+  /**
+   * 数据范围角色列表查询构造
+   */
+  @DataScope({ deptAlias: 'd' })
+  private dsRoleQueryBuilder() {
+    const dsSql = this.dataScopeService.sql(this.dsRoleQueryBuilder)
+    return this.roleRepository
+      .createQueryBuilder('r')
+      .leftJoin('sys_user_role', 'ur', 'ur.role_id = r.role_id')
+      .leftJoin('sys_user', 'u', 'u.user_id = ur.user_id')
+      .leftJoin('sys_dept', 'd', 'd.dept_id = u.dept_id')
+      .andWhere(dsSql)
+      .orderBy('r.roleSort', 'ASC')
+      .distinct()
+  }
 
   /**
    * 角色列表
@@ -40,23 +67,18 @@ export class RoleService {
    * @returns 角色列表
    */
   async list(role: ListRoleDto): Promise<Pagination<SysRole>> {
-    return paginate<SysRole>(
-      this.roleRepository,
-      {
-        page: role.page,
-        limit: role.limit,
-      },
-      {
-        order: {
-          roleSort: 'ASC',
-        },
-        where: {
-          status: role.status,
-          roleName: isNotEmpty(role.roleName) ? Like(`%${role.roleName}%`) : undefined,
-          roleCode: isNotEmpty(role.roleCode) ? Like(`%${role.roleCode}%`) : undefined,
-        },
-      }
+    const queryBuilder = this.dsRoleQueryBuilder().andWhere(
+      ObjectUtils.omitNil({
+        status: role.status,
+        roleName: isNotEmpty(role.roleName) ? Like(`%${role.roleName}%`) : undefined,
+        roleCode: isNotEmpty(role.roleCode) ? Like(`%${role.roleCode}%`) : undefined,
+      })
     )
+
+    return paginate<SysRole>(queryBuilder, {
+      page: role.page,
+      limit: role.limit,
+    })
   }
 
   /**
@@ -64,7 +86,7 @@ export class RoleService {
    * @param role 角色信息
    */
   async add(role: CreateRoleDto): Promise<void> {
-    const { menuIds, deptIds, ...roleInfo } = role
+    const { menuIds, ...roleInfo } = role
 
     await this.dataSource.transaction(async (manager) => {
       // 新增角色信息
@@ -80,12 +102,12 @@ export class RoleService {
       }
 
       // 新增角色与部门关联
-      if (!isEmpty(deptIds)) {
-        await manager.insert(
-          SysRoleDept,
-          deptIds.map((deptId) => ({ roleId, deptId }))
-        )
-      }
+      // if (!isEmpty(deptIds)) {
+      //   await manager.insert(
+      //     SysRoleDept,
+      //     deptIds.map((deptId) => ({ roleId, deptId }))
+      //   )
+      // }
     })
   }
 
@@ -95,7 +117,7 @@ export class RoleService {
    * @param role 角色信息
    */
   async update(roleId: number, role: UpdateRoleDto): Promise<void> {
-    const { menuIds, deptIds, ...roleInfo } = role
+    const { menuIds, ...roleInfo } = role
 
     await this.dataSource.transaction(async (manager) => {
       // 修改角色信息
@@ -111,13 +133,13 @@ export class RoleService {
       }
 
       // 删除并新增角色与部门关联
-      await manager.delete(SysRoleDept, { roleId })
-      if (!isEmpty(deptIds)) {
-        await manager.insert(
-          SysRoleDept,
-          deptIds.map((deptId) => ({ roleId, deptId }))
-        )
-      }
+      // await manager.delete(SysRoleDept, { roleId })
+      // if (!isEmpty(deptIds)) {
+      //   await manager.insert(
+      //     SysRoleDept,
+      //     deptIds.map((deptId) => ({ roleId, deptId }))
+      //   )
+      // }
     })
   }
 
@@ -159,25 +181,29 @@ export class RoleService {
 
   /**
    * 校验角色是否允许操作，检验失败抛出错误
-   * @param role 角色信息
+   * @param roleId 角色ID
    */
-  checkRoleAllowed(role: Partial<SysRole> | number[] | number) {
-    const Exception = new ServiceException('不允许操作超级管理员角色')
+  checkRoleAllowed(roleId: number | number[]) {
+    const roleIds = isArray(roleId) ? roleId : [roleId]
+    for (const roleId of roleIds) {
+      if (IdentityUtils.isAdminRole(roleId)) {
+        throw new ServiceException('不允许操作超级管理员角色')
+      }
+    }
+  }
 
-    if (isArray(role)) {
-      for (const id of role) {
-        if (IdentityUtils.isAdminRole(id)) {
-          throw Exception
-        }
-      }
-    } else if (isObject(role)) {
-      if (IdentityUtils.isAdminRole(role.roleId)) {
-        throw Exception
-      }
-    } else {
-      if (IdentityUtils.isAdminRole(role)) {
-        throw Exception
-      }
+  /**
+   * 校验是否有角色数据权限，检验失败抛出错误
+   * @param roleId 角色ID
+   */
+  async checkRoleDataScope(roleId: number | number[]) {
+    if (isEmpty(roleId)) return
+    if (IdentityUtils.isAdmin(this.securityContext.getUserId())) return
+
+    const roleIds = isArray(roleId) ? roleId : [roleId]
+    for (const roleId of roleIds) {
+      const count = await this.dsRoleQueryBuilder().andWhere({ roleId }).getCount()
+      if (count <= 0) throw new ServiceException('没有权限访问角色数据')
     }
   }
 
@@ -216,15 +242,34 @@ export class RoleService {
    * @returns 角色选项列表
    */
   async options(): Promise<SysRole[]> {
-    return this.roleRepository.find({
-      select: ['roleId', 'roleName', 'roleCode'],
-      order: {
-        roleSort: 'ASC',
-      },
-      where: {
-        roleId: Not(UserConstants.SUPER_ROLE),
+    return this.dsRoleQueryBuilder()
+      .andWhere({
         status: BaseStatusEnum.NORMAL,
-      },
+        roleId: Not(UserConstants.SUPER_ROLE),
+      })
+      .getMany()
+  }
+
+  /**
+   * 更新数据权限
+   * @param roleId 角色ID
+   * @param dataScopeDto 数据权限范围信息
+   */
+  async updateDataScope(roleId: number, dataScopeDto: UpdateDataScopeDto): Promise<void> {
+    const { deptIds, dataScope } = dataScopeDto
+
+    await this.dataSource.transaction(async (manager) => {
+      // 修改角色信息
+      await manager.update(SysRole, roleId, { dataScope })
+
+      // 删除并新增角色与部门关联(数据权限)
+      await manager.delete(SysRoleDept, { roleId })
+      if (!isEmpty(deptIds)) {
+        await manager.insert(
+          SysRoleDept,
+          deptIds.map((deptId) => ({ roleId, deptId }))
+        )
+      }
     })
   }
 

@@ -1,12 +1,20 @@
 import { Injectable } from '@nestjs/common'
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
-import { ServiceException, PasswordUtils, IdentityUtils, UserConstants } from '@vivy-common/core'
+import {
+  ServiceException,
+  PasswordUtils,
+  IdentityUtils,
+  UserConstants,
+  SecurityContext,
+  ObjectUtils,
+  SysLoginUser,
+} from '@vivy-common/core'
+import { DataScope, DataScopeService } from '@vivy-common/datascope'
 import { ExcelService } from '@vivy-common/excel'
-import { isNotEmpty, isEmpty, isArray, isObject } from 'class-validator'
+import { isNotEmpty, isEmpty, isArray } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, In, Like, Repository } from 'typeorm'
 import { ConfigService } from '@/modules/system/config/config.service'
-import { DeptService } from '@/modules/system/dept/dept.service'
 import { MenuService } from '@/modules/system/menu/menu.service'
 import { RoleService } from '@/modules/system/role/role.service'
 import { ListUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto'
@@ -34,12 +42,25 @@ export class UserService {
     @InjectRepository(SysUserPost)
     private userPostRepository: Repository<SysUserPost>,
 
-    private deptService: DeptService,
     private menuService: MenuService,
     private roleService: RoleService,
     private excelService: ExcelService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private securityContext: SecurityContext,
+    private dataScopeService: DataScopeService
   ) {}
+
+  /**
+   * 数据范围角色列表查询构造
+   */
+  @DataScope({ deptAlias: 'd', userAlias: 'u' })
+  private dsUserQueryBuilder() {
+    const dsSql = this.dataScopeService.sql(this.dsUserQueryBuilder)
+    return this.userRepository
+      .createQueryBuilder('u')
+      .leftJoin('sys_dept', 'd', 'd.dept_id = u.dept_id')
+      .andWhere(dsSql)
+  }
 
   /**
    * 用户列表
@@ -47,23 +68,23 @@ export class UserService {
    * @returns 用户列表
    */
   async list(user: ListUserDto): Promise<Pagination<SysUser>> {
-    const childIds = await this.deptService.selectChildIds(user.deptId)
-
-    return paginate<SysUser>(
-      this.userRepository,
-      {
-        page: user.page,
-        limit: user.limit,
-      },
-      {
-        where: {
-          status: user.status,
-          deptId: isNotEmpty(user.deptId) ? In([user.deptId, ...childIds]) : undefined,
-          userName: isNotEmpty(user.userName) ? Like(`%${user.userName}%`) : undefined,
-          nickName: isNotEmpty(user.nickName) ? Like(`%${user.nickName}%`) : undefined,
-        },
-      }
+    const queryBuilder = this.dsUserQueryBuilder().andWhere(
+      ObjectUtils.omitNil({
+        status: user.status,
+        userName: isNotEmpty(user.userName) ? Like(`%${user.userName}%`) : undefined,
+        nickName: isNotEmpty(user.nickName) ? Like(`%${user.nickName}%`) : undefined,
+      })
     )
+    if (user.deptId) {
+      queryBuilder.andWhere(
+        `u.dept_id IN(SELECT dept_id FROM sys_dept WHERE dept_id = ${user.deptId} OR FIND_IN_SET(${user.deptId}, ancestors))`
+      )
+    }
+
+    return paginate<SysUser>(queryBuilder, {
+      page: user.page,
+      limit: user.limit,
+    })
   }
 
   /**
@@ -169,25 +190,29 @@ export class UserService {
 
   /**
    * 校验用户是否允许操作，检验失败抛出错误
-   * @param user 用户信息
+   * @param userId 用户ID
    */
-  checkUserAllowed(user: Partial<SysUser> | number[] | number) {
-    const Exception = new ServiceException('不允许操作超级管理员用户')
+  checkUserAllowed(userId: number | number[]) {
+    const userIds = isArray(userId) ? userId : [userId]
+    for (const userId of userIds) {
+      if (IdentityUtils.isAdmin(userId)) {
+        throw new ServiceException('不允许操作超级管理员用户')
+      }
+    }
+  }
 
-    if (isArray(user)) {
-      for (const id of user) {
-        if (IdentityUtils.isAdminUser(id)) {
-          throw Exception
-        }
-      }
-    } else if (isObject(user)) {
-      if (IdentityUtils.isAdminUser(user.userId)) {
-        throw Exception
-      }
-    } else {
-      if (IdentityUtils.isAdminUser(user)) {
-        throw Exception
-      }
+  /**
+   * 校验是否有用户数据权限，检验失败抛出错误
+   * @param userId 用户ID
+   */
+  async checkUserDataScope(userId: number | number[]) {
+    if (isEmpty(userId)) return
+    if (IdentityUtils.isAdmin(this.securityContext.getUserId())) return
+
+    const userIds = isArray(userId) ? userId : [userId]
+    for (const userId of userIds) {
+      const count = await this.dsUserQueryBuilder().andWhere({ userId }).getCount()
+      if (count <= 0) throw new ServiceException('没有权限访问用户数据')
     }
   }
 
@@ -270,6 +295,19 @@ export class UserService {
   }
 
   /**
+   * 获取数据范围权限
+   * @param userId 用户Id
+   * @return 数据范围权限信息
+   */
+  async getRoleDataScope(userId: number): Promise<SysLoginUser['scopes']> {
+    const roles = await this.roleService.selectRoleByUserId(userId)
+    return roles.map((role) => ({
+      roleId: role.roleId,
+      dataScope: role.dataScope,
+    }))
+  }
+
+  /**
    * 获取菜单权限
    * @param userId 用户Id
    * @return 菜单权限信息
@@ -287,7 +325,7 @@ export class UserService {
    * 导出用户
    */
   async export() {
-    const data = await this.userRepository.find()
+    const data = await this.dsUserQueryBuilder().getMany()
     const buffer = await this.excelService.export(SysUser, data)
     return buffer
   }

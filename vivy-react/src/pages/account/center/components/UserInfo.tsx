@@ -28,6 +28,10 @@ const UserInfo: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => {
         <span>所属角色</span>
         <span>{profile.roles?.map((role) => role.roleName).join(',')}</span>
       </List.Item>
+      <List.Item>
+        <span>所属岗位</span>
+        <span>{profile.posts?.map((post) => post.postName).join(',')}</span>
+      </List.Item>
     </List>
   )
 }

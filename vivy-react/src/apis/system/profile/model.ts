@@ -1,4 +1,5 @@
 import { DeptModel } from '../dept/model'
+import { PostModel } from '../post/model'
 import { RoleModel } from '../role/model'
 import { UserModel } from '../user/model'
 
@@ -11,6 +12,9 @@ export interface ProfileInfoResult extends UserModel {
 
   /** 角色信息 */
   roles?: RoleModel[]
+
+  /** 岗位信息 */
+  posts?: PostModel[]
 }
 
 /**

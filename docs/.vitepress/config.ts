@@ -48,36 +48,36 @@ export default defineConfig({
             text: '通用模块',
             items: [
               {
-                text: '系统权限',
-                link: '/back/common/security',
+                text: '系统接口',
+                link: '/back/common/swagger',
               },
               {
                 text: '系统日志',
                 link: '/back/common/logger',
               },
               {
-                text: '系统接口',
-                link: '/back/common/swagger',
-              },
-              {
                 text: '导入导出',
                 link: '/back/common/excel',
               },
               {
-                text: '数据权限🚧',
-                link: '/back/common/datascope',
+                text: '异常处理',
+                link: '/back/common/exception',
               },
               {
                 text: '参数校验',
                 link: '/back/common/validator',
               },
               {
-                text: '数据脱敏',
-                link: '/back/common/sensitive',
+                text: '系统权限',
+                link: '/back/common/security',
               },
               {
-                text: '异常处理',
-                link: '/back/common/exception',
+                text: '数据权限',
+                link: '/back/common/datascope',
+              },
+              {
+                text: '数据脱敏',
+                link: '/back/common/sensitive',
               },
               {
                 text: '异步上下文',

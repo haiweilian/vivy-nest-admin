@@ -7,7 +7,8 @@
     { "path": "./vivy-common-excel/tsconfig.build.json" },
     { "path": "./vivy-common-logger/tsconfig.build.json" },
     { "path": "./vivy-common-swagger/tsconfig.build.json" },
-    { "path": "./vivy-common-security/tsconfig.build.json" }
+    { "path": "./vivy-common-security/tsconfig.build.json" },
+    { "path": "./vivy-common-datascope/tsconfig.build.json" }
   ],
   "files": []
 }

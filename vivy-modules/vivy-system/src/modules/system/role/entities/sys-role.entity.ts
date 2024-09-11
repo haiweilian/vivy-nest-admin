@@ -1,4 +1,5 @@
 import { BaseBusinessEntity, BaseStatusEnum } from '@vivy-common/core'
+import { DataScopeType } from '@vivy-common/datascope'
 import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
@@ -45,6 +46,17 @@ export class SysRole extends BaseBusinessEntity {
   @IsInt()
   @IsOptional()
   roleSort: number
+
+  @Column({
+    name: 'data_scope',
+    type: 'char',
+    length: 1,
+    default: '1',
+    comment: '数据范围（1全部数据权限 2自定数据权限 3本部门数据权限 4本部门及以下数据权限 5仅本人数据权限）',
+  })
+  @IsEnum(DataScopeType)
+  @IsOptional()
+  dataScope: string
 
   @Column({
     name: 'status',

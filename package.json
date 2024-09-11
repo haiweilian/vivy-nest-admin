@@ -32,6 +32,7 @@
     "@nestjs/typeorm": "^10.0.2",
     "@vivy-common/config": "workspace:*",
     "@vivy-common/core": "workspace:*",
+    "@vivy-common/datascope": "workspace:^",
     "@vivy-common/excel": "workspace:*",
     "@vivy-common/logger": "workspace:*",
     "@vivy-common/mybatis": "workspace:*",

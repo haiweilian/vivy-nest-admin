@@ -134,4 +134,18 @@ export class PostService {
       },
     })
   }
+
+  /**
+   * 根据用户ID查询岗位列表
+   * @param userId 用户用户ID
+   * @returns 用户岗位列表
+   */
+  async selectPostByUserId(userId: number): Promise<SysPost[]> {
+    return this.postRepository
+      .createQueryBuilder('p')
+      .leftJoin('sys_user_post', 'up', 'p.post_id = up.post_id')
+      .where('up.user_id = :userId', { userId })
+      .andWhere('p.status = :status', { status: BaseStatusEnum.NORMAL })
+      .getMany()
+  }
 }

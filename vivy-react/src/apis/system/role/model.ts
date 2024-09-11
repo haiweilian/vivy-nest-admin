@@ -14,6 +14,9 @@ export interface RoleModel {
   /** 显示顺序 */
   roleSort: number
 
+  /** 数据范围（1全部数据权限 2自定数据权限 3本部门数据权限 4本部门及以下数据权限 5仅本人数据权限） */
+  dataScope: string
+
   /** 角色状态（0正常 1停用） */
   status: string
 }
@@ -50,8 +53,8 @@ export interface CreateRoleParams extends Omit<RoleModel, 'roleId'> {
   /** 菜单权限 */
   menuIds: number[]
 
-  /** 部门权限 */
-  deptIds: number[]
+  // /** 部门权限 */
+  // deptIds: number[]
 }
 
 /**
@@ -61,6 +64,17 @@ export interface UpdateRoleParams extends Omit<RoleModel, 'roleId'> {
   /** 菜单权限 */
   menuIds: number[]
 
+  // /** 部门权限 */
+  // deptIds: number[]
+}
+
+/**
+ * 更新数据权限
+ */
+export interface UpdateDataScopeParams {
+  /** 数据范围 */
+  dataScope: string
+
   /** 部门权限 */
-  deptIds: number[]
+  deptIds?: number[]
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { PasswordUtils, ServiceException } from '@vivy-common/core'
 import { TokenService } from '@vivy-common/security'
 import { DeptService } from '@/modules/system/dept/dept.service'
+import { PostService } from '@/modules/system/post/post.service'
 import { RoleService } from '@/modules/system/role/role.service'
 import { UserService } from '@/modules/system/user/user.service'
 import { UpdateAvatarDto, UpdatePasswordDto, UpdateProfileDto } from './dto/profile.dto'
@@ -16,6 +17,7 @@ export class ProfileService {
   constructor(
     private deptService: DeptService,
     private roleService: RoleService,
+    private postService: PostService,
     private userService: UserService,
     private tokenService: TokenService
   ) {}
@@ -29,6 +31,7 @@ export class ProfileService {
     const userInfo: ProfileInfoVo = loginUser.sysUser
     userInfo.dept = userInfo.deptId && (await this.deptService.info(userInfo.deptId))
     userInfo.roles = await this.roleService.selectRoleByUserId(userInfo.userId)
+    userInfo.posts = await this.postService.selectPostByUserId(userInfo.userId)
     return userInfo
   }
 
