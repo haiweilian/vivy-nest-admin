@@ -22,11 +22,12 @@ export class DataScopeService {
    * @param tableAlias 别名配置
    */
   sql(tableAlias: TableAlias | Function) {
-    const user = this.securityContext.getLoginUser()
     if (typeof tableAlias === 'function') {
       tableAlias = this.reflector.get<TableAlias>(DATA_SCOPE_METADATA, tableAlias)
+      if (!tableAlias) return this.SAFE_WHERE
     }
 
+    const user = this.securityContext.getLoginUser()
     const isAdmin = IdentityUtils.isAdmin(user.userId)
     if (isAdmin) return this.SAFE_WHERE
 
