@@ -62,7 +62,7 @@ export class DataScopeService {
           sql += ` OR ${userAlias}.user_id = ${userId}`
         } else {
           // 数据权限为仅本人且没有 `userAlias` 别名不查询任何数据
-          sql += ` OR ${userAlias}.dept_id = 0`
+          sql += ` OR ${deptAlias}.dept_id = 0`
         }
       }
     }
