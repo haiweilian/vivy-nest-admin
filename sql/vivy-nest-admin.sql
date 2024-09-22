@@ -96,16 +96,17 @@ INSERT INTO `sys_menu` VALUES (103, 1, '部门管理', 'C', 4, '0', 'dept',     
 INSERT INTO `sys_menu` VALUES (104, 1, '岗位管理', 'C', 5, '0', 'post',        'system/post/index',         NULL, 'system:post:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (105, 1, '字典管理', 'C', 6, '0', 'dict',        'system/dict/index',         NULL, 'system:dict:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (106, 1, '字典数据', 'C', 7, '0', 'dict/:type',  'system/dict/$type/index',   NULL, 'system:dict:list',      NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (107, 1, '参数设置', 'C', 8, '0', 'config',      'system/config/index',       NULL, 'system:config:list',    NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (107, 1, '参数配置', 'C', 8, '0', 'config',      'system/config/index',       NULL, 'system:config:list',    NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (108, 1, '通知公告', 'C', 9, '0', 'notice',      'system/notice/index',       NULL, 'system:notice:list',    NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (109, 2, '操作日志', 'C', 1, '0', 'oper-log',    'monitor/oper-log/index',    NULL, 'monitor:operlog:list',  NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (110, 2, '登录日志', 'C', 2, '0', 'login-log',   'monitor/login-log/index',   NULL, 'monitor:loginlog:list', NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (111, 2, '在线用户', 'C', 3, '0', 'online-user', 'monitor/online-user/index', NULL, 'monitor:online:list',   NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (112, 2, '定时任务', 'C', 4, '0', 'job',         'monitor/job/index',         NULL, 'monitor:job:list',      NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (113, 2, '任务日志', 'C', 5, '0', 'job/log',     'monitor/job/log/index',     NULL, 'monitor:job:list',      NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (114, 3, '代码生成', 'C', 1, '0', 'gen',         'tool/gen/index',            NULL, 'tool:gen:list',         NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (115, 3, '文件上传', 'C', 2, '0', 'file',        'tool/file/index',           NULL, 'tool:file:list',        NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_menu` VALUES (116, 3, '系统接口', 'C', 3, '0', 'swagger',     'tool/swagger/index',        NULL, 'tool:swagger:list',     NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (114, 2, '缓存列表', 'C', 6, '0', 'cache',       'monitor/cache/index',       NULL, 'monitor:cache:list',    NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (115, 3, '代码生成', 'C', 1, '0', 'gen',         'tool/gen/index',            NULL, 'tool:gen:list',         NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (116, 3, '文件上传', 'C', 2, '0', 'file',        'tool/file/index',           NULL, 'tool:file:list',        NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (117, 3, '系统接口', 'C', 3, '0', 'swagger',     'tool/swagger/index',        NULL, 'tool:swagger:list',     NULL, '1', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
 -- 用户管理按钮
 INSERT INTO `sys_menu` VALUES (1000, 100, '用户查询', 'F', 1, '0', NULL, NULL, NULL, 'system:user:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
@@ -145,7 +146,7 @@ INSERT INTO `sys_menu` VALUES (1023, 105, '字典新增', 'F', 2, '0', NULL, NUL
 INSERT INTO `sys_menu` VALUES (1024, 105, '字典修改', 'F', 3, '0', NULL, NULL, NULL, 'system:dict:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (1025, 105, '字典删除', 'F', 4, '0', NULL, NULL, NULL, 'system:dict:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 
--- 参数设置按钮
+-- 参数配置按钮
 INSERT INTO `sys_menu` VALUES (1026, 107, '参数查询', 'F', 1, '0', NULL, NULL, NULL, 'system:config:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (1027, 107, '参数新增', 'F', 2, '0', NULL, NULL, NULL, 'system:config:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (1028, 107, '参数修改', 'F', 3, '0', NULL, NULL, NULL, 'system:config:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
@@ -174,6 +175,10 @@ INSERT INTO `sys_menu` VALUES (1040, 112, '任务查询', 'F', 1, '0', NULL, NUL
 INSERT INTO `sys_menu` VALUES (1041, 112, '任务新增', 'F', 2, '0', NULL, NULL, NULL, 'monitor:job:add',    NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (1042, 112, '任务修改', 'F', 3, '0', NULL, NULL, NULL, 'monitor:job:update', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 INSERT INTO `sys_menu` VALUES (1043, 112, '任务删除', 'F', 4, '0', NULL, NULL, NULL, 'monitor:job:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+
+-- 缓存列表按钮
+INSERT INTO `sys_menu` VALUES (1044, 114, '缓存查询', 'F', 1, '0', NULL, NULL, NULL, 'monitor:cache:query',  NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_menu` VALUES (1045, 114, '缓存删除', 'F', 2, '0', NULL, NULL, NULL, 'monitor:cache:delete', NULL, '0', '0', '0', '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------

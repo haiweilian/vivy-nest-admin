@@ -1,11 +1,12 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import { DeleteOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { ProTable } from '@ant-design/pro-components'
-import { Link, useModel, Access, useAccess } from '@umijs/max'
+import { Link, useModel, Access, useAccess, useRequest } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
-import { listDictType, deleteDictType } from '@/apis/system/dict'
+import { listDictType, deleteDictType, refreshDictCache } from '@/apis/system/dict'
 import type { DictTypeModel } from '@/apis/system/dict'
+import { Message } from '@/components/App'
 import { DictTag } from '@/components/Dict'
 import UpdateForm from './components/UpdateForm'
 
@@ -31,6 +32,16 @@ const DictType = () => {
     setSelectedRowKeys([])
     actionRef.current?.reload()
   }
+
+  /**
+   * 刷新参数配置缓存
+   */
+  const { run: runRefreshDictCache, loading: refreshDictCacheLoading } = useRequest(refreshDictCache, {
+    manual: true,
+    onSuccess() {
+      Message.success('刷新成功')
+    },
+  })
 
   /**
    * 表格列配置
@@ -145,6 +156,16 @@ const DictType = () => {
                   删除
                 </Button>
               </Popconfirm>
+            </Access>,
+            <Access key="cache" accessible={hasPermission('system:config:delete')}>
+              <Button
+                icon={<RedoOutlined spin={refreshDictCacheLoading} />}
+                type="primary"
+                danger
+                onClick={runRefreshDictCache}
+              >
+                刷新缓存
+              </Button>
             </Access>,
           ],
         }}

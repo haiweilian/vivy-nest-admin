@@ -1,11 +1,12 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import { DeleteOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { ProTable } from '@ant-design/pro-components'
-import { useModel, Access, useAccess } from '@umijs/max'
+import { useModel, Access, useAccess, useRequest } from '@umijs/max'
 import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
-import { listConfig, deleteConfig } from '@/apis/system/config'
+import { listConfig, deleteConfig, refreshConfigCache } from '@/apis/system/config'
 import type { ConfigModel } from '@/apis/system/config'
+import { Message } from '@/components/App'
 import { DictTag } from '@/components/Dict'
 import UpdateForm from './components/UpdateForm'
 
@@ -31,6 +32,16 @@ const Config = () => {
     setSelectedRowKeys([])
     actionRef.current?.reload()
   }
+
+  /**
+   * 刷新参数配置缓存
+   */
+  const { run: runRefreshConfigCache, loading: refreshConfigCacheLoading } = useRequest(refreshConfigCache, {
+    manual: true,
+    onSuccess() {
+      Message.success('刷新成功')
+    },
+  })
 
   /**
    * 表格列配置
@@ -146,6 +157,16 @@ const Config = () => {
                   删除
                 </Button>
               </Popconfirm>
+            </Access>,
+            <Access key="cache" accessible={hasPermission('system:config:delete')}>
+              <Button
+                icon={<RedoOutlined spin={refreshConfigCacheLoading} />}
+                type="primary"
+                danger
+                onClick={runRefreshConfigCache}
+              >
+                刷新缓存
+              </Button>
             </Access>,
           ],
         }}

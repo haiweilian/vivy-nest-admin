@@ -59,3 +59,12 @@ export function configValue(configKey: string) {
     method: RequestEnum.GET,
   })
 }
+
+/**
+ * 刷新参数配置缓存
+ */
+export function refreshConfigCache() {
+  return request(`/configs/refresh-cache`, {
+    method: RequestEnum.DELETE,
+  })
+}

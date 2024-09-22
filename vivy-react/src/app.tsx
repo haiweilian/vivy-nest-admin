@@ -2,8 +2,9 @@ import { GithubOutlined, ReadFilled } from '@ant-design/icons'
 import type { Settings as LayoutSettings, ProLayoutProps } from '@ant-design/pro-components'
 import { history } from '@umijs/max'
 import type { RuntimeConfig, RunTimeLayoutConfig, RequestConfig } from '@umijs/max'
-import { message as Message, Modal, Tooltip } from 'antd'
+import { Tooltip } from 'antd'
 import { getUserInfo, getUserRouters } from '@/apis/auth/login'
+import { App, Modal, Message } from '@/components/App'
 import { PageEnum } from '@/enums/pageEnum'
 import { AvatarName, AvatarDropdown } from '@/layouts/default'
 import { getToken, removeToken } from '@/utils/auth'
@@ -21,6 +22,7 @@ interface InitialState {
   roles?: string[]
   permissions?: string[]
   userInfo?: UserInfo
+  isDarkMode?: boolean
   fetchUserInfo?: () => Promise<
     | {
         roles?: string[]
@@ -54,6 +56,7 @@ export async function getInitialState(): Promise<InitialState> {
       fetchUserInfo,
       ...userInfo,
       settings: defaultSettings as Partial<LayoutSettings>,
+      isDarkMode: defaultSettings?.navTheme === 'realDark',
     }
   } else {
     if (location.pathname !== PageEnum.BASE_LOGIN) {
@@ -125,7 +128,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       ]
     },
     childrenRender: (children) => {
-      return children
+      return <App>{children}</App>
     },
     ...initialState?.settings,
   }

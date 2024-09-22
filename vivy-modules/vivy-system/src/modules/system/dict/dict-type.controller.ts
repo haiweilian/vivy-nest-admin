@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
+import { DictCacheService } from './dict-cache.service'
 import { DictTypeService } from './dict-type.service'
 import { ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from './dto/dict-type.dto'
 
@@ -16,6 +17,7 @@ import { ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from './dto/dic
 export class DictTypeController {
   constructor(
     private dictTypeService: DictTypeService,
+    private dictCacheService: DictCacheService,
     private securityContext: SecurityContext
   ) {}
 
@@ -69,6 +71,16 @@ export class DictTypeController {
 
     dictType.updateBy = this.securityContext.getUserName()
     return AjaxResult.success(await this.dictTypeService.update(dictId, dictType))
+  }
+
+  /**
+   * 刷新字典缓存
+   */
+  @Delete('refresh-cache')
+  @Log({ title: '参数配置', operType: OperType.DELETE })
+  @RequirePermissions('system:dict:delete')
+  async refreshCache(): Promise<AjaxResult> {
+    return AjaxResult.success(await this.dictCacheService.reset())
   }
 
   /**

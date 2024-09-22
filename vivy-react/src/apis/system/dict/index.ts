@@ -125,3 +125,12 @@ export function dictDataOptions(dictType: string) {
     method: RequestEnum.GET,
   })
 }
+
+/**
+ * 刷新字典缓存
+ */
+export function refreshDictCache() {
+  return request(`/dict/types/refresh-cache`, {
+    method: RequestEnum.DELETE,
+  })
+}
