@@ -1,16 +1,16 @@
 import { KeyOutlined, LockOutlined, UserOutlined } from '@ant-design/icons'
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
 import { useModel, useRequest } from '@umijs/max'
-import { App, Space } from 'antd'
+import { Space } from 'antd'
 import { flushSync } from 'react-dom'
 import { login, captcha } from '@/apis/auth/login'
 import type { LoginParams } from '@/apis/auth/login'
+import { Message } from '@/components/App'
 import { PageEnum } from '@/enums/pageEnum'
 import { Footer } from '@/layouts/default'
 import { setToken } from '@/utils/auth'
 
 const Login = () => {
-  const { message } = App.useApp()
   const { initialState, setInitialState } = useModel('@@initialState')
   const { data: captchaImage, run: runCaptchaImage } = useRequest(captcha)
 
@@ -34,10 +34,10 @@ const Login = () => {
       })
       setToken(token.access_token)
       await fetchUserInfo()
-      message.loading('登录中...')
+      Message.loading('登录中...')
       window.location.href = PageEnum.BASE_HOME
     } catch (error: any) {
-      message.error(error.message || '登录失败，请重试！')
+      Message.error(error.message || '登录失败，请重试！')
     }
   }
 

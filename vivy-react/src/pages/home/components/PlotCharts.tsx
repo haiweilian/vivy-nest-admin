@@ -1,4 +1,5 @@
 import { Pie } from '@ant-design/charts'
+import { useModel } from '@umijs/max'
 import { Card } from 'antd'
 
 const data = [
@@ -11,12 +12,14 @@ const data = [
 ]
 
 export default () => {
+  const { initialState } = useModel('@@initialState')
   const config = {
     appendPadding: 10,
     data,
     angleField: 'value',
     colorField: 'type',
     radius: 0.9,
+    theme: initialState?.isDarkMode && 'classicDark',
     label: {
       type: 'inner',
       offset: '-30%',

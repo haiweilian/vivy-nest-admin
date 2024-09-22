@@ -1,17 +1,11 @@
 import { randomUUID } from 'crypto'
 import { Injectable } from '@nestjs/common'
 import { InjectRedis } from '@nestjs-modules/ioredis'
-import {
-  SysLoginUser,
-  ServiceException,
-  PasswordUtils,
-  BaseIsEnum,
-  UserStatusEnum,
-  CacheConstants,
-} from '@vivy-common/core'
+import { SysLoginUser, ServiceException, PasswordUtils, BaseIsEnum, UserStatusEnum } from '@vivy-common/core'
 import { isEmpty } from 'class-validator'
 import Redis from 'ioredis'
 import * as svgCaptcha from 'svg-captcha'
+import { CAPTCHA_CODE_KEY } from '@/common/constants/cache.constants'
 import { ConfigService } from '@/modules/system/config/config.service'
 import { MenuService } from '@/modules/system/menu/menu.service'
 import { MenuTreeVo } from '@/modules/system/menu/vo/menu.vo'
@@ -85,7 +79,7 @@ export class LoginService {
       uuid: randomUUID(),
     }
 
-    const key = `${CacheConstants.CAPTCHA_CODE_KEY}${result.uuid}`
+    const key = `${CAPTCHA_CODE_KEY}${result.uuid}`
     await this.redis.set(key, text, 'EX', 60 * 5)
 
     return result
@@ -97,7 +91,7 @@ export class LoginService {
    * @returns 验证失败抛出错误信息
    */
   async verifyCaptcha(form: LoginDto): Promise<void> {
-    const key = `${CacheConstants.CAPTCHA_CODE_KEY}${form.uuid}`
+    const key = `${CAPTCHA_CODE_KEY}${form.uuid}`
     const code = await this.redis.get(key)
     if (!code) {
       throw new ServiceException('验证码已过期')

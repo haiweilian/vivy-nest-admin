@@ -1,4 +1,5 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpStatus, StreamableFile } from '@nestjs/common'
+import { Injectable, HttpStatus, StreamableFile, Inject } from '@nestjs/common'
+import type { NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { SecurityConstants, AjaxResult, IpUtils, BaseStatusEnum } from '@vivy-common/core'
 import { Request } from 'express'
@@ -14,10 +15,10 @@ import { RpcLogService } from '../services/rpc-log.service'
  */
 @Injectable()
 export class LogInterceptor implements NestInterceptor {
-  constructor(
-    private reflector: Reflector,
-    private rpcLogService: RpcLogService
-  ) {}
+  @Inject()
+  private reflector: Reflector
+
+  constructor(private rpcLogService: RpcLogService) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(

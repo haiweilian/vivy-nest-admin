@@ -1,11 +1,10 @@
 import { ProForm, ProFormText, ProFormRadio } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
-import { App } from 'antd'
 import { updateProfile } from '@/apis/system/profile'
 import type { ProfileInfoResult, UpdateProfileParams } from '@/apis/system/profile'
+import { Message } from '@/components/App'
 
 const UpdateInfo: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => {
-  const { message } = App.useApp()
   const { loadDict, toSelect } = useModel('dict')
   const sysUserSex = loadDict('sys_user_sex')
 
@@ -15,7 +14,7 @@ const UpdateInfo: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => {
    */
   const handleSubmit = async (values: UpdateProfileParams) => {
     await updateProfile(values)
-    message.success('修改成功')
+    Message.success('修改成功')
   }
 
   return (

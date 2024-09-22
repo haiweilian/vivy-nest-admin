@@ -7,7 +7,7 @@ import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, In, Like, Repository } from 'typeorm'
 import { ListJobDto, CreateJobDto, UpdateJobDto } from './dto/job.dto'
 import { SysJob } from './entities/sys-job.entity'
-import { JobQueue } from './job.queue'
+import { JobQueueService } from './job-queue.service'
 import { TASKABLE_METADATA } from './utils/job.constants'
 
 /**
@@ -17,15 +17,15 @@ import { TASKABLE_METADATA } from './utils/job.constants'
 @Injectable()
 export class JobService {
   constructor(
-    private moduleRef: ModuleRef,
-    private reflector: Reflector,
-    private jobQueue: JobQueue,
-
     @InjectDataSource()
     private dataSource: DataSource,
 
     @InjectRepository(SysJob)
-    private jobRepository: Repository<SysJob>
+    private jobRepository: Repository<SysJob>,
+
+    private moduleRef: ModuleRef,
+    private reflector: Reflector,
+    private jobQueueService: JobQueueService
   ) {}
 
   /**
@@ -58,7 +58,7 @@ export class JobService {
   async add(job: CreateJobDto): Promise<void> {
     const res = await this.jobRepository.save(job)
     if (res.status === BaseStatusEnum.NORMAL) {
-      await this.jobQueue.start(res)
+      await this.jobQueueService.start(res)
     }
   }
 
@@ -71,10 +71,10 @@ export class JobService {
     await this.jobRepository.update(jobId, job)
     const res = await this.jobRepository.findOneBy({ jobId })
     if (res.status === BaseStatusEnum.NORMAL) {
-      await this.jobQueue.stop(res)
-      await this.jobQueue.start(res)
+      await this.jobQueueService.stop(res)
+      await this.jobQueueService.start(res)
     } else {
-      await this.jobQueue.stop(res)
+      await this.jobQueueService.stop(res)
     }
   }
 
@@ -86,7 +86,7 @@ export class JobService {
     const jobs = await this.jobRepository.findBy({ jobId: In(jobIds) })
     await this.dataSource.transaction(async (manager) => {
       await manager.delete(SysJob, jobIds)
-      await Promise.all(jobs.map((job) => this.jobQueue.stop(job)))
+      await Promise.all(jobs.map((job) => this.jobQueueService.stop(job)))
     })
   }
 
@@ -105,7 +105,7 @@ export class JobService {
    */
   async once(jobId: number): Promise<void> {
     const job = await this.jobRepository.findOneBy({ jobId })
-    await this.jobQueue.once(job)
+    await this.jobQueueService.once(job)
   }
 
   /**
@@ -133,7 +133,7 @@ export class JobService {
     // 是否标记为任务
     const hasTaskable = this.reflector.get<boolean>(TASKABLE_METADATA, service.constructor)
     if (!hasTaskable) {
-      throw new ServiceException('调用目标未添加@Taskable注解')
+      throw new ServiceException('调用目标未添加@Taskable装饰器')
     }
   }
 }

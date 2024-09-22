@@ -85,6 +85,7 @@ const AvatarDropdown: React.FC<{ children: React.ReactNode }> = ({ children }) =
           setInitialState((preInitialState) => ({
             ...preInitialState,
             settings,
+            isDarkMode: settings?.navTheme === 'realDark',
           }))
         }}
       />

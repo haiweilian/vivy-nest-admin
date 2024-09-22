@@ -53,6 +53,7 @@ export class JobLogController {
    * 清空任务日志列表
    */
   @Delete('clear')
+  @Log({ title: '任务日志', operType: OperType.CLEAN })
   @RequirePermissions('monitor:job:list')
   async clear(): Promise<AjaxResult> {
     return AjaxResult.success(await this.jobLogService.clear())

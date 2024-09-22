@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { Reflector } from '@nestjs/core'
 import { LogInterceptor } from '@vivy-common/logger'
 import { OperLogService } from '@/modules/monitor/oper-log/oper-log.service'
 
@@ -8,7 +7,7 @@ import { OperLogService } from '@/modules/monitor/oper-log/oper-log.service'
  */
 @Injectable()
 export class SysLogInterceptor extends LogInterceptor {
-  constructor(reflector: Reflector, operLogService: OperLogService) {
-    super(reflector, operLogService)
+  constructor(operLogService: OperLogService) {
+    super(operLogService)
   }
 }

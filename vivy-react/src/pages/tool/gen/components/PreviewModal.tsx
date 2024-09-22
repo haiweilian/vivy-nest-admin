@@ -1,9 +1,10 @@
 import { CopyOutlined } from '@ant-design/icons'
-import { Button, Modal, ModalProps, Tabs, App } from 'antd'
+import { Button, Modal, ModalProps, Tabs } from 'antd'
 import Clipboard from 'clipboard'
 import { useEffect, useState } from 'react'
 import { previewCode } from '@/apis/gen/gen'
 import type { GenTableModel, GenPreviewResult } from '@/apis/gen/gen'
+import { Message } from '@/components/App'
 
 interface UpdateFormProps extends ModalProps {
   record: GenTableModel
@@ -14,8 +15,6 @@ const removePrefix = (str: string) => {
 }
 
 const PreviewModal: React.FC<UpdateFormProps> = ({ record, ...props }) => {
-  const { message } = App.useApp()
-
   /**
    * 查询预览
    */
@@ -31,7 +30,7 @@ const PreviewModal: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   useEffect(() => {
     const clipboard = new Clipboard('.copy')
     clipboard.on('success', () => {
-      message.success('复制成功')
+      Message.success('复制成功')
     })
     return () => {
       clipboard.destroy()

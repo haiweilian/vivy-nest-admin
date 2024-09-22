@@ -1,11 +1,10 @@
 import { ProForm, ProFormDependency, ProFormInstance, ProFormText } from '@ant-design/pro-components'
-import { App } from 'antd'
 import { useRef } from 'react'
 import { updatePassword } from '@/apis/system/profile'
 import type { UpdatePasswordParams } from '@/apis/system/profile'
+import { Message } from '@/components/App'
 
 const UpdatePassword: React.FC = () => {
-  const { message } = App.useApp()
   const formRef = useRef<ProFormInstance>()
 
   /**
@@ -15,7 +14,7 @@ const UpdatePassword: React.FC = () => {
   const handleSubmit = async (values: UpdatePasswordParams) => {
     await updatePassword(values)
     formRef.current?.resetFields()
-    message.success('修改成功')
+    Message.success('修改成功')
   }
 
   return (

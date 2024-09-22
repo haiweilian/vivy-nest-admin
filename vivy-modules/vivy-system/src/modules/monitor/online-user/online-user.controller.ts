@@ -1,6 +1,7 @@
 import { Controller, Delete, Get, Param, Query } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
+import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
 import { ListOnlineUserDto } from './dto/online-user.dto'
 import { OnlineUserService } from './online-user.service'
@@ -31,6 +32,7 @@ export class OnlineUserController {
    * @param userSk 用户会话编号
    */
   @Delete(':userSk')
+  @Log({ title: '在线用户', operType: OperType.DELETE })
   @RequirePermissions('monitor:online:logout')
   async logout(@Param('userSk') userSk: string): Promise<AjaxResult> {
     return AjaxResult.success(await this.onlineUserService.logout(userSk))

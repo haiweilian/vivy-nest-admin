@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { TreeUtils, BaseStatusEnum, MenuConstants, IdentityUtils } from '@vivy-common/core'
+import { TreeUtils, BaseStatusEnum, IdentityUtils } from '@vivy-common/core'
 import { Repository } from 'typeorm'
 import { SysRoleMenu } from '@/modules/system/role/entities/sys-role-menu.entity'
 import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto'
@@ -140,7 +140,7 @@ export class MenuService {
       menus = await this.menuRepository
         .createQueryBuilder('m')
         .where('m.status = :status', { status: BaseStatusEnum.NORMAL })
-        .andWhere('m.menu_type IN (:...menuType)', { menuType: [MenuConstants.TYPE_DIR, MenuConstants.TYPE_MENU] })
+        .andWhere('m.menu_type IN (:...menuType)', { menuType: ['M', 'C'] })
         .orderBy('m.menu_sort', 'ASC')
         .getMany()
     } else {
@@ -152,7 +152,7 @@ export class MenuService {
         .where('ur.user_id = :userId', { userId })
         .andWhere('m.status = :status', { status: BaseStatusEnum.NORMAL })
         .andWhere('r.status = :status', { status: BaseStatusEnum.NORMAL })
-        .andWhere('m.menu_type IN (:...menuType)', { menuType: [MenuConstants.TYPE_DIR, MenuConstants.TYPE_MENU] })
+        .andWhere('m.menu_type IN (:...menuType)', { menuType: ['M', 'C'] })
         .orderBy('m.menu_sort', 'ASC')
         .distinct()
         .getMany()

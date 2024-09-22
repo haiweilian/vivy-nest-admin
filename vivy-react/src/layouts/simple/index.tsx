@@ -2,6 +2,7 @@ import { ProConfigProvider } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { ConfigProvider, Layout } from 'antd'
 import React from 'react'
+import { App } from '@/components/App'
 
 const SimpleLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { initialState } = useModel('@@initialState')
@@ -23,7 +24,9 @@ const SimpleLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         }
       >
         <ProConfigProvider autoClearCache dark={isDark} token={token}>
-          <Layout>{children}</Layout>
+          <Layout>
+            <App>{children}</App>
+          </Layout>
         </ProConfigProvider>
       </ConfigProvider>
     </div>
