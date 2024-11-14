@@ -46,7 +46,7 @@ vivy
 │       └── vivy-plugin-mybatis                     // Mybatis插件
 ├── vivy-modules          // 业务模块
 │       └── vivy-system                             // 系统模块
-│       └── vivy-template                           // 模板模块
+│       └── vivy-template                           // 模版模块
 ```
 
 ## 内置功能
