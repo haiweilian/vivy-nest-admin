@@ -30,6 +30,9 @@ export class JobLogService {
         limit: jobLog.limit,
       },
       {
+        order: {
+          createTime: 'DESC',
+        },
         where: {
           jobId: jobLog.jobId,
           jobName: isNotEmpty(jobLog.jobName) ? Like(`%${jobLog.jobName}%`) : undefined,
