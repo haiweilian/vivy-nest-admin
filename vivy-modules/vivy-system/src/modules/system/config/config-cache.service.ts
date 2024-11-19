@@ -36,13 +36,6 @@ export class ConfigCacheService implements OnModuleInit {
   }
 
   /**
-   * 清空参数配置缓存
-   */
-  async clear(): Promise<void> {
-    await this.redis.del(`${SYS_CONFIG_KEY}*`)
-  }
-
-  /**
    * 重置参数配置缓存
    */
   async reset(): Promise<void> {
@@ -75,6 +68,14 @@ export class ConfigCacheService implements OnModuleInit {
    */
   async del(configKey: string): Promise<void> {
     await this.redis.del(this.getCacheKey(configKey))
+  }
+
+  /**
+   * 清空参数配置缓存
+   */
+  async clear(): Promise<void> {
+    const keys = await this.redis.keys(this.getCacheKey('*'))
+    await this.redis.del(keys)
   }
 
   /**

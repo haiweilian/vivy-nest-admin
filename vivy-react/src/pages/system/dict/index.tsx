@@ -34,7 +34,7 @@ const DictType = () => {
   }
 
   /**
-   * 刷新参数配置缓存
+   * 刷新字典缓存
    */
   const { run: runRefreshDictCache, loading: refreshDictCacheLoading } = useRequest(refreshDictCache, {
     manual: true,
