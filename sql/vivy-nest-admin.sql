@@ -594,12 +594,12 @@ CREATE TABLE `sys_job` (
 -- Records of sys_job
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_job` VALUES (1, '无参数', '0', 'CallTask.noParams', NULL, '0 0 * * * ?', '0', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `sys_job` VALUES (2, '数字参数', '0', 'CallTask.numberParams', '1', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `sys_job` VALUES (3, '字符串参数', '0', 'CallTask.stringParams', '\'1\'', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `sys_job` VALUES (4, '布尔参数', '0', 'CallTask.booleanParams', 'true', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `sys_job` VALUES (5, '对象参数', '0', 'CallTask.objectParams', '{\"a\":1,\"b\":2}', '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
-INSERT INTO `sys_job` VALUES (6, '测试错误', '0', 'CallTask.errorParams', NULL, '0 0 * * * ?', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (1, '无参数', '0', 'CallTask.noParams', NULL, '0 0 * * * *', '0', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (2, '数字参数', '0', 'CallTask.numberParams', '1', '0 0 * * * *', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (3, '字符串参数', '0', 'CallTask.stringParams', '\'1\'', '0 0 * * * *', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (4, '布尔参数', '0', 'CallTask.booleanParams', 'true', '0 0 * * * *', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (5, '对象参数', '0', 'CallTask.objectParams', '{\"a\":1,\"b\":2}', '0 0 * * * *', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
+INSERT INTO `sys_job` VALUES (6, '测试错误', '0', 'CallTask.errorParams', NULL, '0 0 * * * *', '1', 'admin', sysdate(), 'admin', sysdate(), NULL);
 COMMIT;
 
 -- ----------------------------

@@ -3,7 +3,7 @@ import { range } from 'lodash-es'
 import { useEffect, useMemo, useState } from 'react'
 import { ItemType, OptionType, OptionValue } from './types'
 
-const CronTabItem: React.FC<{
+const CronGenItem: React.FC<{
   type: ItemType
   onChange?: (value: string) => void
 }> = ({ type, onChange }) => {
@@ -199,4 +199,4 @@ const CronTabItem: React.FC<{
   )
 }
 
-export default CronTabItem
+export default CronGenItem

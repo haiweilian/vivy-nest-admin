@@ -1,4 +1,5 @@
 import parser from 'cron-parser'
+import CronEval from './CronEval'
 import CronTab from './CronTab'
 
 const cronValidate = (value: string) => {
@@ -10,4 +11,4 @@ const cronValidate = (value: string) => {
   }
 }
 
-export { CronTab, cronValidate }
+export { CronTab, CronEval, cronValidate }

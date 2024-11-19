@@ -126,6 +126,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
           width={1000}
           open={cronOpen}
           onCancel={() => setCronOpen(false)}
+          destroyOnClose
           onOk={() => {
             setCronOpen(false)
             formRef.current?.setFieldsValue({

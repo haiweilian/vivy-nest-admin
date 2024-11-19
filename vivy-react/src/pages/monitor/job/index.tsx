@@ -6,6 +6,8 @@ import { Button, Popconfirm } from 'antd'
 import { useRef, useState } from 'react'
 import { listJob, deleteJob, onceJob } from '@/apis/monitor/job'
 import type { JobModel } from '@/apis/monitor/job'
+import { Modal } from '@/components/App'
+import { CronEval } from '@/components/Cron'
 import { DictTag, DictText } from '@/components/Dict'
 import UpdateForm from './components/UpdateForm'
 
@@ -31,6 +33,24 @@ const Job = () => {
     await deleteJob(jobIds)
     setSelectedRowKeys([])
     actionRef.current?.reload()
+  }
+
+  /**
+   * 预览执行计划
+   */
+  const handleCronPreview = (record: JobModel) => {
+    Modal.confirm({
+      title: `执行计划：${record.jobName}`,
+      icon: null,
+      width: 600,
+      footer: false,
+      closable: true,
+      content: (
+        <div style={{ height: '400px' }}>
+          <CronEval value={record.cronExpression} />
+        </div>
+      ),
+    })
   }
 
   /**
@@ -77,7 +97,7 @@ const Job = () => {
       title: '操作',
       valueType: 'option',
       key: 'option',
-      width: 250,
+      width: 300,
       render: (_, record) => [
         <Access key="update" accessible={hasPermission('monitor:job:update')}>
           <Button
@@ -102,6 +122,9 @@ const Job = () => {
             <Button type="link">执行一次</Button>
           </Popconfirm>
         </Access>,
+        <Button key="eval" type="link" onClick={() => handleCronPreview(record)}>
+          执行计划
+        </Button>,
         <Link key="log" to={`/monitor/job/log?jobId=${record.jobId}`}>
           调度日志
         </Link>,

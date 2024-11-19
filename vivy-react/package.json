@@ -23,6 +23,7 @@
     "antd": "^5.19.3",
     "clipboard": "^2.0.11",
     "cron-parser": "^4.9.0",
+    "cronstrue": "^2.51.0",
     "cropperjs": "^1.6.2",
     "dayjs": "^1.11.13",
     "file-saver": "^2.0.5",
