@@ -7,6 +7,7 @@ import defaultSettings from './setting'
 
 export default defineConfig({
   npmClient: 'pnpm',
+  esbuildMinifyIIFE: true,
   /**
    * @name 开发插件
    * @doc https://umijs.org/docs/guides/plugins

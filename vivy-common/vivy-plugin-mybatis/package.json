@@ -6,11 +6,11 @@
   "homepage": "https://github.com/haiweilian/vivy-nest-admin",
   "main": "./lib/index.js",
   "dependencies": {
-    "chokidar": "^3.6.0",
+    "chokidar": "^4.0.1",
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
     "mybatis-mapper": "^0.8.0",
-    "sql-formatter": "^15.3.2"
+    "sql-formatter": "^15.4.6"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4"

@@ -7,10 +7,10 @@
   "main": "./lib/index.js",
   "dependencies": {
     "nest-winston": "^1.9.7",
-    "winston": "^3.13.1",
+    "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
-    "express": "^4.19.2"
+    "express": "^4.21.1"
   }
 }

@@ -142,7 +142,6 @@ export class ExcelService {
 
     const data: TModel[] = []
     rowValues.forEach((row) => {
-      // eslint-disable-next-line new-cap
       const item = new model()
       colValues.forEach((col, colIndex) => {
         if (col.dictType || col.dictOptions) {

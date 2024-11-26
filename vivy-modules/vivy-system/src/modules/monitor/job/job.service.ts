@@ -125,7 +125,9 @@ export class JobService {
     let service: any
     try {
       service = await this.moduleRef.get(className, { strict: false })
-    } catch {}
+    } catch {
+      //
+    }
     if (!service || typeof service[handleName] !== 'function') {
       throw new ServiceException('调用目标不存在')
     }

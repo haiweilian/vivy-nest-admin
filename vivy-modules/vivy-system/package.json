@@ -17,10 +17,10 @@
     "mime": "^3.0.0",
     "pluralize": "^8.0.0",
     "svg-captcha": "^1.4.0",
-    "ua-parser-js": "^1.0.38"
+    "ua-parser-js": "^2.0.0"
   },
   "devDependencies": {
-    "@types/archiver": "^6.0.2",
+    "@types/archiver": "^6.0.3",
     "@types/ua-parser-js": "^0.7.39"
   }
 }
