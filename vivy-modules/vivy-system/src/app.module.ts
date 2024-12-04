@@ -17,6 +17,7 @@ import { CommonModule } from './common/common.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { FileModule } from './modules/file/file.module'
 import { GenModule } from './modules/gen/gen.module'
+import { HealthModule } from './modules/health/health.module'
 import { MonitorModule } from './modules/monitor/monitor.module'
 import { SystemModule } from './modules/system/system.module'
 
@@ -77,6 +78,7 @@ import { SystemModule } from './modules/system/system.module'
     GenModule,
     FileModule,
     AuthModule,
+    HealthModule,
     SystemModule,
     MonitorModule,
   ],
