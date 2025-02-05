@@ -3,5 +3,5 @@ import { defineConfig } from 'taze'
 export default defineConfig({
   mode: 'latest',
   recursive: true,
-  exclude: ['mime', 'camelcase', 'decamelize'],
+  exclude: ['mime', 'camelcase', 'decamelize', 'tailwindcss'],
 })

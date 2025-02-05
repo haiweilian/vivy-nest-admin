@@ -17,7 +17,7 @@
     "mime": "^3.0.0",
     "pluralize": "^8.0.0",
     "svg-captcha": "^1.4.0",
-    "ua-parser-js": "^2.0.0"
+    "ua-parser-js": "^2.0.1"
   },
   "devDependencies": {
     "@types/archiver": "^6.0.3",

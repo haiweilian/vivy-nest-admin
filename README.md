@@ -8,10 +8,10 @@
     <img src="https://img.shields.io/badge/Vivy-v0.0.1-green">
   </a>
   <a href="https://github.com/nestjs/nest">
-    <img src="https://img.shields.io/badge/Nest-v10.x-green">
+    <img src="https://img.shields.io/badge/Nest-v11.x-green">
   </a>
   <a href="https://github.com/facebook/react">
-    <img src="https://img.shields.io/badge/React-v18.x-green">
+    <img src="https://img.shields.io/badge/React-v19.x-green">
   </a>
 	<a href="https://github.com/haiweilian/vivy-nest-admin/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/haiweilian/vivy-nest-admin">

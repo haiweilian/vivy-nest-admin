@@ -6,10 +6,10 @@
   "homepage": "https://github.com/haiweilian/vivy-nest-admin",
   "main": "./lib/index.js",
   "dependencies": {
-    "@nestjs/swagger": "^8.0.7",
+    "@nestjs/swagger": "^11.0.3",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.2"
   }
 }

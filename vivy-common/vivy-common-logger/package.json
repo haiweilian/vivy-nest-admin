@@ -6,11 +6,11 @@
   "homepage": "https://github.com/haiweilian/vivy-nest-admin",
   "main": "./lib/index.js",
   "dependencies": {
-    "nest-winston": "^1.9.7",
+    "nest-winston": "^1.10.2",
     "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.2"
   }
 }

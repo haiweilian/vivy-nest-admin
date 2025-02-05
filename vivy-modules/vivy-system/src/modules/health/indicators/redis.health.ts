@@ -1,26 +1,26 @@
 import { Injectable } from '@nestjs/common'
-import { HealthIndicator, HealthIndicatorResult, HealthCheckError } from '@nestjs/terminus'
+import { HealthIndicatorResult, HealthIndicatorService } from '@nestjs/terminus'
 import { InjectRedis } from '@nestjs-modules/ioredis'
 import Redis from 'ioredis'
 
 @Injectable()
-export class RedisHealthIndicator extends HealthIndicator {
+export class RedisHealthIndicator {
   constructor(
     @InjectRedis()
-    private redis: Redis
-  ) {
-    super()
-  }
+    private redis: Redis,
+    private healthIndicatorService: HealthIndicatorService
+  ) {}
 
   async pingCheck(key: string): Promise<HealthIndicatorResult> {
+    const indicator = this.healthIndicatorService.check(key)
     try {
       const result = await this.redis.ping()
       if (result !== 'PONG') {
         throw new Error('Invalid PING response')
       }
-      return this.getStatus(key, true)
+      return indicator.up()
     } catch (error) {
-      throw new HealthCheckError('Redis check failed', this.getStatus(key, false, { error: error.message }))
+      return indicator.down(error.message)
     }
   }
 }
