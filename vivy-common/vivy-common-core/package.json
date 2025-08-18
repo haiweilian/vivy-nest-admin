@@ -6,7 +6,7 @@
   "homepage": "https://github.com/haiweilian/vivy-nest-admin",
   "main": "./lib/index.js",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "date-fns": "^4.1.0",
     "ip2region": "^2.3.0",
     "nestjs-cls": "^5.0.1",

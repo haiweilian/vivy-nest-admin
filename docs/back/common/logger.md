@@ -112,4 +112,4 @@ export class TestController {
 
 - https://github.com/haiweilian/vivy-nest-admin/blob/main/vivy-modules/vivy-system/src/app.module.ts
 
-- https://github.com/haiweilian/vivy-nest-admin/blob/main/vivy-modules/vivy-system/src/common/interceptors/log.interceptor.ts
+- https://github.com/haiweilian/vivy-nest-admin/blob/main/vivy-modules/vivy-system/src/base/interceptors/log.interceptor.ts

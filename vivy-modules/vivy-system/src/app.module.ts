@@ -13,7 +13,7 @@ import { SecurityModule, SecurityOptions } from '@vivy-common/security'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { CommonModule } from './common/common.module'
+import { BaseModule } from './base/base.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { FileModule } from './modules/file/file.module'
 import { GenModule } from './modules/gen/gen.module'
@@ -57,7 +57,7 @@ import { SystemModule } from './modules/system/system.module'
     }),
 
     // common
-    CommonModule,
+    BaseModule,
     CoreModule.forRoot(),
     ExcelModule.forRoot(),
     DataScopeModule.forRoot(),

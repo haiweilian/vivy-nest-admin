@@ -13,4 +13,4 @@ import { SysLogInterceptor } from './interceptors/log.interceptor'
     },
   ],
 })
-export class CommonModule {}
+export class BaseModule {}
