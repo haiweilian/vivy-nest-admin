@@ -5,7 +5,7 @@ import { listDbTable, importDbTable } from '@/apis/gen/gen'
 import type { GenTableModel } from '@/apis/gen/gen'
 
 const ImportModal: React.FC<ModalProps> = (props) => {
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   /**

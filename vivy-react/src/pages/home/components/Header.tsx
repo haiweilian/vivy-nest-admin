@@ -1,7 +1,7 @@
 import { useModel } from '@umijs/max'
 import { Avatar, Card, Typography } from 'antd'
 
-export default () => {
+const Header: React.FC = () => {
   const { initialState } = useModel('@@initialState')
   const userInfo = initialState?.userInfo
 
@@ -31,3 +31,5 @@ export default () => {
     </Card>
   )
 }
+
+export default Header

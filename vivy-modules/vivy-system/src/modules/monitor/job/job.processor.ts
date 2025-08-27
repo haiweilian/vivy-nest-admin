@@ -2,7 +2,7 @@ import { OnQueueCompleted, OnQueueFailed, Process, Processor } from '@nestjs/bul
 import { HttpException } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { Job as BullJob } from 'bull'
-import { JOB_BULL_NAME } from '@/common/constants/bull.constants'
+import { JOB_BULL_NAME } from '@/base/constants/bull.constants'
 import { SysJobLog } from './entities/sys-job-log.entity'
 import { SysJob } from './entities/sys-job.entity'
 import { JobLogService } from './job-log.service'

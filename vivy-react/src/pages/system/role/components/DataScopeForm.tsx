@@ -19,7 +19,7 @@ interface DataScopeFormProps extends DrawerFormProps {
 }
 
 const DataScopeForm: React.FC<DataScopeFormProps> = ({ record, ...props }) => {
-  const formRef = useRef<ProFormInstance>()
+  const formRef = useRef<ProFormInstance>(null)
 
   /**
    * 获取初始化数据

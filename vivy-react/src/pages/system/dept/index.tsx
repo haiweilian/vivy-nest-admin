@@ -13,7 +13,7 @@ import UpdateForm from './components/UpdateForm'
 
 const Dept = () => {
   const { hasPermission } = useAccess()
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
   const [record, setRecord] = useState<DeptTreeResult>()
   const [updateOpen, setUpdateOpen] = useState(false)
 

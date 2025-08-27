@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { BaseStatusEnum } from '@vivy-common/core'
 import { Queue } from 'bull'
 import { Repository } from 'typeorm'
-import { JOB_BULL_NAME } from '@/common/constants/bull.constants'
+import { JOB_BULL_NAME } from '@/base/constants/bull.constants'
 import { SysJob } from './entities/sys-job.entity'
 
 /**

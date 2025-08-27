@@ -10,7 +10,7 @@ import { DictTag } from '@/components/Dict'
 
 const LoginLog = () => {
   const { hasPermission } = useAccess()
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
 
   /**
    * 注册字典数据

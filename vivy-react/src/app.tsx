@@ -1,3 +1,4 @@
+import '@ant-design/v5-patch-for-react-19'
 import { GithubOutlined, ReadFilled } from '@ant-design/icons'
 import type { Settings as LayoutSettings, ProLayoutProps } from '@ant-design/pro-components'
 import { history } from '@umijs/max'

@@ -11,7 +11,7 @@ const data = [
   { type: '其他分类', value: 5 },
 ]
 
-export default () => {
+const PlotCharts: React.FC = () => {
   const { initialState } = useModel('@@initialState')
   const config = {
     appendPadding: 10,
@@ -42,3 +42,5 @@ export default () => {
     </Card>
   )
 }
+
+export default PlotCharts

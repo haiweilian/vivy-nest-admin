@@ -5,7 +5,7 @@ import { SysLoginUser, ServiceException, PasswordUtils, BaseIsEnum, UserStatusEn
 import { isEmpty } from 'class-validator'
 import Redis from 'ioredis'
 import * as svgCaptcha from 'svg-captcha'
-import { CAPTCHA_CODE_KEY } from '@/common/constants/cache.constants'
+import { CAPTCHA_CODE_KEY } from '@/base/constants/cache.constants'
 import { ConfigService } from '@/modules/system/config/config.service'
 import { MenuService } from '@/modules/system/menu/menu.service'
 import { MenuTreeVo } from '@/modules/system/menu/vo/menu.vo'

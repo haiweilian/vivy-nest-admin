@@ -10,7 +10,7 @@ export function getThemeSetting(): Partial<LayoutSettings> {
         ...defaultSettings,
         ...JSON.parse(value),
       }
-    : defaultSettings
+    : (defaultSettings as LayoutSettings)
 }
 
 export function setThemeSetting(setting: Partial<LayoutSettings>) {

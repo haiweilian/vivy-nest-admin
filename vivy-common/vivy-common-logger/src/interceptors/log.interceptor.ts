@@ -59,10 +59,10 @@ export class LogInterceptor implements NestInterceptor {
     operLog.requestUrl = request.url
     operLog.requestMethod = request.method
     if (meta.isSaveRequestData) {
-      operLog.requestParam = JSON.stringify(request.body).slice(0, 2000)
+      operLog.requestParam = JSON.stringify(request.body)?.slice(0, 2000)
     }
     if (meta.isSaveResponseData && !isStreamableFile) {
-      operLog.requestResult = JSON.stringify(result).slice(0, 2000)
+      operLog.requestResult = JSON.stringify(result)?.slice(0, 2000)
     }
 
     if (isStreamableFile || result.code === HttpStatus.OK) {

@@ -10,7 +10,7 @@ import { DictTag, DictText } from '@/components/Dict'
 
 const OperationLog = () => {
   const { hasPermission } = useAccess()
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
   const [record, setRecord] = useState<OperLogModel>()
   const [openDrawer, setOpenDrawer] = useState(false)
 

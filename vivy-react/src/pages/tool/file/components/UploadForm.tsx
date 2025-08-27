@@ -6,7 +6,7 @@ import { addFile, fileUseOptions, uploadFile } from '@/apis/file'
 import UseSelect from './UseSelect'
 
 const UploadForm: React.FC<DrawerFormProps> = (props) => {
-  const formRef = useRef<ProFormInstance>()
+  const formRef = useRef<ProFormInstance>(null)
 
   /**
    * 获取用途选项

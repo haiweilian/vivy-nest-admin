@@ -27,7 +27,7 @@ interface UpdateFormProps extends DrawerFormProps {
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
-  const formRef = useRef<ProFormInstance>()
+  const formRef = useRef<ProFormInstance>(null)
   const { type } = useParams()
 
   /**

@@ -52,7 +52,7 @@ export const items = [
   },
 ]
 
-export default () => {
+const ProjectCard: React.FC = () => {
   return (
     <Card title="项目" extra={<Typography.Link>更多</Typography.Link>} className="w-full">
       {items.map((item) => (
@@ -73,3 +73,5 @@ export default () => {
     </Card>
   )
 }
+
+export default ProjectCard

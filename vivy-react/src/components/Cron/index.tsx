@@ -4,7 +4,7 @@ import CronTab from './CronTab'
 
 const cronValidate = (value: string) => {
   try {
-    parser.parseExpression(value)
+    parser.parse(value)
     return true
   } catch (e) {
     return false

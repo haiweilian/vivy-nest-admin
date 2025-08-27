@@ -18,7 +18,7 @@ import UpdateForm from './components/UpdateForm'
 
 const User = () => {
   const { hasPermission } = useAccess()
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
   const [record, setRecord] = useState<UserModel>()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [importOpen, setImportOpen] = useState(false)

@@ -2,17 +2,18 @@ import { PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { ProTable } from '@ant-design/pro-components'
 import { useRequest } from '@umijs/max'
-import { Button, message } from 'antd'
+import { Button } from 'antd'
 import Clipboard from 'clipboard'
 import prettyBytes from 'pretty-bytes'
 import { useEffect, useRef, useState } from 'react'
 import { listFile, fileUseOptions } from '@/apis/file'
 import type { FileModel } from '@/apis/file'
+import { Message } from '@/components/App'
 import UploadForm from './components/UploadForm'
 import UploadsForm from './components/UploadsForm'
 
 const File = () => {
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
   const [uploadOpen, setUploadOpen] = useState(false)
   const [uploadsOpen, setUploadsOpen] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
@@ -74,7 +75,7 @@ const File = () => {
   useEffect(() => {
     const clipboard = new Clipboard('.copy')
     clipboard.on('success', () => {
-      message.success('复制成功')
+      Message.success('复制成功')
     })
     return () => {
       clipboard.destroy()

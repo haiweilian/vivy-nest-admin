@@ -7,6 +7,7 @@ import defaultSettings from './setting'
 
 export default defineConfig({
   npmClient: 'pnpm',
+  jsMinifier: 'terser',
   esbuildMinifyIIFE: true,
   /**
    * @name 开发插件

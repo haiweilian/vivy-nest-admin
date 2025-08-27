@@ -81,7 +81,7 @@ export default () => {
 
   return {
     dict,
-    loadDict: useCallback(loadDict, [dict]),
+    loadDict: useCallback(loadDict, []),
     reloadDict: useCallback(reloadDict, []),
     toSelect: useCallback(toSelect, []),
     toMapEnum: useCallback(toMapEnum, []),

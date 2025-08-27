@@ -11,7 +11,7 @@ import PreviewModal from './components/PreviewModal'
 import UpdateForm from './components/UpdateForm'
 
 const Gen = () => {
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
   const [record, setRecord] = useState<GenTableModel>()
   const [importOpen, setImportOpen] = useState(false)
   const [updateOpen, setUpdateOpen] = useState(false)

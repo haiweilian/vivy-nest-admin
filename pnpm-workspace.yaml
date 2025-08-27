@@ -3,3 +3,8 @@ packages:
   - vivy-react
   - vivy-common/**
   - vivy-modules/**
+
+pnpm:
+  overrides:
+    '@types/react': ^19.0.0
+    '@types/react-dom': ^19.0.0

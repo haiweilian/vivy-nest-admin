@@ -12,7 +12,7 @@ import UpdateForm from './components/UpdateForm'
 
 const DictType = () => {
   const { hasPermission } = useAccess()
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
   const [record, setRecord] = useState<DictTypeModel>()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])

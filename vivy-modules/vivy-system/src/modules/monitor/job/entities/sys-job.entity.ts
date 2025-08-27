@@ -10,7 +10,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator'
-import * as parser from 'cron-parser'
+import { CronExpressionParser } from 'cron-parser'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 /**
@@ -20,7 +20,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 export class IsCronExpression implements ValidatorConstraintInterface {
   validate(value: string, args: ValidationArguments) {
     try {
-      parser.parseExpression(value)
+      CronExpressionParser.parse(value)
       return true
     } catch (e) {
       return false

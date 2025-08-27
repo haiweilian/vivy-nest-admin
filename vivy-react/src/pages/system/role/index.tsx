@@ -12,7 +12,7 @@ import UpdateForm from './components/UpdateForm'
 
 const Role = () => {
   const { hasPermission } = useAccess()
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
   const [record, setRecord] = useState<RoleModel>()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [dataScopeOpen, setDataScopeOpen] = useState(false)

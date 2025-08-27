@@ -8,7 +8,7 @@ import type { OnlineUserResult } from '@/apis/monitor/online-user'
 
 const OnlineUser = () => {
   const { hasPermission } = useAccess()
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
 
   /**
    * 强退用户

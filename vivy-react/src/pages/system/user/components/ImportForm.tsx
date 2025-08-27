@@ -7,7 +7,7 @@ import { useRef } from 'react'
 import { exportUserTemplate, importUserList } from '@/apis/system/user'
 
 const ImportForm: React.FC<ModalFormProps> = (props) => {
-  const formRef = useRef<ProFormInstance>()
+  const formRef = useRef<ProFormInstance>(null)
 
   /**
    * 导出用户模板

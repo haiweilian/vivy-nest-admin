@@ -10,7 +10,7 @@ import { DictTag, DictText } from '@/components/Dict'
 
 const JobLog = () => {
   const [searchParams] = useSearchParams()
-  const actionRef = useRef<ActionType>()
+  const actionRef = useRef<ActionType>(null)
 
   /**
    * 注册字典数据

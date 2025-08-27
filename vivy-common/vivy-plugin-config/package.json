@@ -7,6 +7,6 @@
   "main": "./lib/index.js",
   "dependencies": {
     "handlebars": "^4.7.8",
-    "yaml": "^2.7.0"
+    "yaml": "^2.8.1"
   }
 }

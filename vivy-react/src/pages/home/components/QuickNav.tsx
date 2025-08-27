@@ -34,7 +34,7 @@ export const items = [
   },
 ]
 
-export default () => {
+const QuickNav: React.FC = () => {
   return (
     <Card title="快捷导航" className="w-full">
       {items.map((item) => (
@@ -48,3 +48,5 @@ export default () => {
     </Card>
   )
 }
+
+export default QuickNav
