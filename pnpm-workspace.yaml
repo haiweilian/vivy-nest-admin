@@ -1,5 +1,6 @@
 packages:
   - docs
+  - vivy-vue
   - vivy-react
   - vivy-common/**
   - vivy-modules/**

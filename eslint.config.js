@@ -14,6 +14,8 @@ export default [
       '**/lib/',
       '**/dist/',
       '**/logs/',
+      '**/public/',
+      '**/assets/',
       '**/.umi/',
       '**/.umi-production/',
       '**/.vitepress/cache/',
