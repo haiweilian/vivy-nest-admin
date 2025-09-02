@@ -39,7 +39,6 @@ export function captcha() {
 export function getUserInfo() {
   return request<LoginUserInfo>('/auth/user/info', {
     method: RequestEnum.GET,
-    skipErrorHandler: true,
   })
 }
 
@@ -49,6 +48,5 @@ export function getUserInfo() {
 export function getUserRouters() {
   return request<RouterTreeResult[]>('/auth/user/routers', {
     method: RequestEnum.GET,
-    skipErrorHandler: true,
   })
 }

@@ -1,6 +1,7 @@
 import { darken, lighten, useGlobal, storageLocal } from '@pureadmin/utils'
 import { ref } from 'vue'
 import { getConfig } from '@/config'
+import { PageEnum } from '@/enums/pageEnum'
 import { routerArrays } from '@/layout/types'
 import { router, resetRouter } from '@/router'
 import { useAppStoreHook } from '@/store/modules/app'
@@ -115,7 +116,7 @@ export function useDataThemeChange() {
     useMultiTagsStoreHook().multiTagsCacheChange(MultiTagsCache)
     toggleClass(Grey, 'html-grey', document.querySelector('html'))
     toggleClass(Weak, 'html-weakness', document.querySelector('html'))
-    router.push('/login')
+    router.push(PageEnum.BASE_LOGIN)
     useMultiTagsStoreHook().handleTags('equal', [...routerArrays])
     resetRouter()
   }

@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto'
 import { Injectable } from '@nestjs/common'
 import { InjectRedis } from '@nestjs-modules/ioredis'
 import { SysLoginUser, ServiceException, PasswordUtils, BaseIsEnum, UserStatusEnum } from '@vivy-common/core'
+import * as camelcase from 'camelcase'
 import { isEmpty } from 'class-validator'
 import Redis from 'ioredis'
 import * as svgCaptcha from 'svg-captcha'
@@ -11,7 +12,7 @@ import { MenuService } from '@/modules/system/menu/menu.service'
 import { MenuTreeVo } from '@/modules/system/menu/vo/menu.vo'
 import { UserService } from '@/modules/system/user/user.service'
 import { LoginDto } from './dto/login.dto'
-import { CaptchaVo, RouterTreeVo } from './vo/login.vo'
+import { CaptchaVo, RouterTreeVo, RouterTreeVueVo } from './vo/login.vo'
 
 /**
  * 登录管理
@@ -118,8 +119,11 @@ export class LoginService {
    * @param userId 用户ID
    * @returns 用户路由信息
    */
-  async getUserRouters(userId: number) {
+  async getUserRouters(userId: number, framework: string) {
     const menus = await this.menuService.selectUserMenuTree(userId)
+    if (framework === 'vue') {
+      return this.buildPureAdminRouters(menus)
+    }
     return this.buildUmiMaxRouters(menus)
   }
 
@@ -140,6 +144,35 @@ export class LoginService {
       router.locale = false
       router.hideInMenu = menu.isVisible === BaseIsEnum.NO
       router.children = menu.children && this.buildUmiMaxRouters(menu.children)
+      routers.push(router)
+    }
+
+    return routers
+  }
+
+  /**
+   * 构建前端 PureAdmin 所需要的路由
+   * @param 菜单列表
+   * @returns 路由列表
+   */
+  private buildPureAdminRouters(menus: MenuTreeVo[], parentPath = ''): RouterTreeVueVo[] {
+    const routers: RouterTreeVueVo[] = []
+
+    function camelName(path: string) {
+      return camelcase(path.replace(/\//g, '-'), { pascalCase: true })
+    }
+
+    for (const menu of menus) {
+      const router = new RouterTreeVueVo()
+      router.path = `${parentPath}/${menu.path}`
+      router.name = menu.isLink === BaseIsEnum.YES ? menu.path : camelName(router.path)
+      router.component = menu.component
+      router.meta = {}
+      router.meta.title = menu.menuName
+      router.meta.icon = menu.icon
+      router.meta.showLink = menu.isVisible === BaseIsEnum.YES
+      router.meta.keepAlive = menu.isCache === BaseIsEnum.YES
+      router.children = menu.children?.length ? this.buildPureAdminRouters(menu.children, router.path) : undefined
       routers.push(router)
     }
 

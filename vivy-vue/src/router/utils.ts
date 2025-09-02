@@ -8,7 +8,7 @@ import {
   createWebHistory,
   createWebHashHistory,
 } from 'vue-router'
-import { getAsyncRoutes } from '@/api/routes'
+import { getUserRouters } from '@/api/auth/login'
 import { getConfig } from '@/config'
 import { type menuType, routerArrays } from '@/layout/types'
 import { useMultiTagsStoreHook } from '@/store/modules/multiTags'
@@ -166,7 +166,7 @@ function initRouter() {
       })
     } else {
       return new Promise((resolve) => {
-        getAsyncRoutes().then(({ data }) => {
+        getUserRouters().then((data) => {
           handleAsyncRoutes(cloneDeep(data))
           storageLocal().setItem(key, data)
           resolve(router)
@@ -175,7 +175,7 @@ function initRouter() {
     }
   } else {
     return new Promise((resolve) => {
-      getAsyncRoutes().then(({ data }) => {
+      getUserRouters().then((data) => {
         handleAsyncRoutes(cloneDeep(data))
         resolve(router)
       })

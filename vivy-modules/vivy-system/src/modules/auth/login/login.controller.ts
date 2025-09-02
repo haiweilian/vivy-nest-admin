@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, UserId } from '@vivy-common/core'
 import { Public, TokenService } from '@vivy-common/security'
@@ -98,8 +98,8 @@ export class LoginController {
    * @returns 用户路由信息
    */
   @Get('user/routers')
-  async getUserRouters(@UserId() userId: number): Promise<AjaxResult> {
-    const routers = await this.loginService.getUserRouters(userId)
+  async getUserRouters(@UserId() userId: number, @Query('framework') framework: string): Promise<AjaxResult> {
+    const routers = await this.loginService.getUserRouters(userId, framework)
     return AjaxResult.success(routers)
   }
 }

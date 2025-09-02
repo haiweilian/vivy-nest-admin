@@ -3,7 +3,9 @@ import { debounce } from '@pureadmin/utils'
 import { useEventListener } from '@vueuse/core'
 import type { FormInstance } from 'element-plus'
 import { ref, reactive, toRaw } from 'vue'
+import { useRequest } from 'vue-request'
 import { useRouter } from 'vue-router'
+import { captcha } from '@/api/auth/login'
 import darkIcon from '@/assets/svg/dark.svg?component'
 import dayIcon from '@/assets/svg/day.svg?component'
 import { useRenderIcon } from '@/components/ReIcon/src/hooks'
@@ -17,6 +19,7 @@ import { message } from '@/utils/message'
 import Motion from './utils/motion'
 import { loginRules } from './utils/rule'
 import { bg, avatar, illustration } from './utils/static'
+import Code from '~icons/ri/key-2-fill'
 import Lock from '~icons/ri/lock-fill'
 import User from '~icons/ri/user-3-fill'
 
@@ -37,9 +40,12 @@ dataThemeChange(overallStyle.value)
 const { title } = useNav()
 
 const ruleForm = reactive({
+  code: '',
   username: 'admin',
-  password: 'admin123',
+  password: 'Aa@123456',
 })
+
+const { data: captchaImage, run: runCaptchaImage } = useRequest(captcha)
 
 const onLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
@@ -47,25 +53,25 @@ const onLogin = async (formEl: FormInstance | undefined) => {
     if (valid) {
       loading.value = true
       useUserStoreHook()
-        .loginByUsername({
+        .login({
           username: ruleForm.username,
           password: ruleForm.password,
+          code: ruleForm.code,
+          uuid: captchaImage.value?.uuid,
         })
-        .then((res) => {
-          if (res.success) {
-            // 获取后端路由
-            return initRouter().then(() => {
-              disabled.value = true
-              router
-                .push(getTopMenu(true).path)
-                .then(() => {
-                  message('登录成功', { type: 'success' })
-                })
-                .finally(() => (disabled.value = false))
-            })
-          } else {
-            message('登录失败', { type: 'error' })
-          }
+        .then(async () => {
+          return initRouter().then(() => {
+            disabled.value = true
+            router
+              .push(getTopMenu(true).path)
+              .then(() => {
+                message('登录成功', { type: 'success' })
+              })
+              .finally(() => (disabled.value = false))
+          })
+        })
+        .catch((error) => {
+          message(error.message || '登录失败，请重试！', { type: 'error' })
         })
         .finally(() => (loading.value = false))
     }
@@ -98,7 +104,7 @@ useEventListener(document, 'keydown', ({ code }) => {
       </div>
       <div class="login-box">
         <div class="login-form">
-          <avatar class="avatar" />
+          <img :src="avatar" class="avatar" />
           <Motion>
             <h2 class="outline-hidden">{{ title }}</h2>
           </Motion>
@@ -129,6 +135,24 @@ useEventListener(document, 'keydown', ({ code }) => {
                   :prefix-icon="useRenderIcon(Lock)"
                 />
               </el-form-item>
+            </Motion>
+
+            <Motion v-if="captchaImage" :delay="150">
+              <el-space :size="20">
+                <el-form-item
+                  :rules="[
+                    {
+                      required: true,
+                      message: '请输入验证码',
+                      trigger: 'blur',
+                    },
+                  ]"
+                  prop="code"
+                >
+                  <el-input v-model="ruleForm.code" clearable placeholder="验证码" :prefix-icon="useRenderIcon(Code)" />
+                </el-form-item>
+                <div class="flex cursor-pointer mb-[24px]" @click="runCaptchaImage" v-html="captchaImage.img" />
+              </el-space>
             </Motion>
 
             <Motion :delay="250">

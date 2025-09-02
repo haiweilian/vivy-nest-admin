@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import { type UserResult, type RefreshTokenResult, getLogin, refreshTokenApi } from '@/api/user'
+import { login, logout, getUserInfo, type LoginParams } from '@/api/auth/login'
+import { PageEnum } from '@/enums/pageEnum'
 import { type DataInfo, setToken, removeToken, userKey } from '@/utils/auth'
 import { type userType, store, router, resetRouter, routerArrays, storageLocal } from '../utils'
 import { useMultiTagsStoreHook } from './multiTags'
@@ -51,43 +52,70 @@ export const useUserStore = defineStore('pure-user', {
       this.loginDay = Number(value)
     },
     /** 登入 */
-    async loginByUsername(data) {
-      return new Promise<UserResult>((resolve, reject) => {
-        getLogin(data)
-          .then((data) => {
-            if (data?.success) setToken(data.data)
-            resolve(data)
-          })
-          .catch((error) => {
-            reject(error)
-          })
-      })
+    async login(data: LoginParams) {
+      try {
+        const token = await login(data)
+        setToken({
+          expires: new Date(0),
+          accessToken: token.access_token,
+          refreshToken: token.access_token,
+        })
+        const userInfo = await getUserInfo()
+        setToken({
+          expires: new Date(0),
+          accessToken: token.access_token,
+          refreshToken: token.access_token,
+          avatar: userInfo.sysUser.avatar,
+          username: userInfo.sysUser.userName,
+          nickname: userInfo.sysUser.nickName,
+          roles: userInfo.roles,
+          permissions: userInfo.permissions,
+          ...userInfo,
+        })
+        return userInfo
+      } catch (error) {
+        return Promise.reject(error)
+      }
     },
-    /** 前端登出（不调用接口） */
-    logOut() {
+    /** 登出 */
+    async logout() {
+      await logout()
       this.username = ''
       this.roles = []
       this.permissions = []
       removeToken()
       useMultiTagsStoreHook().handleTags('equal', [...routerArrays])
       resetRouter()
-      router.push('/login')
+      router.push(PageEnum.BASE_LOGIN)
     },
+    /** 登入 */
+    // async loginByUsername(data) {
+    //   return new Promise<UserResult>((resolve, reject) => {
+    //     getLogin(data)
+    //       .then((data) => {
+    //         if (data?.success) setToken(data.data)
+    //         resolve(data)
+    //       })
+    //       .catch((error) => {
+    //         reject(error)
+    //       })
+    //   })
+    // },
     /** 刷新`token` */
-    async handRefreshToken(data) {
-      return new Promise<RefreshTokenResult>((resolve, reject) => {
-        refreshTokenApi(data)
-          .then((data) => {
-            if (data) {
-              setToken(data.data)
-              resolve(data)
-            }
-          })
-          .catch((error) => {
-            reject(error)
-          })
-      })
-    },
+    // async handRefreshToken(data) {
+    //   return new Promise<RefreshTokenResult>((resolve, reject) => {
+    //     refreshTokenApi(data)
+    //       .then((data) => {
+    //         if (data) {
+    //           setToken(data.data)
+    //           resolve(data)
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         reject(error)
+    //       })
+    //   })
+    // },
   },
 })
 
