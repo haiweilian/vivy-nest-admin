@@ -85,7 +85,7 @@ export class ExcelService {
 
     const buffers = await Promise.all(
       sheetImages.map((image) =>
-        axios.get<Buffer>(image.url, { responseType: 'arraybuffer' }).then(({ data }) => Buffer.from(data))
+        axios.get<ArrayBuffer>(image.url, { responseType: 'arraybuffer' }).then(({ data }) => data)
       )
     )
     sheetImages.forEach((image, index) => {

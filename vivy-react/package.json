@@ -1,5 +1,6 @@
 {
   "name": "vivy-react",
+  "type": "module",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
@@ -11,38 +12,38 @@
     "postinstall": "max setup"
   },
   "dependencies": {
-    "@ant-design/charts": "^2.6.2",
-    "@ant-design/icons": "^6.0.0",
+    "@ant-design/charts": "^2.6.6",
+    "@ant-design/icons": "^6.1.0",
     "@ant-design/pro-components": "^2.8.10",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@iconify-json/ant-design": "^1.2.5",
     "@iconify-json/ion": "^1.2.6",
-    "@umijs/max": "^4.4.12",
+    "@umijs/max": "^4.5.3",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-react": "^1.0.6",
-    "ahooks": "^3.9.4",
-    "antd": "^5.27.1",
+    "ahooks": "^3.9.5",
+    "antd": "^5.27.6",
     "clipboard": "^2.0.11",
-    "cron-parser": "^5.3.0",
-    "cronstrue": "^3.2.0",
+    "cron-parser": "^5.4.0",
+    "cronstrue": "^3.9.0",
     "cropperjs": "^1.6.2",
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.18",
     "file-saver": "^2.0.5",
     "js-cookie": "^3.0.5",
     "lodash-es": "^4.17.21",
-    "pretty-bytes": "^7.0.1",
-    "react": "^19.1.1",
+    "pretty-bytes": "^7.1.0",
+    "react": "^19.2.0",
     "react-cropper": "^2.3.3",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.8.2"
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.7",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash-es": "^4.17.12",
-    "@types/react": "^19.1.11",
-    "@types/react-dom": "^19.1.8",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
     "tailwindcss": "^3.4.15",
-    "typescript": "^5.7.3"
+    "typescript": "^5.9.3"
   }
 }

@@ -2,7 +2,7 @@ import '@ant-design/v5-patch-for-react-19'
 import { GithubOutlined, ReadFilled } from '@ant-design/icons'
 import type { Settings as LayoutSettings, ProLayoutProps } from '@ant-design/pro-components'
 import { history } from '@umijs/max'
-import type { RuntimeConfig, RunTimeLayoutConfig, RequestConfig } from '@umijs/max'
+import type { RuntimeConfig, RunTimeLayoutConfig, RequestConfig, RequestOptions } from '@umijs/max'
 import { Tooltip } from 'antd'
 import { getUserInfo, getUserRouters } from '@/apis/auth/login'
 import { App, Modal, Message } from '@/components/App'
@@ -163,15 +163,16 @@ export const request: RequestConfig = {
       (response: any) => {
         const code = response.data.code || 200
         const message = response.data.message || '系统未知错误，请反馈给管理员'
-        const getResponse = response.config.getResponse
-        const skipErrorHandler = response.config.skipErrorHandler
+        const config = response.config as RequestOptions
 
-        // 错误判断
-        if (skipErrorHandler) {
+        // 跳过错误
+        if (config.skipErrorHandler) {
           if (code !== 200) {
             return Promise.reject(new Error(message))
           }
-        } else if (code === 401) {
+        }
+        // 权限判断
+        else if (code === 401) {
           if (status.isOpen) {
             status.isOpen = false
             Modal.confirm({
@@ -190,16 +191,18 @@ export const request: RequestConfig = {
             })
           }
           return Promise.reject(new Error(message))
-        } else if (code !== 200) {
+        }
+        // 错误判断
+        else if (code !== 200) {
           Message.error(message)
           return Promise.reject(new Error(message))
         }
 
-        return getResponse ? response : response.data
+        return config.getResponse || config.getAjaxResponse ? response : response.data
       },
       (error: any) => {
-        const skipErrorHandler = error.config.skipErrorHandler
-        if (skipErrorHandler) {
+        const config = error.config as RequestOptions
+        if (config.skipErrorHandler) {
           return Promise.reject(error)
         }
 

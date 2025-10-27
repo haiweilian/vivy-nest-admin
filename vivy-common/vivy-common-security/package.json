@@ -6,6 +6,6 @@
   "homepage": "https://github.com/haiweilian/vivy-nest-admin",
   "main": "./lib/index.js",
   "dependencies": {
-    "@nestjs/jwt": "^11.0.0"
+    "@nestjs/jwt": "^11.0.1"
   }
 }

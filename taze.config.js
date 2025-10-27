@@ -4,7 +4,6 @@ export default defineConfig({
   mode: 'latest',
   recursive: true,
   exclude: [
-    'typescript',
     // nest
     'mime',
     'camelcase',

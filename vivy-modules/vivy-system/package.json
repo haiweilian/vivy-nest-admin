@@ -11,16 +11,16 @@
   "dependencies": {
     "archiver": "^7.0.1",
     "camelcase": "^6.0.0",
-    "cron-parser": "^5.3.0",
+    "cron-parser": "^5.4.0",
     "decamelize": "^5.0.0",
     "handlebars": "^4.7.8",
     "mime": "^3.0.0",
     "pluralize": "^8.0.0",
     "svg-captcha": "^1.4.0",
-    "ua-parser-js": "^2.0.4"
+    "ua-parser-js": "^2.0.6"
   },
   "devDependencies": {
-    "@types/archiver": "^6.0.3",
+    "@types/archiver": "^6.0.4",
     "@types/ua-parser-js": "^0.7.39"
   }
 }
