@@ -1,5 +1,7 @@
 lib
 dist
+assets
+public
 node_modules
 .umi
 .umi-production

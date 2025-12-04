@@ -1,5 +1,5 @@
 import { Input } from 'antd'
-import parser from 'cron-parser'
+import { CronExpressionParser } from 'cron-parser'
 import cronstrue from 'cronstrue'
 import 'cronstrue/locales/zh_CN'
 import dayjs from 'dayjs'
@@ -13,7 +13,7 @@ const CronEval: React.FC<{
 
     const output: string[] = []
     try {
-      const interval = parser.parse(value)
+      const interval = CronExpressionParser.parse(value)
       const description = cronstrue.toString(value, { locale: 'zh_CN', use24HourTimeFormat: true })
       output.push(`表达式：${value}`, '')
       output.push(`表达式描述：${description}`, '')

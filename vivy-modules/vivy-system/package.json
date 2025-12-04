@@ -20,7 +20,7 @@
     "ua-parser-js": "^2.0.6"
   },
   "devDependencies": {
-    "@types/archiver": "^6.0.4",
+    "@types/archiver": "^7.0.0",
     "@types/ua-parser-js": "^0.7.39"
   }
 }

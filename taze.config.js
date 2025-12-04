@@ -6,9 +6,11 @@ export default defineConfig({
   exclude: [
     // nest
     'mime',
+    'chokidar',
     'camelcase',
     'decamelize',
     // react
+    'antd',
     'cropperjs',
     'tailwindcss',
   ],
