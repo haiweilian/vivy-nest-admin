@@ -28,14 +28,14 @@ export interface LoginParams {
  */
 export interface LoginResult {
   /**
-   * 过期时间
-   */
-  expires_in: number
-
-  /**
    * 权限令牌
    */
-  access_token: string
+  token: string
+
+  /**
+   * 过期时间
+   */
+  expiresIn: number
 }
 
 /**

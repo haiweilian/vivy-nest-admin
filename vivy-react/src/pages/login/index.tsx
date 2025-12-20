@@ -32,7 +32,7 @@ const Login = () => {
         ...values,
         uuid: captchaImage?.uuid,
       })
-      setToken(token.access_token)
+      setToken(token.token)
       await fetchUserInfo()
       Message.loading('登录中...')
       window.location.href = PageEnum.BASE_HOME

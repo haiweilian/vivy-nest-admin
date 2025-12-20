@@ -73,8 +73,8 @@ export class TokenService {
 
     // 接口返回信息
     const result = {
-      expires_in: CacheConstants.EXPIRATION,
-      access_token: this.jwtService.sign(payload),
+      token: this.jwtService.sign(payload),
+      expiresIn: CacheConstants.EXPIRATION,
     }
 
     return result

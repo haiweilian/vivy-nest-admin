@@ -344,8 +344,8 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1, 100, 'admin', '管理员', '00', 'admin@vivy.com', '18688888888', '1', '/uploads/avatar/admin.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', 'admin', sysdate(), 'admin', sysdate());
-INSERT INTO `sys_user` VALUES (2, 105, 'test', '测试员', '00', 'test@vivy.com', '18666666666', '1', '/uploads/avatar/test.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_user` VALUES (1, 100, 'admin', '管理员', '00', 'admin@vivy.com', '18688888888', '1', '/static/avatar/admin.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', 'admin', sysdate(), 'admin', sysdate());
+INSERT INTO `sys_user` VALUES (2, 105, 'test', '测试员', '00', 'test@vivy.com', '18666666666', '1', '/static/avatar/test.png', '$2b$10$r1Eul7Lc388k9rphYYt9uO0k1LWw.3ArgbX0VrhjjG1h4lDjBq9tq', '0', 'admin', sysdate(), 'admin', sysdate());
 COMMIT;
 
 -- ----------------------------
