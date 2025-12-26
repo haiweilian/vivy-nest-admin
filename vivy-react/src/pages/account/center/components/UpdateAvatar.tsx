@@ -4,7 +4,7 @@ import { Avatar, Button, Modal, Space, type UploadFile } from 'antd'
 import { createRef, useState } from 'react'
 import Cropper, { ReactCropperElement } from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
-import { uploadFile } from '@/apis/file'
+import { uploadBase64 } from '@/apis/file'
 import { updateAvatar } from '@/apis/system/profile'
 import type { ProfileInfoResult } from '@/apis/system/profile/model'
 
@@ -47,12 +47,8 @@ const UpdateAvatar: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => 
     if (!cropper) return
     try {
       setConfirmLoading(true)
-      const data = new FormData()
-      const blob = await new Promise<Blob | null>((resolve) => cropper.getCroppedCanvas().toBlob(resolve, 'image/png'))
-      const file = new File([blob!], 'avatar.png', { type: 'image/png' })
-      data.append('path', 'avatar')
-      data.append('file', file)
-      const avatar = await uploadFile(data)
+      const file = cropper.getCroppedCanvas().toDataURL()
+      const avatar = await uploadBase64({ file, path: 'avatar' })
       await updateAvatar({ avatar })
       setAvatar(avatar)
       hideModal()

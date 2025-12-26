@@ -3,6 +3,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
+import { Base64FileInterceptor } from '../upload/interceptor/base64.interceptor'
 import { UploadFileUrl, UploadFileUrls } from '../upload/upload.decorator'
 import { CreateFileDto, ListFileDto } from './dto/file.dto'
 import { FileService } from './file.service'
@@ -64,5 +65,15 @@ export class FileController {
   async uploads(@UploadedFiles() files: Express.Multer.File[], @UploadFileUrls() urls: string[]): Promise<AjaxResult> {
     console.log(urls, files)
     return AjaxResult.success(urls)
+  }
+
+  /**
+   * Base64文件上传
+   */
+  @Post('upload-base64')
+  @UseInterceptors(Base64FileInterceptor, FileInterceptor('file'))
+  async uploadBase64(@UploadedFile() file: Express.Multer.File, @UploadFileUrl() url: string): Promise<AjaxResult> {
+    console.log(url, file)
+    return AjaxResult.success(url)
   }
 }

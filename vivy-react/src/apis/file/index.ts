@@ -57,3 +57,13 @@ export function uploadFiles(data: FormData) {
     },
   })
 }
+
+/**
+ * Base64文件上传
+ */
+export function uploadBase64(data: Record<string, string>) {
+  return request<string>(`/files/upload-base64`, {
+    method: RequestEnum.POST,
+    data,
+  })
+}

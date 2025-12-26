@@ -51,7 +51,11 @@ export class ConfigStore {
   private compileWithEnv(key: string | number, parent: any, config: any) {
     if (isString(config)) {
       const template = compile(config.replace(/\${{/g, '{{'))
-      parent[key] = template({ ...process.env, ...this._data })
+      parent[key] = template({
+        ...process.env,
+        ...this._data,
+        CWD: process.cwd(),
+      })
     } else if (isArray(config)) {
       config.forEach((item, index) => this.compileWithEnv(index, config, item))
     } else if (isObject(config)) {

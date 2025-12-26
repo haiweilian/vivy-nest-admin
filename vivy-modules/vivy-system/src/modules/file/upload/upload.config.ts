@@ -1,3 +1,4 @@
+import type OSS from 'ali-oss'
 import { Allow } from 'class-validator'
 
 export const UPLOAD_OPTIONS = Symbol('UPLOAD_OPTIONS')
@@ -15,6 +16,16 @@ export interface UploadOptions {
    * 访问前缀
    */
   prefix: string
+  /**
+   * 访问域名
+   */
+  domain?: string
+}
+
+/**
+ * 上传配置 Oss
+ */
+export interface UploadOssOptions extends OSS.Options {
   /**
    * 访问域名
    */

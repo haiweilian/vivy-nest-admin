@@ -28,6 +28,16 @@ swagger:
 
 # Upload 配置
 upload:
-  path: ${{ PWD }}/uploads
+  path: ${{ CWD }}/uploads
   prefix: /uploads
-  # domain: http://localhost:${{ app.port }}
+  domain: http://localhost:${{ app.port }}
+
+# Upload Oss 配置
+# https://help.aliyun.com/zh/oss/user-guide/upload-objects-to-oss/
+uploadOss:
+  region: oss-cn-beijing
+  bucket: vivy-nest-admin
+  accessKeyId: ${{ ACCESS_KEY_ID }}
+  accessKeySecret: ${{ ACCESS_KEY_SECRET }}
+  authorizationV4: true
+  domain: https://vivy-nest-admin.oss-cn-beijing.aliyuncs.com

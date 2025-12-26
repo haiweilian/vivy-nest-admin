@@ -15,7 +15,9 @@ async function bootstrap() {
   const name = config.get<string>('app.name')
   const port = config.get<number>('app.port')
 
+  app.enableCors()
   app.useLogger(app.get(NestLogger))
+  app.useBodyParser('json', { limit: '10mb' })
   app.useStaticAssets(config.get('upload.path'), { prefix: config.get('upload.prefix') })
 
   const swagger = new SwaggerService(app, config.get('swagger'))

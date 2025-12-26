@@ -37,6 +37,7 @@ const Login = () => {
       Message.loading('登录中...')
       window.location.href = PageEnum.BASE_HOME
     } catch (error: any) {
+      runCaptchaImage()
       Message.error(error.message || '登录失败，请重试！')
     }
   }

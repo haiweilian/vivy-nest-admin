@@ -2,9 +2,11 @@ import { randomUUID } from 'crypto'
 import * as fs from 'fs'
 import * as path from 'path'
 import { Request } from 'express'
+import { trim } from 'lodash'
 import * as mime from 'mime'
 import * as multer from 'multer'
-import { UploadOptions, UploadClientOptions, UPLOAD_FILE_URL } from './upload.config'
+import ossStorage from './storage/oss.storage'
+import { UploadOptions, UploadClientOptions, UPLOAD_FILE_URL, UploadOssOptions } from './upload.config'
 
 /**
  * 拼接路径
@@ -12,7 +14,10 @@ import { UploadOptions, UploadClientOptions, UPLOAD_FILE_URL } from './upload.co
  * @returns 路径
  */
 export const joinPath = (...paths: string[]) => {
-  return path.join(...paths.map((p) => p || ''))
+  return paths
+    .map((p) => trim(p, '/'))
+    .filter(Boolean)
+    .join('/')
 }
 
 /**
@@ -41,9 +46,9 @@ export const randomName = (filename: string) => {
 }
 
 /**
- * 自定义 Multer 存储器
+ * 自定义 Multer Disk 存储器
  */
-export const uploadStorage = (options: UploadOptions) => {
+export const multerDiskStorage = (options: UploadOptions) => {
   return multer.diskStorage({
     destination(req: Request, file: Express.Multer.File, cb) {
       const uploadOptions: UploadOptions = options
@@ -61,6 +66,31 @@ export const uploadStorage = (options: UploadOptions) => {
       const randomname = randomName(filename)
 
       const fileurl = joinPath(uploadOptions.domain, uploadOptions.prefix, clientOptions.path, randomname)
+      file[UPLOAD_FILE_URL] = fileurl
+
+      cb(null, randomname)
+    },
+  })
+}
+
+/**
+ * 自定义 Multer Oss 存储器
+ */
+export const multerOssStorage = (options: UploadOssOptions) => {
+  return ossStorage({
+    config: options,
+    destination(req: Request, file: Express.Multer.File, cb) {
+      const clientOptions: UploadClientOptions = req.body
+
+      cb(null, clientOptions.path)
+    },
+    filename(req: Request, file: Express.Multer.File, cb) {
+      const uploadOptions: UploadOssOptions = options
+      const clientOptions: UploadClientOptions = req.body
+      const filename = formatName(file)
+      const randomname = randomName(filename)
+
+      const fileurl = joinPath(uploadOptions.domain, clientOptions.path, randomname)
       file[UPLOAD_FILE_URL] = fileurl
 
       cb(null, randomname)

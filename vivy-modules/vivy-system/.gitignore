@@ -1,3 +1,4 @@
+*.local.yaml
 uploads/*
 !uploads/avatar/test.png
 !uploads/avatar/admin.png
