@@ -54,7 +54,7 @@ export const multerDiskStorage = (options: UploadOptions) => {
       const uploadOptions: UploadOptions = options
       const clientOptions: UploadClientOptions = req.body
 
-      const localPath = joinPath(uploadOptions.path, clientOptions.path)
+      const localPath = path.join(uploadOptions.path, clientOptions.path || '')
       fs.mkdirSync(localPath, { recursive: true })
 
       cb(null, localPath)
