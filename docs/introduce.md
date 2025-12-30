@@ -27,6 +27,8 @@
 - 演示地址：<http://43.140.221.180:8000>
 - 文档地址：<https://haiweilian.github.io/vivy-nest-admin>
 - 掘金专栏：<https://juejin.cn/column/7316725867087003687>
+- 手机应用：<https://github.com/haiweilian/vivy-admin-uniapp>
+- 桌面应用：<https://github.com/haiweilian/vivy-admin-electron>
 
 ## 系统模块
 
@@ -66,6 +68,7 @@ vivy
 - [x] 代码生成：前后端代码的生成及下载。
 - [x] 文件上传：本地文件存储单文件、多文件上传。
 - [x] 系统接口：根据业务代码自动生成相关的接口文档。
+- [x] 手机应用：基于 UniApp 构建手机应用程序。
 - [x] 桌面应用：基于 Electron 构建桌面应用程序。
 
 ## 演示图

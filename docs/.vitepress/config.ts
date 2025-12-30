@@ -145,10 +145,6 @@ export default defineConfig({
               },
             ],
           },
-          {
-            text: '桌面应用程序',
-            link: '/front/electron',
-          },
         ],
       },
     ],
