@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow } from 'class-validator'
-import { SysConfig } from '../entities/sys-config.entity'
+import { SysConfig } from '../entities/sys-config.entity.js'
 
 /**
  * 查询参数配置

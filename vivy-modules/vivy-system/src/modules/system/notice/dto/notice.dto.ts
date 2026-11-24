@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow } from 'class-validator'
-import { SysNotice } from '../entities/sys-notice.entity'
+import { SysNotice } from '../entities/sys-notice.entity.js'
 
 /**
  * 查询通知公告

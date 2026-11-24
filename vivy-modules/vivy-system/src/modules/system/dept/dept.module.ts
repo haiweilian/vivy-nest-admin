@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { SysUser } from '@/modules/system/user/entities/sys-user.entity'
-import { DeptController } from './dept.controller'
-import { DeptService } from './dept.service'
-import { SysDept } from './entities/sys-dept.entity'
+import { SysUser } from '@/modules/system/user/entities/sys-user.entity.js'
+import { DeptController } from './dept.controller.js'
+import { DeptService } from './dept.service.js'
+import { SysDept } from './entities/sys-dept.entity.js'
 
 @Module({
   imports: [TypeOrmModule.forFeature([SysDept, SysUser])],

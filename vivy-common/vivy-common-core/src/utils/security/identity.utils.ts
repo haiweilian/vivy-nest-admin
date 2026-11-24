@@ -1,4 +1,4 @@
-import { UserConstants } from '../../constants'
+import { UserConstants } from '../../constants/index.js'
 
 /**
  * 身份判断方法

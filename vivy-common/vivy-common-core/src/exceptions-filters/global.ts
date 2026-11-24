@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common'
 import { APP_FILTER } from '@nestjs/core'
-import { ServiceExceptionFilter } from './service.filter'
-import { UnknownExceptionFilter } from './unknown.filter'
+import { ServiceExceptionFilter } from './service.filter.js'
+import { UnknownExceptionFilter } from './unknown.filter.js'
 
 export const NestGlobalFilters: Provider[] = [
   {

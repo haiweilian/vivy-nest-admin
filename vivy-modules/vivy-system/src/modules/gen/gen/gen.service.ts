@@ -1,19 +1,19 @@
 import * as fs from 'fs/promises'
 import * as path from 'path'
-import { Injectable, StreamableFile } from '@nestjs/common'
+import { Injectable, Logger, StreamableFile } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { ServiceException, SecurityContext } from '@vivy-common/core'
-import * as archiver from 'archiver'
+import { ZipArchive } from 'archiver'
 import { isEmpty, isNotEmpty } from 'class-validator'
 import { Pagination, paginate } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
-import { GenUtils } from '../utils/gen.utils'
-import { TemplateUtils } from '../utils/template.utils'
-import { ListGenDto, UpdateGenDto } from './dto/gen.dto'
-import { GenTableColumn } from './entities/gen-table-column.entity'
-import { GenTable } from './entities/gen-table.entity'
-import { GenMapper } from './gen.mapper'
-import { GenPreviewVo } from './vo/gen.vo'
+import { GenUtils } from '../utils/gen.utils.js'
+import { TemplateUtils } from '../utils/template.utils.js'
+import { ListGenDto, UpdateGenDto } from './dto/gen.dto.js'
+import { GenTableColumn } from './entities/gen-table-column.entity.js'
+import { GenTable } from './entities/gen-table.entity.js'
+import { GenMapper } from './gen.mapper.js'
+import { GenPreviewVo } from './vo/gen.vo.js'
 
 /**
  * 代码生成
@@ -21,6 +21,8 @@ import { GenPreviewVo } from './vo/gen.vo'
  */
 @Injectable()
 export class GenService {
+  private logger = new Logger(GenService.name)
+
   constructor(
     @InjectRepository(GenTable)
     private tableRepository: Repository<GenTable>,
@@ -114,16 +116,11 @@ export class GenService {
   }
 
   /**
-   * 同步表结构到代码生成表
+   * 查询代码生成表信息
    * @param tableName 表名称
+   * @returns 代码生成表信息
    */
-  async sync(tableName: string): Promise<any> {
-    const dbColumns = await this.genMapper.selectDbTableColumnsByName(tableName)
-    if (isEmpty(dbColumns)) {
-      throw new ServiceException('同步数据失败，原表结构不存在')
-    }
-
-    // 获取到旧字段列信息并转换为对象便于查询
+  private async findTable(tableName: string): Promise<GenTable> {
     const table = await this.tableRepository.findOne({
       where: {
         tableName,
@@ -132,6 +129,26 @@ export class GenService {
         columns: true,
       },
     })
+
+    if (!table) {
+      throw new ServiceException(`表「${tableName}」未导入，请先导入表结构`)
+    }
+
+    return table
+  }
+
+  /**
+   * 同步表结构到代码生成表
+   * @param tableName 表名称
+   */
+  async sync(tableName: string): Promise<any> {
+    const table = await this.findTable(tableName)
+    const dbColumns = await this.genMapper.selectDbTableColumnsByName(tableName)
+    if (!dbColumns?.length) {
+      throw new ServiceException('同步数据失败，原表结构不存在')
+    }
+
+    // 获取到旧字段列信息并转换为对象便于查询
     const tableColumnMap = new Map()
     table.columns.forEach((column) => {
       tableColumnMap.set(column.columnName, column)
@@ -174,14 +191,10 @@ export class GenService {
     const result: GenPreviewVo[] = []
 
     // 查询表信息
-    const table = await this.tableRepository.findOne({
-      where: {
-        tableName,
-      },
-      relations: {
-        columns: true,
-      },
-    })
+    const table = await this.findTable(tableName)
+    if (!table.columns?.length) {
+      throw new ServiceException(`表「${tableName}」的字段信息不存在，请先同步表结构`)
+    }
 
     // 获取模板列表
     const templates = TemplateUtils.getTemplateList()
@@ -191,7 +204,7 @@ export class GenService {
 
       // 渲染模板代码
       for (const file of template.files) {
-        const raw = await fs.readFile(path.join(__dirname, '../template', file), 'utf-8')
+        const raw = await fs.readFile(path.join(import.meta.dirname, '../template', file), 'utf-8')
         const name = TemplateUtils.getFileName(file, table)
         const code = TemplateUtils.compileTemplate(raw, table)
         item.files.push({ name, code })
@@ -208,15 +221,23 @@ export class GenService {
    */
   async download(tableName: string): Promise<StreamableFile> {
     const preview = await this.preview(tableName)
-    const archive = archiver('zip')
+    const archive = new ZipArchive()
 
     for (const code of preview) {
       for (const file of code.files) {
         archive.append(file.code, { name: `${tableName}/${file.name}` })
       }
     }
-    archive.finalize()
 
-    return new StreamableFile(archive)
+    // 压缩是流式的，不能 await（无消费方时背压会一直挂住），失败时销毁流让响应中断
+    archive.finalize().catch((error: Error) => {
+      this.logger.error(`代码生成压缩失败：${tableName} - ${error.message}`, error.stack)
+      archive.destroy(error)
+    })
+
+    return new StreamableFile(archive, {
+      type: 'application/zip',
+      disposition: `attachment; filename="${tableName}.zip"`,
+    })
   }
 }

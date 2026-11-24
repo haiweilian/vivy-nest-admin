@@ -1,5 +1,5 @@
 import { ValidationPipe as NestValidationPipe } from '@nestjs/common'
-import { ValidatorException } from '../exceptions/validator.exception'
+import { ValidatorException } from '../exceptions/validator.exception.js'
 
 /**
  * 参数验证管道

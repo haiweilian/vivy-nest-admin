@@ -1,1 +1,1 @@
-export * from './not-matches'
+export * from './not-matches.js'

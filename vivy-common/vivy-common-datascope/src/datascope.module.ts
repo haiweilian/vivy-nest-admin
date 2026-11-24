@@ -1,9 +1,9 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
 import { APP_INTERCEPTOR } from '@nestjs/core'
-import { DATA_SCOPE_OPTIONS } from './datascope.constants'
-import { DataScopeInterceptor } from './datascope.interceptor'
-import { DataScopeOptions, DataScopeAsyncOptions } from './datascope.interface'
-import { DataScopeService } from './datascope.service'
+import { DATA_SCOPE_OPTIONS } from './datascope.constants.js'
+import { DataScopeInterceptor } from './datascope.interceptor.js'
+import { DataScopeOptions, DataScopeAsyncOptions } from './datascope.interface.js'
+import { DataScopeService } from './datascope.service.js'
 
 @Global()
 @Module({})

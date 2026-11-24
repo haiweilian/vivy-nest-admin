@@ -1,5 +1,5 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common'
-import * as FormData from 'form-data'
+import FormData from 'form-data'
 
 /**
  * Base64 文件拦截器，转为 multer 可以处理的数据，便于上传逻辑统一。

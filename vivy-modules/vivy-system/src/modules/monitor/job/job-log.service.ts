@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
-import { ListJobLogDto, CreateJobLogDto } from './dto/job-log.dto'
-import { SysJobLog } from './entities/sys-job-log.entity'
+import { ListJobLogDto, CreateJobLogDto } from './dto/job-log.dto.js'
+import { SysJobLog } from './entities/sys-job-log.entity.js'
 
 /**
  * 定时任务日志

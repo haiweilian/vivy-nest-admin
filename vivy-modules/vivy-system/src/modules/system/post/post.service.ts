@@ -4,9 +4,9 @@ import { ServiceException, BaseStatusEnum } from '@vivy-common/core'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
-import { SysUserPost } from '@/modules/system/user/entities/sys-user-post.entity'
-import { ListPostDto, CreatePostDto, UpdatePostDto } from './dto/post.dto'
-import { SysPost } from './entities/sys-post.entity'
+import { SysUserPost } from '@/modules/system/user/entities/sys-user-post.entity.js'
+import { ListPostDto, CreatePostDto, UpdatePostDto } from './dto/post.dto.js'
+import { SysPost } from './entities/sys-post.entity.js'
 
 /**
  * 岗位管理
@@ -125,7 +125,7 @@ export class PostService {
    */
   async options(): Promise<SysPost[]> {
     return this.postRepository.find({
-      select: ['postId', 'postName', 'postCode'],
+      select: { postId: true, postName: true, postCode: true },
       order: {
         postSort: 'ASC',
       },

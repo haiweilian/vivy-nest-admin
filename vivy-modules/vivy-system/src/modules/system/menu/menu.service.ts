@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { TreeUtils, BaseStatusEnum, IdentityUtils } from '@vivy-common/core'
 import { Repository } from 'typeorm'
-import { SysRoleMenu } from '@/modules/system/role/entities/sys-role-menu.entity'
-import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto'
-import { SysMenu } from './entities/sys-menu.entity'
-import { MenuTreeVo } from './vo/menu.vo'
+import { SysRoleMenu } from '@/modules/system/role/entities/sys-role-menu.entity.js'
+import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto.js'
+import { SysMenu } from './entities/sys-menu.entity.js'
+import { MenuTreeVo } from './vo/menu.vo.js'
 
 /**
  * 菜单管理
@@ -96,7 +96,7 @@ export class MenuService {
    */
   async treeOptions(): Promise<MenuTreeVo[]> {
     const list = await this.menuRepository.find({
-      select: ['menuId', 'menuName', 'parentId'],
+      select: { menuId: true, menuName: true, parentId: true },
       order: {
         menuSort: 'ASC',
       },
@@ -134,7 +134,7 @@ export class MenuService {
    * @returns 用户菜单信息
    */
   async selectUserMenuTree(userId: number): Promise<MenuTreeVo[]> {
-    let menus: SysMenu[] = []
+    let menus: SysMenu[]
 
     if (IdentityUtils.isAdmin(userId)) {
       menus = await this.menuRepository

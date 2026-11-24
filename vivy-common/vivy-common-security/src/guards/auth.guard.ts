@@ -2,9 +2,11 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { NotLoginException, SecurityConstants } from '@vivy-common/core'
 import { Request } from 'express'
-import { isEmpty } from 'lodash'
-import { PUBLIC_METADATA } from '../security.constants'
-import { TokenService } from '../services/token.service'
+import lodash from 'lodash'
+import { PUBLIC_METADATA } from '../security.constants.js'
+import { TokenService } from '../services/token.service.js'
+
+const { isEmpty } = lodash
 
 /**
  * 认证守卫

@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { MybatisService } from '@vivy-common/mybatis'
 import { DataSource } from 'typeorm'
-import { GenTableColumn } from './entities/gen-table-column.entity'
-import { GenTable } from './entities/gen-table.entity'
+import { GenTableColumn } from './entities/gen-table-column.entity.js'
+import { GenTable } from './entities/gen-table.entity.js'
 
 @Injectable()
 export class GenMapper {

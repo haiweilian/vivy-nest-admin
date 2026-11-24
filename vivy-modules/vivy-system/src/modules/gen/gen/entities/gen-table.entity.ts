@@ -2,7 +2,7 @@ import { BaseBusinessEntity } from '@vivy-common/core'
 import { Type } from 'class-transformer'
 import { ArrayNotEmpty, IsInt, IsNotEmpty, IsOptional, MaxLength, ValidateNested } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { GenTableColumn } from './gen-table-column.entity'
+import { GenTableColumn } from './gen-table-column.entity.js'
 
 /**
  * 代码生成业务表

@@ -1,11 +1,11 @@
 import { DynamicModule, Global, MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { ClsModule } from 'nestjs-cls'
-import { NestGlobalContext } from './context/global'
-import { NestGlobalFilters } from './exceptions-filters/global'
-import { NestGlobalGuards } from './guards/global'
-import { NestGlobalInterceptors } from './interceptors/global'
-import { NestGlobalMiddlewares } from './middlewares/global'
-import { NestGlobalPipes } from './pipes/global'
+import { NestGlobalContext } from './context/global.js'
+import { NestGlobalFilters } from './exceptions-filters/global.js'
+import { NestGlobalGuards } from './guards/global.js'
+import { NestGlobalInterceptors } from './interceptors/global.js'
+import { NestGlobalMiddlewares } from './middlewares/global.js'
+import { NestGlobalPipes } from './pipes/global.js'
 
 @Global()
 @Module({})

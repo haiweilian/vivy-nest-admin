@@ -1,3 +1,3 @@
-export * from './user-status.enum'
-export * from './base/base-is.enum'
-export * from './base/base-status.enum'
+export * from './user-status.enum.js'
+export * from './base/base-is.enum.js'
+export * from './base/base-status.enum.js'

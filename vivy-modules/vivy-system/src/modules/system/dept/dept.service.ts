@@ -4,10 +4,10 @@ import { TreeUtils, BaseStatusEnum, SecurityContext, IdentityUtils, ServiceExcep
 import { DataScope, DataScopeService } from '@vivy-common/datascope'
 import { isEmpty } from 'class-validator'
 import { Repository } from 'typeorm'
-import { SysUser } from '@/modules/system/user/entities/sys-user.entity'
-import { CreateDeptDto, UpdateDeptDto } from './dto/dept.dto'
-import { SysDept } from './entities/sys-dept.entity'
-import { DeptTreeVo } from './vo/dept.vo'
+import { SysUser } from '@/modules/system/user/entities/sys-user.entity.js'
+import { CreateDeptDto, UpdateDeptDto } from './dto/dept.dto.js'
+import { SysDept } from './entities/sys-dept.entity.js'
+import { DeptTreeVo } from './vo/dept.vo.js'
 
 /**
  * 部门管理

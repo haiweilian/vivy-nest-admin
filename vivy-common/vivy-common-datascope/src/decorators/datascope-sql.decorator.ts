@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common'
-import { DATA_SCOPE_SQL } from '../datascope.constants'
+import { DATA_SCOPE_SQL } from '../datascope.constants.js'
 
 /**
  * 获取数据权限 SQL

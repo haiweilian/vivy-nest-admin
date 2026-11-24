@@ -2,7 +2,7 @@ import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { DataScopeType } from '@vivy-common/datascope'
 import { Allow, IsArray, IsEnum, IsOptional } from 'class-validator'
-import { SysRole } from '../entities/sys-role.entity'
+import { SysRole } from '../entities/sys-role.entity.js'
 
 /**
  * 查询角色

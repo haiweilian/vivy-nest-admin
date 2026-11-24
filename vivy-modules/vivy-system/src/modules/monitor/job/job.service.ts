@@ -5,10 +5,10 @@ import { BaseStatusEnum, ServiceException } from '@vivy-common/core'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, In, Like, Repository } from 'typeorm'
-import { ListJobDto, CreateJobDto, UpdateJobDto } from './dto/job.dto'
-import { SysJob } from './entities/sys-job.entity'
-import { JobQueueService } from './job-queue.service'
-import { TASKABLE_METADATA } from './utils/job.constants'
+import { ListJobDto, CreateJobDto, UpdateJobDto } from './dto/job.dto.js'
+import { SysJob } from './entities/sys-job.entity.js'
+import { JobQueueService } from './job-queue.service.js'
+import { TASKABLE_METADATA } from './utils/job.constants.js'
 
 /**
  * 定时任务

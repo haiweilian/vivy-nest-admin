@@ -3,8 +3,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto'
-import { MenuService } from './menu.service'
+import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto.js'
+import { MenuService } from './menu.service.js'
 
 /**
  * 菜单管理

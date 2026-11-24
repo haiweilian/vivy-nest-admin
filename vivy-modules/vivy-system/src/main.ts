@@ -3,7 +3,7 @@ import { NestExpressApplication } from '@nestjs/platform-express'
 import { ConfigService } from '@vivy-common/config'
 import { NestLogger } from '@vivy-common/logger'
 import { SwaggerService } from '@vivy-common/swagger'
-import { AppModule } from './app.module'
+import { AppModule } from './app.module.js'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {

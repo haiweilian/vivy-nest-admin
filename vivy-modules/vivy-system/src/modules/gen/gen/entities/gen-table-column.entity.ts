@@ -1,7 +1,7 @@
 import { BaseBusinessEntity, BaseIsEnum } from '@vivy-common/core'
 import { IsEnum, IsInt, IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
-import { GenTable } from './gen-table.entity'
+import { GenTable } from './gen-table.entity.js'
 
 /**
  * 代码生成业务表字段

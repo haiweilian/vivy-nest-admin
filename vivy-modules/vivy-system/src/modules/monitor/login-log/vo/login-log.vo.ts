@@ -1,4 +1,4 @@
-import { SysLoginLog } from '../entities/sys-login-log.entity'
+import { SysLoginLog } from '../entities/sys-login-log.entity.js'
 
 /**
  * 查询登录日志

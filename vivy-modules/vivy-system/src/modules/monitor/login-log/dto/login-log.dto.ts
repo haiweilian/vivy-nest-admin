@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow } from 'class-validator'
-import { SysLoginLog } from '../entities/sys-login-log.entity'
+import { SysLoginLog } from '../entities/sys-login-log.entity.js'
 
 /**
  * 登录日志列表

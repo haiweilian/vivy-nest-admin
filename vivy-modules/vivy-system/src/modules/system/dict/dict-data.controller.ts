@@ -3,8 +3,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { DictDataService } from './dict-data.service'
-import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dict-data.dto'
+import { DictDataService } from './dict-data.service.js'
+import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dict-data.dto.js'
 
 /**
  * 字典数据管理

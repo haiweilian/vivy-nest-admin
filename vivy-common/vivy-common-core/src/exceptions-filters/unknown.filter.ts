@@ -9,7 +9,7 @@ import {
   RequestTimeoutException,
 } from '@nestjs/common'
 import { Request, Response } from 'express'
-import { AjaxResult } from '../class/ajax-result'
+import { AjaxResult } from '../class/ajax-result.js'
 
 /**
  * 未知异常过滤器

@@ -1,4 +1,4 @@
-import { Logical } from '../enums/logical.enum'
+import { Logical } from '../enums/logical.enum.js'
 
 export interface RequireMetadata {
   /**

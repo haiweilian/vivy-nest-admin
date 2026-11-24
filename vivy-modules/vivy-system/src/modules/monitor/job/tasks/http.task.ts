@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Taskable } from '../utils/taskable.decorator'
+import { Taskable } from '../utils/taskable.decorator.js'
 
 @Taskable()
 @Injectable()

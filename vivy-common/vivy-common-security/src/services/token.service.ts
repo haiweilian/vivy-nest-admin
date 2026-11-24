@@ -4,8 +4,8 @@ import { JwtService } from '@nestjs/jwt'
 import { InjectRedis } from '@nestjs-modules/ioredis'
 import { IpUtils, CacheConstants, SecurityConstants, SecurityContext, type SysLoginUser } from '@vivy-common/core'
 import { Request } from 'express'
-import Redis from 'ioredis'
-import { JwtToken } from '../interfaces/jwt-token.interface'
+import { Redis } from 'ioredis'
+import { JwtToken } from '../interfaces/jwt-token.interface.js'
 
 /**
  * 令牌验证工具类

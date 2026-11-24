@@ -1,7 +1,9 @@
 import { SetMetadata } from '@nestjs/common'
-import { isArray } from 'lodash'
-import { Logical } from '../enums/logical.enum'
-import { REQUIRE_PERMISSIONS_METADATA } from '../security.constants'
+import lodash from 'lodash'
+import { Logical } from '../enums/logical.enum.js'
+import { REQUIRE_PERMISSIONS_METADATA } from '../security.constants.js'
+
+const { isArray } = lodash
 
 /**
  * 权限认证：必须具有指定权限才能进入该方法

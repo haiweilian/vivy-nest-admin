@@ -2,10 +2,12 @@ import { Injectable, OnModuleInit } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { InjectRedis } from '@nestjs-modules/ioredis'
 import { Redis } from 'ioredis'
-import { groupBy } from 'lodash'
+import lodash from 'lodash'
 import { Repository } from 'typeorm'
-import { SYS_DICT_KEY } from '@/base/constants/cache.constants'
-import { SysDictData } from './entities/sys-dict-data.entity'
+import { SYS_DICT_KEY } from '@/base/constants/cache.constants.js'
+import { SysDictData } from './entities/sys-dict-data.entity.js'
+
+const { groupBy } = lodash
 
 /**
  * 字典数据缓存

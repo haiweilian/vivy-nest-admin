@@ -2,7 +2,7 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { SecurityConstants, NotInnerException } from '@vivy-common/core'
 import { Express } from 'express'
-import { INNER_AUTH_METADATA } from '../security.constants'
+import { INNER_AUTH_METADATA } from '../security.constants.js'
 
 /**
  * 内部认证守卫

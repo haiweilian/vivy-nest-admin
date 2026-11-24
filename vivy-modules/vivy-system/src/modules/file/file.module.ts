@@ -3,11 +3,11 @@ import { MulterModule } from '@nestjs/platform-express'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigService } from '@vivy-common/config'
 
-import { SysFile } from './file/entities/sys-file.entity'
-import { FileController } from './file/file.controller'
-import { FileService } from './file/file.service'
-import { UploadOptions } from './upload/upload.config'
-import { multerDiskStorage } from './upload/upload.storage'
+import { SysFile } from './file/entities/sys-file.entity.js'
+import { FileController } from './file/file.controller.js'
+import { FileService } from './file/file.service.js'
+import { UploadOptions } from './upload/upload.config.js'
+import { multerDiskStorage } from './upload/upload.storage.js'
 
 @Module({
   imports: [

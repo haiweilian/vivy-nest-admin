@@ -2,7 +2,7 @@ import { Controller, Get, ServiceUnavailableException } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { HealthCheckService, HealthCheck, HealthCheckResult } from '@nestjs/terminus'
 import { Public } from '@vivy-common/security'
-import { HealthService } from './health.service'
+import { HealthService } from './health.service.js'
 
 /**
  * 健康检查

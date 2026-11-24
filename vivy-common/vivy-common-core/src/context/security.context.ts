@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { Request } from 'express'
-import { SysLoginUser } from '../class/sys-login-user'
-import { SecurityConstants } from '../constants/security.constants'
-import { TokenConstants } from '../constants/token.constants'
-import { RequestContext } from './request.context'
+import { SysLoginUser } from '../class/sys-login-user.js'
+import { SecurityConstants } from '../constants/security.constants.js'
+import { TokenConstants } from '../constants/token.constants.js'
+import { RequestContext } from './request.context.js'
 
 /**
  * 安全上下文

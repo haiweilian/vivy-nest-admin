@@ -3,9 +3,9 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { ConfigCacheService } from './config-cache.service'
-import { ConfigService } from './config.service'
-import { ListConfigDto, CreateConfigDto, UpdateConfigDto } from './dto/config.dto'
+import { ConfigCacheService } from './config-cache.service.js'
+import { ConfigService } from './config.service.js'
+import { ListConfigDto, CreateConfigDto, UpdateConfigDto } from './dto/config.dto.js'
 
 /**
  * 参数配置

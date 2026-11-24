@@ -1,7 +1,7 @@
 import { utilities } from 'nest-winston'
-import * as winston from 'winston'
-import * as DailyRotateFile from 'winston-daily-rotate-file'
-import { LoggerOptions } from './logger.interface'
+import winston from 'winston'
+import DailyRotateFile from 'winston-daily-rotate-file'
+import { LoggerOptions } from './logger.interface.js'
 
 /**
  * 构建 Winston 日志输出

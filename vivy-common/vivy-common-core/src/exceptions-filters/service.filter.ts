@@ -1,10 +1,10 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus, Logger } from '@nestjs/common'
 import { Request, Response } from 'express'
-import { AjaxResult } from '../class/ajax-result'
-import { NotPermissionException } from '../exceptions/auth/not-permission.exception'
-import { NotRoleException } from '../exceptions/auth/not-role.exception'
-import { ServiceException } from '../exceptions/service.exception'
-import { ValidatorException } from '../exceptions/validator.exception'
+import { AjaxResult } from '../class/ajax-result.js'
+import { NotPermissionException } from '../exceptions/auth/not-permission.exception.js'
+import { NotRoleException } from '../exceptions/auth/not-role.exception.js'
+import { ServiceException } from '../exceptions/service.exception.js'
+import { ValidatorException } from '../exceptions/validator.exception.js'
 
 /**
  * 业务逻辑异常过滤器

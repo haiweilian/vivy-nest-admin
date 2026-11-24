@@ -3,9 +3,9 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { DictCacheService } from './dict-cache.service'
-import { DictTypeService } from './dict-type.service'
-import { ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from './dto/dict-type.dto'
+import { DictCacheService } from './dict-cache.service.js'
+import { DictTypeService } from './dict-type.service.js'
+import { ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from './dto/dict-type.dto.js'
 
 /**
  * 字典类型管理

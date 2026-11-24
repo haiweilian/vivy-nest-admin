@@ -7,8 +7,8 @@ import {
   NotRoleException,
   SecurityContext,
 } from '@vivy-common/core'
-import { Logical } from '../enums/logical.enum'
-import { RequireMetadata } from '../interfaces/require-metadata.interface'
+import { Logical } from '../enums/logical.enum.js'
+import { RequireMetadata } from '../interfaces/require-metadata.interface.js'
 
 /**
  * 权限验证工具类

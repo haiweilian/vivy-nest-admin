@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ServiceException } from '@vivy-common/core'
-import { Taskable } from '../utils/taskable.decorator'
+import { Taskable } from '../utils/taskable.decorator.js'
 
 @Taskable()
 @Injectable()

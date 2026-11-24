@@ -1,4 +1,4 @@
-import { SysMenu } from '../entities/sys-menu.entity'
+import { SysMenu } from '../entities/sys-menu.entity.js'
 
 /**
  * 菜单树

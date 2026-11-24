@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow } from 'class-validator'
-import { SysDictData } from '../entities/sys-dict-data.entity'
+import { SysDictData } from '../entities/sys-dict-data.entity.js'
 
 /**
  * 查询字典数据

@@ -4,10 +4,10 @@ import { BaseStatusEnum, ServiceException } from '@vivy-common/core'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, Like, Repository } from 'typeorm'
-import { DictCacheService } from './dict-cache.service'
-import { ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from './dto/dict-type.dto'
-import { SysDictData } from './entities/sys-dict-data.entity'
-import { SysDictType } from './entities/sys-dict-type.entity'
+import { DictCacheService } from './dict-cache.service.js'
+import { ListDictTypeDto, CreateDictTypeDto, UpdateDictTypeDto } from './dto/dict-type.dto.js'
+import { SysDictData } from './entities/sys-dict-data.entity.js'
+import { SysDictType } from './entities/sys-dict-type.entity.js'
 
 /**
  * 字典类型管理
@@ -139,7 +139,7 @@ export class DictTypeService {
    */
   async options(): Promise<SysDictType[]> {
     return this.dictTypeRepository.find({
-      select: ['dictId', 'dictName', 'dictType'],
+      select: { dictId: true, dictName: true, dictType: true },
       order: {
         dictSort: 'ASC',
       },

@@ -1,5 +1,5 @@
 import { ValueTransformer } from 'typeorm'
-import { DateUtils } from '../../utils'
+import { DateUtils } from '../../utils/index.js'
 
 /**
  * 转换日期时间格式的值

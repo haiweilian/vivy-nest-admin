@@ -2,10 +2,10 @@ import { Body, Controller, Get, Post } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, UserId } from '@vivy-common/core'
 import { Public, TokenService } from '@vivy-common/security'
-import { LoginType } from '@/base/enums/login-type.enum'
-import { LoginDto } from './dto/login.dto'
-import { LogService } from './log.service'
-import { LoginService } from './login.service'
+import { LoginType } from '@/base/enums/login-type.enum.js'
+import { LoginDto } from './dto/login.dto.js'
+import { LogService } from './log.service.js'
+import { LoginService } from './login.service.js'
 
 /**
  * 登录管理

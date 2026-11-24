@@ -1,4 +1,4 @@
-import { SysDept } from '../entities/sys-dept.entity'
+import { SysDept } from '../entities/sys-dept.entity.js'
 
 /**
  * 部门树

@@ -2,11 +2,13 @@ import { randomUUID } from 'crypto'
 import * as fs from 'fs'
 import * as path from 'path'
 import { Request } from 'express'
-import { trim } from 'lodash'
-import * as mime from 'mime'
-import * as multer from 'multer'
-import ossStorage from './storage/oss.storage'
-import { UploadOptions, UploadClientOptions, UPLOAD_FILE_URL, UploadOssOptions } from './upload.config'
+import lodash from 'lodash'
+import mime from 'mime'
+import multer from 'multer'
+import ossStorage from './storage/oss.storage.js'
+import { UploadOptions, UploadClientOptions, UPLOAD_FILE_URL, UploadOssOptions } from './upload.config.js'
+
+const { trim } = lodash
 
 /**
  * 拼接路径

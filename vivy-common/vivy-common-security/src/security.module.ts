@@ -1,13 +1,13 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
-import { AuthGuard } from './guards/auth.guard'
-import { InnerAuthGuard } from './guards/inner-auth.guard'
-import { RequireAuthGuard } from './guards/require-auth.guard'
-import { SecurityAsyncOptions, SecurityOptions } from './interfaces/security-options.interface'
-import { SECURITY_OPTIONS } from './security.constants'
-import { AuthService } from './services/auth.service'
-import { TokenService } from './services/token.service'
+import { AuthGuard } from './guards/auth.guard.js'
+import { InnerAuthGuard } from './guards/inner-auth.guard.js'
+import { RequireAuthGuard } from './guards/require-auth.guard.js'
+import { SecurityAsyncOptions, SecurityOptions } from './interfaces/security-options.interface.js'
+import { SECURITY_OPTIONS } from './security.constants.js'
+import { AuthService } from './services/auth.service.js'
+import { TokenService } from './services/token.service.js'
 
 @Global()
 @Module({})

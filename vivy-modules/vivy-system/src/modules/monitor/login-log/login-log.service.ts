@@ -4,9 +4,9 @@ import { isArray, isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Between, Like, Repository } from 'typeorm'
 import { UAParser } from 'ua-parser-js'
-import { ListLoginLogDto, CreateLoginLogDto } from './dto/login-log.dto'
-import { SysLoginLog } from './entities/sys-login-log.entity'
-import { LoginLogListVo } from './vo/login-log.vo'
+import { ListLoginLogDto, CreateLoginLogDto } from './dto/login-log.dto.js'
+import { SysLoginLog } from './entities/sys-login-log.entity.js'
+import { LoginLogListVo } from './vo/login-log.vo.js'
 
 /**
  * 登录日志

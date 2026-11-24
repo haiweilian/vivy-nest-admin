@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common'
 import { Request } from 'express'
-import { UPLOAD_FILE_URL } from './upload.config'
+import { UPLOAD_FILE_URL } from './upload.config.js'
 
 /**
  * 获取单个文件地址

@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
-import { ListNoticeDto, CreateNoticeDto, UpdateNoticeDto } from './dto/notice.dto'
-import { SysNotice } from './entities/sys-notice.entity'
+import { ListNoticeDto, CreateNoticeDto, UpdateNoticeDto } from './dto/notice.dto.js'
+import { SysNotice } from './entities/sys-notice.entity.js'
 
 /**
  * 通知公告

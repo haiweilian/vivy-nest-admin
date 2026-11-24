@@ -1,4 +1,4 @@
-import { SysUser } from './sys-user'
+import { SysUser } from './sys-user.js'
 
 class DataScope {
   /**

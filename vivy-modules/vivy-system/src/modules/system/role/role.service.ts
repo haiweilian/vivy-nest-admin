@@ -12,12 +12,12 @@ import { DataScope, DataScopeService } from '@vivy-common/datascope'
 import { isNotEmpty, isEmpty, isArray } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { DataSource, In, Like, Not, Repository } from 'typeorm'
-import { SysUserRole } from '@/modules/system/user/entities/sys-user-role.entity'
-import { ListRoleDto, CreateRoleDto, UpdateRoleDto, UpdateDataScopeDto } from './dto/role.dto'
-import { SysRoleDept } from './entities/sys-role-dept.entity'
-import { SysRoleMenu } from './entities/sys-role-menu.entity'
-import { SysRole } from './entities/sys-role.entity'
-import { RoleInfoVo } from './vo/role.vo'
+import { SysUserRole } from '@/modules/system/user/entities/sys-user-role.entity.js'
+import { ListRoleDto, CreateRoleDto, UpdateRoleDto, UpdateDataScopeDto } from './dto/role.dto.js'
+import { SysRoleDept } from './entities/sys-role-dept.entity.js'
+import { SysRoleMenu } from './entities/sys-role-menu.entity.js'
+import { SysRole } from './entities/sys-role.entity.js'
+import { RoleInfoVo } from './vo/role.vo.js'
 
 /**
  * 角色管理

@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
-import { SwaggerOptions } from './swagger.interface'
+import { SwaggerOptions } from './swagger.interface.js'
 
 export class SwaggerService {
   builder: DocumentBuilder

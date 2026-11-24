@@ -1,4 +1,4 @@
-import { SysRole } from '../entities/sys-role.entity'
+import { SysRole } from '../entities/sys-role.entity.js'
 
 /**
  * 角色详情

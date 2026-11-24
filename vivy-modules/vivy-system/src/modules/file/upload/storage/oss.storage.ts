@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 // Modify https://github.com/expressjs/multer/blob/main/storage/disk.js
 import crypto from 'crypto'
-import * as OSS from 'ali-oss'
+import OSS from 'ali-oss'
 
 function getFilename(req, file, cb) {
   crypto.randomBytes(16, function (err, raw) {

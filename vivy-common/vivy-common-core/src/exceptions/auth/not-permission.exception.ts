@@ -1,6 +1,8 @@
 import { HttpStatus } from '@nestjs/common'
-import { isArray } from 'lodash'
-import { ServiceException } from '../service.exception'
+import lodash from 'lodash'
+import { ServiceException } from '../service.exception.js'
+
+const { isArray } = lodash
 
 /**
  * 未能通过的权限认证异常

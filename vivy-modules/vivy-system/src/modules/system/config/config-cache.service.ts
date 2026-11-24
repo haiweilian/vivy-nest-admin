@@ -4,8 +4,8 @@ import { InjectRedis } from '@nestjs-modules/ioredis'
 import { BaseStatusEnum } from '@vivy-common/core'
 import { Redis } from 'ioredis'
 import { Repository } from 'typeorm'
-import { SYS_CONFIG_KEY } from '@/base/constants/cache.constants'
-import { SysConfig } from './entities/sys-config.entity'
+import { SYS_CONFIG_KEY } from '@/base/constants/cache.constants.js'
+import { SysConfig } from './entities/sys-config.entity.js'
 
 /**
  * 参数配置缓存

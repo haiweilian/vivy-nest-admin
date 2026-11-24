@@ -1,11 +1,13 @@
 import { resolve } from 'path'
 import { Injectable, LoggerService } from '@nestjs/common'
-import { assign } from 'lodash'
+import lodash from 'lodash'
 import { WinstonLogger } from 'nest-winston'
 import { Logger } from 'typeorm'
 import { createLogger } from 'winston'
-import { LoggerOptions } from './logger.interface'
-import { WinstonTransportBuilder } from './winston.transport'
+import type { LoggerOptions } from './logger.interface.js'
+import { WinstonTransportBuilder } from './winston.transport.js'
+
+const { assign } = lodash
 
 const defaultOptions: LoggerOptions = {
   appName: 'vivy',
