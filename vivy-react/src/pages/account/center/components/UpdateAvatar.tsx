@@ -1,7 +1,7 @@
 import { PlusOutlined, RotateLeftOutlined, RotateRightOutlined } from '@ant-design/icons'
 import { ProFormUploadButton } from '@ant-design/pro-components'
 import { Avatar, Button, Modal, Space, type UploadFile } from 'antd'
-import { createRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Cropper, { ReactCropperElement } from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import { uploadBase64 } from '@/apis/file'
@@ -23,7 +23,7 @@ const UpdateAvatar: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => 
    */
   const [image, setImage] = useState(profile.avatar)
   const [avatar, setAvatar] = useState(profile.avatar)
-  const cropperRef = createRef<ReactCropperElement>()
+  const cropperRef = useRef<ReactCropperElement>(null)
   const onUploadChange = (info: { file: UploadFile }) => {
     if (info.file.status !== 'done') return
     const reader = new FileReader()
@@ -61,7 +61,7 @@ const UpdateAvatar: React.FC<{ profile: ProfileInfoResult }> = ({ profile }) => 
     <>
       <div className="relative cursor-pointer w-100px h-100px" onClick={showModal}>
         <Avatar size={100} src={avatar} />
-        <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full transition-opacity bg-black rounded-full opacity-0 radius- bg-opacity-60 hover:opacity-100">
+        <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full transition-opacity bg-black/60 rounded-full opacity-0 hover:opacity-100">
           <PlusOutlined />
         </div>
       </div>
