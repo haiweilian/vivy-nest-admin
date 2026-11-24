@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "incremental": false
+  },
+  "include": [
+    "vitest.config*.ts",
+    "test/**/*.ts",
+    "vivy-modules/**/src/**/*.spec.ts",
+    "vivy-modules/**/test/**/*.e2e-spec.ts",
+    "vivy-common/**/src/**/*.spec.ts"
+  ],
+  "exclude": ["node_modules", "**/lib", "**/dist"]
+}

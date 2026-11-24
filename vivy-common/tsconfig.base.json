@@ -16,5 +16,6 @@
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "exclude": ["**/*.spec.ts"]
 }

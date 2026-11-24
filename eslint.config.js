@@ -7,6 +7,8 @@ export default [
     ignores: [
       '**/lib/',
       '**/dist/',
+      '**/coverage/',
+      '**/.vitest/',
       '**/logs/',
       '**/public/',
       '**/assets/',

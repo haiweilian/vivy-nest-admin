@@ -6,6 +6,7 @@ packages:
   - internal/**
 
 allowBuilds:
+  '@swc/core': true
   bcrypt: true
   esbuild: true
   fsevents: true

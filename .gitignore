@@ -3,6 +3,7 @@
 
 # Coverage directory
 coverage
+.vitest
 
 # Build Generate
 lib

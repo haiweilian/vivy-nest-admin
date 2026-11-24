@@ -3,5 +3,7 @@ dist
 assets
 public
 node_modules
+coverage
+.vitest
 .umi
 .umi-production
