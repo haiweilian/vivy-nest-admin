@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common'
 
-import { ConfigModule } from './config/config.module'
-import { DeptModule } from './dept/dept.module'
-import { DictModule } from './dict/dict.module'
-import { MenuModule } from './menu/menu.module'
-import { NoticeModule } from './notice/notice.module'
-import { PostModule } from './post/post.module'
-import { ProfileModule } from './profile/profile.module'
-import { RoleModule } from './role/role.module'
-import { UserModule } from './user/user.module'
+import { ConfigModule } from './config/config.module.js'
+import { DeptModule } from './dept/dept.module.js'
+import { DictModule } from './dict/dict.module.js'
+import { MenuModule } from './menu/menu.module.js'
+import { NoticeModule } from './notice/notice.module.js'
+import { PostModule } from './post/post.module.js'
+import { ProfileModule } from './profile/profile.module.js'
+import { RoleModule } from './role/role.module.js'
+import { UserModule } from './user/user.module.js'
 
 @Module({
   imports: [

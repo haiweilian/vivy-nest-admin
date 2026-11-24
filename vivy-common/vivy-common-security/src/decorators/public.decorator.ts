@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common'
-import { PUBLIC_METADATA } from '../security.constants'
+import { PUBLIC_METADATA } from '../security.constants.js'
 
 /**
  * 公开：不需要认证就能进入该方法

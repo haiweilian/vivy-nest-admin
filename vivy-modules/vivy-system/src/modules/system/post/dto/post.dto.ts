@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow } from 'class-validator'
-import { SysPost } from '../entities/sys-post.entity'
+import { SysPost } from '../entities/sys-post.entity.js'
 
 /**
  * 查询岗位

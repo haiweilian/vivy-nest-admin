@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common'
-import { TASKABLE_METADATA } from './job.constants'
+import { TASKABLE_METADATA } from './job.constants.js'
 
 /**
  * 标记为定时任务

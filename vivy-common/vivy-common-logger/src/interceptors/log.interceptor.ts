@@ -4,10 +4,10 @@ import { Reflector } from '@nestjs/core'
 import { SecurityConstants, AjaxResult, IpUtils, BaseStatusEnum } from '@vivy-common/core'
 import { Request } from 'express'
 import { Observable, tap, catchError, throwError } from 'rxjs'
-import { LogOptions } from '../decorators/log.decorator'
-import { LOGGER_LOG_METADATA } from '../logger.constants'
-import { OperLogDto } from '../services/dto/oper-log.dto'
-import { RpcLogService } from '../services/rpc-log.service'
+import { LogOptions } from '../decorators/log.decorator.js'
+import { LOGGER_LOG_METADATA } from '../logger.constants.js'
+import { OperLogDto } from '../services/dto/oper-log.dto.js'
+import { RpcLogService } from '../services/rpc-log.service.js'
 
 /**
  * 自定义操作日志记录拦截器

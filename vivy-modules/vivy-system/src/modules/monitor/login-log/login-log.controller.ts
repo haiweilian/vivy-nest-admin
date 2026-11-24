@@ -3,8 +3,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { ListLoginLogDto } from './dto/login-log.dto'
-import { LoginLogService } from './login-log.service'
+import { ListLoginLogDto } from './dto/login-log.dto.js'
+import { LoginLogService } from './login-log.service.js'
 
 /**
  * 登录日志

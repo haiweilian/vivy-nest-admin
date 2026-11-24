@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { compile } from 'handlebars'
-import { get, set, toPairs, mergeWith, assign, isString, isArray, isObject } from 'lodash'
+import handlebars from 'handlebars'
+import lodash from 'lodash'
+
+const { get, set, toPairs, mergeWith, assign, isString, isArray, isObject } = lodash
 
 /**
  * 配置结果存储
@@ -50,7 +52,7 @@ export class ConfigStore {
 
   private compileWithEnv(key: string | number, parent: any, config: any) {
     if (isString(config)) {
-      const template = compile(config.replace(/\${{/g, '{{'))
+      const template = handlebars.compile(config.replace(/\${{/g, '{{'))
       parent[key] = template({
         ...process.env,
         ...this._data,

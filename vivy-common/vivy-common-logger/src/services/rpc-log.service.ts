@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { OperLogDto } from './dto/oper-log.dto'
+import { OperLogDto } from './dto/oper-log.dto.js'
 
 /**
  * 远程日志服务调用

@@ -1,8 +1,8 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import { RequireMetadata } from '../interfaces/require-metadata.interface'
-import { REQUIRE_ROLES_METADATA, REQUIRE_PERMISSIONS_METADATA } from '../security.constants'
-import { AuthService } from '../services/auth.service'
+import { RequireMetadata } from '../interfaces/require-metadata.interface.js'
+import { REQUIRE_ROLES_METADATA, REQUIRE_PERMISSIONS_METADATA } from '../security.constants.js'
+import { AuthService } from '../services/auth.service.js'
 
 /**
  * 权限校验守卫

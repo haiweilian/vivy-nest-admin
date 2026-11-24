@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { CacheService } from './cache.service'
+import { CacheService } from './cache.service.js'
 
 /**
  * 缓存管理

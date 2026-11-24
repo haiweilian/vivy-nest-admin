@@ -1,6 +1,6 @@
 import { SetMetadata, applyDecorators } from '@nestjs/common'
-import { INNER_AUTH_METADATA } from '../security.constants'
-import { Public } from './public.decorator'
+import { INNER_AUTH_METADATA } from '../security.constants.js'
+import { Public } from './public.decorator.js'
 
 /**
  * 内部认证：只有传入内部认证标识才能进入该方法

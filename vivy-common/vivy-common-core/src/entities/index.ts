@@ -1,5 +1,5 @@
-export * from './base-time.entity'
-export * from './base-business.entity'
+export * from './base-time.entity.js'
+export * from './base-business.entity.js'
 
-export * from './transformer/date.transformer'
-export * from './transformer/datetime.transformer'
+export * from './transformer/date.transformer.js'
+export * from './transformer/datetime.transformer.js'

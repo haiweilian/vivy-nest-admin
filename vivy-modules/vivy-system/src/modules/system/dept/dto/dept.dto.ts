@@ -1,5 +1,5 @@
 import { OmitType } from '@nestjs/mapped-types'
-import { SysDept } from '../entities/sys-dept.entity'
+import { SysDept } from '../entities/sys-dept.entity.js'
 
 /**
  * 添加部门

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { ConfigLoader } from './config.loader'
-import { ConfigStore } from './config.store'
+import { ConfigLoader } from './config.loader.js'
+import { ConfigStore } from './config.store.js'
 
 @Injectable()
 export class ConfigService {

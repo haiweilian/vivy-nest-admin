@@ -3,10 +3,10 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
-import { Base64FileInterceptor } from '../upload/interceptor/base64.interceptor'
-import { UploadFileUrl, UploadFileUrls } from '../upload/upload.decorator'
-import { CreateFileDto, ListFileDto } from './dto/file.dto'
-import { FileService } from './file.service'
+import { Base64FileInterceptor } from '../upload/interceptor/base64.interceptor.js'
+import { UploadFileUrl, UploadFileUrls } from '../upload/upload.decorator.js'
+import { CreateFileDto, ListFileDto } from './dto/file.dto.js'
+import { FileService } from './file.service.js'
 
 /**
  * 文件管理

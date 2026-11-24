@@ -1,12 +1,12 @@
-import * as camelcase from 'camelcase'
-import * as decamelize from 'decamelize'
-import * as handlebars from 'handlebars'
-import * as pluralize from 'pluralize'
-import './handlebars.helpers'
-import { GenTableColumn } from '../gen/entities/gen-table-column.entity'
-import { GenTable } from '../gen/entities/gen-table.entity'
-import { GenConstants } from './gen.constants'
-import { GenUtils } from './gen.utils'
+import camelcase from 'camelcase'
+import decamelize from 'decamelize'
+import handlebars from 'handlebars'
+import pluralize from 'pluralize'
+import './handlebars.helpers.js'
+import { GenTableColumn } from '../gen/entities/gen-table-column.entity.js'
+import { GenTable } from '../gen/entities/gen-table.entity.js'
+import { GenConstants } from './gen.constants.js'
+import { GenUtils } from './gen.utils.js'
 
 interface TemplateItem {
   name: string

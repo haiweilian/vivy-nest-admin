@@ -1,3 +1,3 @@
-export * from './user.decorator'
-export * from './sensitive.decorator'
-export { RepeatSubmit } from './repeat-submit.decorator'
+export * from './user.decorator.js'
+export * from './sensitive.decorator.js'
+export { RepeatSubmit } from './repeat-submit.decorator.js'

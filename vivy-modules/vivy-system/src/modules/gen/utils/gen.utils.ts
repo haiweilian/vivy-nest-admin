@@ -1,7 +1,7 @@
-import * as camelcase from 'camelcase'
-import { GenTableColumn } from '../gen/entities/gen-table-column.entity'
-import { GenTable } from '../gen/entities/gen-table.entity'
-import { GenConstants } from './gen.constants'
+import camelcase from 'camelcase'
+import { GenTableColumn } from '../gen/entities/gen-table-column.entity.js'
+import { GenTable } from '../gen/entities/gen-table.entity.js'
+import { GenConstants } from './gen.constants.js'
 
 /**
  * 代码生成器工具类

@@ -1,13 +1,15 @@
 import { DefaultFooter } from '@ant-design/pro-components'
 import React from 'react'
 
+const CURRENT_YEAR = new Date().getFullYear()
+
 const Footer: React.FC = () => {
   return (
     <DefaultFooter
       style={{
         background: 'none',
       }}
-      copyright={`${new Date().getFullYear()} haiweilian`}
+      copyright={`${CURRENT_YEAR} haiweilian`}
       links={[
         {
           key: 'Vivy React',

@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { SetMetadata } from '@nestjs/common'
-import { EXCEL_SHEET_METADATA, EXCEL_COLUMN_METADATA } from './excel.constants'
-import { ExcelSheetOption, ExcelColumnOption } from './excel.interface'
+import { EXCEL_SHEET_METADATA, EXCEL_COLUMN_METADATA } from './excel.constants.js'
+import { ExcelSheetOption, ExcelColumnOption } from './excel.interface.js'
 
 /**
  * 表格工作表装饰器

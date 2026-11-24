@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { LogInterceptor } from '@vivy-common/logger'
-import { OperLogService } from '@/modules/monitor/oper-log/oper-log.service'
+import { OperLogService } from '@/modules/monitor/oper-log/oper-log.service.js'
 
 /**
  * 操作日志记录拦截器

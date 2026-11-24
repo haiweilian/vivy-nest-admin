@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
-import { DateTimeTransformer } from './transformer/datetime.transformer'
+import { DateTimeTransformer } from './transformer/datetime.transformer.js'
 
 /**
  * 基础业务实体

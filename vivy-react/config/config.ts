@@ -42,6 +42,14 @@ export default defineConfig({
   antd: {
     appConfig: {},
     configProvider: {},
+    /**
+     * 把 antd 的 cssinjs 样式包进 `@layer antd`。
+     * 未分层的样式优先级恒高于任何 @layer，会让 antd 反过来压住 tailwind 的 utilities；
+     * 包进层之后由 tailwind.css 里的 `@layer` 顺序决定胜负（antd 在前，utilities 在后）。
+     */
+    styleProvider: {
+      layer: true,
+    },
   },
   /**
    * @name 权限插件

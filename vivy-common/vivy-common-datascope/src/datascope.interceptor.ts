@@ -1,9 +1,9 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { Observable } from 'rxjs'
-import { DATA_SCOPE_SQL, DATA_SCOPE_METADATA } from './datascope.constants'
-import { TableAlias } from './datascope.interface'
-import { DataScopeService } from './datascope.service'
+import { DATA_SCOPE_SQL, DATA_SCOPE_METADATA } from './datascope.constants.js'
+import { TableAlias } from './datascope.interface.js'
+import { DataScopeService } from './datascope.service.js'
 
 @Injectable()
 export class DataScopeInterceptor implements NestInterceptor {

@@ -1,8 +1,8 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
-import { LOGGER_OPTIONS } from './logger.constants'
-import { LoggerOptions, LoggerAsyncOptions } from './logger.interface'
-import { NestLogger } from './nest.logger'
-import { TypeORMLogger } from './typeorm.logger'
+import { LOGGER_OPTIONS } from './logger.constants.js'
+import { LoggerOptions, LoggerAsyncOptions } from './logger.interface.js'
+import { NestLogger } from './nest.logger.js'
+import { TypeORMLogger } from './typeorm.logger.js'
 
 @Global()
 @Module({})

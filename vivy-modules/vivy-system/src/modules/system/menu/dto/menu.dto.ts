@@ -1,5 +1,5 @@
 import { OmitType } from '@nestjs/mapped-types'
-import { SysMenu } from '../entities/sys-menu.entity'
+import { SysMenu } from '../entities/sys-menu.entity.js'
 
 /**
  * 添加菜单

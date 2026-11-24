@@ -1,4 +1,6 @@
-import { omitBy, isNil, isNull, isUndefined } from 'lodash'
+import lodash from 'lodash'
+
+const { omitBy, isNil, isNull, isUndefined } = lodash
 
 /**
  * 对象工具方法

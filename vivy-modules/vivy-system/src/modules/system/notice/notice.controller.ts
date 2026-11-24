@@ -3,8 +3,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { ListNoticeDto, CreateNoticeDto, UpdateNoticeDto } from './dto/notice.dto'
-import { NoticeService } from './notice.service'
+import { ListNoticeDto, CreateNoticeDto, UpdateNoticeDto } from './dto/notice.dto.js'
+import { NoticeService } from './notice.service.js'
 
 /**
  * 通知公告

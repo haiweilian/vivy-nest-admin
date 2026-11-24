@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow } from 'class-validator'
-import { GenTable } from '../entities/gen-table.entity'
+import { GenTable } from '../entities/gen-table.entity.js'
 
 /**
  * 查询代码生成

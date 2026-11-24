@@ -1,7 +1,7 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common'
 import { Request } from 'express'
-import { SysLoginUser } from '../class/sys-login-user'
-import { SecurityConstants } from '../constants/security.constants'
+import { SysLoginUser } from '../class/sys-login-user.js'
+import { SecurityConstants } from '../constants/security.constants.js'
 
 /**
  * 用户信息 User 参数装饰器

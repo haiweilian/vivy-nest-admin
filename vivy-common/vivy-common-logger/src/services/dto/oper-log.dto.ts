@@ -1,5 +1,5 @@
 import { BaseStatusEnum, BaseTimeEntity } from '@vivy-common/core'
-import { OperType } from '../../enums/oper-type.enum'
+import { OperType } from '../../enums/oper-type.enum.js'
 
 export class OperLogDto extends BaseTimeEntity {
   /**

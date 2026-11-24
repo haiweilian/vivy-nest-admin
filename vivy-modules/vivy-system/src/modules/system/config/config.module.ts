@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { ConfigCacheService } from './config-cache.service'
-import { ConfigController } from './config.controller'
-import { ConfigService } from './config.service'
-import { SysConfig } from './entities/sys-config.entity'
+import { ConfigCacheService } from './config-cache.service.js'
+import { ConfigController } from './config.controller.js'
+import { ConfigService } from './config.service.js'
+import { SysConfig } from './entities/sys-config.entity.js'
 
 @Module({
   imports: [TypeOrmModule.forFeature([SysConfig])],

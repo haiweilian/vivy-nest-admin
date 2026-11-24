@@ -1,7 +1,9 @@
 import { applyDecorators, Type } from '@nestjs/common'
 import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger'
-import { ReferenceObject, SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface'
-import { isArray } from 'lodash'
+import type { ReferenceObject, SchemaObject } from '@nestjs/swagger'
+import lodash from 'lodash'
+
+const { isArray } = lodash
 
 type TModel = Type<any> | NumberConstructor | StringConstructor | BooleanConstructor
 

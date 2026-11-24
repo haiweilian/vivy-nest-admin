@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
-import { ListFileDto, CreateFileDto } from './dto/file.dto'
-import { SysFile } from './entities/sys-file.entity'
+import { ListFileDto, CreateFileDto } from './dto/file.dto.js'
+import { SysFile } from './entities/sys-file.entity.js'
 
 /**
  * 文件管理
@@ -54,7 +54,7 @@ export class FileService {
    * @returns 文件用途选项列表
    */
   async useOptions(): Promise<string[]> {
-    const data = await this.fileRepository.find({ select: ['fileUse'] })
+    const data = await this.fileRepository.find({ select: { fileUse: true } })
     return [...new Set(data.map((item) => item.fileUse))]
   }
 }

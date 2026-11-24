@@ -1,12 +1,13 @@
 import { resolve } from 'path'
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common'
 import * as chokidar from 'chokidar'
-import * as glob from 'fast-glob'
-import * as fse from 'fs-extra'
-import * as mybatisMapper from 'mybatis-mapper'
-import { MYBATIS_OPTIONS } from './mybatis.constants'
-import { MybatisOptions, MybatisParams, MybatisFormat } from './mybatis.interface'
-import { MybatisMapper } from './mybatis.mapper'
+import glob from 'fast-glob'
+import fse from 'fs-extra'
+import micromatch from 'micromatch'
+import mybatisMapper from 'mybatis-mapper'
+import { MYBATIS_OPTIONS } from './mybatis.constants.js'
+import type { MybatisOptions, MybatisParams, MybatisFormat } from './mybatis.interface.js'
+import { MybatisMapper } from './mybatis.mapper.js'
 
 @Injectable()
 export class MybatisService<M = MybatisMapper> implements OnModuleInit {
@@ -50,21 +51,36 @@ export class MybatisService<M = MybatisMapper> implements OnModuleInit {
 
   /**
    * 监听 Mapper 文件
+   *
+   * chokidar 4 起移除了 glob 支持，只能监听具体的文件或目录路径。
+   * 这里改为监听 cwd 目录，再用 micromatch 按 globs 过滤事件。
+   * 用 micromatch 而不是自己解析后缀，是因为它就是 fast-glob 内部的匹配引擎，
+   * 保证 watch 与 loadMapper 的匹配语义完全一致（含 `{a,b}` 这类模式）。
    */
   private watchMapper() {
     const { cwd, watch = true, globs = [] } = this.options
     if (!watch) return
 
-    const watcher = chokidar.watch(globs, { cwd, ignoreInitial: true })
-    watcher.on('add', (file) => {
+    const patterns = Array.isArray(globs) ? globs : [globs]
+    const watcher = chokidar.watch(cwd, {
+      cwd,
+      ignoreInitial: true,
+      ignored: (filePath, stats) => {
+        if (/(^|[/\\])(node_modules|\.git)([/\\]|$)/.test(filePath)) return true
+        // 目录与尚未 stat 的路径必须放行，否则无法向下遍历
+        if (!stats?.isFile() || !patterns.length) return false
+        return !micromatch.isMatch(filePath, patterns)
+      },
+    })
+
+    const reload = (file: string) => {
       mybatisMapper.createMapper([resolve(cwd, file)])
       this.generateDeclaration()
-    })
-    watcher.on('change', (file) => {
-      mybatisMapper.createMapper([resolve(cwd, file)])
-      this.generateDeclaration()
-    })
-    watcher.on('unlink', (file) => {
+    }
+
+    watcher.on('add', reload)
+    watcher.on('change', reload)
+    watcher.on('unlink', () => {
       // TODO: only clean deleted
       const mapper = mybatisMapper.getMapper()
       Object.keys(mapper).forEach((key) => {

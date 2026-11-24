@@ -1,3 +1,24 @@
-/* stylelint-disable at-rule-no-unknown */
-@tailwind components;
-@tailwind utilities;
+/* stylelint-disable at-rule-no-unknown, import-notation */
+
+/**
+ * Tailwind v4 接入。
+ *
+ * 只引入 theme 与 utilities 两层，不引入 preflight：v3 时代同样没有使用 @tailwind base，
+ * 一旦引入 preflight 会重置 antd 的基线样式。
+ *
+ * 源文件扫描由 @tailwindcss/webpack 自动完成（起始目录为本文件所在目录，遵循 .gitignore，
+ * dist 与 .umi* 已被忽略），因此不再需要 tailwind.config.js 的 content 字段。
+ *
+ * 注意：必须用字符串形式 @import，不能写成 @import url(...)。
+ * url() 形式不会被 tailwind 编译器解析，会原样内联成 `@layer utilities{@tailwind utilities;}`
+ * 留在产物里，导致线上零 utilities（样式静默失效）。stylelint 的 import-notation 恰好要求
+ * url() 形式，故本文件在文件头豁免该规则。
+ *
+ * 层顺序：antd 排在 utilities 之前，保证 tailwind 工具类能覆盖 antd 组件默认样式。
+ * antd 的样式由 cssinjs 运行时注入 `@layer antd {}`（见 config/config.ts 的
+ * `antd.styleProvider.layer`），必须先在这里声明顺序，否则该层会被排到最后反而压住 utilities。
+ */
+@layer theme, base, antd, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { CacheConstants, DateUtils, SysLoginUser } from '@vivy-common/core'
 import { TokenService } from '@vivy-common/security'
-import { ListOnlineUserDto } from './dto/online-user.dto'
-import { OnlineUserVo } from './vo/online-user.vo'
+import { ListOnlineUserDto } from './dto/online-user.dto.js'
+import { OnlineUserVo } from './vo/online-user.vo.js'
 
 /**
  * 在线用户

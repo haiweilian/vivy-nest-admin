@@ -1,14 +1,17 @@
 import { Injectable, Type } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import axios from 'axios'
-import * as ExcelJS from 'exceljs'
-import { merge, cloneDeep, isString, isFunction } from 'lodash'
-import { EXCEL_SHEET_METADATA, EXCEL_COLUMN_METADATA } from './excel.constants'
-import { ExcelSheetOption, ExcelColumnOption, ExportOptions } from './excel.interface'
+import ExcelJS from 'exceljs'
+import type { Buffer as ExcelBuffer, Cell, ImageHyperlinkValue, ImagePosition, Row, Style } from 'exceljs'
+import lodash from 'lodash'
+import { EXCEL_SHEET_METADATA, EXCEL_COLUMN_METADATA } from './excel.constants.js'
+import { ExcelSheetOption, ExcelColumnOption, ExportOptions } from './excel.interface.js'
 
-interface SheetImage extends ExcelJS.ImagePosition {
+const { merge, cloneDeep, isString, isFunction } = lodash
+
+interface SheetImage extends ImagePosition {
   url: string
-  hyperlinks?: ExcelJS.ImageHyperlinkValue
+  hyperlinks?: ImageHyperlinkValue
 }
 
 @Injectable()
@@ -130,7 +133,7 @@ export class ExcelService {
    * @param model 实体
    * @param options 配置
    */
-  async import<TModel>(model: Type<TModel>, buffer: ExcelJS.Buffer, options?: ExportOptions) {
+  async import<TModel>(model: Type<TModel>, buffer: ExcelBuffer, options?: ExportOptions) {
     const workbook = new ExcelJS.Workbook()
     await workbook.xlsx.load(buffer)
     const worksheet = workbook.getWorksheet(1)
@@ -159,7 +162,7 @@ export class ExcelService {
   /**
    * 合并样式
    */
-  private mergeStyle<T = Partial<ExcelJS.Style>>(object: T, ...source: T[]): T {
+  private mergeStyle<T = Partial<Style>>(object: T, ...source: T[]): T {
     return merge({}, object, ...source)
   }
 
@@ -176,7 +179,7 @@ export class ExcelService {
   /**
    * 转换链接类型
    */
-  private transformLink(cell: ExcelJS.Cell, rawCell: ExcelColumnOption) {
+  private transformLink(cell: Cell, rawCell: ExcelColumnOption) {
     cell.value = {
       text: cell.text,
       hyperlink: cell.text,
@@ -194,7 +197,7 @@ export class ExcelService {
   /**
    * 转换图片内容
    */
-  private transformImage(row: ExcelJS.Row, cell: ExcelJS.Cell, rawCell: ExcelColumnOption): SheetImage {
+  private transformImage(row: Row, cell: Cell, rawCell: ExcelColumnOption): SheetImage {
     const value = cell.value
     if (!value || !isString(value) || !/^http(s)?:\/\//.test(value)) return
     cell.value = null
@@ -221,7 +224,7 @@ export class ExcelService {
   /**
    * 转换字典标签
    */
-  private transformDictLabel(cell: ExcelJS.Cell, rawCell: ExcelColumnOption, options?: ExportOptions) {
+  private transformDictLabel(cell: Cell, rawCell: ExcelColumnOption, options?: ExportOptions) {
     const list = rawCell.dictOptions || options?.dictData?.[rawCell.dictType]
     const option = list?.find((item) => item.value === cell.value)
     cell.value = option?.label || cell.value

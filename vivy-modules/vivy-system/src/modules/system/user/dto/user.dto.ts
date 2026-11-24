@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow, IsArray, IsOptional } from 'class-validator'
-import { SysUser } from '../entities/sys-user.entity'
+import { SysUser } from '../entities/sys-user.entity.js'
 
 /**
  * 查询用户

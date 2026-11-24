@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types'
 import { PaginateDto } from '@vivy-common/core'
 import { Allow } from 'class-validator'
-import { SysJob } from '../entities/sys-job.entity'
+import { SysJob } from '../entities/sys-job.entity.js'
 
 /**
  * 查询定时任务

@@ -1,6 +1,6 @@
 /** @type {import('stylelint').Config} */
 export default {
-  extends: '@bfehub/stylelint-config-basic',
+  extends: '@internal/stylelint-config',
   rules: {
     'no-descending-specificity': null,
   },

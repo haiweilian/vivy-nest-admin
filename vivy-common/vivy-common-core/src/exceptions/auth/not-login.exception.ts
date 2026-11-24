@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common'
-import { ServiceException } from '../service.exception'
+import { ServiceException } from '../service.exception.js'
 
 /**
  * 未能通过的登录认证异常

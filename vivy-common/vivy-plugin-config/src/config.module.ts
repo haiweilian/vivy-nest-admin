@@ -1,9 +1,9 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
-import { CONFIG_OPTIONS } from './config.constants'
-import { ConfigOptions, ConfigAsyncOptions } from './config.interface'
-import { ConfigLoader } from './config.loader'
-import { ConfigService } from './config.service'
-import { ConfigStore } from './config.store'
+import { CONFIG_OPTIONS } from './config.constants.js'
+import { ConfigOptions, ConfigAsyncOptions } from './config.interface.js'
+import { ConfigLoader } from './config.loader.js'
+import { ConfigService } from './config.service.js'
+import { ConfigStore } from './config.store.js'
 
 @Global()
 @Module({})

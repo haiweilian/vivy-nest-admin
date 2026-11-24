@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { In, Like, Repository } from 'typeorm'
-import { DictCacheService } from './dict-cache.service'
-import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dict-data.dto'
-import { SysDictData } from './entities/sys-dict-data.entity'
+import { DictCacheService } from './dict-cache.service.js'
+import { ListDictDataDto, CreateDictDataDto, UpdateDictDataDto } from './dto/dict-data.dto.js'
+import { SysDictData } from './entities/sys-dict-data.entity.js'
 
 /**
  * 字典数据管理

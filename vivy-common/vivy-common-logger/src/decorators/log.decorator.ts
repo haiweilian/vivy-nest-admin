@@ -1,6 +1,6 @@
 import { SetMetadata } from '@nestjs/common'
-import { OperType } from '../enums/oper-type.enum'
-import { LOGGER_LOG_METADATA } from '../logger.constants'
+import { OperType } from '../enums/oper-type.enum.js'
+import { LOGGER_LOG_METADATA } from '../logger.constants.js'
 
 export class LogOptions {
   /**

@@ -1,7 +1,7 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
-import { EXCEL_OPTIONS } from './excel.constants'
-import { ExcelOptions, ExcelAsyncOptions } from './excel.interface'
-import { ExcelService } from './excel.service'
+import { EXCEL_OPTIONS } from './excel.constants.js'
+import { ExcelOptions, ExcelAsyncOptions } from './excel.interface.js'
+import { ExcelService } from './excel.service.js'
 
 @Global()
 @Module({})

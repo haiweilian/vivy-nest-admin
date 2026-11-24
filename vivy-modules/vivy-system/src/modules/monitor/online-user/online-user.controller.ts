@@ -3,8 +3,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { ListOnlineUserDto } from './dto/online-user.dto'
-import { OnlineUserService } from './online-user.service'
+import { ListOnlineUserDto } from './dto/online-user.dto.js'
+import { OnlineUserService } from './online-user.service.js'
 
 /**
  * 在线用户

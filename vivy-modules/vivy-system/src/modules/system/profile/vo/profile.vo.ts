@@ -1,7 +1,7 @@
-import { SysDept } from '@/modules/system/dept/entities/sys-dept.entity'
-import { SysPost } from '@/modules/system/post/entities/sys-post.entity'
-import { SysRole } from '@/modules/system/role/entities/sys-role.entity'
-import { SysUser } from '@/modules/system/user/entities/sys-user.entity'
+import { SysDept } from '@/modules/system/dept/entities/sys-dept.entity.js'
+import { SysPost } from '@/modules/system/post/entities/sys-post.entity.js'
+import { SysRole } from '@/modules/system/role/entities/sys-role.entity.js'
+import { SysUser } from '@/modules/system/user/entities/sys-user.entity.js'
 
 /**
  * 个人信息

@@ -1,4 +1,4 @@
-import { BaseBusinessEntity } from '../entities/base-business.entity'
+import { BaseBusinessEntity } from '../entities/base-business.entity.js'
 
 /**
  * 用户信息

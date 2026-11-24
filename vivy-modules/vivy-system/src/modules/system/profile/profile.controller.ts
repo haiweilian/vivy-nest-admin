@@ -2,9 +2,9 @@ import { Body, Controller, Get, Put, Post } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
-import { FileService } from '@/modules/file/file/file.service'
-import { UpdatePasswordDto, UpdateProfileDto, UpdateAvatarDto } from './dto/profile.dto'
-import { ProfileService } from './profile.service'
+import { FileService } from '@/modules/file/file/file.service.js'
+import { UpdatePasswordDto, UpdateProfileDto, UpdateAvatarDto } from './dto/profile.dto.js'
+import { ProfileService } from './profile.service.js'
 
 /**
  * 个人信息

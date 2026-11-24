@@ -1,7 +1,7 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
-import { MYBATIS_OPTIONS } from './mybatis.constants'
-import { MybatisOptions, MybatisAsyncOptions } from './mybatis.interface'
-import { MybatisService } from './mybatis.service'
+import { MYBATIS_OPTIONS } from './mybatis.constants.js'
+import { MybatisOptions, MybatisAsyncOptions } from './mybatis.interface.js'
+import { MybatisService } from './mybatis.service.js'
 
 @Global()
 @Module({})

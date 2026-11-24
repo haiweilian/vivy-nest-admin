@@ -17,10 +17,10 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { DeptService } from '@/modules/system/dept/dept.service'
-import { RoleService } from '@/modules/system/role/role.service'
-import { ListUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto'
-import { UserService } from './user.service'
+import { DeptService } from '@/modules/system/dept/dept.service.js'
+import { RoleService } from '@/modules/system/role/role.service.js'
+import { ListUserDto, CreateUserDto, UpdateUserDto } from './dto/user.dto.js'
+import { UserService } from './user.service.js'
 
 /**
  * 用户管理

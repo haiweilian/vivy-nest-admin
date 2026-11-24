@@ -4,9 +4,9 @@ import { BaseStatusEnum } from '@vivy-common/core'
 import { isNotEmpty } from 'class-validator'
 import { paginate, Pagination } from 'nestjs-typeorm-paginate'
 import { Like, Repository } from 'typeorm'
-import { ConfigCacheService } from './config-cache.service'
-import { ListConfigDto, CreateConfigDto, UpdateConfigDto } from './dto/config.dto'
-import { SysConfig } from './entities/sys-config.entity'
+import { ConfigCacheService } from './config-cache.service.js'
+import { ListConfigDto, CreateConfigDto, UpdateConfigDto } from './dto/config.dto.js'
+import { SysConfig } from './entities/sys-config.entity.js'
 
 /**
  * 参数配置

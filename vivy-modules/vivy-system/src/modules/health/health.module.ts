@@ -1,9 +1,9 @@
 import { HttpModule } from '@nestjs/axios'
 import { Module } from '@nestjs/common'
 import { TerminusModule } from '@nestjs/terminus'
-import { HealthController } from './health.controller'
-import { HealthService } from './health.service'
-import { RedisHealthIndicator } from './indicators/redis.health'
+import { HealthController } from './health.controller.js'
+import { HealthService } from './health.service.js'
+import { RedisHealthIndicator } from './indicators/redis.health.js'
 
 @Module({
   imports: [TerminusModule, HttpModule],

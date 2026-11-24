@@ -3,8 +3,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { ListRoleDto, CreateRoleDto, UpdateRoleDto, UpdateDataScopeDto } from './dto/role.dto'
-import { RoleService } from './role.service'
+import { ListRoleDto, CreateRoleDto, UpdateRoleDto, UpdateDataScopeDto } from './dto/role.dto.js'
+import { RoleService } from './role.service.js'
 
 /**
  * 角色管理

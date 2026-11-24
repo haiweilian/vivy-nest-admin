@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { SecurityContext, IdentityUtils, SysLoginUser } from '@vivy-common/core'
-import { DATA_SCOPE_METADATA } from './datascope.constants'
-import { DataScopeType } from './datascope.enum'
-import { TableAlias } from './datascope.interface'
+import { DATA_SCOPE_METADATA } from './datascope.constants.js'
+import { DataScopeType } from './datascope.enum.js'
+import { TableAlias } from './datascope.interface.js'
 
 @Injectable()
 export class DataScopeService {

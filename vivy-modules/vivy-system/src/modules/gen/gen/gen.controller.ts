@@ -2,8 +2,8 @@ import { Body, Controller, Delete, Get, Param, ParseArrayPipe, Post, Put, Query,
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
-import { ListGenDto, UpdateGenDto } from './dto/gen.dto'
-import { GenService } from './gen.service'
+import { ListGenDto, UpdateGenDto } from './dto/gen.dto.js'
+import { GenService } from './gen.service.js'
 
 /**
  * 代码生成

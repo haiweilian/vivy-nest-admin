@@ -3,8 +3,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AjaxResult, SecurityContext } from '@vivy-common/core'
 import { Log, OperType } from '@vivy-common/logger'
 import { RequirePermissions } from '@vivy-common/security'
-import { DeptService } from './dept.service'
-import { CreateDeptDto, UpdateDeptDto } from './dto/dept.dto'
+import { DeptService } from './dept.service.js'
+import { CreateDeptDto, UpdateDeptDto } from './dto/dept.dto.js'
 
 /**
  * 部门管理

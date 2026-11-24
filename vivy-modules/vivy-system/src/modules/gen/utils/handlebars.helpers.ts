@@ -1,6 +1,8 @@
-import * as handlebars from 'handlebars'
-import { includes, isEqual } from 'lodash'
-import { GenUtils } from './gen.utils'
+import handlebars from 'handlebars'
+import lodash from 'lodash'
+import { GenUtils } from './gen.utils.js'
+
+const { includes, isEqual } = lodash
 
 /**
  * 判断是否包含
