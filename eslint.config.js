@@ -1,14 +1,8 @@
-import typescript from '@bfehub/eslint-config-typescript'
+import config from '@internal/eslint-config'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  ...typescript,
-  {
-    rules: {
-      '@typescript-eslint/no-unused-expressions': 'off',
-      '@typescript-eslint/no-unsafe-function-type': 'off',
-    },
-  },
+  ...config,
   {
     ignores: [
       '**/lib/',
