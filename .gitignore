@@ -7,6 +7,7 @@ coverage
 # Build Generate
 lib
 dist
+*.tsbuildinfo
 
 # Docker
 docker/**/logs
@@ -20,6 +21,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Caches
+.workbuddy
 .eslintcache
 .stylelintcache
 docs/.vitepress/cache

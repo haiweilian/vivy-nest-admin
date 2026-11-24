@@ -1,5 +1,6 @@
 {
   "name": "@vivy-common/datascope",
+  "type": "module",
   "version": "0.0.1",
   "license": "MIT",
   "author": "haiweilian <haiweilian@foxmail.com>",

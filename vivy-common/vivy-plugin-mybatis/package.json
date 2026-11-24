@@ -1,18 +1,21 @@
 {
   "name": "@vivy-common/mybatis",
+  "type": "module",
   "version": "0.0.1",
   "license": "MIT",
   "author": "haiweilian <haiweilian@foxmail.com>",
   "homepage": "https://github.com/haiweilian/vivy-nest-admin",
   "main": "./lib/index.js",
   "dependencies": {
-    "chokidar": "^4.0.3",
+    "chokidar": "^6.0.0",
     "fast-glob": "^3.3.3",
-    "fs-extra": "^11.3.2",
-    "mybatis-mapper": "^0.8.0",
-    "sql-formatter": "^15.6.10"
+    "fs-extra": "^11.4.1",
+    "micromatch": "^4.0.8",
+    "mybatis-mapper": "^0.9.0",
+    "sql-formatter": "^15.10.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4"
+    "@types/fs-extra": "^11.0.4",
+    "@types/micromatch": "^4.0.10"
   }
 }

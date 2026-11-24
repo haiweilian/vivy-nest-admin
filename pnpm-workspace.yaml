@@ -1,10 +1,57 @@
 packages:
   - docs
-  - vivy-vue
   - vivy-react
   - vivy-common/**
   - vivy-modules/**
+  - internal/**
+
+allowBuilds:
+  bcrypt: true
+  esbuild: true
+  fsevents: true
+  msgpackr-extract: true
+  unrs-resolver: true
+  '@nestjs/core': false
+  '@scarf/scarf': false
+  core-js: false
+  core-js-pure: false
+  es5-ext: false
+
+minimumReleaseAgeExclude:
+  - '@umijs/ast@4.7.37'
+  - '@umijs/babel-preset-umi@4.7.37'
+  - '@umijs/bundler-esbuild@4.7.37'
+  - '@umijs/bundler-utils@4.7.37'
+  - '@umijs/bundler-utoopack@4.7.37'
+  - '@umijs/bundler-vite@4.7.37'
+  - '@umijs/bundler-webpack@4.7.37'
+  - '@umijs/core@4.7.37'
+  - '@umijs/lint@4.7.37'
+  - '@umijs/max@4.7.37'
+  - '@umijs/mfsu@4.7.37'
+  - '@umijs/plugin-run@4.7.37'
+  - '@umijs/plugins@4.7.37'
+  - '@umijs/preset-umi@4.7.37'
+  - '@umijs/renderer-react@4.7.37'
+  - '@umijs/server@4.7.37'
+  - '@umijs/test@4.7.37'
+  - '@umijs/utils@4.7.37'
+  - '@umijs/zod2ts@4.7.37'
+  - cronstrue@3.46.0
+  - umi@4.7.37
+  - ioredis@6.1.0
+  - '@typescript-eslint/eslint-plugin@8.74.0'
+  - '@typescript-eslint/parser@8.74.0'
+  - '@typescript-eslint/project-service@8.74.0'
+  - '@typescript-eslint/scope-manager@8.74.0'
+  - '@typescript-eslint/tsconfig-utils@8.74.0'
+  - '@typescript-eslint/type-utils@8.74.0'
+  - '@typescript-eslint/types@8.74.0'
+  - '@typescript-eslint/typescript-estree@8.74.0'
+  - '@typescript-eslint/utils@8.74.0'
+  - '@typescript-eslint/visitor-keys@8.74.0'
+  - typescript-eslint@8.74.0
 
 overrides:
-  '@types/react': ^19.0.0
-  '@types/react-dom': ^19.0.0
+  '@types/react': ^19.3.0
+  '@types/react-dom': ^19.3.0
