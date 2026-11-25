@@ -11,7 +11,7 @@ interface UpdateFormProps extends DrawerFormProps {
 }
 
 const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
-  const formRef = useRef<ProFormInstance>(null)
+  const formRef = useRef<ProFormInstance>(undefined)
 
   /**
    * 获取初始化数据
@@ -42,7 +42,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   return (
     <DrawerForm
       {...props}
-      width={'95vw'}
+      size={'95vw'}
       layout="horizontal"
       labelCol={{ flex: '120px' }}
       drawerProps={{ styles: { body: { paddingTop: 0 } } }}

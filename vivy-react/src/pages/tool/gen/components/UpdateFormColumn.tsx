@@ -184,7 +184,7 @@ const UpdateFormColumn: React.FC<UpdateFormColumnProps> = ({ value, onChange }) 
         value={value}
         recordCreatorProps={false}
         bordered
-        cardProps={{ bodyStyle: { padding: 0 } }}
+        cardProps={{ styles: { body: { padding: 0 } } }}
         editable={{
           editableKeys,
           onValuesChange: (_, list) => {

@@ -32,7 +32,7 @@ const UseSelect: React.FC<{
       fieldProps={{
         options: options.map((item) => ({ label: item, value: item })),
         showSearch: true,
-        dropdownRender(menu) {
+        popupRender(menu) {
           return (
             <>
               <Space style={{ padding: '0px 2px' }}>
