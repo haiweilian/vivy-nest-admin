@@ -5,7 +5,7 @@ import type { UpdatePasswordParams } from '@/apis/system/profile'
 import { Message } from '@/components/App'
 
 const UpdatePassword: React.FC = () => {
-  const formRef = useRef<ProFormInstance>(null)
+  const formRef = useRef<ProFormInstance>(undefined)
 
   /**
    * 提交表单

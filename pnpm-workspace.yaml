@@ -56,3 +56,6 @@ minimumReleaseAgeExclude:
 overrides:
   '@types/react': ^19.3.0
   '@types/react-dom': ^19.3.0
+  # antd 6 与 pro-components 3 都依赖 cssinjs v2，但 semver 区间互不重叠（~2.1.2 / ^2.1.2）。
+  # 不统一会装出两份实例，StyleProvider 的 layer 配置作用不到 pro-components 的样式上。
+  '@ant-design/cssinjs': 2.1.2

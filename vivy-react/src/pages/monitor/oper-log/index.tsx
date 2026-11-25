@@ -132,7 +132,7 @@ const OperationLog = () => {
           ],
         }}
       />
-      <Drawer title="操作日志详情" width={1000} open={openDrawer} onClose={() => setOpenDrawer(false)}>
+      <Drawer title="操作日志详情" size={1000} open={openDrawer} onClose={() => setOpenDrawer(false)}>
         {record ? (
           <Descriptions column={2}>
             <Descriptions.Item label="操作模块">
