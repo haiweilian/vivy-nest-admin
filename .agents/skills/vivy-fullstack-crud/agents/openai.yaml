@@ -1,0 +1,3 @@
+interface:
+  display_name: 'Vivy 全栈 CRUD'
+  short_description: '按业务需求实现 Vivy 前后端 CRUD，复用现有模块并完成接口与权限接入'

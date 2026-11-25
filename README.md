@@ -68,27 +68,6 @@ vivy
 - [x] 手机应用：基于 UniApp 构建手机应用程序。
 - [x] 桌面应用：基于 Electron 构建桌面应用程序。
 
-## 后端测试
-
-使用 `@nestjs/testing`、Vitest、SWC 和 Supertest。测试命令会先构建公共包，确保 `@vivy-common/*` 的 `lib` 入口可用。
-
-```bash
-pnpm test                # 单元测试
-pnpm test:watch          # 监听模式
-pnpm test:cov            # 单元测试与覆盖率报告
-pnpm test:e2e            # HTTP 冒烟测试
-pnpm test:typecheck      # 测试代码类型检查
-```
-
-- 单元测试放在被测代码旁边，命名为 `*.spec.ts`，支持 `vivy-modules` 和 `vivy-common`。
-- HTTP 测试放在各应用的 `test` 目录，命名为 `*.e2e-spec.ts`，由独立配置收集。
-- 测试显式导入 Vitest 的 API，通过 `Test.createTestingModule()` 和 `useValue` 替换外部依赖。
-- 覆盖率报告生成到 `coverage/index.html`；SWC 只负责转译，类型检查使用 `pnpm test:typecheck`。
-
-当前 HTTP 冒烟测试装配首页控制器和服务，可直接运行。验证完整 `AppModule` 时，需要提供测试用的 MySQL、Redis 和 Bull 配置，并复用应用初始化设置。
-
-监听模式下修改公共包时，可在另一终端运行 `pnpm --filter @vivy-common/common dev`，持续更新 `lib`。
-
 ## 演示图
 
 <table>

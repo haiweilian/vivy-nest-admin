@@ -1,0 +1,3 @@
+interface:
+  display_name: 'Vivy 权限与数据范围'
+  short_description: '实现与排查 Vivy 登录认证、角色权限、动态菜单及业务数据范围控制'
