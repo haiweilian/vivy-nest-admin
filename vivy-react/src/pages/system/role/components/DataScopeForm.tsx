@@ -9,7 +9,7 @@ import {
 } from '@ant-design/pro-components'
 import { useRequest } from '@umijs/max'
 import { TreeSelect } from 'antd'
-import { useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { deptTreeOptions } from '@/apis/system/dept'
 import { infoRole, updateDataScope } from '@/apis/system/role'
 import type { UpdateDataScopeParams, RoleModel } from '@/apis/system/role'
@@ -18,7 +18,7 @@ interface DataScopeFormProps extends DrawerFormProps {
   record: RoleModel
 }
 
-const DataScopeForm: React.FC<DataScopeFormProps> = ({ record, ...props }) => {
+const DataScopeForm: React.FC<DataScopeFormProps> = ({ record, open, ...props }) => {
   const formRef = useRef<ProFormInstance>(undefined)
 
   /**
@@ -30,10 +30,14 @@ const DataScopeForm: React.FC<DataScopeFormProps> = ({ record, ...props }) => {
       formRef.current?.setFieldsValue(data)
     },
   })
-  const handleInitial = () => {
+  const handleInitial = useCallback(() => {
     formRef.current?.resetFields()
     record && runInfoRole(record.roleId)
-  }
+  }, [record, runInfoRole])
+
+  useEffect(() => {
+    if (open) handleInitial()
+  }, [open, handleInitial])
 
   /**
    * 提交表单
@@ -46,6 +50,7 @@ const DataScopeForm: React.FC<DataScopeFormProps> = ({ record, ...props }) => {
   return (
     <DrawerForm
       {...props}
+      open={open}
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
@@ -54,10 +59,6 @@ const DataScopeForm: React.FC<DataScopeFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
-      }}
-      onOpenChange={(open) => {
-        open && handleInitial()
-        props.onOpenChange?.(open)
       }}
     >
       <ProFormText name="roleName" label="角色名称" disabled={true} />

@@ -7,7 +7,7 @@ import {
   ProFormRadio,
 } from '@ant-design/pro-components'
 import { useModel, useRequest } from '@umijs/max'
-import { useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { addPost, updatePost, infoPost } from '@/apis/system/post'
 import type { CreatePostParams, PostModel } from '@/apis/system/post'
 
@@ -15,7 +15,7 @@ interface UpdateFormProps extends DrawerFormProps {
   record?: PostModel
 }
 
-const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
+const UpdateForm: React.FC<UpdateFormProps> = ({ record, open, ...props }) => {
   const formRef = useRef<ProFormInstance>(undefined)
 
   /**
@@ -33,10 +33,14 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       formRef.current?.setFieldsValue(data)
     },
   })
-  const handleInitial = () => {
+  const handleInitial = useCallback(() => {
     formRef.current?.resetFields()
     record && runInfoPost(record.postId)
-  }
+  }, [record, runInfoPost])
+
+  useEffect(() => {
+    if (open) handleInitial()
+  }, [open, handleInitial])
 
   /**
    * 提交表单
@@ -53,6 +57,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   return (
     <DrawerForm
       {...props}
+      open={open}
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
@@ -61,10 +66,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
-      }}
-      onOpenChange={(open) => {
-        open && handleInitial()
-        props.onOpenChange?.(open)
       }}
     >
       <ProFormText name="postName" label="岗位名称" rules={[{ required: true, max: 50 }]} />

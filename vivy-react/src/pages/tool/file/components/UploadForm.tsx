@@ -1,12 +1,16 @@
 import { type DrawerFormProps, type ProFormInstance, DrawerForm, ProFormUploadButton } from '@ant-design/pro-components'
 import { useRequest } from '@umijs/max'
 import { UploadFile } from 'antd'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { addFile, fileUseOptions, uploadFile } from '@/apis/file'
 import UseSelect from './UseSelect'
 
-const UploadForm: React.FC<DrawerFormProps> = (props) => {
+const UploadForm: React.FC<DrawerFormProps> = ({ open, ...props }) => {
   const formRef = useRef<ProFormInstance>(undefined)
+
+  useEffect(() => {
+    if (open) formRef.current?.resetFields()
+  }, [open])
 
   /**
    * 获取用途选项
@@ -41,6 +45,7 @@ const UploadForm: React.FC<DrawerFormProps> = (props) => {
   return (
     <DrawerForm
       {...props}
+      open={open}
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
@@ -49,10 +54,6 @@ const UploadForm: React.FC<DrawerFormProps> = (props) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
-      }}
-      onOpenChange={(open) => {
-        formRef.current?.resetFields()
-        props.onOpenChange?.(open)
       }}
     >
       <UseSelect options={useOptions} onChange={setUseOptions} />

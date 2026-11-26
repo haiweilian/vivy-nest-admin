@@ -7,7 +7,7 @@ import {
   ProFormRadio,
 } from '@ant-design/pro-components'
 import { useModel, useRequest } from '@umijs/max'
-import { useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { addNotice, updateNotice, infoNotice } from '@/apis/system/notice'
 import type { CreateNoticeParams, NoticeModel } from '@/apis/system/notice'
 import { ProFormWangEditor } from '@/components/WangEditor'
@@ -16,7 +16,7 @@ interface UpdateFormProps extends DrawerFormProps {
   record?: NoticeModel
 }
 
-const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
+const UpdateForm: React.FC<UpdateFormProps> = ({ record, open, ...props }) => {
   const formRef = useRef<ProFormInstance>(undefined)
 
   /**
@@ -35,10 +35,14 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       formRef.current?.setFieldsValue(data)
     },
   })
-  const handleInitial = () => {
+  const handleInitial = useCallback(() => {
     formRef.current?.resetFields()
     record && runInfoNotice(record.noticeId)
-  }
+  }, [record, runInfoNotice])
+
+  useEffect(() => {
+    if (open) handleInitial()
+  }, [open, handleInitial])
 
   /**
    * 提交表单
@@ -55,6 +59,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   return (
     <DrawerForm
       {...props}
+      open={open}
       size={900}
       layout="horizontal"
       labelCol={{ flex: '100px' }}
@@ -64,10 +69,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
-      }}
-      onOpenChange={(open) => {
-        open && handleInitial()
-        props.onOpenChange?.(open)
       }}
     >
       <ProFormText name="noticeTitle" label="公告标题" rules={[{ required: true }]} fieldProps={{ maxLength: 50 }} />

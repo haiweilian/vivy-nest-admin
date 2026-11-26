@@ -8,7 +8,7 @@ import {
   ProFormRadio,
 } from '@ant-design/pro-components'
 import { useModel, useRequest } from '@umijs/max'
-import { useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { addDept, updateDept, infoDept, deptTreeOptions } from '@/apis/system/dept'
 import type { CreateDeptParams, DeptTreeResult } from '@/apis/system/dept'
 
@@ -16,7 +16,7 @@ interface UpdateFormProps extends DrawerFormProps {
   record?: DeptTreeResult
 }
 
-const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
+const UpdateForm: React.FC<UpdateFormProps> = ({ record, open, ...props }) => {
   const formRef = useRef<ProFormInstance>(undefined)
 
   /**
@@ -37,10 +37,14 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       })
     },
   })
-  const handleInitial = () => {
+  const handleInitial = useCallback(() => {
     formRef.current?.resetFields()
     record && runInfoDept(record.deptId)
-  }
+  }, [record, runInfoDept])
+
+  useEffect(() => {
+    if (open) handleInitial()
+  }, [open, handleInitial])
 
   /**
    * 提交表单
@@ -57,6 +61,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   return (
     <DrawerForm
       {...props}
+      open={open}
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
@@ -65,10 +70,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
-      }}
-      onOpenChange={(open) => {
-        open && handleInitial()
-        props.onOpenChange?.(open)
       }}
     >
       <ProFormTreeSelect

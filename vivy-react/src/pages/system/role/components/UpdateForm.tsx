@@ -9,7 +9,7 @@ import {
 } from '@ant-design/pro-components'
 import { useModel, useRequest } from '@umijs/max'
 import { TreeSelect } from 'antd'
-import { useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { menuTreeOptions } from '@/apis/system/menu'
 import { addRole, updateRole, infoRole } from '@/apis/system/role'
 import type { CreateRoleParams, RoleModel } from '@/apis/system/role'
@@ -18,7 +18,7 @@ interface UpdateFormProps extends DrawerFormProps {
   record?: RoleModel
 }
 
-const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
+const UpdateForm: React.FC<UpdateFormProps> = ({ record, open, ...props }) => {
   const formRef = useRef<ProFormInstance>(undefined)
 
   /**
@@ -36,10 +36,14 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       formRef.current?.setFieldsValue(data)
     },
   })
-  const handleInitial = () => {
+  const handleInitial = useCallback(() => {
     formRef.current?.resetFields()
     record && runInfoRole(record.roleId)
-  }
+  }, [record, runInfoRole])
+
+  useEffect(() => {
+    if (open) handleInitial()
+  }, [open, handleInitial])
 
   /**
    * 提交表单
@@ -56,6 +60,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   return (
     <DrawerForm
       {...props}
+      open={open}
       layout="horizontal"
       labelCol={{ flex: '100px' }}
       formRef={formRef}
@@ -64,10 +69,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
-      }}
-      onOpenChange={(open) => {
-        open && handleInitial()
-        props.onOpenChange?.(open)
       }}
     >
       <ProFormText name="roleName" label="角色名称" rules={[{ required: true, max: 50 }]} />

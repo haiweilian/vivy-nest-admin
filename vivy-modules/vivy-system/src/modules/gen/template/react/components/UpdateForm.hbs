@@ -11,7 +11,7 @@ import {
 } from '@ant-design/pro-components'
 {{#if (isIn htmlTypeList 'editor')}}import { ProFormWangEditor } from '@/components/WangEditor'{{/if}}
 import { {{~#if dictColumn}} useModel, {{~/if}} useRequest } from '@umijs/max'
-import { useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { add{{businessNamePascalCase}}, update{{businessNamePascalCase}}, info{{businessNamePascalCase}} } from '@/apis/system/{{businessNameKebabCase}}'
 import type { Create{{businessNamePascalCase}}Params, {{businessNamePascalCase}}Model } from '@/apis/system/{{businessNameKebabCase}}'
 
@@ -19,8 +19,8 @@ interface UpdateFormProps extends DrawerFormProps {
   record?: {{businessNamePascalCase}}Model
 }
 
-const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
-  const formRef = useRef<ProFormInstance>(null)
+const UpdateForm: React.FC<UpdateFormProps> = ({ record, open, ...props }) => {
+  const formRef = useRef<ProFormInstance>(undefined)
 
   {{#if dictColumn}}
   /**
@@ -43,10 +43,14 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       formRef.current?.setFieldsValue(data)
     },
   })
-  const handleInitial = () => {
+  const handleInitial = useCallback(() => {
     formRef.current?.resetFields()
     record && runInfo{{businessNamePascalCase}}(record.{{pkColumn.fieldName}})
-  }
+  }, [record, runInfo{{businessNamePascalCase}}])
+
+  useEffect(() => {
+    if (open) handleInitial()
+  }, [open, handleInitial])
 
   /**
    * 提交表单
@@ -63,6 +67,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
   return (
     <DrawerForm
       {...props}
+      open={open}
       layout="horizontal"
       labelCol=\{{ flex: '100px' }}
       formRef={formRef}
@@ -71,10 +76,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
         await handleSubmit(values)
         props.onFinish?.(values)
         return true
-      }}
-      onOpenChange={(open) => {
-        open && handleInitial()
-        props.onOpenChange?.(open)
       }}
     >
     {{#each columns as |column|}}
