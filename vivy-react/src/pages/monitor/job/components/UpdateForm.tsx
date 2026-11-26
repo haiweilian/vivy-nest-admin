@@ -9,7 +9,7 @@ import {
 } from '@ant-design/pro-components'
 import { useModel, useRequest } from '@umijs/max'
 import { Button, Modal, Space } from 'antd'
-import { useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { addJob, updateJob, infoJob } from '@/apis/monitor/job'
 import type { CreateJobParams, JobModel } from '@/apis/monitor/job'
 import { cronValidate, CronTab } from '@/components/Cron'
@@ -18,7 +18,7 @@ interface UpdateFormProps extends DrawerFormProps {
   record?: JobModel
 }
 
-const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
+const UpdateForm: React.FC<UpdateFormProps> = ({ record, open, ...props }) => {
   const formRef = useRef<ProFormInstance>(undefined)
 
   /**
@@ -37,10 +37,14 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
       formRef.current?.setFieldsValue(data)
     },
   })
-  const handleInitial = () => {
+  const handleInitial = useCallback(() => {
     formRef.current?.resetFields()
     record && runInfoJob(record.jobId)
-  }
+  }, [record, runInfoJob])
+
+  useEffect(() => {
+    if (open) handleInitial()
+  }, [open, handleInitial])
 
   /**
    * Cron 表达式生成
@@ -64,6 +68,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
     <>
       <DrawerForm
         {...props}
+        open={open}
         layout="horizontal"
         labelCol={{ flex: '100px' }}
         formRef={formRef}
@@ -72,10 +77,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ record, ...props }) => {
           await handleSubmit(values)
           props.onFinish?.(values)
           return true
-        }}
-        onOpenChange={(open) => {
-          open && handleInitial()
-          props.onOpenChange?.(open)
         }}
       >
         <ProFormText name="jobName" label="任务名称" rules={[{ required: true }]} fieldProps={{ maxLength: 100 }} />
