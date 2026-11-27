@@ -3,6 +3,6 @@ declare namespace Express {
     user_sk?: string
     user_id?: number
     user_name?: string
-    login_user?: import('../models/sys-login-user.model').SysLoginUser
+    login_user?: import('../class/sys-login-user.js').SysLoginUser
   }
 }

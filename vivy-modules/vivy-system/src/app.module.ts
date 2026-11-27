@@ -14,6 +14,7 @@ import { SecurityModule, SecurityOptions } from '@vivy-common/security'
 import { AppController } from './app.controller.js'
 import { AppService } from './app.service.js'
 import { BaseModule } from './base/base.module.js'
+import { AiModule } from './modules/ai/ai.module.js'
 import { AuthModule } from './modules/auth/auth.module.js'
 import { FileModule } from './modules/file/file.module.js'
 import { GenModule } from './modules/gen/gen.module.js'
@@ -83,6 +84,7 @@ import { SystemModule } from './modules/system/system.module.js'
     HealthModule,
     SystemModule,
     MonitorModule,
+    AiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

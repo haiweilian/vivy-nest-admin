@@ -193,7 +193,7 @@ importers:
         version: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(terser@5.49.0)(yaml@2.9.1)
       vitest:
         specifier: 5.1.1
-        version: 5.1.1(@types/node@24.19.2)(@vitest/coverage-v8@5.1.1)(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(terser@5.49.0)(yaml@2.9.1))
+        version: 5.1.1(@opentelemetry/api@1.10.0)(@types/node@24.19.2)(@vitest/coverage-v8@5.1.1)(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(terser@5.49.0)(yaml@2.9.1))
 
   docs:
     devDependencies:
@@ -410,6 +410,18 @@ importers:
 
   vivy-modules/vivy-system:
     dependencies:
+      '@langchain/anthropic':
+        specifier: 1.6.6
+        version: 1.6.6(@langchain/core@1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7)))
+      '@langchain/core':
+        specifier: 1.5.1
+        version: 1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7))
+      '@langchain/deepseek':
+        specifier: 1.1.26
+        version: 1.1.26(@langchain/core@1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7)))
+      '@langchain/openai':
+        specifier: 1.8.5
+        version: 1.8.5(@langchain/core@1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7)))
       ali-oss:
         specifier: ^6.23.0
         version: 6.23.0(supports-color@8.1.1)
@@ -434,6 +446,9 @@ importers:
       mime:
         specifier: ^4.1.2
         version: 4.1.2
+      nanoid:
+        specifier: ^6.0.2
+        version: 6.0.2
       pluralize:
         specifier: ^8.0.0
         version: 8.0.0
@@ -484,7 +499,7 @@ importers:
         version: 5.1.23
       '@wangeditor/editor-for-react':
         specifier: ^1.0.6
-        version: 1.0.6(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(@wangeditor/editor@5.1.23)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 1.0.6(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(@wangeditor/editor@5.1.23)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       ahooks:
         specifier: ^3.11.0
         version: 3.11.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -867,6 +882,15 @@ packages:
   '@antfu/utils@0.7.10':
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
 
+  '@anthropic-ai/sdk@1.13.0':
+    resolution: {integrity: sha512-F4Qu3zqRINxTV5xruOvw1gXhEsYH4lOgxffxZx4IworMefc395T458pl5Uj3TZiAlO3+gvhYoHSHU7qDsrchNA==}
+    hasBin: true
+    peerDependencies:
+      zod: ^3.25.0 || ^4.0.0
+    peerDependenciesMeta:
+      zod:
+        optional: true
+
   '@antv/algorithm@0.1.26':
     resolution: {integrity: sha512-DVhcFSQ8YQnMNW34Mk8BSsfc61iC1sAnmcfYoXTAshYHuU50p/6b7x3QYaGctDNKWGvi1ub7mPcSY0bK+aN0qg==}
 
@@ -1214,6 +1238,9 @@ packages:
 
   '@cacheable/utils@2.5.0':
     resolution: {integrity: sha512-buipgOVDkkPXNR5+xBpDw7Zk2n1EvU7qBJCNUcL7rhQ//kfpOXPAvQ511Os0vpLYJ1pZnvudNytkQt2hst3wqA==}
+
+  '@cfworker/json-schema@4.1.6':
+    resolution: {integrity: sha512-YzVGTHXf4bzlyAL5KAvHYCdNbbt6zM5cYkAgxqxQPDQM6aZ4ShIIN5yJ+6q7YeonnevxT8k/LmD2tJi/jOiKkg==}
 
   '@changesets/apply-release-plan@8.1.1':
     resolution: {integrity: sha512-nk2Hbq3M9NeHMdaIRBDvawKrQJzXB9sGyBUE5yWnIKtvdcNCPj75zBekJYr0gTT2ecJH3eFeTrc8eisPImcv0Q==}
@@ -2654,6 +2681,28 @@ packages:
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
 
+  '@langchain/anthropic@1.6.6':
+    resolution: {integrity: sha512-tBsnERCfJsr7GetZYK8esUzvV6rzlvbKK8BqKrzgTuW1TVDnxvtzh7404N0hOcdvW5zTiSr/CkiwNBtR7s8ryw==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@langchain/core': ^1.5.0
+
+  '@langchain/core@1.5.1':
+    resolution: {integrity: sha512-vPtTZGYxzpJBDJ4BHkPJZpC4+ceAFl+Fs1YCXy2VQiUsPRvNEJmXIE/sJLza5MroKRltPLMfJ/qIsSPHqUBr1w==}
+    engines: {node: '>=20'}
+
+  '@langchain/deepseek@1.1.26':
+    resolution: {integrity: sha512-xzX2l5jw8+BtKVIFVE/AZpV2e9ho4eZVML8LSzZR3SoTBeHx/hyQllxgL8mt1stLwxrC4T6KDLIVuncFY5mw4w==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@langchain/core': ^1.0.0
+
+  '@langchain/openai@1.8.5':
+    resolution: {integrity: sha512-BOwfSNIquC+8E5hJqoYiO7PTuXDo271bMNHeKk+KYFG9+mY5cJ9O5gfnvhEy0Y+AlE6gi5XfVtVrWbvRcZs2iA==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      '@langchain/core': ^1.5.0
+
   '@loadable/component@5.15.2':
     resolution: {integrity: sha512-ryFAZOX5P2vFkUdzaAtTG88IGnr9qxSdvLRvJySXcUA4B4xVWurUNADu3AnKPksxOZajljqTrDEDcYjeL4lvLw==}
     engines: {node: '>=8'}
@@ -3092,6 +3141,10 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@opentelemetry/api@1.10.0':
+    resolution: {integrity: sha512-lMkyes8iHrG+mk6WH7X70MdCLI2RS0FwNBY1PyQ8UemaijE2m5mv5A0Niy3HtbYTFrgkUEQjFMXmSAk2hQDuPQ==}
+    engines: {node: '>=8.0.0'}
 
   '@oxc-project/types@0.156.0':
     resolution: {integrity: sha512-1Duyg48TdJNdyhEB8Xn1L36bT9Pv6GUtlKjHxOys8xkaF/rQq3XJE+bAurSK/AgIz5mGFsb77cn9Pb20+WCScw==}
@@ -3700,6 +3753,9 @@ packages:
 
   '@sqltools/formatter@1.2.5':
     resolution: {integrity: sha512-Uy0+khmZqUrUGm5dmMqVlnvufZRSK0FbYzVgp0UMstm+F5+W2/jnEEQyc9vo1ZR/E5ZI/B1WjjoTqBqwJL6Krw==}
+
+  '@stablelib/base64@1.0.1':
+    resolution: {integrity: sha512-1bnPQqSxSuc3Ii6MhBysoWCg58j97aUjuCSZrGSmDxNqtytIi0k8utUenAwTZN4V5mXXYGsVUI9zeBqy+jBOSQ==}
 
   '@stagewise/toolbar@0.6.2':
     resolution: {integrity: sha512-WN7PWaOT6YQKjJYL4/85V5UU0eZEws+/UBT/J4wJOEbFxoluLuchqh7xVTmUZTtw0q0xpzlgX8Vb0kAZf/pjmw==}
@@ -7227,6 +7283,9 @@ packages:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
     engines: {node: '>=6'}
 
+  eventemitter3@4.0.7:
+    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
+
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
 
@@ -7348,6 +7407,9 @@ packages:
 
   fast-safe-stringify@2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
+
+  fast-sha256@1.3.0:
+    resolution: {integrity: sha512-n11RGP/lrWEFI/bWdygLxhI+pVeo1ZYIVwvvPkW7azl/rOy+F3HYRZ2K5zeE9mmkhQppyv9sQFx0JM9UabnpPQ==}
 
   fast-string-truncated-width@3.0.3:
     resolution: {integrity: sha512-0jjjIEL6+0jag3l2XWWizO64/aZVtpiGE3t0Zgqxv0DPuxiMjvB3M24fCyhZUO4KomJQPj3LTSUnDP3GpdwC0g==}
@@ -8595,6 +8657,9 @@ packages:
   js-sdsl@4.4.2:
     resolution: {integrity: sha512-dwXFwByc/ajSV6m5bcKAPwe4yDDF6D614pxmIi5odytzxRlwqF6nwoiCek80Ixc7Cvma5awClxrzFtxCQvcM8w==}
 
+  js-tiktoken@1.0.21:
+    resolution: {integrity: sha512-biOj/6M5qdgx5TKjDnFT1ymSpM5tbd3ylwDtrQvFQSu0Z7bBYko2dF+W/aUkXUPuk6IVpRxk/3Q2sHOzGlS36g==}
+
   js-tokens@10.0.1:
     resolution: {integrity: sha512-XMt+uh+yEs6srFvEb/pEe4IMvbtoXVdNxF7lZFU+I9sdWI641L97L+gXQMTGm1x3RjPUVizNVjHueclXr0U7sw==}
 
@@ -8626,6 +8691,10 @@ packages:
 
   json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
+
+  json-schema-to-ts@3.1.1:
+    resolution: {integrity: sha512-+DWg8jCJG2TEnpy7kOm/7/AxaYoaRbjVB4LFZLySZlWn8exGs3A4OLJR966cVvU26N7X9TWxl+Jsw7dzAqKT6g==}
+    engines: {node: '>=16'}
 
   json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
@@ -8704,6 +8773,26 @@ packages:
 
   kuler@2.0.0:
     resolution: {integrity: sha512-Xq9nH7KlWZmXAtodXDDRE7vs6DU1gTU8zYDHDiWLSip45Egwq3plLHzPn27NgvzL2r1LMPC1vdqh98sQxtqj4A==}
+
+  langsmith@0.14.0:
+    resolution: {integrity: sha512-GpOpjx2rfsfKD6A4nnWfG9kxYbLlx9//catR1eCUwW/nMQxj4Mq2OQL7NJO9MQ5ZcGnvgsnUZdxBZLd2JJC1qA==}
+    peerDependencies:
+      '@opentelemetry/api': '*'
+      '@opentelemetry/exporter-trace-otlp-proto': '*'
+      '@opentelemetry/sdk-trace-base': '*'
+      openai: '*'
+      ws: '>=7'
+    peerDependenciesMeta:
+      '@opentelemetry/api':
+        optional: true
+      '@opentelemetry/exporter-trace-otlp-proto':
+        optional: true
+      '@opentelemetry/sdk-trace-base':
+        optional: true
+      openai:
+        optional: true
+      ws:
+        optional: true
 
   launch-editor@2.14.2:
     resolution: {integrity: sha512-NHJEb30MGBCkmZXLZwz25t37QR4aY03ZzPYUJXOJaOa92uWwExI9SBQUuIznBYc1xkD7cJNGX7oc3Nl3sq2kQQ==}
@@ -9364,6 +9453,10 @@ packages:
     resolution: {integrity: sha512-BsqOzYGVq49JcW2IzoSAxeKYRevb+dGGPPWleOR8Lrlk4igwxu1/9pwSXlByhCb7MVZDrNJFC0IBP5/O5nLYRw==}
     engines: {node: '>= 10.16.0'}
 
+  mustache@4.2.0:
+    resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
+    hasBin: true
+
   mute-stream@0.0.8:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
 
@@ -9398,14 +9491,14 @@ packages:
   nan@2.24.0:
     resolution: {integrity: sha512-Vpf9qnVW1RaDkoNKFUvfxqAbtI8ncb8OJlqZ9wwpXzWPEsvsB1nvdUi6oYrHIkQ1Y/tMDnr1h4nczS0VB9Xykg==}
 
-  nanoid@3.3.11:
-    resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
   nanoid@3.3.20:
     resolution: {integrity: sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
+  nanoid@6.0.2:
+    resolution: {integrity: sha512-hIvVOb9Qr1p/9CNNLOe0OlWvgx/ziTsVwKN/GDSsuArN2K0wDiafP3s0SWmsm7o2BdnyS8Z9Z64NFBUbn6ziBg==}
+    engines: {node: ^22 || ^24 || >=26}
     hasBin: true
 
   nanomatch@1.2.13:
@@ -9666,6 +9759,33 @@ packages:
     resolution: {integrity: sha512-OS+QTnw1/4vrf+9hh1jc1jnYjzSG4ttTBB8UxOwAnInG3Uo4ssetzC1ihqaIHjLJnA5GGlRl6QlZXOTQhRBUvg==}
     engines: {node: '>=14.16'}
 
+  openai@7.63.0:
+    resolution: {integrity: sha512-bTRCHcdcYHu9k+2+jjPuzWTNaCORLBCNLrYkTFGmotQIec2D/lIWWMZ6uc9AIazc0MA4lYw62xpdcjUMjt98xg==}
+    engines: {node: '>=22.0.0'}
+    peerDependencies:
+      '@aws-sdk/credential-provider-node': '>=3.972.0 <4'
+      '@smithy/hash-node': '>=4.3.0 <5'
+      '@smithy/signature-v4': '>=5.4.0 <6'
+      google-auth-library: '>=9.15.1 <12'
+      undici: '>=5 <9'
+      ws: ^8.21.0
+      zod: ^3.25 || ^4.0
+    peerDependenciesMeta:
+      '@aws-sdk/credential-provider-node':
+        optional: true
+      '@smithy/hash-node':
+        optional: true
+      '@smithy/signature-v4':
+        optional: true
+      google-auth-library:
+        optional: true
+      undici:
+        optional: true
+      ws:
+        optional: true
+      zod:
+        optional: true
+
   opentype.js@0.7.3:
     resolution: {integrity: sha512-Veui5vl2bLonFJ/SjX/WRWJT3SncgiZNnKUyahmXCc2sa1xXW15u3R/3TN5+JFiP7RsjK5ER4HA5eWaEmV9deA==}
     hasBin: true
@@ -9703,6 +9823,10 @@ packages:
     resolution: {integrity: sha512-qFOyK5PjiWZd+QQIh+1jhdb9LpxTF0qs7Pm8o5QHYZ0M3vKqSqzsZaEB6oWlxZ+q2sJBMI/Ktgd2N5ZwQoRHfg==}
     engines: {node: '>= 0.4'}
 
+  p-finally@1.0.0:
+    resolution: {integrity: sha512-LICb2p9CB7FS+0eR1oqWnHhp0FljGLZCWBE9aix0Uye9W8LTQPwMTYVGWQWIw9RdQiDg4+epXQODwIYJtSJaow==}
+    engines: {node: '>=4'}
+
   p-limit@2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
     engines: {node: '>=6'}
@@ -9718,6 +9842,14 @@ packages:
   p-locate@5.0.0:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
+
+  p-queue@6.6.2:
+    resolution: {integrity: sha512-RwFpb72c/BhQLEXIZ5K2e+AhgNVmIejGlTgiB9MzZ0e93GRvqZ7uSi0dvRF7/XIXDeNkra2fNHBxTyPDGySpjQ==}
+    engines: {node: '>=8'}
+
+  p-timeout@3.2.0:
+    resolution: {integrity: sha512-rhIwUycgwwKcP9yTOOFK/AKsAopjjCakVqLHePO3CC6Mir1Z99xT+R63jZxAT5lFZLa2inS5h+ZS2GvR99/FBg==}
+    engines: {node: '>=8'}
 
   p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
@@ -11463,6 +11595,9 @@ packages:
   standard-as-callback@2.1.0:
     resolution: {integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==}
 
+  standardwebhooks@1.3.0:
+    resolution: {integrity: sha512-5W9skHjqAm2dlA9wWvglTP+oX47JX4lFXVk1aJV7+TG1snvTR4QXaVgPscEzvOw9GRreeavMwbqEeL+MGhZHCg==}
+
   static-extend@0.1.2:
     resolution: {integrity: sha512-72E9+uLc27Mt718pMHt9VMNiAL4LMsmDbBva8mxWUCkT07fSzEGMYUCk0XWY6lp0j6RBAG4cJ3mWuZv2OE3s0g==}
     engines: {node: '>=0.10.0'}
@@ -12010,6 +12145,9 @@ packages:
   triple-beam@1.4.1:
     resolution: {integrity: sha512-aZbgViZrg1QNcG+LULa7nhZpJTZSLm/mXnHXnbAbjmN5aSa0y7V+wvv6+4WaBtpISJzThKy+PIPxc1Nq1EJ9mg==}
     engines: {node: '>= 14.0.0'}
+
+  ts-algebra@2.0.0:
+    resolution: {integrity: sha512-FPAhNPFMrkwz76P7cdjdmiShwMynZYN6SgOujD1urY4oNm80Ou9oMdmbR45LotcKOXoy7wSmHkRFE6Mxbrhefw==}
 
   ts-api-utils@2.5.0:
     resolution: {integrity: sha512-OJ/ibxhPlqrMM0UiNHJ/0CKQkoKF243/AEmplt3qpRgkW8VG7IfOS41h7V8TjITqdByHzrjcS/2si+y4lIh8NA==}
@@ -13069,7 +13207,7 @@ snapshots:
 
   '@ant-design/fast-color@2.0.6':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
 
   '@ant-design/fast-color@3.0.0': {}
 
@@ -13107,7 +13245,7 @@ snapshots:
     dependencies:
       '@ant-design/colors': 7.2.1
       '@ant-design/icons-svg': 4.4.2
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       classnames: 2.5.1
       rc-util: 5.44.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react: 19.3.1
@@ -13380,6 +13518,14 @@ snapshots:
 
   '@antfu/utils@0.7.10': {}
 
+  '@anthropic-ai/sdk@1.13.0(zod@4.6.7)':
+    dependencies:
+      '@opentelemetry/api': 1.10.0
+      json-schema-to-ts: 3.1.1
+      standardwebhooks: 1.3.0
+    optionalDependencies:
+      zod: 4.6.7
+
   '@antv/algorithm@0.1.26':
     dependencies:
       '@antv/util': 2.0.17
@@ -13442,7 +13588,7 @@ snapshots:
   '@antv/g-math@3.0.1':
     dependencies:
       '@antv/util': 3.3.11
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       gl-matrix: 3.4.4
       tslib: 2.9.1
 
@@ -13451,7 +13597,7 @@ snapshots:
       '@antv/g-lite': 2.3.2
       '@antv/g-math': 3.0.1
       '@antv/util': 3.3.11
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       tslib: 2.9.1
 
   '@antv/g-plugin-canvas-picker@2.1.27':
@@ -13461,7 +13607,7 @@ snapshots:
       '@antv/g-plugin-canvas-path-generator': 2.1.22
       '@antv/g-plugin-canvas-renderer': 2.3.3
       '@antv/util': 3.3.11
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       gl-matrix: 3.4.4
       tslib: 2.9.1
 
@@ -13472,14 +13618,14 @@ snapshots:
       '@antv/g-plugin-canvas-path-generator': 2.1.22
       '@antv/g-plugin-image-loader': 2.1.26
       '@antv/util': 3.3.11
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       gl-matrix: 3.4.4
       tslib: 2.9.1
 
   '@antv/g-plugin-dom-interaction@2.1.27':
     dependencies:
       '@antv/g-lite': 2.3.2
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       tslib: 2.9.1
 
   '@antv/g-plugin-dragndrop@2.0.38':
@@ -13493,7 +13639,7 @@ snapshots:
     dependencies:
       '@antv/g-lite': 2.3.2
       '@antv/util': 3.3.11
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       gl-matrix: 3.4.4
       tslib: 2.9.1
 
@@ -13501,7 +13647,7 @@ snapshots:
     dependencies:
       '@antv/g-lite': 2.3.2
       '@antv/util': 3.3.11
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       gl-matrix: 3.4.4
       tslib: 2.9.1
 
@@ -13509,14 +13655,14 @@ snapshots:
     dependencies:
       '@antv/g-lite': 2.3.2
       '@antv/g-plugin-svg-renderer': 2.2.24
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       tslib: 2.9.1
 
   '@antv/g-plugin-svg-renderer@2.2.24':
     dependencies:
       '@antv/g-lite': 2.3.2
       '@antv/util': 3.3.11
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       gl-matrix: 3.4.4
       tslib: 2.9.1
 
@@ -13982,6 +14128,8 @@ snapshots:
     dependencies:
       hashery: 1.5.1
       keyv: 5.6.0
+
+  '@cfworker/json-schema@4.1.6': {}
 
   '@changesets/apply-release-plan@8.1.1':
     dependencies:
@@ -15332,16 +15480,64 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
+  '@langchain/anthropic@1.6.6(@langchain/core@1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7)))':
+    dependencies:
+      '@anthropic-ai/sdk': 1.13.0(zod@4.6.7)
+      '@langchain/core': 1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7))
+      zod: 4.6.7
+
+  '@langchain/core@1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7))':
+    dependencies:
+      '@cfworker/json-schema': 4.1.6
+      '@standard-schema/spec': 1.1.0
+      js-tiktoken: 1.0.21
+      langsmith: 0.14.0(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7))
+      mustache: 4.2.0
+      p-queue: 6.6.2
+      zod: 4.6.7
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+      - '@opentelemetry/exporter-trace-otlp-proto'
+      - '@opentelemetry/sdk-trace-base'
+      - openai
+      - ws
+
+  '@langchain/deepseek@1.1.26(@langchain/core@1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7)))':
+    dependencies:
+      '@langchain/core': 1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7))
+      '@langchain/openai': 1.8.5(@langchain/core@1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7)))
+    transitivePeerDependencies:
+      - '@aws-sdk/credential-provider-node'
+      - '@smithy/hash-node'
+      - '@smithy/signature-v4'
+      - google-auth-library
+      - undici
+      - ws
+
+  '@langchain/openai@1.8.5(@langchain/core@1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7)))':
+    dependencies:
+      '@langchain/core': 1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7))
+      js-tiktoken: 1.0.21
+      openai: 7.63.0(zod@4.6.7)
+      zod: 4.6.7
+    transitivePeerDependencies:
+      - '@aws-sdk/credential-provider-node'
+      - '@smithy/hash-node'
+      - '@smithy/signature-v4'
+      - google-auth-library
+      - undici
+      - ws
+
   '@loadable/component@5.15.2(react@18.3.1)':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
       react-is: 16.13.1
 
   '@loadable/component@5.15.2(react@19.3.1)':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       hoist-non-react-statics: 3.3.2
       react: 19.3.1
       react-is: 16.13.1
@@ -15699,6 +15895,8 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
+  '@opentelemetry/api@1.10.0': {}
+
   '@oxc-project/types@0.156.0': {}
 
   '@paralleldrive/cuid2@2.3.1':
@@ -15727,7 +15925,7 @@ snapshots:
 
   '@rc-component/async-validator@5.0.4':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
 
   '@rc-component/async-validator@6.0.0':
     dependencies:
@@ -16279,6 +16477,8 @@ snapshots:
       text-hex: 1.0.0
 
   '@sqltools/formatter@1.2.5': {}
+
+  '@stablelib/base64@1.0.1': {}
 
   '@stagewise/toolbar@0.6.2': {}
 
@@ -17276,7 +17476,7 @@ snapshots:
 
   '@umijs/history@5.3.1':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       query-string: 6.14.1
 
   '@umijs/lint@4.7.37(eslint@8.35.0(supports-color@8.1.1))(postcss-html@2.0.1(postcss@8.5.33))(postcss-less@7.1.1(postcss@8.5.33))(postcss-scss@4.0.9(postcss@8.5.33))(stylelint@14.8.2(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)':
@@ -17779,7 +17979,7 @@ snapshots:
       hono: 4.13.20
       less: 4.1.3
       less-loader: 11.1.0(less@4.1.3)(webpack@5.106.2(@swc/core@1.16.22(@swc/helpers@0.5.23))(clean-css@5.3.3)(csso@4.2.0)(esbuild@0.28.2)(html-minifier-terser@6.1.0)(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3))
-      nanoid: 3.3.11
+      nanoid: 3.3.20
       picocolors: 1.1.1
       postcss: 8.5.33
       resolve-url-loader: 5.0.0
@@ -17827,7 +18027,7 @@ snapshots:
       obug: 3.0.0
       std-env: 4.3.0
       tinyrainbow: 3.2.0
-      vitest: 5.1.1(@types/node@24.19.2)(@vitest/coverage-v8@5.1.1)(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(terser@5.49.0)(yaml@2.9.1))
+      vitest: 5.1.1(@opentelemetry/api@1.10.0)(@types/node@24.19.2)(@vitest/coverage-v8@5.1.1)(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(terser@5.49.0)(yaml@2.9.1))
 
   '@vitest/istanbul-lib-coverage@2.1.1': {}
 
@@ -17947,25 +18147,25 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@wangeditor/basic-modules@1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)':
+  '@wangeditor/basic-modules@1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)':
     dependencies:
-      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
       dom7: 3.0.0
       is-url: 1.2.4
       lodash.throttle: 4.1.1
-      nanoid: 3.3.11
+      nanoid: 3.3.20
       slate: 0.72.8
       snabbdom: 3.6.3
 
-  '@wangeditor/code-highlight@1.0.3(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(slate@0.72.8)(snabbdom@3.6.3)':
+  '@wangeditor/code-highlight@1.0.3(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(slate@0.72.8)(snabbdom@3.6.3)':
     dependencies:
-      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
       dom7: 3.0.0
       prismjs: 1.30.0
       slate: 0.72.8
       snabbdom: 3.6.3
 
-  '@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)':
+  '@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)':
     dependencies:
       '@types/event-emitter': 0.3.5
       '@uppy/core': 2.3.4
@@ -17982,15 +18182,15 @@ snapshots:
       lodash.isequal: 4.5.0
       lodash.throttle: 4.1.1
       lodash.toarray: 4.4.0
-      nanoid: 3.3.11
+      nanoid: 3.3.20
       scroll-into-view-if-needed: 2.2.31
       slate: 0.72.8
       slate-history: 0.66.0(slate@0.72.8)
       snabbdom: 3.6.3
 
-  '@wangeditor/editor-for-react@1.0.6(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(@wangeditor/editor@5.1.23)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@wangeditor/editor-for-react@1.0.6(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(@wangeditor/editor@5.1.23)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
-      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
       '@wangeditor/editor': 5.1.23
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
@@ -17999,13 +18199,13 @@ snapshots:
     dependencies:
       '@uppy/core': 2.3.4
       '@uppy/xhr-upload': 2.1.3(@uppy/core@2.3.4)
-      '@wangeditor/basic-modules': 1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
-      '@wangeditor/code-highlight': 1.0.3(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(slate@0.72.8)(snabbdom@3.6.3)
-      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
-      '@wangeditor/list-module': 1.0.5(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(slate@0.72.8)(snabbdom@3.6.3)
-      '@wangeditor/table-module': 1.1.4(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
-      '@wangeditor/upload-image-module': 1.0.2(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor/basic-modules@1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.foreach@4.5.0)(slate@0.72.8)(snabbdom@3.6.3)
-      '@wangeditor/video-module': 1.1.4(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/basic-modules': 1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/code-highlight': 1.0.3(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/list-module': 1.0.5(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/table-module': 1.1.4(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/upload-image-module': 1.0.2(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor/basic-modules@1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.foreach@4.5.0)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/video-module': 1.1.4(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
       dom7: 3.0.0
       is-hotkey: 0.2.0
       lodash.camelcase: 4.3.0
@@ -18015,45 +18215,45 @@ snapshots:
       lodash.isequal: 4.5.0
       lodash.throttle: 4.1.1
       lodash.toarray: 4.4.0
-      nanoid: 3.3.11
+      nanoid: 3.3.20
       slate: 0.72.8
       snabbdom: 3.6.3
 
-  '@wangeditor/list-module@1.0.5(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(slate@0.72.8)(snabbdom@3.6.3)':
+  '@wangeditor/list-module@1.0.5(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(slate@0.72.8)(snabbdom@3.6.3)':
     dependencies:
-      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
       dom7: 3.0.0
       slate: 0.72.8
       snabbdom: 3.6.3
 
-  '@wangeditor/table-module@1.1.4(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)':
+  '@wangeditor/table-module@1.1.4(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)':
     dependencies:
-      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
       dom7: 3.0.0
       lodash.isequal: 4.5.0
       lodash.throttle: 4.1.1
-      nanoid: 3.3.11
+      nanoid: 3.3.20
       slate: 0.72.8
       snabbdom: 3.6.3
 
-  '@wangeditor/upload-image-module@1.0.2(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor/basic-modules@1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.foreach@4.5.0)(slate@0.72.8)(snabbdom@3.6.3)':
+  '@wangeditor/upload-image-module@1.0.2(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor/basic-modules@1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.foreach@4.5.0)(slate@0.72.8)(snabbdom@3.6.3)':
     dependencies:
       '@uppy/core': 2.3.4
       '@uppy/xhr-upload': 2.1.3(@uppy/core@2.3.4)
-      '@wangeditor/basic-modules': 1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
-      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/basic-modules': 1.1.7(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(lodash.throttle@4.1.1)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
       dom7: 3.0.0
       lodash.foreach: 4.5.0
       slate: 0.72.8
       snabbdom: 3.6.3
 
-  '@wangeditor/video-module@1.1.4(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)':
+  '@wangeditor/video-module@1.1.4(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3))(dom7@3.0.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)':
     dependencies:
       '@uppy/core': 2.3.4
       '@uppy/xhr-upload': 2.1.3(@uppy/core@2.3.4)
-      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.3)
+      '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.20)(slate@0.72.8)(snabbdom@3.6.3)
       dom7: 3.0.0
-      nanoid: 3.3.11
+      nanoid: 3.3.20
       slate: 0.72.8
       snabbdom: 3.6.3
 
@@ -20063,7 +20263,7 @@ snapshots:
 
   dva-core@1.5.0-beta.2(redux@3.7.2):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       flatten: 1.0.3
       global: 4.4.0
       invariant: 2.2.4
@@ -20096,7 +20296,7 @@ snapshots:
 
   dva@2.5.0-beta.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       '@types/isomorphic-fetch': 0.0.34
       '@types/react-router-dom': 4.3.5
       '@types/react-router-redux': 5.0.27
@@ -20832,6 +21032,8 @@ snapshots:
 
   event-target-shim@5.0.1: {}
 
+  eventemitter3@4.0.7: {}
+
   eventemitter3@5.0.1: {}
 
   events-okam@3.3.0: {}
@@ -21062,6 +21264,8 @@ snapshots:
   fast-redact@3.5.0: {}
 
   fast-safe-stringify@2.1.1: {}
+
+  fast-sha256@1.3.0: {}
 
   fast-string-truncated-width@3.0.3: {}
 
@@ -21714,7 +21918,7 @@ snapshots:
 
   history@4.10.1:
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       loose-envify: 1.4.0
       resolve-pathname: 3.0.0
       tiny-invariant: 1.3.3
@@ -21723,7 +21927,7 @@ snapshots:
 
   history@5.3.0:
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
 
   hmac-drbg@1.0.1:
     dependencies:
@@ -21850,7 +22054,7 @@ snapshots:
 
   i18next@20.6.1:
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
 
   iconv-lite@0.4.24:
     dependencies:
@@ -22431,6 +22635,10 @@ snapshots:
 
   js-sdsl@4.4.2: {}
 
+  js-tiktoken@1.0.21:
+    dependencies:
+      base64-js: 1.5.1
+
   js-tokens@10.0.1: {}
 
   js-tokens@4.0.0: {}
@@ -22455,6 +22663,11 @@ snapshots:
   json-buffer@3.0.1: {}
 
   json-parse-even-better-errors@2.3.1: {}
+
+  json-schema-to-ts@3.1.1:
+    dependencies:
+      '@babel/runtime': 7.29.15
+      ts-algebra: 2.0.0
 
   json-schema-traverse@0.4.1: {}
 
@@ -22546,6 +22759,13 @@ snapshots:
   kolorist@1.8.0: {}
 
   kuler@2.0.0: {}
+
+  langsmith@0.14.0(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7)):
+    dependencies:
+      p-queue: 6.6.2
+    optionalDependencies:
+      '@opentelemetry/api': 1.10.0
+      openai: 7.63.0(zod@4.6.7)
 
   launch-editor@2.14.2:
     dependencies:
@@ -23158,6 +23378,8 @@ snapshots:
       busboy: 1.6.0
       type-is: 1.6.18
 
+  mustache@4.2.0: {}
+
   mute-stream@0.0.8: {}
 
   mute-stream@1.0.0: {}
@@ -23195,9 +23417,9 @@ snapshots:
   nan@2.24.0:
     optional: true
 
-  nanoid@3.3.11: {}
-
   nanoid@3.3.20: {}
+
+  nanoid@6.0.2: {}
 
   nanomatch@1.2.13(supports-color@8.1.1):
     dependencies:
@@ -23522,6 +23744,10 @@ snapshots:
       is-inside-container: 1.0.0
       is-wsl: 2.2.0
 
+  openai@7.63.0(zod@4.6.7):
+    optionalDependencies:
+      zod: 4.6.7
+
   opentype.js@0.7.3:
     dependencies:
       tiny-inflate: 1.0.3
@@ -23577,6 +23803,8 @@ snapshots:
       object-keys: 1.1.1
       safe-push-apply: 1.0.0
 
+  p-finally@1.0.0: {}
+
   p-limit@2.3.0:
     dependencies:
       p-try: 2.2.0
@@ -23592,6 +23820,15 @@ snapshots:
   p-locate@5.0.0:
     dependencies:
       p-limit: 3.1.0
+
+  p-queue@6.6.2:
+    dependencies:
+      eventemitter3: 4.0.7
+      p-timeout: 3.2.0
+
+  p-timeout@3.2.0:
+    dependencies:
+      p-finally: 1.0.0
 
   p-try@2.2.0: {}
 
@@ -24032,7 +24269,7 @@ snapshots:
 
   postcss@8.4.49:
     dependencies:
-      nanoid: 3.3.11
+      nanoid: 3.3.20
       picocolors: 1.1.1
       source-map-js: 1.2.4
 
@@ -24291,7 +24528,7 @@ snapshots:
 
   rc-field-form@2.7.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       '@rc-component/async-validator': 5.0.4
       rc-util: 5.44.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react: 19.3.1
@@ -24410,7 +24647,7 @@ snapshots:
 
   rc-resize-observer@0.2.6(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       classnames: 2.5.1
       rc-util: 5.44.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react: 19.3.1
@@ -24560,14 +24797,14 @@ snapshots:
 
   rc-util@5.44.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
       react-is: 18.3.1
 
   rc-virtual-list@3.19.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       classnames: 2.5.1
       rc-resize-observer: 1.4.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       rc-util: 5.44.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -24603,7 +24840,7 @@ snapshots:
 
   react-helmet-async@1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       invariant: 2.2.4
       prop-types: 15.8.1
       react: 18.3.1
@@ -24613,7 +24850,7 @@ snapshots:
 
   react-helmet-async@1.3.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       invariant: 2.2.4
       prop-types: 15.8.1
       react: 19.3.1
@@ -24657,7 +24894,7 @@ snapshots:
 
   react-redux@5.1.2(react@19.3.1)(redux@3.7.2):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.15
       hoist-non-react-statics: 3.3.2
       invariant: 2.2.4
       loose-envify: 1.4.0
@@ -25567,6 +25804,11 @@ snapshots:
 
   standard-as-callback@2.1.0: {}
 
+  standardwebhooks@1.3.0:
+    dependencies:
+      '@stablelib/base64': 1.0.1
+      fast-sha256: 1.3.0
+
   static-extend@0.1.2:
     dependencies:
       define-property: 0.2.5
@@ -26199,6 +26441,8 @@ snapshots:
 
   triple-beam@1.4.1: {}
 
+  ts-algebra@2.0.0: {}
+
   ts-api-utils@2.5.0(typescript@6.0.3):
     dependencies:
       typescript: 6.0.3
@@ -26764,7 +27008,7 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vitest@5.1.1(@types/node@24.19.2)(@vitest/coverage-v8@5.1.1)(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(terser@5.49.0)(yaml@2.9.1)):
+  vitest@5.1.1(@opentelemetry/api@1.10.0)(@types/node@24.19.2)(@vitest/coverage-v8@5.1.1)(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(terser@5.49.0)(yaml@2.9.1)):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/mocker': 5.1.1(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(terser@5.49.0)(yaml@2.9.1))
@@ -26781,6 +27025,7 @@ snapshots:
       vite: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(less@4.4.2)(terser@5.49.0)(yaml@2.9.1)
       why-is-node-running: 3.2.1
     optionalDependencies:
+      '@opentelemetry/api': 1.10.0
       '@types/node': 24.19.2
       '@vitest/coverage-v8': 5.1.1(vitest@5.1.1)
     transitivePeerDependencies:

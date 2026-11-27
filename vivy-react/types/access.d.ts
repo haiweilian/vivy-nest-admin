@@ -9,6 +9,13 @@ declare type AccessRole = 'admin' | 'common'
  * @access 从菜单表生成
  */
 declare type AccessPermission =
+  | 'ai:model:list'
+  | 'ai:model:query'
+  | 'ai:model:add'
+  | 'ai:model:update'
+  | 'ai:model:delete'
+  | 'ai:model:test'
+  | 'ai:chat:use'
   | 'system:user:list'
   | 'system:role:list'
   | 'system:menu:list'
