@@ -1,0 +1,27 @@
+# App 配置
+app:
+  port: 9201
+  name: vivy-ai
+
+# Logger 配置
+logger:
+  appName: ${{ app.name }}
+  logPath: ${{ PWD }}/logs
+
+# Security 配置
+security:
+  jwt:
+    secret: abcdefghijklmnopqrstuvwxyz
+
+# Swagger 配置
+swagger:
+  enabled: true
+  title: vivy-ai
+  description: AI 模型管理服务
+  contact:
+    name: vivy-nest-admin
+    url: https://github.com/haiweilian/vivy-nest-admin
+    email: haiweilian@foxmail.com
+  license:
+    name: MIT
+    url: https://github.com/haiweilian/vivy-nest-admin/blob/main/LICENSE

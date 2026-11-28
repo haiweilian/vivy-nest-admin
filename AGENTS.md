@@ -6,16 +6,17 @@
 
 本项目使用 pnpm workspace 管理 NestJS + React 后台系统。
 
-| 目录                         | 职责                                                |
-| ---------------------------- | --------------------------------------------------- |
-| `vivy-modules/vivy-system`   | NestJS 系统业务、认证、文件、任务调度和代码生成     |
-| `vivy-modules/vivy-template` | 独立 NestJS 应用模板                                |
-| `vivy-common/vivy-common-*`  | 核心、安全、数据权限、日志、Excel 和 Swagger 公共包 |
-| `vivy-common/vivy-plugin-*`  | 自研配置加载和 MyBatis 插件                         |
-| `vivy-react`                 | React、Umi Max、Ant Design 和 ProComponents 前端    |
-| `internal`                   | 共享 ESLint、Stylelint 配置                         |
-| `docs`                       | VitePress 文档                                      |
-| `sql`、`docker`              | 数据库初始化与本地基础服务配置                      |
+| 目录                         | 职责                                                 |
+| ---------------------------- | ---------------------------------------------------- |
+| `vivy-modules/vivy-system`   | NestJS 系统业务、认证、文件、任务调度和代码生成      |
+| `vivy-modules/vivy-ai`       | AI 业务独立服务，PostgreSQL 存储，共享系统登录态     |
+| `vivy-modules/vivy-template` | 独立 NestJS 应用模板                                 |
+| `vivy-common/vivy-common-*`  | 核心、安全、数据权限、日志、Excel 和 Swagger 公共包  |
+| `vivy-common/vivy-plugin-*`  | 自研配置加载和 MyBatis 插件                          |
+| `vivy-react`                 | React、Umi Max、Ant Design 和 ProComponents 前端     |
+| `internal`                   | 共享 ESLint、Stylelint 配置                          |
+| `docs`                       | VitePress 文档                                       |
+| `sql`、`docker`              | 数据库初始化与本地基础服务配置                       |
 
 ## 项目技能
 
@@ -70,6 +71,7 @@
 - 新增业务接口时检查 `@RequirePermissions`、`@RequireRoles` 与操作日志 `@Log`。权限码需与菜单数据及前端 `hasPermission` 调用一致。
 - 数据范围复用 `@DataScope`、`DataScopeService` 和 `SecurityContext`；检查表别名、列表、详情、导出及写操作的数据范围要求。
 - 沿用目标模块的 TypeORM Repository 或 MyBatis Mapper 模式。XML 的 namespace、statement id 与 `getSql` 调用保持一致；SQL 条件遵循 MySQL 方言和参数转义规则。
+- `vivy-ai` 使用 PostgreSQL，只存放 AI 业务表；用户、角色、菜单和权限码仍以 `vivy-system` 的 MySQL 为唯一来源，禁止在 AI 库重建这些表。两个服务必须共用同一份 `security.jwt.secret` 和同一 Redis 实例的 db 0，否则登录态无法互认。
 
 ## 前端约定
 
@@ -84,24 +86,26 @@
 
 以下命令在仓库根目录执行。
 
-| 任务                   | 命令                              |
-| ---------------------- | --------------------------------- |
-| 安装依赖               | `pnpm install`                    |
-| 启动本地 MySQL / Redis | `pnpm docker:base`                |
-| 构建公共包             | `pnpm build:common`               |
-| 后端开发服务           | `pnpm --filter vivy-system dev`   |
-| 前端开发服务           | `pnpm --filter vivy-react dev`    |
-| 构建系统后端           | `pnpm --filter vivy-system build` |
-| 构建前端               | `pnpm --filter vivy-react build`  |
-| 构建文档               | `pnpm --filter docs build`        |
-| 构建全部 workspace     | `pnpm build`                      |
-| 单元测试               | `pnpm test`                       |
-| 测试监听               | `pnpm test:watch`                 |
-| 测试覆盖率             | `pnpm test:cov`                   |
-| HTTP / E2E 测试        | `pnpm test:e2e`                   |
-| 测试类型检查           | `pnpm test:typecheck`             |
+| 任务                          | 命令                                |
+| ----------------------------- | ----------------------------------- |
+| 安装依赖                      | `pnpm install`                      |
+| 启动本地 MySQL / Redis / PG   | `pnpm docker:base`                  |
+| 构建公共包                    | `pnpm build:common`                 |
+| 后端开发服务                  | `pnpm --filter vivy-system dev`     |
+| AI 服务开发                   | `pnpm --filter vivy-ai dev`         |
+| 前端开发服务                  | `pnpm --filter vivy-react dev`      |
+| 构建系统后端                  | `pnpm --filter vivy-system build`   |
+| 构建 AI 服务                  | `pnpm --filter vivy-ai build`       |
+| 构建前端                      | `pnpm --filter vivy-react build`    |
+| 构建文档                      | `pnpm --filter docs build`          |
+| 构建全部 workspace            | `pnpm build`                        |
+| 单元测试                      | `pnpm test`                         |
+| 测试监听                      | `pnpm test:watch`                   |
+| 测试覆盖率                    | `pnpm test:cov`                     |
+| HTTP / E2E 测试               | `pnpm test:e2e`                     |
+| 测试类型检查                  | `pnpm test:typecheck`               |
 
-首次运行应用及修改公共包后，先执行 `pnpm build:common`。开发服务默认端口为后端 `9200`、前端 `8000`；环境准备见 [本地开发文档](docs/development.md)。
+首次运行应用及修改公共包后，先执行 `pnpm build:common`。开发服务默认端口为系统后端 `9200`、AI 服务 `9201`、前端 `8000`；环境准备见 [本地开发文档](docs/development.md)。
 
 ## 验证改动
 
@@ -119,4 +123,5 @@
 - [数据权限](docs/back/common/datascope.md)
 - [MyBatis 插件](docs/back/plugin/mybatis.md)
 - [代码生成](docs/back/business/gen.md)
-- [数据库初始化](sql/vivy-nest-admin.sql)
+- [数据库初始化（MySQL）](sql/mysql/vivy-nest-admin.sql)
+- [AI 服务初始化（PostgreSQL）](sql/postgres/vivy-ai.sql)

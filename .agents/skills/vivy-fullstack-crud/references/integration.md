@@ -33,7 +33,7 @@
 
 ## 菜单与动态路由
 
-当前流程：数据库菜单 → `LoginService.getUserRouters` → Umi `buildRoutes` → 页面组件映射。参考 [菜单实体](../../../../vivy-modules/vivy-system/src/modules/system/menu/entities/sys-menu.entity.ts)、[路由构建](../../../../vivy-react/src/router/helper/route.tsx) 和 [初始化 SQL](../../../../sql/vivy-nest-admin.sql)。
+当前流程：数据库菜单 → `LoginService.getUserRouters` → Umi `buildRoutes` → 页面组件映射。参考 [菜单实体](../../../../vivy-modules/vivy-system/src/modules/system/menu/entities/sys-menu.entity.ts)、[路由构建](../../../../vivy-react/src/router/helper/route.tsx) 和 [初始化 SQL](../../../../sql/mysql/vivy-nest-admin.sql)。
 
 - `menu_type` 为 `M` 目录、`C` 页面、`F` 按钮；页面和按钮配置各自承担不同职责。
 - `component` 使用实际页面的 Umi 映射 ID，例如 `system/post/index`，与 `src/pages/system/post/index.tsx` 对应；不填写 `.tsx` 后缀或 `@/pages` 导入路径。

@@ -1,6 +1,7 @@
-import { BaseBusinessEntity, BaseStatusEnum } from '@vivy-common/core'
+import { BaseStatusEnum } from '@vivy-common/core'
 import { IsEnum, IsNotEmpty, IsOptional, IsString, IsUrl, Matches, MaxLength } from 'class-validator'
 import { Column, Entity, Index, PrimaryColumn } from 'typeorm'
+import { BaseBusinessPostgresEntity } from '../../../base/entities/base-business-postgres.entity.js'
 import { ModelProvider } from '../model.types.js'
 
 /**
@@ -8,7 +9,7 @@ import { ModelProvider } from '../model.types.js'
  */
 @Entity({ name: 'ai_model' })
 @Index('idx_ai_model_status_provider', ['status', 'provider'])
-export class AiModel extends BaseBusinessEntity {
+export class AiModel extends BaseBusinessPostgresEntity {
   @PrimaryColumn({
     name: 'id',
     type: 'varchar',
@@ -46,6 +47,7 @@ export class AiModel extends BaseBusinessEntity {
   })
   @IsString()
   @IsNotEmpty({ message: '请输入模型名称' })
+  @Matches(/\S/, { message: '请输入模型名称' })
   @MaxLength(100)
   modelName: string
 
@@ -89,7 +91,7 @@ export class AiModel extends BaseBusinessEntity {
 
   @Column({
     name: 'status',
-    type: 'char',
+    type: 'varchar',
     length: 1,
     default: BaseStatusEnum.DISABLE,
     comment: '状态（0启用 1停用）',

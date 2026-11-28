@@ -39,6 +39,6 @@
 
 ## 赋权数据
 
-角色/菜单关系分别涉及 `sys_user_role`、`sys_role_menu`；自定义数据范围还涉及 `sys_role_dept`。参考 [初始化 SQL](../../../../sql/vivy-nest-admin.sql) 并按目标环境的数据确定关联，使用明确列名。
+角色/菜单关系分别涉及 `sys_user_role`、`sys_role_menu`；自定义数据范围还涉及 `sys_role_dept`。参考 [初始化 SQL](../../../../sql/mysql/vivy-nest-admin.sql) 并按目标环境的数据确定关联，使用明确列名。
 
 新增能力依据要求授给对应角色，不默认为所有角色开放。权限修复的目标是恢复所需访问边界，而不是隐藏按钮或绕过失败请求。

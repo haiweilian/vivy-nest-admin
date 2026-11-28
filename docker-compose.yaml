@@ -9,7 +9,7 @@ services:
     volumes:
       - ./docker/mysql/logs:/logs
       - ./docker/mysql/data:/var/lib/mysql
-      - ./sql:/docker-entrypoint-initdb.d
+      - ./sql/mysql:/docker-entrypoint-initdb.d:ro
     command:
       [
         'mysqld',
@@ -19,6 +19,22 @@ services:
         '--default-time-zone=+8:00',
         '--lower-case-table-names=1',
       ]
+  vivy-admin-postgres:
+    container_name: vivy-admin-postgres
+    image: postgres:17
+    ports:
+      - '5432:5432'
+    env_file:
+      - ./docker/postgres/conf/postgres.env
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgresql/data
+      - ./sql/postgres:/docker-entrypoint-initdb.d:ro
+    command: ['postgres', '-c', 'timezone=Asia/Shanghai']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d vivy_ai']
+      interval: 5s
+      timeout: 5s
+      retries: 10
   vivy-admin-redis:
     container_name: vivy-admin-redis
     image: redis

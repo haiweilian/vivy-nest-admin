@@ -1,0 +1,20 @@
+# Redis 配置：必须与 vivy-system 的 redis.defalut 共用同一实例和 db 0。
+redis:
+  defalut:
+    port: 6379
+    host: localhost
+    username: default
+    password: Aa@123456
+    db: 0
+
+# PostgreSQL 配置：部署前执行 sql/postgres/vivy-ai.sql，不自动同步表结构。
+datasource:
+  defalut:
+    type: postgres
+    port: 5432
+    host: localhost
+    username: postgres
+    password: Aa@123456
+    database: vivy_ai
+    synchronize: false
+    autoLoadEntities: true

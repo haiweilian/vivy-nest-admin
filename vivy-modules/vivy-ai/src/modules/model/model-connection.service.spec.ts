@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import { modelProviderServer } from '../../../../test/helpers/model-provider-server.js'
+import { modelProviderServer } from '../../../test/helpers/model-provider-server.js'
 import { AiModel } from './entities/ai-model.entity.js'
 import { ModelConnectionService } from './model-connection.service.js'
 import { ModelProvider, ModelTestMode } from './model.types.js'

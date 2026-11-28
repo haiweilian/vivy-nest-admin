@@ -60,9 +60,9 @@ export class ModelService {
       builder.andWhere(
         new Brackets((where) => {
           where
-            .where('model.vendor LIKE :search', { search: '%' + query.search + '%' })
-            .orWhere('model.modelName LIKE :search')
-            .orWhere('model.modelCode LIKE :search')
+            .where('model.vendor ILIKE :search', { search: '%' + query.search + '%' })
+            .orWhere('model.modelName ILIKE :search')
+            .orWhere('model.modelCode ILIKE :search')
         })
       )
     }

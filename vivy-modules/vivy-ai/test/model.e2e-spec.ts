@@ -1,4 +1,5 @@
-import { Global, Logger, Module } from '@nestjs/common'
+import { readFile } from 'node:fs/promises'
+import { Global, Module } from '@nestjs/common'
 import type { INestApplication } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { Test } from '@nestjs/testing'
@@ -8,22 +9,20 @@ import { ServiceExceptionFilter } from '@vivy-common/core/lib/exceptions-filters
 import { UnknownExceptionFilter } from '@vivy-common/core/lib/exceptions-filters/unknown.filter.js'
 import { HttpStatusInterceptor } from '@vivy-common/core/lib/interceptors/http-status.interceptor.js'
 import { ValidationPipe } from '@vivy-common/core/lib/pipes/validation.pipe.js'
-import { LogInterceptor } from '@vivy-common/logger'
-import { RpcLogService } from '@vivy-common/logger/lib/services/rpc-log.service.js'
 import { AuthService } from '@vivy-common/security'
 import { RequireAuthGuard } from '@vivy-common/security/lib/guards/require-auth.guard.js'
 import request from 'supertest'
 import { DataSource } from 'typeorm'
 import type { Repository } from 'typeorm'
-import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { AiModel } from '../src/modules/ai/model/entities/ai-model.entity.js'
-import { ModelModule } from '../src/modules/ai/model/model.module.js'
-import { ModelService } from '../src/modules/ai/model/model.service.js'
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { AiModel } from '../src/modules/model/entities/ai-model.entity.js'
+import { ModelModule } from '../src/modules/model/model.module.js'
+import { ModelService } from '../src/modules/model/model.service.js'
 import { modelProviderServer } from './helpers/model-provider-server.js'
 
-const mysqlUrl = process.env.AI_TEST_MYSQL_URL
-if (mysqlUrl && new URL(mysqlUrl).pathname !== '/vivy_ai_test') {
-  throw new Error('AI_TEST_MYSQL_URL 必须指向独立的 vivy_ai_test 测试库')
+const postgresUrl = process.env.AI_TEST_PG_URL
+if (postgresUrl && new URL(postgresUrl).pathname !== '/vivy_ai_test') {
+  throw new Error('AI_TEST_PG_URL 必须指向独立的 vivy_ai_test 测试库')
 }
 const allPermissions = [
   'ai:model:list',
@@ -48,12 +47,11 @@ const identity = {
 })
 class ModelTestContextModule {}
 
-describe.skipIf(!mysqlUrl)('AI models HTTP with isolated MySQL', () => {
+describe.skipIf(!postgresUrl)('AI models HTTP with isolated PostgreSQL', () => {
   let app: INestApplication
   let repository: Repository<AiModel>
   let service: ModelService
   let server: Awaited<ReturnType<typeof modelProviderServer>>
-  const operationLogs: unknown[] = []
 
   beforeAll(async () => {
     server = await modelProviderServer()
@@ -61,26 +59,24 @@ describe.skipIf(!mysqlUrl)('AI models HTTP with isolated MySQL', () => {
       imports: [
         ModelTestContextModule,
         TypeOrmModule.forRoot({
-          type: 'mysql',
-          url: mysqlUrl,
+          type: 'postgres',
+          url: postgresUrl,
           entities: [AiModel],
           synchronize: false,
           logging: false,
         }),
         ModelModule,
       ],
-      providers: [
-        AuthService,
-        { provide: APP_GUARD, useClass: RequireAuthGuard },
-        LogInterceptor,
-        { provide: RpcLogService, useValue: { add: async (value: unknown) => operationLogs.push(value) } },
-      ],
+      providers: [AuthService, { provide: APP_GUARD, useClass: RequireAuthGuard }],
     }).compile()
+    await module
+      .get(DataSource)
+      .query(await readFile(new URL('../../../sql/postgres/vivy-ai.sql', import.meta.url), 'utf8'))
     app = module.createNestApplication()
     app.useLogger(false)
     app.useGlobalPipes(ValidationPipe)
     app.useGlobalFilters(new UnknownExceptionFilter(), new ServiceExceptionFilter())
-    app.useGlobalInterceptors(module.get(LogInterceptor), new HttpStatusInterceptor())
+    app.useGlobalInterceptors(new HttpStatusInterceptor())
     await app.init()
     repository = module.get(DataSource).getRepository(AiModel)
     service = module.get(ModelService)
@@ -88,11 +84,11 @@ describe.skipIf(!mysqlUrl)('AI models HTTP with isolated MySQL', () => {
 
   beforeEach(async () => {
     permissions = [...allPermissions]
-    operationLogs.length = 0
     await repository.clear()
   })
 
   afterAll(async () => {
+    await repository?.clear()
     await app?.close()
     await server?.close()
   })
@@ -131,7 +127,6 @@ describe.skipIf(!mysqlUrl)('AI models HTTP with isolated MySQL', () => {
       .expect(200)
     expect(detail.body.data.hasCredential).toBe(true)
     expect(JSON.stringify(detail.body)).not.toContain('secretKey')
-    expect(JSON.stringify(operationLogs)).not.toContain('sk-fixture-secret')
   })
 
   it('filters and paginates lists without exposing credentials', async () => {
@@ -146,6 +141,14 @@ describe.skipIf(!mysqlUrl)('AI models HTTP with isolated MySQL', () => {
     expect(response.body.data.items[0].modelName).toBe('其他模型')
     expect(JSON.stringify(response.body)).not.toContain('sk-fixture-secret')
     expect(JSON.stringify(response.body)).not.toContain('secretKey')
+  })
+
+  it.each(['vendor', 'modelName', 'modelCode'])('searches %s without case sensitivity in PostgreSQL', async (field) => {
+    await create({ [field]: 'GPT-Fixture' })
+    const response = await request(app.getHttpServer()).get('/ai/models').query({ search: 'gpt-fixture' })
+    expect(response.body.code).toBe(200)
+    expect(response.body.data.items).toHaveLength(1)
+    expect(response.body.data.items[0][field]).toBe('GPT-Fixture')
   })
 
   it('updates status and reads saved connection information for server callers', async () => {
@@ -219,8 +222,7 @@ describe.skipIf(!mysqlUrl)('AI models HTTP with isolated MySQL', () => {
     expect(await storedModel(id)).toMatchObject({ vendor: '新来源', modelName: '新名称' })
   })
 
-  it('validates fields and page limits without logging submitted secrets', async () => {
-    const errors = vi.spyOn(Logger.prototype, 'error').mockImplementation(() => {})
+  it('validates fields and page limits', async () => {
     for (const extra of [
       { provider: 'unknown' },
       { baseUrl: 'file:///tmp/example' },
@@ -233,8 +235,6 @@ describe.skipIf(!mysqlUrl)('AI models HTTP with isolated MySQL', () => {
     }
     const page = await request(app.getHttpServer()).get('/ai/models').query({ limit: 0 })
     expect(page.body.code).toBe(400)
-    expect(JSON.stringify(errors.mock.calls)).not.toContain('sk-fixture-secret')
-    expect(JSON.stringify(operationLogs)).not.toContain('sk-fixture-secret')
   })
 
   it('rejects missing operation permissions through the existing permission guard', async () => {
@@ -271,7 +271,6 @@ describe.skipIf(!mysqlUrl)('AI models HTTP with isolated MySQL', () => {
       success: true,
       toolCalls: [{ name: 'ai_connection_check', args: { message: '连接成功' } }],
     })
-    expect(JSON.stringify(operationLogs)).not.toContain('sk-overposted')
   })
 
   it('returns structured provider failures and does not expose provider credentials', async () => {

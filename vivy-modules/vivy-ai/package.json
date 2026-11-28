@@ -1,0 +1,19 @@
+{
+  "name": "vivy-ai",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "nest build",
+    "start": "nest start",
+    "dev": "nest start --watch",
+    "debug": "nest start --debug --watch"
+  },
+  "dependencies": {
+    "@langchain/anthropic": "1.6.6",
+    "@langchain/core": "1.5.1",
+    "@langchain/deepseek": "1.1.26",
+    "@langchain/openai": "1.8.5",
+    "nanoid": "^6.0.2"
+  }
+}

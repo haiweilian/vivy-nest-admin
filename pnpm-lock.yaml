@@ -15,7 +15,7 @@ importers:
     dependencies:
       '@nestjs-modules/ioredis':
         specifier: ^2.3.1
-        version: 2.3.1(b51859c591591788be0bc755774ef8fc)
+        version: 2.3.1(c311b2e5a0adff8ec2f7fb49f0111656)
       '@nestjs/axios':
         specifier: ^12.0.2
         version: 12.0.2(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(axios@1.21.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1))(rxjs@7.8.2)
@@ -39,10 +39,10 @@ importers:
         version: 12.1.2(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(typescript@6.0.3)
       '@nestjs/terminus':
         specifier: ^12.2.0
-        version: 12.2.0(aae6eac6eb26282378e4282999855372)
+        version: 12.2.0(db17e7f8e8252bdf20875b93bbe16e84)
       '@nestjs/typeorm':
         specifier: ^12.0.3
-        version: 12.0.3(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1))
+        version: 12.0.3(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1))
       '@vivy-common/config':
         specifier: workspace:*
         version: link:vivy-common/vivy-plugin-config
@@ -96,7 +96,10 @@ importers:
         version: 3.24.6(@types/node@24.19.2)
       nestjs-typeorm-paginate:
         specifier: ^4.1.0
-        version: 4.1.0(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1))
+        version: 4.1.0(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1))
+      pg:
+        specifier: ^8.23.1
+        version: 8.23.1
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -105,7 +108,7 @@ importers:
         version: 7.8.2
       typeorm:
         specifier: ^1.1.3
-        version: 1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1)
+        version: 1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1)
     devDependencies:
       '@changesets/cli':
         specifier: ^3.0.3
@@ -408,7 +411,7 @@ importers:
         specifier: ^4.0.10
         version: 4.0.10
 
-  vivy-modules/vivy-system:
+  vivy-modules/vivy-ai:
     dependencies:
       '@langchain/anthropic':
         specifier: 1.6.6
@@ -422,6 +425,12 @@ importers:
       '@langchain/openai':
         specifier: 1.8.5
         version: 1.8.5(@langchain/core@1.5.1(@opentelemetry/api@1.10.0)(openai@7.63.0(zod@4.6.7)))
+      nanoid:
+        specifier: ^6.0.2
+        version: 6.0.2
+
+  vivy-modules/vivy-system:
+    dependencies:
       ali-oss:
         specifier: ^6.23.0
         version: 6.23.0(supports-color@8.1.1)
@@ -9968,6 +9977,40 @@ packages:
   perfect-debounce@1.0.0:
     resolution: {integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==}
 
+  pg-cloudflare@1.4.1:
+    resolution: {integrity: sha512-6PQbsFWZcp9EmJEwy5cGQ2La+AMWpP46lgbb8X+U/XsHIUweYDNCpeuKck5RxL2MdVFi7krbbEi5nX4Zh7JhrQ==}
+
+  pg-connection-string@2.14.1:
+    resolution: {integrity: sha512-qR3kGNPBLpCNtz0evbKA0Y/MRFXwSSdT+pTJvYp/bXTcReZbvX1kzF0IyTc1QnxqF7AZbOeBhNL8R5mYQZV/MA==}
+
+  pg-int8@1.0.1:
+    resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
+    engines: {node: '>=4.0.0'}
+
+  pg-pool@3.14.0:
+    resolution: {integrity: sha512-gKtPkFdQPU3DksooVLi9LsjZxrsBUZIpa+7aVx+LV5pNh0KzP4Zleud2po+ConrxbuXGBJ6Hfer6hdgpIBpBaw==}
+    peerDependencies:
+      pg: '>=8.0'
+
+  pg-protocol@1.16.1:
+    resolution: {integrity: sha512-p9VOFMiHB/ZbJATetbg+99PxssTVSQRnyuPSQ67mN1+1KBOjZaZ83ZQzltnxPhJwSsC3nwVjJ10DVJlerbFzLg==}
+
+  pg-types@2.2.0:
+    resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
+    engines: {node: '>=4'}
+
+  pg@8.23.1:
+    resolution: {integrity: sha512-aL96AHANtWjPLDOLqnhx+ngp9+UK7ETEU8VJrDCGvsSSi/mGLcWYsS6Herg7lmaBJe4uwrfqsa7gTEFaSizDoQ==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      pg-native: '>=3.0.1'
+    peerDependenciesMeta:
+      pg-native:
+        optional: true
+
+  pgpass@1.0.5:
+    resolution: {integrity: sha512-FdW9r/jQZhSeohs1Z3sI1yxFQNFvMcnmfuj4WBMUTxOrAyLMaTcE1aAMBiTlbMNaXvBCQuVi0R7hd8udDSP7ug==}
+
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -10321,6 +10364,22 @@ packages:
   postcss@8.5.33:
     resolution: {integrity: sha512-RVHEU9/Pp1Fnjr/MpAJsZoADukCKhfIi15OunEYiGktIkYLkPVvC1sioWolGDS7XByMTx9m/IGbro0Js13zhnQ==}
     engines: {node: ^10 || ^12 || >=14}
+
+  postgres-array@2.0.0:
+    resolution: {integrity: sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==}
+    engines: {node: '>=4'}
+
+  postgres-bytea@1.0.1:
+    resolution: {integrity: sha512-5+5HqXnsZPE65IJZSMkZtURARZelel2oXUEO8rH83VS/hxH5vv1uHquPg5wZs8yMAfdv971IU+kcPUczi7NVBQ==}
+    engines: {node: '>=0.10.0'}
+
+  postgres-date@1.0.7:
+    resolution: {integrity: sha512-suDmjLVQg78nMK2UZ454hAG+OAW+HQPZ6n++TNDUX+L0+uUlLywnoxJKDou51Zm+zTCjrCl0Nq6J9C5hP9vK/Q==}
+    engines: {node: '>=0.10.0'}
+
+  postgres-interval@1.2.0:
+    resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
+    engines: {node: '>=0.10.0'}
 
   preact@10.28.0:
     resolution: {integrity: sha512-rytDAoiXr3+t6OIP3WGlDd0ouCUG1iCWzkcY3++Nreuoi17y6T5i/zRhe6uYfoVcxq6YU+sBtJouuRDsq8vvqA==}
@@ -15691,13 +15750,13 @@ snapshots:
       '@tybys/wasm-util': 0.10.5
     optional: true
 
-  '@nestjs-modules/ioredis@2.3.1(b51859c591591788be0bc755774ef8fc)':
+  '@nestjs-modules/ioredis@2.3.1(c311b2e5a0adff8ec2f7fb49f0111656)':
     dependencies:
       '@nestjs/common': 12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
       '@nestjs/core': 12.6.0(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/platform-express@12.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       ioredis: 6.1.0(supports-color@8.1.1)
     optionalDependencies:
-      '@nestjs/terminus': 12.2.0(aae6eac6eb26282378e4282999855372)
+      '@nestjs/terminus': 12.2.0(db17e7f8e8252bdf20875b93bbe16e84)
     transitivePeerDependencies:
       - '@grpc/grpc-js'
       - '@grpc/proto-loader'
@@ -15849,7 +15908,7 @@ snapshots:
       class-validator: 0.15.1
       typescript: 6.0.3
 
-  '@nestjs/terminus@12.2.0(aae6eac6eb26282378e4282999855372)':
+  '@nestjs/terminus@12.2.0(db17e7f8e8252bdf20875b93bbe16e84)':
     dependencies:
       '@nestjs/common': 12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
       '@nestjs/core': 12.6.0(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/platform-express@12.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -15858,8 +15917,8 @@ snapshots:
     optionalDependencies:
       '@nestjs/axios': 12.0.2(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(axios@1.21.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1))(rxjs@7.8.2)
       '@nestjs/swagger': 12.1.2(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(typescript@6.0.3)
-      '@nestjs/typeorm': 12.0.3(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1))
-      typeorm: 1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1)
+      '@nestjs/typeorm': 12.0.3(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1))
+      typeorm: 1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1)
 
   '@nestjs/testing@12.6.0(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(@nestjs/platform-express@12.6.0)':
     dependencies:
@@ -15869,13 +15928,13 @@ snapshots:
     optionalDependencies:
       '@nestjs/platform-express': 12.6.0(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(rxjs@7.8.2)(supports-color@8.1.1)
 
-  '@nestjs/typeorm@12.0.3(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1))':
+  '@nestjs/typeorm@12.0.3(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@12.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1))':
     dependencies:
       '@nestjs/common': 12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
       '@nestjs/core': 12.6.0(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/platform-express@12.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
-      typeorm: 1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1)
+      typeorm: 1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1)
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
     dependencies:
@@ -23477,10 +23536,10 @@ snapshots:
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
 
-  nestjs-typeorm-paginate@4.1.0(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1)):
+  nestjs-typeorm-paginate@4.1.0(@nestjs/common@12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1)):
     dependencies:
       '@nestjs/common': 12.6.0(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
-      typeorm: 1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1)
+      typeorm: 1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1)
 
   next-tick@1.1.0: {}
 
@@ -23939,6 +23998,41 @@ snapshots:
 
   perfect-debounce@1.0.0: {}
 
+  pg-cloudflare@1.4.1:
+    optional: true
+
+  pg-connection-string@2.14.1: {}
+
+  pg-int8@1.0.1: {}
+
+  pg-pool@3.14.0(pg@8.23.1):
+    dependencies:
+      pg: 8.23.1
+
+  pg-protocol@1.16.1: {}
+
+  pg-types@2.2.0:
+    dependencies:
+      pg-int8: 1.0.1
+      postgres-array: 2.0.0
+      postgres-bytea: 1.0.1
+      postgres-date: 1.0.7
+      postgres-interval: 1.2.0
+
+  pg@8.23.1:
+    dependencies:
+      pg-connection-string: 2.14.1
+      pg-pool: 3.14.0(pg@8.23.1)
+      pg-protocol: 1.16.1
+      pg-types: 2.2.0
+      pgpass: 1.0.5
+    optionalDependencies:
+      pg-cloudflare: 1.4.1
+
+  pgpass@1.0.5:
+    dependencies:
+      split2: 4.2.0
+
   picocolors@1.1.1: {}
 
   picomatch@2.3.1: {}
@@ -24278,6 +24372,16 @@ snapshots:
       nanoid: 3.3.20
       picocolors: 1.1.1
       source-map-js: 1.2.4
+
+  postgres-array@2.0.0: {}
+
+  postgres-bytea@1.0.1: {}
+
+  postgres-date@1.0.7: {}
+
+  postgres-interval@1.2.0:
+    dependencies:
+      xtend: 4.0.2
 
   preact@10.28.0: {}
 
@@ -26552,7 +26656,7 @@ snapshots:
       possible-typed-array-names: 1.1.0
       reflect.getprototypeof: 1.0.10
 
-  typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(supports-color@8.1.1):
+  typeorm@1.1.3(ioredis@6.1.0(supports-color@8.1.1))(mysql2@3.24.6(@types/node@24.19.2))(pg@8.23.1)(supports-color@8.1.1):
     dependencies:
       '@sqltools/formatter': 1.2.5
       ansis: 4.5.0
@@ -26567,6 +26671,7 @@ snapshots:
     optionalDependencies:
       ioredis: 6.1.0(supports-color@8.1.1)
       mysql2: 3.24.6(@types/node@24.19.2)
+      pg: 8.23.1
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color

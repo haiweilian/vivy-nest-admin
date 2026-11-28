@@ -4,6 +4,7 @@ const path = require('path')
 const env = {
   env: {
     NODE_ENV: 'production',
+    TZ: 'Asia/Shanghai',
   },
   env_production: {
     NODE_ENV: 'production',
@@ -18,6 +19,12 @@ module.exports = {
     {
       name: 'vivy-system',
       cwd: path.resolve(__dirname, 'vivy-modules/vivy-system'),
+      script: 'dist/main.js',
+      ...env,
+    },
+    {
+      name: 'vivy-ai',
+      cwd: path.resolve(__dirname, 'vivy-modules/vivy-ai'),
       script: 'dist/main.js',
       ...env,
     },

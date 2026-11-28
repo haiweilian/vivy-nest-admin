@@ -10,10 +10,6 @@
     "debug": "nest start --debug --watch"
   },
   "dependencies": {
-    "@langchain/anthropic": "1.6.6",
-    "@langchain/core": "1.5.1",
-    "@langchain/deepseek": "1.1.26",
-    "@langchain/openai": "1.8.5",
     "ali-oss": "^6.23.0",
     "archiver": "^8.0.0",
     "camelcase": "^10.0.0",
